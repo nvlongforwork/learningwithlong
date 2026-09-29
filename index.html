@@ -161,6 +161,173 @@
             margin-top: 0.25rem; display: none;
         }
         .ans-hint.visible { display: block; }
+
+        /* === Overlay Exercise UI === */
+        .ex-tabs-bar {
+            display: flex; gap: 0.5rem; padding: 0.6rem 1rem;
+            background: white; border-bottom: 1px solid #e2e8f0;
+            overflow-x: auto; flex-shrink: 0; align-items: center;
+        }
+        .ex-tab-btn {
+            padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.82rem; font-weight: 700;
+            border: 2px solid var(--theme-color, #20a1a0); color: var(--theme-color, #20a1a0);
+            background: transparent; cursor: pointer; transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
+        }
+        .ex-tab-active { background: var(--theme-color, #20a1a0); color: white; }
+        .ex-body-row { flex: 1; display: flex; min-height: 0; }
+        .ex-sidebar {
+            width: 168px; flex-shrink: 0; background: white; border-right: 1px solid #e2e8f0;
+            padding: 0.9rem 0.65rem; overflow-y: auto;
+        }
+        @media (max-width: 640px) { .ex-sidebar { width: 110px; } }
+        .ex-sidebar-title {
+            font-size: 0.65rem; font-weight: 800; color: var(--theme-color, #20a1a0);
+            letter-spacing: 0.06em; margin-bottom: 0.65rem; text-align: center;
+        }
+        .ex-q-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.35rem; }
+        @media (max-width: 640px) { .ex-q-grid { grid-template-columns: repeat(3, 1fr); } }
+        .ex-q-btn {
+            width: 100%; aspect-ratio: 1; border-radius: 50%; font-size: 0.75rem; font-weight: 700;
+            border: 2px solid #cbd5e1; color: #64748b; background: white;
+            cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center;
+        }
+        .ex-q-btn:hover { border-color: var(--theme-color, #20a1a0); color: var(--theme-color, #20a1a0); }
+        .ex-q-current {
+            border-color: var(--theme-color, #20a1a0); color: white;
+            background: var(--theme-color, #20a1a0);
+            box-shadow: 0 0 0 3px rgba(32,161,160,0.25);
+        }
+        .ex-q-answered {
+            border-color: var(--theme-color, #20a1a0); color: var(--theme-color, #20a1a0);
+            background: rgba(32,161,160,0.12);
+        }
+        .ex-main-area {
+            flex: 1; overflow-y: auto; padding: 1.25rem;
+            display: flex; flex-direction: column; gap: 0.9rem;
+        }
+        .ex-qh { font-size: 1rem; font-weight: 800; color: var(--theme-color, #20a1a0); margin-bottom: 0.25rem; }
+        .ex-qbody { display: flex; flex-direction: column; gap: 0.9rem; }
+        .ex-bottom-bar {
+            background: white; border-top: 1px solid #e2e8f0; padding: 0.65rem 1.25rem; flex-shrink: 0;
+        }
+        .ex-prog-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.6rem; }
+        .ex-prog-text { font-size: 0.8rem; font-weight: 600; color: #64748b; white-space: nowrap; }
+        .ex-prog-bar { flex: 1; height: 0.45rem; background: #e2e8f0; border-radius: 999px; overflow: hidden; }
+        .ex-prog-fill { height: 100%; background: var(--theme-color, #20a1a0); border-radius: 999px; transition: width 0.3s; }
+        .ex-nav-row { display: flex; gap: 0.6rem; justify-content: center; }
+        .ex-prev-btn, .ex-next-btn {
+            padding: 0.55rem 1.25rem; border-radius: 0.7rem; font-weight: 700; font-size: 0.9rem;
+            border: 2px solid var(--theme-color, #20a1a0); color: var(--theme-color, #20a1a0);
+            background: white; cursor: pointer; transition: all 0.2s;
+        }
+        .ex-prev-btn:hover, .ex-next-btn:hover { background: var(--theme-color, #20a1a0); color: white; }
+        .ex-submit-btn {
+            padding: 0.55rem 1.75rem; border-radius: 0.7rem; font-weight: 800; font-size: 0.9rem;
+            background: #f59e0b; color: white; border: none; cursor: pointer; transition: all 0.2s;
+        }
+        .ex-submit-btn:hover { background: #d97706; }
+
+        /* Item image cards */
+        .ex-img-card {
+            display: flex; background: white; border-radius: 1rem; overflow: hidden;
+            border: 2px solid #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.06); min-height: 13rem;
+        }
+        @media (max-width: 640px) { .ex-img-card { flex-direction: column; min-height: 0; } }
+        .ex-card-img { width: 50%; object-fit: cover; }
+        @media (max-width: 640px) { .ex-card-img { width: 100%; min-height: 8rem; } }
+        .ex-card-right {
+            flex: 1; padding: 1.5rem; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; gap: 0.65rem;
+        }
+        .ex-card-given { background: #f0fdf4; }
+        .ex-given-word { font-size: 1.4rem; font-weight: 800; color: #16a34a; }
+        .ex-given-badge {
+            font-size: 0.72rem; font-weight: 700; padding: 0.2rem 0.7rem; border-radius: 999px;
+            background: var(--theme-bg-color, rgba(32,161,160,0.1)); color: var(--theme-color, #20a1a0);
+        }
+        .ex-text-inp {
+            width: 100%; text-align: center; font-size: 1.25rem; font-weight: 700;
+            border: none; border-bottom: 3px solid; background: transparent; padding: 0.4rem; outline: none;
+        }
+
+        /* Word bank chips */
+        .ex-bank-box { background: white; border-radius: 1rem; padding: 0.9rem; border: 1px solid #e2e8f0; }
+        .ex-bank-label { font-size: 0.78rem; font-weight: 700; color: var(--theme-color, #20a1a0); margin-bottom: 0.45rem; }
+        .ex-bank-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+        .ex-chip-disp {
+            padding: 0.3rem 0.75rem; border-radius: 0.55rem; font-weight: 600; font-size: 0.9rem;
+            background: var(--theme-bg-color, rgba(32,161,160,0.1)); color: var(--theme-color, #20a1a0);
+        }
+        .ex-chip-btn {
+            padding: 0.3rem 0.75rem; border-radius: 0.55rem; font-weight: 600; font-size: 0.9rem;
+            border: 2px solid var(--theme-color, #20a1a0); color: var(--theme-color, #20a1a0);
+            background: var(--theme-bg-color, rgba(32,161,160,0.1)); cursor: pointer; transition: all 0.15s;
+        }
+        .ex-chip-btn:hover { background: var(--theme-color, #20a1a0); color: white; }
+        .ex-chip-used { opacity: 0.35; pointer-events: none; }
+        .ex-chip-sel { background: var(--theme-color, #20a1a0) !important; color: white !important; box-shadow: 0 0 0 3px rgba(32,161,160,0.3); }
+
+        /* Story type */
+        .ex-st-ctx {
+            background: #f8fafc; border-left: 4px solid var(--theme-color, #20a1a0);
+            padding: 0.7rem 1rem; border-radius: 0 0.75rem 0.75rem 0;
+            font-size: 0.95rem; color: #475569; font-style: italic;
+        }
+        .ex-st-sent {
+            background: white; border-radius: 1rem; padding: 1.1rem 1.25rem;
+            border: 2px solid #e2e8f0; font-size: 1.1rem; color: #1e293b; line-height: 2;
+        }
+        .ex-st-blank {
+            font-weight: 800; color: var(--theme-color, #20a1a0);
+            border-bottom: 2px solid var(--theme-color, #20a1a0); padding: 0 0.2rem;
+        }
+        .ex-st-opts { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+        .ex-st-opt {
+            padding: 0.55rem 1.35rem; border-radius: 0.7rem; font-weight: 700; font-size: 1rem;
+            border: 2px solid var(--theme-color, #20a1a0); color: var(--theme-color, #20a1a0);
+            background: white; cursor: pointer; transition: all 0.2s;
+        }
+        .ex-st-opt:hover { background: var(--theme-color, #20a1a0); color: white; }
+        .ex-st-sel { background: var(--theme-color, #20a1a0) !important; color: white !important; }
+
+        /* Passage fill overlay */
+        .ex-pass-card {
+            background: white; border-radius: 1rem; padding: 1.1rem 1.25rem;
+            border: 1px solid #e2e8f0; margin-bottom: 0.65rem;
+        }
+        .ex-pass-hdr { font-size: 0.82rem; font-weight: 700; color: var(--theme-color, #20a1a0); margin-bottom: 0.65rem; }
+        .ex-pass-txt { font-size: 0.98rem; line-height: 2.2; color: #334155; }
+        .pf-inp-ov {
+            display: inline-block; border: none; border-bottom: 2px solid; background: transparent;
+            text-align: center; font-weight: 700; width: 5rem; margin: 0 0.2rem;
+            font-size: 0.98rem; outline: none; cursor: text;
+        }
+
+        /* Drag sort */
+        .ex-sort-wrap { display: flex; flex-direction: column; gap: 0.9rem; }
+        @media (min-width: 640px) { .ex-sort-wrap { flex-direction: row; align-items: flex-start; } }
+        .ex-sort-pool { flex: 0 0 180px; background: white; border-radius: 1rem; padding: 0.9rem; border: 1px solid #e2e8f0; }
+        .ex-sort-words { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+        .ex-drag-word {
+            padding: 0.35rem 0.75rem; border-radius: 0.55rem; font-weight: 600; font-size: 0.9rem;
+            border: 2px solid var(--theme-color, #20a1a0); color: var(--theme-color, #20a1a0);
+            background: var(--theme-bg-color, rgba(32,161,160,0.1)); cursor: grab; user-select: none;
+        }
+        .ex-drag-placed { opacity: 0.35; }
+        .ex-sort-zones { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+        .drop-zone-ov {
+            min-height: 9rem; border-radius: 1rem; padding: 0.9rem;
+            border: 2px dashed var(--theme-color, #20a1a0); background: white; transition: background 0.15s;
+        }
+        .drop-zone-ov.drag-over { background: rgba(32,161,160,0.07); }
+        .ex-zone-lbl { font-size: 0.82rem; font-weight: 700; color: var(--theme-color, #20a1a0); margin-bottom: 0.5rem; text-align: center; }
+        .ex-zone-items { display: flex; flex-direction: column; gap: 0.3rem; }
+        .ex-placed-tag {
+            padding: 0.3rem 0.7rem; border-radius: 0.5rem; font-size: 0.88rem; font-weight: 600;
+            background: var(--theme-bg-color, rgba(32,161,160,0.1)); color: var(--theme-color, #20a1a0);
+            cursor: pointer; text-align: center; transition: all 0.15s;
+        }
+        .ex-placed-tag:hover { background: #fee2e2; color: #dc2626; }
     </style>
 </head>
 <body class="text-slate-700 min-h-screen flex flex-col">
@@ -480,696 +647,370 @@
         }
 
         // --- Render bài tập từ dữ liệu JSON ---
-        let _exAnswers = {}; // { blankId: answer } for word-bank and passage
-        let _wbSelected = null; // currently selected word from bank
-        let _sortState = {}; // { exId: { wordId: chosenCategory } }
-        let _pfSelectedChip = null; // currently selected chip in passage-fill
+        let _exData = null, _exIdx = 0, _itemIdx = 0, _answers = {}, _pfOvSel = null;
+
+        function getExItems(ex) {
+            if (ex.type === 'word-bank-fill' || ex.type === 'image-type' || ex.type === 'story-type') return ex.items;
+            return [{ id: '__full__' }];
+        }
 
         function renderExercises(data, container) {
+            _exData = data; _exIdx = 0; _itemIdx = 0; _answers = {}; _pfOvSel = null;
             document.body.classList.add('has-exercise');
-            _exAnswers = {}; _wbSelected = null; _sortState = {}; _pfSelectedChip = null;
-            let html = '<div class="space-y-8">';
-            data.exercises.forEach(ex => {
-                if (ex.type === 'word-bank-fill') html += renderWordBankFill(ex);
-                else if (ex.type === 'passage-fill')  html += renderPassageFill(ex);
-                else if (ex.type === 'drag-sort')      html += renderDragSort(ex);
-                else if (ex.type === 'image-type')     html += renderImageType(ex);
-                else if (ex.type === 'story-type')     html += renderStoryType(ex);
-                else if (ex.type === 'sort')           html += renderSort(ex);
-                else if (ex.type === 'story-choice')   html += renderStoryChoice(ex);
-                else if (ex.type === 'multiple-choice') html += renderMC(ex);
-                else if (ex.type === 'fill-in')         html += renderFillIn(ex);
-            });
-            html += `
-                <div class="text-center pt-2 pb-4">
-                    <button onclick="checkAllAnswers()" class="py-4 px-12 text-white font-bold text-lg rounded-2xl transition-colors shadow-lg hover-bounce inline-block" style="background-color: var(--theme-color);">
-                        Kiểm tra bài
-                    </button>
+            document.getElementById('exov')?.remove();
+            const nav = document.getElementById('main-nav');
+            const navH = nav ? nav.offsetHeight : 0;
+            const detail = document.getElementById('view-detail');
+            const tc = detail ? getComputedStyle(detail).getPropertyValue('--theme-color').trim() : '#20a1a0';
+            const tb = detail ? getComputedStyle(detail).getPropertyValue('--theme-bg-color').trim() : 'rgba(32,161,160,0.1)';
+            const ov = document.createElement('div');
+            ov.id = 'exov';
+            ov.style.cssText = `position:fixed;left:0;right:0;top:${navH}px;bottom:0;z-index:200;display:flex;flex-direction:column;background:#f1f5f9;`;
+            ov.style.setProperty('--theme-color', tc);
+            ov.style.setProperty('--theme-bg-color', tb);
+            ov.innerHTML = `
+                <div id="ex-tabs" class="ex-tabs-bar"></div>
+                <div class="ex-body-row">
+                    <div id="ex-sidebar" class="ex-sidebar"></div>
+                    <div id="ex-main" class="ex-main-area"></div>
                 </div>
-            </div>`;
-            container.innerHTML = html;
-            attachExerciseListeners();
+                <div id="ex-bottom" class="ex-bottom-bar"></div>`;
+            document.body.appendChild(ov);
+            renderExTabs(); renderExSidebar(); renderExMain(); renderExBottom();
         }
 
-        function exCard(title, instruction, content) {
-            return `<div class="bg-slate-50 rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
-                <div class="px-6 pt-5 pb-4">
-                    <h3 class="font-bold text-base mb-1" style="color: var(--theme-color);">${title}</h3>
-                    <p class="text-slate-500 text-sm font-medium mb-4">${instruction}</p>
-                    ${content}
-                </div>
-            </div>`;
-        }
-
-        // Navigator: numbered buttons students click to jump to an item (vertical on desktop)
-        function navPanel(items, labelFn) {
-            const btns = items.map((item, i) =>
-                `<button class="q-nav-btn w-full" data-target="item-${item.id || i}" title="Câu ${i+1}">${i + 1}</button>`
+        function renderExTabs() {
+            const el = document.getElementById('ex-tabs');
+            if (!el || !_exData) return;
+            el.innerHTML = _exData.exercises.map((ex, i) =>
+                `<button class="ex-tab-btn${i===_exIdx?' ex-tab-active':''}" onclick="exGoExercise(${i})">${ex.title}</button>`
             ).join('');
-            return `<div class="bg-white rounded-2xl p-2 border border-slate-200">
-                <p class="text-xs font-bold text-slate-400 text-center mb-1.5">Câu</p>
-                <div class="flex flex-col gap-1.5 items-center">${btns}</div>
-            </div>`;
         }
 
-        // Vertical word bank for left panel
-        function leftWordBank(words, chipClass, exId, clickable) {
-            const chips = words.map(w => clickable
-                ? `<button class="${chipClass} px-3 py-2 rounded-xl font-semibold border-2 transition-all w-full text-center"
-                    data-ex="${exId}" data-word="${w}"
-                    style="border-color:var(--theme-color);color:var(--theme-color);background:var(--theme-bg-color);">${w}</button>`
-                : `<span class="px-3 py-2 rounded-xl font-semibold block text-center"
-                    style="background:var(--theme-bg-color);color:var(--theme-color);">${w}</span>`
-            ).join('');
-            const hint = clickable
-                ? `<p class="text-xs text-slate-400 italic mb-2">👆 Chọn từ rồi nhấn vào ô trống</p>`
-                : '';
-            return `<div class="bg-white rounded-2xl p-3 border border-slate-200">
-                <p class="text-xs font-bold mb-1" style="color:var(--theme-color);">Từ gợi ý</p>
-                ${hint}
-                <div class="flex flex-col gap-2">${chips}</div>
-            </div>`;
-        }
-
-        function wordBankHtml(words, exId) {
-            const chips = words.map(w =>
-                `<button class="wb-chip px-3 py-1.5 rounded-xl text-sm font-semibold border-2 transition-all"
-                    data-ex="${exId}" data-word="${w}"
-                    style="border-color: var(--theme-color); color: var(--theme-color); background: var(--theme-bg-color);">${w}</button>`
-            ).join('');
-            return `<div class="flex flex-wrap gap-2 mb-5 p-4 bg-white rounded-2xl border border-slate-200">${chips}</div>`;
-        }
-
-        function renderWordBankFill(ex) {
-            // Image-based: left panel = navigator + word bank; right panel = items (image | input)
-            if (ex.items && ex.items[0] && ex.items[0].img) {
-                const shuffled = [...(ex.wordBank || [])].sort(() => Math.random() - 0.5);
-                const rows = ex.items.map((item, i) => {
-                    if (item.given) {
-                        return `<div id="item-${item.id}" class="ex-item-anchor ex-item-row bg-white border-2 border-green-200 shadow-sm">
-                            <div class="ex-item-left">
-                                <img src="${item.img}" class="w-full h-full object-cover" style="min-height:8rem;">
-                            </div>
-                            <div class="ex-item-right p-4 flex flex-col items-center justify-center gap-1">
-                                <span class="text-xs font-bold text-slate-400">${i+1}</span>
-                                <span class="font-bold text-lg text-green-600">${item.answer}</span>
-                                <span class="text-xs font-semibold px-2 py-0.5 rounded-full" style="background:var(--theme-bg-color);color:var(--theme-color);">Mẫu</span>
-                            </div>
-                        </div>`;
-                    }
-                    return `<div id="item-${item.id}" class="ex-item-anchor ex-item-row bg-white border-2 border-slate-200 shadow-sm">
-                        <div class="ex-item-left">
-                            <img src="${item.img}" class="w-full h-full object-cover" style="min-height:8rem;">
-                        </div>
-                        <div class="ex-item-right p-4 flex flex-col items-center justify-center gap-2">
-                            <span class="w-7 h-7 rounded-full text-sm font-bold flex items-center justify-center text-white flex-shrink-0" style="background:var(--theme-color);">${i+1}</span>
-                            <input type="text" class="wbf-input w-full text-center focus:outline-none font-bold bg-transparent border-b-2 py-1"
-                                data-answer="${item.answer}" data-id="${item.id}"
-                                style="border-color:var(--theme-color);"
-                                placeholder="✏️ ...">
-                            <span class="ans-hint" id="hint-${item.id}"></span>
-                        </div>
-                    </div>`;
-                }).join('');
-                return exCard(ex.title, ex.instruction,
-                    `<div class="ex-three-panel">
-                        <div class="ex-nav-col">${navPanel(ex.items)}</div>
-                        <div class="ex-wb-col">${leftWordBank(shuffled, '', '', false)}</div>
-                        <div class="ex-main-col space-y-3">${rows}</div>
-                    </div>`
-                );
-            }
-            // Legacy click-to-fill
-            const shuffled = [...(ex.wordBank || ex.items.filter(i=>!i.given).map(i=>i.answer))].sort(() => Math.random() - 0.5);
-            const grid = ex.items.map(item => {
-                if (item.given) return `<div class="flex items-center bg-white rounded-2xl p-3 border border-slate-200"><span class="font-bold text-sm" style="color:var(--theme-color);">${item.answer}</span></div>`;
-                return `<div class="flex items-center bg-white rounded-2xl p-3 border-2 border-slate-200 wb-blank-card" data-blank="${item.id}" data-answer="${item.answer}" data-ex="${ex.id}"><span class="wb-blank-text text-sm font-bold italic text-slate-300">click to fill</span></div>`;
+        function renderExSidebar() {
+            const el = document.getElementById('ex-sidebar');
+            if (!el || !_exData) return;
+            const ex = _exData.exercises[_exIdx];
+            const items = getExItems(ex);
+            const btns = items.map((item, i) => {
+                const answered = isItemAnswered(ex, item);
+                const cur = i === _itemIdx;
+                let cls = 'ex-q-btn';
+                if (cur) cls += ' ex-q-current';
+                else if (answered) cls += ' ex-q-answered';
+                return `<button class="${cls}" onclick="exGoItem(${i})">${i+1}</button>`;
             }).join('');
-            return exCard(ex.title, ex.instruction, wordBankHtml(shuffled, ex.id) + `<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">${grid}</div>`);
+            el.innerHTML = `<p class="ex-sidebar-title">BẢNG CÂU HỎI</p><div class="ex-q-grid">${btns}</div>`;
         }
 
-        function renderPassageFill(ex) {
-            // Left panel = clickable word bank; right panel = passages
-            const passagesHtml = ex.passages.map(p => {
+        function isItemAnswered(ex, item) {
+            if (item.given) return true;
+            if (item.id === '__full__') {
+                if (ex.type === 'passage-fill') return ex.passages?.some(p => p.parts.some(pt => pt.blank && _answers[`${ex.id}-${pt.blank}`]));
+                if (ex.type === 'drag-sort') return ex.words?.some((w,i) => _answers[`${ex.id}-sort-${i}`] !== undefined);
+                return false;
+            }
+            if (ex.type === 'word-bank-fill') return !!_answers[`${ex.id}-${item.id}`];
+            if (ex.type === 'image-type') return !!_answers[`${ex.id}-${item.id}-present`] || !!_answers[`${ex.id}-${item.id}-past`];
+            if (ex.type === 'story-type') return !!_answers[`${ex.id}-${item.id}`];
+            return false;
+        }
+
+        function getGlobalNum() {
+            if (!_exData) return 1;
+            let n = 0;
+            for (let i = 0; i < _exIdx; i++) n += getExItems(_exData.exercises[i]).length;
+            return n + _itemIdx + 1;
+        }
+        function getGlobalTotal() {
+            if (!_exData) return 1;
+            return _exData.exercises.reduce((s,ex) => s + getExItems(ex).length, 0);
+        }
+        function countAnswered() {
+            if (!_exData) return 0;
+            let c = 0;
+            _exData.exercises.forEach(ex => getExItems(ex).forEach(item => { if (isItemAnswered(ex, item)) c++; }));
+            return c;
+        }
+
+        function renderExMain() {
+            const el = document.getElementById('ex-main');
+            if (!el || !_exData) return;
+            const ex = _exData.exercises[_exIdx];
+            const items = getExItems(ex);
+            const item = items[_itemIdx];
+            let qHtml = '';
+            if (item.id === '__full__') {
+                if (ex.type === 'passage-fill') qHtml = renderPassageOv(ex);
+                else if (ex.type === 'drag-sort') qHtml = renderSortOv(ex);
+            } else if (ex.type === 'word-bank-fill') {
+                qHtml = renderWbfOv(ex, item);
+            } else if (ex.type === 'image-type') {
+                qHtml = renderItOv(ex, item);
+            } else if (ex.type === 'story-type') {
+                qHtml = renderStOv(ex, item);
+            }
+            el.innerHTML = `<div class="ex-qh">CÂU HỎI ${getGlobalNum()} / ${getGlobalTotal()}</div><div class="ex-qbody">${qHtml}</div>`;
+            el.scrollTop = 0;
+            attachItemListeners(ex, item);
+        }
+
+        function renderExBottom() {
+            const el = document.getElementById('ex-bottom');
+            if (!el) return;
+            const total = getGlobalTotal(), answered = countAnswered();
+            const pct = total > 0 ? Math.round(answered / total * 100) : 0;
+            el.innerHTML = `
+                <div class="ex-prog-row">
+                    <span class="ex-prog-text">Tiến độ: ${answered}/${total} câu (${pct}%)</span>
+                    <div class="ex-prog-bar"><div class="ex-prog-fill" style="width:${pct}%"></div></div>
+                </div>
+                <div class="ex-nav-row">
+                    <button class="ex-prev-btn" onclick="exGoPrev()">← CÂU TRƯỚC</button>
+                    <button class="ex-submit-btn" onclick="submitAll()">NỘP BÀI</button>
+                    <button class="ex-next-btn" onclick="exGoNext()">CÂU TIẾP →</button>
+                </div>`;
+        }
+
+        function exGoExercise(idx) {
+            if (!_exData || idx < 0 || idx >= _exData.exercises.length) return;
+            _exIdx = idx; _itemIdx = 0; _pfOvSel = null;
+            renderExTabs(); renderExSidebar(); renderExMain(); renderExBottom();
+        }
+        function exGoItem(idx) {
+            if (!_exData) return;
+            const items = getExItems(_exData.exercises[_exIdx]);
+            if (idx < 0 || idx >= items.length) return;
+            _itemIdx = idx;
+            renderExSidebar(); renderExMain(); renderExBottom();
+        }
+        function exGoNext() {
+            if (!_exData) return;
+            const items = getExItems(_exData.exercises[_exIdx]);
+            if (_itemIdx < items.length - 1) exGoItem(_itemIdx + 1);
+            else if (_exIdx < _exData.exercises.length - 1) exGoExercise(_exIdx + 1);
+        }
+        function exGoPrev() {
+            if (!_exData) return;
+            if (_itemIdx > 0) { exGoItem(_itemIdx - 1); }
+            else if (_exIdx > 0) {
+                const prevEx = _exData.exercises[_exIdx - 1];
+                _exIdx--; _itemIdx = getExItems(prevEx).length - 1; _pfOvSel = null;
+                renderExTabs(); renderExSidebar(); renderExMain(); renderExBottom();
+            }
+        }
+        function saveAnswer(key, value) {
+            if (value === '' || value === null || value === undefined) delete _answers[key];
+            else _answers[key] = value;
+            renderExSidebar(); renderExBottom();
+        }
+
+        // === Single-item renderers ===
+        function renderWbfOv(ex, item) {
+            if (!ex._shuffledBank) ex._shuffledBank = [...(ex.wordBank||[])].sort(() => Math.random()-0.5);
+            const bank = ex._shuffledBank;
+            if (item.given) {
+                return `<div class="ex-img-card"><img src="${item.img}" class="ex-card-img">
+                    <div class="ex-card-right ex-card-given">
+                        <span class="ex-given-word">${item.answer}</span>
+                        <span class="ex-given-badge">Mẫu</span>
+                    </div></div>
+                    <div class="ex-bank-box"><p class="ex-bank-label">Từ gợi ý</p>
+                    <div class="ex-bank-chips">${bank.map(w=>`<span class="ex-chip-disp">${w}</span>`).join('')}</div></div>`;
+            }
+            const key = `${ex.id}-${item.id}`, val = _answers[key]||'';
+            const esc = s => s.replace(/'/g, "\\'");
+            return `<div class="ex-img-card"><img src="${item.img}" class="ex-card-img">
+                <div class="ex-card-right">
+                    <input type="text" class="ex-text-inp" value="${val}" placeholder="✏️ Nhập từ..."
+                        oninput="saveAnswer('${esc(key)}',this.value)" style="border-color:var(--theme-color);">
+                </div></div>
+                <div class="ex-bank-box"><p class="ex-bank-label">Từ gợi ý — nhấn để điền</p>
+                <div class="ex-bank-chips">${bank.map(w=>{
+                    const used = val===w;
+                    return `<button class="ex-chip-btn${used?' ex-chip-used':''}" onclick="wbChipClick('${esc(w)}','${esc(key)}')">${w}</button>`;
+                }).join('')}</div></div>`;
+        }
+        function wbChipClick(word, key) {
+            _answers[key] = word;
+            renderExSidebar(); renderExMain(); renderExBottom();
+        }
+
+        function renderItOv(ex, item) {
+            if (item.given) {
+                return `<div class="ex-img-card"><img src="${item.img}" class="ex-card-img">
+                    <div class="ex-card-right ex-card-given">
+                        <p class="ex-given-word">${item.present}</p>
+                        <p class="ex-given-word">${item.past}</p>
+                        <span class="ex-given-badge">Mẫu</span>
+                    </div></div>`;
+            }
+            const esc = s=>s.replace(/'/g,"\\'");
+            const kp=`${ex.id}-${item.id}-present`, kq=`${ex.id}-${item.id}-past`;
+            const vp=_answers[kp]||'', vq=_answers[kq]||'';
+            return `<div class="ex-img-card"><img src="${item.img}" class="ex-card-img">
+                <div class="ex-card-right" style="gap:1rem;">
+                    <input type="text" class="ex-text-inp" value="${vp}" placeholder="✏️ Hiện tại..."
+                        oninput="saveAnswer('${esc(kp)}',this.value)" style="border-color:var(--theme-color);">
+                    <input type="text" class="ex-text-inp" value="${vq}" placeholder="✏️ Quá khứ..."
+                        oninput="saveAnswer('${esc(kq)}',this.value)" style="border-color:var(--theme-color);">
+                </div></div>`;
+        }
+
+        function renderStOv(ex, item) {
+            const esc = s=>s.replace(/'/g,"\\'");
+            const key=`${ex.id}-${item.id}`, val=_answers[key]||'';
+            const opts = item.options.map(o=>{
+                const sel = val===o;
+                return `<button class="ex-st-opt${sel?' ex-st-sel':''}" onclick="stClick('${esc(o)}','${esc(key)}')">${o}</button>`;
+            }).join('');
+            return `<div class="ex-st-ctx">${ex.context}</div>
+                <div class="ex-st-sent">${item.before} <span class="ex-st-blank">${val||'______'}</span> ${item.after}</div>
+                <div class="ex-st-opts">${opts}</div>`;
+        }
+        function stClick(word, key) {
+            _answers[key] = word;
+            renderExSidebar(); renderExMain(); renderExBottom();
+        }
+
+        function renderPassageOv(ex) {
+            const esc = s=>s.replace(/'/g,"\\'");
+            const passHtml = ex.passages.map(p => {
                 let txt = '';
                 p.parts.forEach(part => {
-                    if (part.text) {
-                        txt += part.text.replace(/\n/g, '<br>');
-                    } else {
-                        txt += `<input type="text"
-                            class="pf-input inline-block border-b-2 focus:outline-none text-center font-bold text-sm w-24 mx-1 bg-transparent transition-colors cursor-pointer"
-                            data-blank="${part.blank}" data-answer="${part.answer}" data-ex="${ex.id}"
-                            placeholder="${part.num}"
-                            style="border-color: var(--theme-color);" readonly>`;
+                    if (part.text) txt += part.text.replace(/\n/g,'<br>');
+                    else {
+                        const key=`${ex.id}-${part.blank}`, val=_answers[key]||'';
+                        txt += `<input type="text" class="pf-inp-ov" id="pf-${part.blank}" value="${val}" placeholder="${part.num}"
+                            oninput="saveAnswer('${esc(key)}',this.value)" data-pfkey="${esc(key)}"
+                            style="border-color:var(--theme-color);">`;
                     }
                 });
-                return `<div class="bg-white rounded-2xl border border-slate-200 p-5 mb-3">
-                    <p class="text-xs font-semibold mb-3" style="color:var(--theme-color);">${p.header}</p>
-                    <p class="text-slate-700 text-sm leading-loose">${txt}</p>
-                </div>`;
+                return `<div class="ex-pass-card"><p class="ex-pass-hdr">${p.header}</p><p class="ex-pass-txt">${txt}</p></div>`;
             }).join('');
-            return exCard(ex.title, ex.instruction,
-                `<div class="ex-three-panel">
-                    <div class="ex-nav-col"></div>
-                    <div class="ex-wb-col">${leftWordBank(ex.wordBank, 'pf-chip', ex.id, true)}</div>
-                    <div class="ex-main-col">${passagesHtml}</div>
-                </div>`
-            );
-        }
-
-        function renderDragSort(ex) {
-            // Left panel = word pool (draggable); right panel = two drop zones side by side
-            const wordsHtml = ex.words.map((w, i) =>
-                `<div class="drag-word px-3 py-2 rounded-xl text-sm font-semibold border-2 cursor-grab text-center select-none"
-                    draggable="true"
-                    data-ex="${ex.id}" data-idx="${i}" data-cat="${w.category}"
-                    style="border-color:var(--theme-color);color:var(--theme-color);background:var(--theme-bg-color);">${w.word}</div>`
-            ).join('');
-            const leftPool = `<div class="bg-white rounded-2xl p-3 border border-slate-200">
-                <p class="text-xs font-bold mb-1" style="color:var(--theme-color);">Các từ</p>
-                <p class="text-xs text-slate-400 italic mb-2">👆 Kéo sang cột đúng</p>
-                <div class="flex flex-col gap-2">${wordsHtml}</div>
-            </div>`;
-            const dropZones = `<div class="grid grid-cols-2 gap-4 h-full">
-                <div class="drop-zone rounded-2xl p-3 border-2 border-dashed transition-colors" style="min-height:14rem;border-color:var(--theme-color);"
-                    id="drop-${ex.id}-0" data-ex="${ex.id}" data-col="0">
-                    <p class="text-sm font-bold text-center mb-3" style="color:var(--theme-color);">${ex.categories[0]}</p>
-                    <div class="drop-items space-y-2"></div>
-                </div>
-                <div class="drop-zone rounded-2xl p-3 border-2 border-dashed transition-colors" style="min-height:14rem;border-color:var(--theme-color);"
-                    id="drop-${ex.id}-1" data-ex="${ex.id}" data-col="1">
-                    <p class="text-sm font-bold text-center mb-3" style="color:var(--theme-color);">${ex.categories[1]}</p>
-                    <div class="drop-items space-y-2"></div>
-                </div>
-            </div>`;
-            return exCard(ex.title, ex.instruction,
-                `<div class="ex-three-panel">
-                    <div class="ex-nav-col"></div>
-                    <div class="ex-wb-col">${leftPool}</div>
-                    <div class="ex-main-col">${dropZones}</div>
-                </div>`
-            );
-        }
-
-        function renderImageType(ex) {
-            // Left panel = navigator; right panel = items (image | inputs)
-            const rows = ex.items.map((item, i) => {
-                if (item.given) {
-                    return `<div id="item-${item.id}" class="ex-item-anchor ex-item-row bg-white border-2 border-green-200 shadow-sm">
-                        <div class="ex-item-left">
-                            <img src="${item.img}" class="w-full h-full object-cover" style="min-height:8rem;">
-                        </div>
-                        <div class="ex-item-right p-4 flex flex-col items-center justify-center gap-2">
-                            <span class="w-7 h-7 rounded-full text-sm font-bold flex items-center justify-center text-white" style="background:#22c55e;">${i+1}</span>
-                            <p class="font-bold text-lg text-green-600">${item.present}</p>
-                            <p class="font-bold text-lg text-green-600">${item.past}</p>
-                            <span class="text-xs font-semibold px-2 py-0.5 rounded-full" style="background:var(--theme-bg-color);color:var(--theme-color);">Mẫu</span>
-                        </div>
-                    </div>`;
-                }
-                return `<div id="item-${item.id}" class="ex-item-anchor ex-item-row bg-white border-2 border-slate-200 shadow-sm">
-                    <div class="ex-item-left">
-                        <img src="${item.img}" class="w-full h-full object-cover" style="min-height:8rem;">
-                    </div>
-                    <div class="ex-item-right p-4 flex flex-col items-center justify-center gap-3">
-                        <span class="w-7 h-7 rounded-full text-sm font-bold flex items-center justify-center text-white" style="background:var(--theme-color);">${i+1}</span>
-                        <input type="text" class="it-input w-full text-center focus:outline-none font-bold bg-transparent border-b-2 py-1"
-                            data-answer="${item.present}" data-id="${item.id}" data-field="present"
-                            style="border-color:var(--theme-color);"
-                            placeholder="✏️ hiện tại...">
-                        <input type="text" class="it-input w-full text-center focus:outline-none font-bold bg-transparent border-b-2 py-1"
-                            data-answer="${item.past}" data-id="${item.id}" data-field="past"
-                            style="border-color:var(--theme-color);"
-                            placeholder="✏️ quá khứ...">
-                    </div>
-                </div>`;
+            const chips = ex.wordBank.map(w => {
+                const used = Object.values(_answers).includes(w);
+                const isSel = _pfOvSel===w;
+                return `<button class="ex-chip-btn${used?' ex-chip-used':''}${isSel?' ex-chip-sel':''}" onclick="pfChipClick('${esc(w)}','${ex.id}')">${w}</button>`;
             }).join('');
-            return exCard(ex.title, ex.instruction,
-                `<div class="ex-three-panel">
-                    <div class="ex-nav-col">${navPanel(ex.items)}</div>
-                    <div class="ex-wb-col"></div>
-                    <div class="ex-main-col space-y-3">${rows}</div>
-                </div>`
-            );
+            return `<div class="ex-bank-box"><p class="ex-bank-label">Từ gợi ý — nhấn từ rồi nhấn ô trống</p><div class="ex-bank-chips">${chips}</div></div>${passHtml}`;
+        }
+        function pfChipClick(word, exId) {
+            _pfOvSel = (_pfOvSel === word) ? null : word;
+            renderExMain();
         }
 
-        function renderStoryType(ex) {
-            // Left panel = navigator + context; right panel = items (hints | sentence+input)
-            const contextBox = `<div class="bg-white rounded-2xl p-3 border border-slate-200">
-                <p class="text-xs font-bold mb-1" style="color:var(--theme-color);">Bối cảnh</p>
-                <p class="text-slate-600 text-sm italic leading-relaxed">${ex.context}</p>
-            </div>`;
-            const items = ex.items.map((item, i) => {
-                const hintsHtml = item.options.map(o =>
-                    `<span class="px-2 py-1 rounded-lg text-xs font-semibold block text-center" style="background:var(--theme-bg-color);color:var(--theme-color);">${o}</span>`
-                ).join('');
-                return `<div id="item-${item.id}" class="ex-item-anchor ex-item-row bg-white border border-slate-200 shadow-sm">
-                    <div class="ex-item-left p-3 flex flex-col items-center justify-center gap-2" style="border-right:1px solid #f1f5f9;background:var(--theme-bg-color);">
-                        <span class="w-8 h-8 rounded-full font-bold flex items-center justify-center text-white" style="background:var(--theme-color);">${item.num}</span>
-                        ${hintsHtml}
-                    </div>
-                    <div class="ex-item-right p-4 flex flex-col justify-center gap-1">
-                        <p class="text-slate-700 leading-loose">${item.before}
-                            <input type="text" class="st-input inline-block border-b-2 focus:outline-none text-center font-bold w-28 mx-1 bg-transparent py-0.5"
-                                data-answer="${item.answer}" data-id="${item.id}"
-                                style="border-color:var(--theme-color);"
-                                placeholder="✏️ ...">
-                            ${item.after}
-                        </p>
-                        <span class="ans-hint" id="hint-${item.id}"></span>
-                    </div>
-                </div>`;
+        function renderSortOv(ex) {
+            const esc = s=>s.replace(/'/g,"\\'");
+            const words = ex.words.map((w,i) => {
+                const placed = _answers[`${ex.id}-sort-${i}`] !== undefined;
+                return `<div class="ex-drag-word${placed?' ex-drag-placed':''}" draggable="true"
+                    data-ex="${ex.id}" data-idx="${i}" data-cat="${w.category}">${w.word}</div>`;
             }).join('');
-            return exCard(ex.title, ex.instruction,
-                `<div class="ex-three-panel">
-                    <div class="ex-nav-col">${navPanel(ex.items)}</div>
-                    <div class="ex-wb-col">${contextBox}</div>
-                    <div class="ex-main-col space-y-3">${items}</div>
-                </div>`
-            );
+            const mkZone = col => {
+                const items = ex.words.map((w,i)=>({w,i})).filter(({i})=>_answers[`${ex.id}-sort-${i}`]===col)
+                    .map(({w,i})=>`<div class="ex-placed-tag" onclick="removeSortAns('${esc(ex.id)}',${i})">${w.word}</div>`).join('');
+                return `<div class="drop-zone-ov" data-ex="${ex.id}" data-col="${col}">
+                    <p class="ex-zone-lbl">${ex.categories[col]}</p>
+                    <div class="ex-zone-items">${items}</div></div>`;
+            };
+            return `<div class="ex-sort-wrap">
+                <div class="ex-sort-pool"><p class="ex-bank-label">Các từ — kéo sang cột đúng</p><div class="ex-sort-words">${words}</div></div>
+                <div class="ex-sort-zones">${mkZone(0)}${mkZone(1)}</div></div>`;
+        }
+        function removeSortAns(exId, idx) {
+            delete _answers[`${exId}-sort-${idx}`];
+            renderExSidebar(); renderExMain(); renderExBottom();
         }
 
-        function renderSort(ex) {
-            _sortState[ex.id] = {};
-            ex.words.forEach((w,i) => { _sortState[ex.id][i] = null; });
-            const wordsHtml = ex.words.map((w,i) =>
-                `<button class="sort-word px-3 py-2 rounded-xl text-sm font-semibold border-2 transition-all w-full"
-                    data-ex="${ex.id}" data-idx="${i}" data-cat="${w.category}"
-                    style="border-color:var(--theme-color);color:var(--theme-color);background:var(--theme-bg-color);">${w.word}</button>`
-            ).join('');
-            return exCard(`${ex.title}`, ex.instruction,
-                `<div class="grid grid-cols-3 gap-3 items-start">
-                    <div class="sort-col rounded-2xl p-3 min-h-32 border-2 border-dashed border-slate-300" id="sort-${ex.id}-0">
-                        <p class="text-xs font-bold text-center mb-3 text-slate-500">${ex.categories[0]}</p>
-                        <div class="sort-drop space-y-2" data-ex="${ex.id}" data-col="0"></div>
-                    </div>
-                    <div class="flex flex-col gap-2">${wordsHtml}</div>
-                    <div class="sort-col rounded-2xl p-3 min-h-32 border-2 border-dashed border-slate-300" id="sort-${ex.id}-1">
-                        <p class="text-xs font-bold text-center mb-3 text-slate-500">${ex.categories[1]}</p>
-                        <div class="sort-drop space-y-2" data-ex="${ex.id}" data-col="1"></div>
-                    </div>
-                </div>`
-            );
-        }
-
-        function renderStoryChoice(ex) {
-            const items = ex.items.map(item => {
-                const opts = item.options.map(o =>
-                    `<button class="sc-opt px-3 py-1.5 rounded-xl text-sm font-semibold border-2 transition-all"
-                        data-sc="${ex.id}" data-item="${item.id}" data-val="${o}" data-answer="${item.answer}"
-                        style="border-color:var(--theme-color);color:var(--theme-color);background:var(--theme-bg-color);">${o}</button>`
-                ).join('');
-                return `<div class="bg-white rounded-2xl p-4 border border-slate-200">
-                    <div class="flex items-start gap-3">
-                        <span class="w-6 h-6 rounded-full text-xs font-bold flex items-center justify-center text-white flex-shrink-0 mt-0.5" style="background:var(--theme-color);">${item.num}</span>
-                        <div>
-                            <p class="text-slate-700 text-sm mb-2">
-                                ${item.before} <span id="sc-answer-${item.id}" class="font-bold px-2">______</span> ${item.after}
-                            </p>
-                            <div class="flex flex-wrap gap-2">${opts}</div>
-                        </div>
-                    </div>
-                </div>`;
-            }).join('');
-            return exCard(`${ex.title}`, ex.instruction,
-                `<div class="bg-white rounded-2xl p-4 border-l-4 mb-4 text-slate-600 text-sm italic" style="border-color:var(--theme-color);">${ex.context}</div>
-                <div class="space-y-3">${items}</div>`
-            );
-        }
-
-        function renderMC(ex) {
-            return exCard(ex.title || 'Multiple Choice', ex.instruction || '',
-                `<p class="text-slate-700 font-medium mb-3">${ex.question}</p>
-                <div class="space-y-2">
-                    ${ex.options.map((o,i) => `
-                        <label class="flex items-center gap-3 p-3 bg-white rounded-2xl border border-slate-200 cursor-pointer hover:border-slate-300 transition-colors">
-                            <input type="radio" name="mc-${ex.id||i}" value="${i}" class="w-4 h-4" style="accent-color:var(--theme-color);">
-                            <span class="font-medium text-slate-700">${o}</span>
-                        </label>`).join('')}
-                </div>`
-            );
-        }
-
-        function renderFillIn(ex) {
-            return exCard(ex.title || 'Fill in', ex.instruction || '',
-                `<p class="text-slate-700 font-medium mb-3">${ex.question}</p>
-                <input type="text" placeholder="Nhập câu trả lời..."
-                    class="w-full px-4 py-3 bg-white border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 transition-all">`
-            );
-        }
-
-        // --- Event listeners cho các loại bài tập ---
-        function attachExerciseListeners() {
-            // Legacy word bank chips (click-to-fill card)
-            document.querySelectorAll('.wb-chip').forEach(chip => {
-                chip.addEventListener('click', function() {
-                    if (this.classList.contains('used')) return;
-                    document.querySelectorAll('.wb-chip').forEach(c => c.classList.remove('ring-2', 'ring-offset-1'));
-                    this.classList.add('ring-2', 'ring-offset-1');
-                    _wbSelected = { word: this.dataset.word, chip: this };
-                });
-            });
-
-            // Legacy word bank blank cards
-            document.querySelectorAll('.wb-blank-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    const span = this.querySelector('.wb-blank-text');
-                    if (this.dataset.filled && _wbSelected === null) {
-                        const oldWord = span.textContent;
-                        const oldChip = document.querySelector(`.wb-chip[data-word="${oldWord}"][data-ex="${this.dataset.ex}"]`);
-                        if (oldChip) { oldChip.classList.remove('used', 'opacity-30'); oldChip.style.pointerEvents = ''; }
-                        span.textContent = 'click to fill';
-                        span.classList.add('italic', 'text-slate-300');
-                        span.classList.remove('text-slate-800');
-                        this.style.borderColor = '';
-                        delete this.dataset.filled;
-                        return;
-                    }
-                    if (!_wbSelected) return;
-                    span.textContent = _wbSelected.word;
-                    span.classList.remove('italic', 'text-slate-300');
-                    span.classList.add('text-slate-800');
-                    this.dataset.filled = _wbSelected.word;
-                    this.style.borderColor = 'var(--theme-color)';
-                    _wbSelected.chip.classList.add('used', 'opacity-30');
-                    _wbSelected.chip.style.pointerEvents = 'none';
-                    _wbSelected.chip.classList.remove('ring-2', 'ring-offset-1');
-                    _wbSelected = null;
-                });
-            });
-
-            // Legacy sort words
-            document.querySelectorAll('.sort-word').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const exId = this.dataset.ex;
-                    const idx = this.dataset.idx;
-                    const currentCat = _sortState[exId][idx];
-                    if (currentCat !== null) {
-                        const drop = document.querySelector(`.sort-drop[data-ex="${exId}"][data-col="${currentCat}"]`);
-                        if (drop) { const placed = drop.querySelector(`[data-placed="${idx}"]`); if (placed) placed.remove(); }
-                    }
-                    const next = currentCat === null ? 0 : currentCat === 0 ? 1 : null;
-                    _sortState[exId][idx] = next;
-                    if (next !== null) {
-                        const drop = document.querySelector(`.sort-drop[data-ex="${exId}"][data-col="${next}"]`);
-                        const tag = document.createElement('div');
-                        tag.dataset.placed = idx;
-                        tag.className = 'px-2 py-1 rounded-lg text-xs font-bold text-center';
-                        tag.style.background = 'var(--theme-bg-color)';
-                        tag.style.color = 'var(--theme-color)';
-                        tag.textContent = this.textContent;
-                        drop.appendChild(tag);
-                        this.style.opacity = '0.4';
-                    } else {
-                        this.style.opacity = '';
-                    }
-                });
-            });
-
-            // Legacy story choice buttons
-            document.querySelectorAll('.sc-opt').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const itemId = this.dataset.item;
-                    const exId = this.dataset.sc;
-                    document.querySelectorAll(`.sc-opt[data-sc="${exId}"][data-item="${itemId}"]`).forEach(b => {
-                        b.style.background = 'var(--theme-bg-color)';
-                        b.style.color = 'var(--theme-color)';
-                        b.classList.remove('font-extrabold');
-                    });
-                    this.style.background = 'var(--theme-color)';
-                    this.style.color = 'white';
-                    this.classList.add('font-extrabold');
-                    const answerSpan = document.getElementById(`sc-answer-${itemId}`);
-                    if (answerSpan) answerSpan.textContent = this.dataset.val;
-                });
-            });
-
-            // NEW: Passage fill chips (click chip → select, then click input → fill)
-            document.querySelectorAll('.pf-chip').forEach(chip => {
-                chip.addEventListener('click', function() {
-                    if (this.classList.contains('used')) return;
-                    document.querySelectorAll('.pf-chip').forEach(c => {
-                        c.classList.remove('ring-2', 'ring-offset-1');
-                        c.style.background = 'var(--theme-bg-color)';
-                        c.style.color = 'var(--theme-color)';
-                    });
-                    this.classList.add('ring-2', 'ring-offset-1');
-                    this.style.background = 'var(--theme-color)';
-                    this.style.color = 'white';
-                    _pfSelectedChip = { word: this.dataset.word, chip: this };
-                });
-            });
-
-            document.querySelectorAll('.pf-input').forEach(input => {
-                input.addEventListener('click', function() {
-                    if (this.value && !_pfSelectedChip) {
-                        // Click filled input with no chip selected → clear it
-                        const oldWord = this.value;
-                        const oldChip = document.querySelector(`.pf-chip[data-word="${oldWord}"][data-ex="${this.dataset.ex}"]`);
-                        if (oldChip) {
-                            oldChip.classList.remove('used', 'opacity-30');
-                            oldChip.style.pointerEvents = '';
+        function attachItemListeners(ex, item) {
+            if (ex.type === 'passage-fill') {
+                document.querySelectorAll('.pf-inp-ov').forEach(inp => {
+                    inp.addEventListener('click', function() {
+                        if (_pfOvSel && !this.value) {
+                            saveAnswer(this.dataset.pfkey, _pfOvSel);
+                            _pfOvSel = null;
+                            renderExMain();
                         }
-                        this.value = '';
-                        this.style.borderColor = 'var(--theme-color)';
-                        return;
-                    }
-                    if (!_pfSelectedChip) return;
-                    this.value = _pfSelectedChip.word;
-                    _pfSelectedChip.chip.classList.add('used', 'opacity-30');
-                    _pfSelectedChip.chip.style.pointerEvents = 'none';
-                    _pfSelectedChip.chip.classList.remove('ring-2', 'ring-offset-1');
-                    _pfSelectedChip.chip.style.background = 'var(--theme-bg-color)';
-                    _pfSelectedChip.chip.style.color = 'var(--theme-color)';
-                    _pfSelectedChip = null;
-                });
-            });
-
-            // NEW: Drag-and-drop for drag-sort
-            document.querySelectorAll('.drag-word').forEach(word => {
-                word.addEventListener('dragstart', function(e) {
-                    e.dataTransfer.setData('text/plain', JSON.stringify({
-                        exId: this.dataset.ex,
-                        idx: this.dataset.idx,
-                        cat: this.dataset.cat,
-                        word: this.textContent.trim()
-                    }));
-                    this.classList.add('opacity-40');
-                });
-                word.addEventListener('dragend', function() {
-                    this.classList.remove('opacity-40');
-                });
-            });
-
-            document.querySelectorAll('.drop-zone').forEach(zone => {
-                zone.addEventListener('dragover', function(e) {
-                    e.preventDefault();
-                    this.style.background = 'var(--theme-bg-color)';
-                });
-                zone.addEventListener('dragleave', function() {
-                    this.style.background = '';
-                });
-                zone.addEventListener('drop', function(e) {
-                    e.preventDefault();
-                    this.style.background = '';
-                    let data;
-                    try { data = JSON.parse(e.dataTransfer.getData('text/plain')); } catch(err) { return; }
-                    const col = parseInt(this.dataset.col);
-                    // Remove from any previous drop zone
-                    document.querySelectorAll(`.drop-zone[data-ex="${data.exId}"] [data-placed="${data.idx}"]`).forEach(el => el.remove());
-                    // Fade original word
-                    const original = document.querySelector(`.drag-word[data-ex="${data.exId}"][data-idx="${data.idx}"]`);
-                    if (original) original.style.opacity = '0.4';
-                    // Create placed tag
-                    const tag = document.createElement('div');
-                    tag.dataset.placed = data.idx;
-                    tag.dataset.cat = data.cat;
-                    tag.dataset.colPlaced = col;
-                    tag.className = 'px-2 py-1 rounded-lg text-sm font-bold text-center cursor-pointer';
-                    tag.style.background = 'var(--theme-bg-color)';
-                    tag.style.color = 'var(--theme-color)';
-                    tag.textContent = data.word;
-                    const exId = data.exId, idx = data.idx;
-                    // Click placed tag to remove
-                    tag.addEventListener('click', function() {
-                        const orig = document.querySelector(`.drag-word[data-ex="${exId}"][data-idx="${idx}"]`);
-                        if (orig) orig.style.opacity = '';
-                        this.remove();
                     });
-                    this.querySelector('.drop-items').appendChild(tag);
                 });
-            });
-
-            // Navigator buttons: scroll to question item
-            document.querySelectorAll('.q-nav-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const target = document.getElementById(this.dataset.target);
-                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    document.querySelectorAll('.q-nav-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
+                return;
+            }
+            if (ex.type === 'drag-sort') {
+                document.querySelectorAll('.ex-drag-word').forEach(word => {
+                    word.addEventListener('dragstart', function(e) {
+                        e.dataTransfer.setData('text/plain', JSON.stringify({
+                            exId: this.dataset.ex, idx: this.dataset.idx, cat: this.dataset.cat, word: this.textContent.trim()
+                        }));
+                        this.style.opacity = '0.4';
+                    });
+                    word.addEventListener('dragend', function() { this.style.opacity = ''; });
                 });
-            });
+                document.querySelectorAll('.drop-zone-ov').forEach(zone => {
+                    zone.addEventListener('dragover', function(e) { e.preventDefault(); this.classList.add('drag-over'); });
+                    zone.addEventListener('dragleave', function() { this.classList.remove('drag-over'); });
+                    zone.addEventListener('drop', function(e) {
+                        e.preventDefault(); this.classList.remove('drag-over');
+                        let data; try { data = JSON.parse(e.dataTransfer.getData('text/plain')); } catch(err) { return; }
+                        _answers[`${data.exId}-sort-${data.idx}`] = parseInt(this.dataset.col);
+                        renderExSidebar(); renderExMain(); renderExBottom();
+                    });
+                });
+            }
         }
 
-        // --- Kiểm tra tất cả đáp án ---
-        function checkAllAnswers() {
+        // === Submit / Check all answers ===
+        function submitAll() {
+            if (!_exData) return;
             let correct = 0, total = 0;
-
-            // NEW: Word bank fill with images (wbf-input text fields)
-            document.querySelectorAll('.wbf-input').forEach(input => {
-                total++;
-                const userAns = input.value.trim().toLowerCase();
-                const correctAns = input.dataset.answer.trim().toLowerCase();
-                const row = input.closest('.ex-item-anchor, .ex-item-row');
-                const hint = input.dataset.id ? document.getElementById(`hint-${input.dataset.id}`) : null;
-                if (userAns === correctAns) {
-                    correct++;
-                    input.style.borderColor = '#22c55e'; input.style.color = '#16a34a';
-                    if (row) row.style.borderColor = '#22c55e';
-                    if (hint) { hint.classList.remove('visible'); }
-                } else {
-                    input.style.borderColor = '#ef4444'; input.style.color = '#dc2626';
-                    if (row) row.style.borderColor = '#ef4444';
-                    if (hint) { hint.textContent = '✓ ' + input.dataset.answer; hint.classList.add('visible'); }
-                    else if (!input.value) input.placeholder = input.dataset.answer;
-                }
-            });
-
-            // Legacy word bank blank cards
-            document.querySelectorAll('.wb-blank-card').forEach(card => {
-                total++;
-                const span = card.querySelector('.wb-blank-text');
-                const userAns = (card.dataset.filled || '').trim().toLowerCase();
-                const correctAns = card.dataset.answer.trim().toLowerCase();
-                if (userAns === correctAns) {
-                    card.style.borderColor = '#22c55e'; span.style.color = '#16a34a'; correct++;
-                } else {
-                    card.style.borderColor = '#ef4444'; span.style.color = '#dc2626';
-                    if (!card.dataset.filled) span.textContent = '?';
-                }
-            });
-
-            // Passage fill inputs (filled by chip click)
-            document.querySelectorAll('.pf-input').forEach(input => {
-                total++;
-                const userAns = input.value.trim().toLowerCase();
-                const correctAns = input.dataset.answer.trim().toLowerCase();
-                if (userAns === correctAns) {
-                    input.style.borderColor = '#22c55e'; input.style.color = '#16a34a'; correct++;
-                } else {
-                    input.style.borderColor = '#ef4444'; input.style.color = '#dc2626';
-                    if (!input.value) input.placeholder = input.dataset.answer;
-                }
-            });
-
-            // NEW: Drag-sort — check each placed tag's column vs correct category
-            document.querySelectorAll('.drop-zone').forEach(zone => {
-                const col = parseInt(zone.dataset.col);
-                zone.querySelectorAll('[data-placed]').forEach(placed => {
-                    total++;
-                    const correctCat = parseInt(placed.dataset.cat);
-                    if (col === correctCat) {
-                        correct++;
-                        placed.style.background = '#dcfce7';
-                        placed.style.color = '#16a34a';
-                        placed.style.border = '2px solid #22c55e';
-                    } else {
-                        placed.style.background = '#fee2e2';
-                        placed.style.color = '#dc2626';
-                        placed.style.border = '2px solid #ef4444';
-                    }
-                });
-            });
-
-            // NEW: Image type (it-input — present and past text fields)
-            document.querySelectorAll('.it-input').forEach(input => {
-                total++;
-                const userAns = input.value.trim().toLowerCase();
-                const correctAns = input.dataset.answer.trim().toLowerCase();
-                if (userAns === correctAns) {
-                    correct++;
-                    input.style.borderColor = '#22c55e';
-                    input.style.color = '#16a34a';
-                } else {
-                    input.style.borderColor = '#ef4444';
-                    input.style.color = '#dc2626';
-                    if (!input.value) input.placeholder = input.dataset.answer;
-                }
-            });
-
-            // NEW: Story type (st-input text fields)
-            document.querySelectorAll('.st-input').forEach(input => {
-                total++;
-                const userAns = input.value.trim().toLowerCase();
-                const correctAns = input.dataset.answer.trim().toLowerCase();
-                const hint = input.dataset.id ? document.getElementById(`hint-${input.dataset.id}`) : null;
-                if (userAns === correctAns) {
-                    correct++;
-                    input.style.borderColor = '#22c55e'; input.style.color = '#16a34a';
-                    if (hint) hint.classList.remove('visible');
-                } else {
-                    input.style.borderColor = '#ef4444'; input.style.color = '#dc2626';
-                    if (hint) { hint.textContent = '✓ ' + input.dataset.answer; hint.classList.add('visible'); }
-                    else if (!input.value) input.placeholder = input.dataset.answer;
-                }
-            });
-
-            // Legacy sort words
-            document.querySelectorAll('.sort-word').forEach(btn => {
-                const exId = btn.dataset.ex;
-                const idx = btn.dataset.idx;
-                const correctCat = parseInt(btn.dataset.cat);
-                const chosen = _sortState[exId]?.[idx];
-                if (chosen === null || chosen === undefined) return;
-                total++;
-                const drop = document.querySelector(`.sort-drop[data-ex="${exId}"][data-col="${chosen}"]`);
-                const placed = drop?.querySelector(`[data-placed="${idx}"]`);
-                if (chosen === correctCat) {
-                    correct++;
-                    if (placed) { placed.style.background = '#dcfce7'; placed.style.color = '#16a34a'; placed.style.border = '1px solid #22c55e'; }
-                } else {
-                    if (placed) { placed.style.background = '#fee2e2'; placed.style.color = '#dc2626'; placed.style.border = '1px solid #ef4444'; }
-                }
-            });
-
-            // Legacy story choice buttons
-            document.querySelectorAll('.sc-opt').forEach(btn => {
-                if (!btn.classList.contains('font-extrabold')) return;
-                total++;
-                const userAns = btn.dataset.val;
-                const correctAns = btn.dataset.answer;
-                if (userAns === correctAns) {
-                    btn.style.background = '#22c55e'; correct++;
-                } else {
-                    btn.style.background = '#ef4444';
-                    const itemId = btn.dataset.item;
-                    const exId = btn.dataset.sc;
-                    document.querySelectorAll(`.sc-opt[data-sc="${exId}"][data-item="${itemId}"][data-val="${correctAns}"]`).forEach(b => {
-                        b.style.background = '#22c55e'; b.style.color = 'white';
+            _exData.exercises.forEach(ex => {
+                if (ex.type === 'word-bank-fill') {
+                    ex.items.filter(i=>!i.given).forEach(item => {
+                        total++;
+                        if ((_answers[`${ex.id}-${item.id}`]||'').trim().toLowerCase() === item.answer.trim().toLowerCase()) correct++;
+                    });
+                } else if (ex.type === 'image-type') {
+                    ex.items.filter(i=>!i.given).forEach(item => {
+                        total += 2;
+                        if ((_answers[`${ex.id}-${item.id}-present`]||'').trim().toLowerCase() === item.present.trim().toLowerCase()) correct++;
+                        if ((_answers[`${ex.id}-${item.id}-past`]||'').trim().toLowerCase() === item.past.trim().toLowerCase()) correct++;
+                    });
+                } else if (ex.type === 'story-type') {
+                    ex.items.forEach(item => {
+                        total++;
+                        if (_answers[`${ex.id}-${item.id}`] === item.answer) correct++;
+                    });
+                } else if (ex.type === 'passage-fill') {
+                    ex.passages.forEach(p => p.parts.filter(pt=>pt.blank).forEach(part => {
+                        total++;
+                        if ((_answers[`${ex.id}-${part.blank}`]||'').trim().toLowerCase() === part.answer.trim().toLowerCase()) correct++;
+                    }));
+                } else if (ex.type === 'drag-sort') {
+                    ex.words.forEach((w,i) => {
+                        total++;
+                        if (_answers[`${ex.id}-sort-${i}`] === w.category) correct++;
                     });
                 }
             });
-
             const pct = total > 0 ? Math.round(correct / total * 100) : 0;
-            const stars = pct === 100 ? '⭐⭐⭐' : pct >= 70 ? '⭐⭐' : pct >= 40 ? '⭐' : '';
-            const msg = pct === 100
-                ? 'Tuyệt vời! Em đã trả lời đúng tất cả các câu! 🎊'
-                : pct >= 70
-                    ? 'Rất tốt! Em làm tốt lắm! Xem lại những câu chưa đúng nhé! 💪'
-                    : pct >= 40
-                        ? 'Cố lên! Em hãy xem lại các câu sai và thử lại nhé! 📚'
-                        : 'Cố gắng thêm nhé! Hãy xem gợi ý và thử làm lại! 🌱';
+            const stars = pct===100?'⭐⭐⭐':pct>=70?'⭐⭐':pct>=40?'⭐':'';
+            const msg = pct===100?'Tuyệt vời! Em đã trả lời đúng tất cả các câu! 🎊'
+                :pct>=70?'Rất tốt! Em làm tốt lắm! 💪'
+                :pct>=40?'Cố lên! Xem lại các câu sai nhé! 📚'
+                :'Cố gắng thêm nhé! 🌱';
             Swal.fire({
-                title: `${stars || '📝'} ${correct}/${total} câu đúng`,
+                title: `${stars||'📝'} ${correct}/${total} câu đúng`,
                 html: `<div style="font-size:1.1rem;margin-top:0.5rem;">${msg}</div>
                        <div style="font-size:2rem;margin-top:0.75rem;font-weight:bold;color:#20a1a0;">${pct}%</div>`,
-                icon: pct === 100 ? 'success' : pct >= 70 ? 'success' : 'info',
+                icon: pct>=70?'success':'info',
                 confirmButtonColor: '#20a1a0',
-                confirmButtonText: pct < 100 ? 'Xem lại bài' : 'Tuyệt vời!'
+                confirmButtonText: pct<100?'Xem lại bài':'Tuyệt vời!'
             });
         }
+        function checkAllAnswers() { submitAll(); }
 
-        // --- Router (Quản lý chuyển trang bằng URL Hash) ---
+
+                // --- Router (Quản lý chuyển trang bằng URL Hash) ---
         // Giúp tạo ra các link duy nhất cho từng bài tập
         function handleRouting() {
             const hash = window.location.hash || '#/';
@@ -1177,6 +1018,8 @@
             // Ẩn tất cả view trước khi hiển thị view mới
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
             document.body.classList.remove('has-exercise');
+            document.getElementById('exov')?.remove();
+            _exData = null;
 
             if (hash.startsWith('#/material/')) {
                 // Route: Chi tiết tài liệu hoặc thư mục
