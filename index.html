@@ -402,48 +402,345 @@
         }
 
         // --- Render bài tập từ dữ liệu JSON ---
+        let _exAnswers = {}; // { blankId: answer } for word-bank and passage
+        let _wbSelected = null; // currently selected word from bank
+        let _sortState = {}; // { exId: { wordId: chosenCategory } }
+
         function renderExercises(data, container) {
-            let html = '<div class="space-y-6">';
-            data.exercises.forEach((ex, idx) => {
-                if (ex.type === 'multiple-choice') {
-                    html += `
-                        <div class="bg-slate-50 p-6 rounded-3xl border border-slate-100 shadow-sm">
-                            <h3 class="font-bold text-slate-700 mb-1 flex items-center gap-2 text-base">
-                                <span class="w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold text-white" style="background-color: var(--theme-color);">${idx + 1}</span>
-                                ${ex.question}
-                            </h3>
-                            ${ex.instruction ? `<p class="text-slate-400 text-sm mb-3 ml-9">${ex.instruction}</p>` : ''}
-                            <div class="space-y-2 mt-3">
-                                ${ex.options.map((opt, i) => `
-                                    <label class="flex items-center gap-3 p-3 bg-white rounded-2xl border border-slate-200 cursor-pointer hover:border-slate-300 transition-colors">
-                                        <input type="radio" name="q${idx}" value="${i}" class="w-4 h-4" style="accent-color: var(--theme-color);">
-                                        <span class="font-medium text-slate-700">${opt}</span>
-                                    </label>
-                                `).join('')}
-                            </div>
-                        </div>
-                    `;
-                } else if (ex.type === 'fill-in') {
-                    html += `
-                        <div class="bg-slate-50 p-6 rounded-3xl border border-slate-100 shadow-sm">
-                            <h3 class="font-bold text-slate-700 mb-1 flex items-center gap-2 text-base">
-                                <span class="w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold text-white" style="background-color: var(--theme-color);">${idx + 1}</span>
-                                ${ex.question}
-                            </h3>
-                            ${ex.instruction ? `<p class="text-slate-400 text-sm mb-3 ml-9">${ex.instruction}</p>` : ''}
-                            <input type="text" name="q${idx}" placeholder="Nhập câu trả lời..." class="mt-3 w-full px-4 py-3 bg-white border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 transition-all" style="focus: ring-color: var(--theme-color);">
-                        </div>
-                    `;
-                }
+            _exAnswers = {}; _wbSelected = null; _sortState = {};
+            let html = '<div class="space-y-8">';
+            data.exercises.forEach(ex => {
+                if (ex.type === 'word-bank-fill') html += renderWordBankFill(ex);
+                else if (ex.type === 'passage-fill')  html += renderPassageFill(ex);
+                else if (ex.type === 'sort')           html += renderSort(ex);
+                else if (ex.type === 'story-choice')   html += renderStoryChoice(ex);
+                else if (ex.type === 'multiple-choice') html += renderMC(ex);
+                else if (ex.type === 'fill-in')         html += renderFillIn(ex);
             });
             html += `
-                <div class="text-center pt-2">
-                    <button onclick="submitQuiz()" class="py-4 px-12 bg-slate-800 text-white font-bold text-lg rounded-2xl hover:bg-slate-700 transition-colors shadow-lg hover-bounce inline-block">
-                        Nộp bài
+                <div class="text-center pt-2 pb-4">
+                    <button onclick="checkAllAnswers()" class="py-4 px-12 text-white font-bold text-lg rounded-2xl transition-colors shadow-lg hover-bounce inline-block" style="background-color: var(--theme-color);">
+                        Kiểm tra bài
                     </button>
                 </div>
             </div>`;
             container.innerHTML = html;
+            attachExerciseListeners();
+        }
+
+        function exCard(title, instruction, content) {
+            return `<div class="bg-slate-50 rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
+                <div class="px-6 pt-5 pb-3">
+                    <h3 class="font-bold text-slate-800 text-base mb-1" style="color: var(--theme-color);">${title}</h3>
+                    <p class="text-slate-500 text-sm font-medium mb-4">${instruction}</p>
+                    ${content}
+                </div>
+            </div>`;
+        }
+
+        function wordBankHtml(words, exId) {
+            const chips = words.map(w =>
+                `<button class="wb-chip px-3 py-1.5 rounded-xl text-sm font-semibold border-2 transition-all"
+                    data-ex="${exId}" data-word="${w}"
+                    style="border-color: var(--theme-color); color: var(--theme-color); background: var(--theme-bg-color);">${w}</button>`
+            ).join('');
+            return `<div class="flex flex-wrap gap-2 mb-5 p-4 bg-white rounded-2xl border border-slate-200">${chips}</div>`;
+        }
+
+        function renderWordBankFill(ex) {
+            const allWords = ex.items.filter(i => !i.given).map(i => i.answer);
+            const shuffled = [...ex.wordBank || allWords].sort(() => Math.random() - 0.5);
+            const grid = ex.items.map(item => {
+                if (item.given) {
+                    return `<div class="flex items-center gap-3 bg-white rounded-2xl p-3 border border-slate-200">
+                        <span class="text-lg leading-none">${item.label.split(' ')[0]}</span>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-xs text-slate-400 truncate">${item.label.slice(item.label.indexOf(' ')+1)}</p>
+                            <span class="font-bold text-sm" style="color:var(--theme-color);">${item.answer}</span>
+                        </div>
+                    </div>`;
+                }
+                return `<div class="flex items-center gap-3 bg-white rounded-2xl p-3 border-2 border-slate-200 wb-blank-card"
+                            data-blank="${item.id}" data-answer="${item.answer}" data-ex="${ex.id}">
+                    <span class="text-lg leading-none">${item.label.split(' ')[0]}</span>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-xs text-slate-400 truncate">${item.label.slice(item.label.indexOf(' ')+1)}</p>
+                        <span class="wb-blank-text text-sm font-bold italic text-slate-300">click to fill</span>
+                    </div>
+                </div>`;
+            }).join('');
+            return exCard(`${ex.title}`, ex.instruction,
+                wordBankHtml(shuffled, ex.id) +
+                `<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">${grid}</div>`
+            );
+        }
+
+        function renderPassageFill(ex) {
+            const passagesHtml = ex.passages.map(p => {
+                let txt = '';
+                p.parts.forEach(part => {
+                    if (part.text) {
+                        txt += part.text.replace(/\n/g, '<br>');
+                    } else {
+                        txt += `<input type="text"
+                            class="pf-input inline-block border-b-2 border-slate-400 focus:outline-none text-center font-bold text-sm w-24 mx-1 bg-transparent transition-colors"
+                            data-blank="${part.blank}" data-answer="${part.answer}"
+                            placeholder="${part.num}"
+                            style="border-color: var(--theme-color);">`;
+                    }
+                });
+                return `<div class="bg-white rounded-2xl border border-slate-200 p-5 mb-4">
+                    <p class="text-xs font-semibold mb-3" style="color:var(--theme-color);">${p.header}</p>
+                    <p class="text-slate-700 text-sm leading-loose">${txt}</p>
+                </div>`;
+            }).join('');
+            return exCard(`${ex.title}`, ex.instruction,
+                `<div class="flex flex-wrap gap-2 mb-4 p-3 bg-white rounded-2xl border border-slate-200">
+                    ${ex.wordBank.map(w => `<span class="px-3 py-1 rounded-xl text-xs font-semibold" style="background:var(--theme-bg-color);color:var(--theme-color);">${w}</span>`).join('')}
+                </div>` + passagesHtml
+            );
+        }
+
+        function renderSort(ex) {
+            _sortState[ex.id] = {};
+            ex.words.forEach((w,i) => { _sortState[ex.id][i] = null; });
+            const wordsHtml = ex.words.map((w,i) =>
+                `<button class="sort-word px-3 py-2 rounded-xl text-sm font-semibold border-2 transition-all w-full"
+                    data-ex="${ex.id}" data-idx="${i}" data-cat="${w.category}"
+                    style="border-color:var(--theme-color);color:var(--theme-color);background:var(--theme-bg-color);">${w.word}</button>`
+            ).join('');
+            return exCard(`${ex.title}`, ex.instruction,
+                `<div class="grid grid-cols-3 gap-3 items-start">
+                    <div class="sort-col rounded-2xl p-3 min-h-32 border-2 border-dashed border-slate-300" id="sort-${ex.id}-0">
+                        <p class="text-xs font-bold text-center mb-3 text-slate-500">${ex.categories[0]}</p>
+                        <div class="sort-drop space-y-2" data-ex="${ex.id}" data-col="0"></div>
+                    </div>
+                    <div class="flex flex-col gap-2">${wordsHtml}</div>
+                    <div class="sort-col rounded-2xl p-3 min-h-32 border-2 border-dashed border-slate-300" id="sort-${ex.id}-1">
+                        <p class="text-xs font-bold text-center mb-3 text-slate-500">${ex.categories[1]}</p>
+                        <div class="sort-drop space-y-2" data-ex="${ex.id}" data-col="1"></div>
+                    </div>
+                </div>`
+            );
+        }
+
+        function renderStoryChoice(ex) {
+            const items = ex.items.map(item => {
+                const opts = item.options.map(o =>
+                    `<button class="sc-opt px-3 py-1.5 rounded-xl text-sm font-semibold border-2 transition-all"
+                        data-sc="${ex.id}" data-item="${item.id}" data-val="${o}" data-answer="${item.answer}"
+                        style="border-color:var(--theme-color);color:var(--theme-color);background:var(--theme-bg-color);">${o}</button>`
+                ).join('');
+                return `<div class="bg-white rounded-2xl p-4 border border-slate-200">
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full text-xs font-bold flex items-center justify-center text-white flex-shrink-0 mt-0.5" style="background:var(--theme-color);">${item.num}</span>
+                        <div>
+                            <p class="text-slate-700 text-sm mb-2">
+                                ${item.before} <span id="sc-answer-${item.id}" class="font-bold px-2">______</span> ${item.after}
+                            </p>
+                            <div class="flex flex-wrap gap-2">${opts}</div>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+            return exCard(`${ex.title}`, ex.instruction,
+                `<div class="bg-white rounded-2xl p-4 border-l-4 mb-4 text-slate-600 text-sm italic" style="border-color:var(--theme-color);">${ex.context}</div>
+                <div class="space-y-3">${items}</div>`
+            );
+        }
+
+        function renderMC(ex) {
+            return exCard(ex.title || 'Multiple Choice', ex.instruction || '',
+                `<p class="text-slate-700 font-medium mb-3">${ex.question}</p>
+                <div class="space-y-2">
+                    ${ex.options.map((o,i) => `
+                        <label class="flex items-center gap-3 p-3 bg-white rounded-2xl border border-slate-200 cursor-pointer hover:border-slate-300 transition-colors">
+                            <input type="radio" name="mc-${ex.id||i}" value="${i}" class="w-4 h-4" style="accent-color:var(--theme-color);">
+                            <span class="font-medium text-slate-700">${o}</span>
+                        </label>`).join('')}
+                </div>`
+            );
+        }
+
+        function renderFillIn(ex) {
+            return exCard(ex.title || 'Fill in', ex.instruction || '',
+                `<p class="text-slate-700 font-medium mb-3">${ex.question}</p>
+                <input type="text" placeholder="Nhập câu trả lời..."
+                    class="w-full px-4 py-3 bg-white border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 transition-all">`
+            );
+        }
+
+        // --- Event listeners cho các loại bài tập ---
+        function attachExerciseListeners() {
+            // Word bank chips
+            document.querySelectorAll('.wb-chip').forEach(chip => {
+                chip.addEventListener('click', function() {
+                    if (this.classList.contains('used')) return;
+                    document.querySelectorAll('.wb-chip').forEach(c => c.classList.remove('ring-2', 'ring-offset-1'));
+                    this.classList.add('ring-2', 'ring-offset-1');
+                    _wbSelected = { word: this.dataset.word, chip: this };
+                });
+            });
+
+            // Word bank blank cards
+            document.querySelectorAll('.wb-blank-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const span = this.querySelector('.wb-blank-text');
+                    if (this.dataset.filled && _wbSelected === null) {
+                        // Clear filled blank
+                        const oldWord = span.textContent;
+                        const oldChip = document.querySelector(`.wb-chip[data-word="${oldWord}"][data-ex="${this.dataset.ex}"]`);
+                        if (oldChip) { oldChip.classList.remove('used', 'opacity-30'); oldChip.style.pointerEvents = ''; }
+                        span.textContent = 'click to fill';
+                        span.classList.add('italic', 'text-slate-300');
+                        span.classList.remove('text-slate-800');
+                        this.style.borderColor = '';
+                        delete this.dataset.filled;
+                        return;
+                    }
+                    if (!_wbSelected) return;
+                    span.textContent = _wbSelected.word;
+                    span.classList.remove('italic', 'text-slate-300');
+                    span.classList.add('text-slate-800');
+                    this.dataset.filled = _wbSelected.word;
+                    this.style.borderColor = 'var(--theme-color)';
+                    _wbSelected.chip.classList.add('used', 'opacity-30');
+                    _wbSelected.chip.style.pointerEvents = 'none';
+                    _wbSelected.chip.classList.remove('ring-2', 'ring-offset-1');
+                    _wbSelected = null;
+                });
+            });
+
+            // Sort words
+            document.querySelectorAll('.sort-word').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const exId = this.dataset.ex;
+                    const idx = this.dataset.idx;
+                    const correctCat = parseInt(this.dataset.cat);
+                    const currentCat = _sortState[exId][idx];
+
+                    // Remove from current drop zone if placed
+                    if (currentCat !== null) {
+                        const drop = document.querySelector(`.sort-drop[data-ex="${exId}"][data-col="${currentCat}"]`);
+                        if (drop) { const placed = drop.querySelector(`[data-placed="${idx}"]`); if (placed) placed.remove(); }
+                    }
+
+                    // Cycle: null → 0 → 1 → null
+                    const next = currentCat === null ? 0 : currentCat === 0 ? 1 : null;
+                    _sortState[exId][idx] = next;
+
+                    if (next !== null) {
+                        const drop = document.querySelector(`.sort-drop[data-ex="${exId}"][data-col="${next}"]`);
+                        const tag = document.createElement('div');
+                        tag.dataset.placed = idx;
+                        tag.className = 'px-2 py-1 rounded-lg text-xs font-bold text-center';
+                        tag.style.background = 'var(--theme-bg-color)';
+                        tag.style.color = 'var(--theme-color)';
+                        tag.textContent = this.textContent;
+                        drop.appendChild(tag);
+                        this.style.opacity = '0.4';
+                    } else {
+                        this.style.opacity = '';
+                    }
+                });
+            });
+
+            // Story choice buttons
+            document.querySelectorAll('.sc-opt').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const itemId = this.dataset.item;
+                    const exId = this.dataset.sc;
+                    document.querySelectorAll(`.sc-opt[data-sc="${exId}"][data-item="${itemId}"]`).forEach(b => {
+                        b.style.background = 'var(--theme-bg-color)';
+                        b.style.color = 'var(--theme-color)';
+                        b.classList.remove('font-extrabold');
+                    });
+                    this.style.background = 'var(--theme-color)';
+                    this.style.color = 'white';
+                    this.classList.add('font-extrabold');
+                    const answerSpan = document.getElementById(`sc-answer-${itemId}`);
+                    if (answerSpan) answerSpan.textContent = this.dataset.val;
+                });
+            });
+        }
+
+        // --- Kiểm tra tất cả đáp án ---
+        function checkAllAnswers() {
+            let correct = 0, total = 0;
+
+            // Word bank blanks
+            document.querySelectorAll('.wb-blank-card').forEach(card => {
+                total++;
+                const span = card.querySelector('.wb-blank-text');
+                const userAns = (card.dataset.filled || '').trim().toLowerCase();
+                const correct_ans = card.dataset.answer.trim().toLowerCase();
+                if (userAns === correct_ans) {
+                    card.style.borderColor = '#22c55e'; span.style.color = '#16a34a'; correct++;
+                } else {
+                    card.style.borderColor = '#ef4444'; span.style.color = '#dc2626';
+                    if (!card.dataset.filled) span.textContent = '?';
+                }
+            });
+
+            // Passage fill inputs
+            document.querySelectorAll('.pf-input').forEach(input => {
+                total++;
+                const userAns = input.value.trim().toLowerCase();
+                const correct_ans = input.dataset.answer.trim().toLowerCase();
+                if (userAns === correct_ans) {
+                    input.style.borderColor = '#22c55e'; input.style.color = '#16a34a'; correct++;
+                } else {
+                    input.style.borderColor = '#ef4444'; input.style.color = '#dc2626';
+                    if (!input.value) input.placeholder = input.dataset.answer;
+                }
+            });
+
+            // Sort words
+            document.querySelectorAll('.sort-word').forEach(btn => {
+                const exId = btn.dataset.ex;
+                const idx = btn.dataset.idx;
+                const correctCat = parseInt(btn.dataset.cat);
+                const chosen = _sortState[exId]?.[idx];
+                if (chosen === null || chosen === undefined) return;
+                total++;
+                const drop = document.querySelector(`.sort-drop[data-ex="${exId}"][data-col="${chosen}"]`);
+                const placed = drop?.querySelector(`[data-placed="${idx}"]`);
+                if (chosen === correctCat) {
+                    correct++;
+                    if (placed) { placed.style.background = '#dcfce7'; placed.style.color = '#16a34a'; placed.style.border = '1px solid #22c55e'; }
+                } else {
+                    if (placed) { placed.style.background = '#fee2e2'; placed.style.color = '#dc2626'; placed.style.border = '1px solid #ef4444'; }
+                }
+            });
+
+            // Story choice
+            document.querySelectorAll('.sc-opt').forEach(btn => {
+                if (!btn.classList.contains('font-extrabold')) return;
+                total++;
+                const userAns = btn.dataset.val;
+                const correct_ans = btn.dataset.answer;
+                if (userAns === correct_ans) {
+                    btn.style.background = '#22c55e'; correct++;
+                } else {
+                    btn.style.background = '#ef4444';
+                    // Show correct answer
+                    const itemId = btn.dataset.item;
+                    const exId = btn.dataset.sc;
+                    document.querySelectorAll(`.sc-opt[data-sc="${exId}"][data-item="${itemId}"][data-val="${correct_ans}"]`).forEach(b => {
+                        b.style.background = '#22c55e'; b.style.color = 'white';
+                    });
+                }
+            });
+
+            Swal.fire({
+                title: correct === total ? '🎉 Xuất sắc!' : `Kết quả: ${correct}/${total}`,
+                html: correct === total
+                    ? 'Bạn trả lời đúng tất cả! Tuyệt vời!'
+                    : `Bạn trả lời đúng <b>${correct}</b> trên tổng số <b>${total}</b> câu đã làm.`,
+                icon: correct === total ? 'success' : 'info',
+                confirmButtonColor: '#20a1a0',
+                confirmButtonText: 'OK'
+            });
         }
 
         // --- Router (Quản lý chuyển trang bằng URL Hash) ---
