@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Language Material</title>
+    
+    <!-- Tailwind CSS cho thiết kế responsive và UI -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome cho icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- SweetAlert2 để thay thế alert() mặc định, tạo thông báo đẹp mắt -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Màu Blue Turtle nhẹ nhàng, thanh lịch
+                        'turtle': {
+                            50: '#f0fbfa',
+                            100: '#ccf2ef',
+                            200: '#99e4df',
+                            300: '#66d3cc',
+                            400: '#3fbcba',
+                            500: '#20a1a0', // Main Blue Turtle color
+                            600: '#178082',
+                            700: '#136768',
+                            800: '#115254',
+                            900: '#0f4446',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(32, 161, 160, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        /* Hiệu ứng nảy nhẹ khi hover cho các tương tác */
+        .hover-bounce {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .hover-bounce:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(32, 161, 160, 0.2), 0 10px 10px -5px rgba(32, 161, 160, 0.1);
+        }
+
+        /* Ẩn hiện các view để tạo ứng dụng Single Page (SPA) */
+        .view-section {
+            display: none;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        .view-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .material-card .card-bg-decor { background-color: var(--theme-color); opacity: 0.1; }
+        .material-card .card-icon { background-color: var(--theme-bg-color); color: var(--theme-color); }
+        .material-card:hover .card-icon { background-color: var(--theme-color) !important; color: white !important; }
+        .material-card:hover .card-title { color: var(--theme-color); }
+        
+        .detail-decor { background-color: var(--theme-color); opacity: 0.15; }
+        .detail-icon { background-color: var(--theme-bg-color); color: var(--theme-color); }
+
+        /* Desktop: scale exercise text 1.5× */
+        @media (min-width: 768px) {
+            #dynamic-content-container .text-sm { font-size: 1.05rem !important; }
+            #dynamic-content-container .text-xs { font-size: 0.9rem !important; }
+            #dynamic-content-container p { font-size: 1.05rem; }
+            #dynamic-content-container input[type="text"] { font-size: 1rem !important; width: 8rem !important; }
+            #dynamic-content-container button.wb-chip,
+            #dynamic-content-container button.pf-chip,
+            #dynamic-content-container .drag-word { font-size: 1rem !important; }
+            #dynamic-content-container .space-y-3 > div,
+            #dynamic-content-container .space-y-2 > div { padding: 1rem; }
+        }
+    </style>
+</head>
+<body class="text-slate-700 min-h-screen flex flex-col">
+
+    <!-- Navbar chung (sẽ ẩn ở màn hình đăng nhập) -->
+    <nav id="main-nav" class="bg-white shadow-sm px-6 py-4 hidden sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3 text-turtle-600 font-bold text-xl cursor-pointer hover-bounce" onclick="window.location.hash='#/dashboard'">
+                <div class="bg-turtle-100 p-2 rounded-xl text-turtle-600">
+                    <i class="fa-solid fa-earth-americas"></i>
+                </div>
+                <span>ELM Portal</span>
+            </div>
+            <div>
+                <button id="logout-btn" class="text-slate-500 hover:text-turtle-600 font-medium px-4 py-2 rounded-xl hover:bg-turtle-50 transition-colors">
+                    <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i>Đăng xuất
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow flex flex-col p-4 sm:p-6 w-full max-w-6xl mx-auto">
+        
+        <!-- VIEW 1: ĐĂNG NHẬP -->
+        <section id="view-login" class="view-section active m-auto w-full max-w-md">
+            <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-soft text-center hover-bounce">
+                <div class="w-20 h-20 bg-turtle-100 rounded-3xl flex items-center justify-center mx-auto mb-6 text-turtle-500 text-4xl shadow-sm rotate-3 hover:rotate-0 transition-transform">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-bold text-slate-800 mb-2">ENGLISH LANGUAGE MATERIAL</h1>
+                <p class="text-slate-500 text-sm mb-8">Dành riêng cho giáo viên. Vui lòng nhập mã truy cập.</p>
+                
+                <form id="login-form" class="space-y-6">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i class="fa-solid fa-lock text-slate-400"></i>
+                        </div>
+                        <input type="password" id="teacher-code" placeholder="Nhập mã giáo viên"
+                            class="w-full pl-11 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 focus:outline-none focus:ring-2 focus:ring-turtle-400 focus:bg-white transition-all shadow-inner font-medium"
+                            required>
+                    </div>
+                    
+                    <button type="submit" 
+                        class="w-full py-4 px-6 bg-turtle-500 text-white font-bold rounded-2xl hover:bg-turtle-600 active:scale-95 transition-all shadow-lg shadow-turtle-500/30 flex items-center justify-center gap-2">
+                        <span>Truy cập hệ thống</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- VIEW 2: DANH SÁCH TÀI LIỆU (DASHBOARD) -->
+        <section id="view-dashboard" class="view-section w-full py-6">
+            <div class="mb-10 text-center sm:text-left">
+                <h2 class="text-3xl font-bold text-slate-800 mb-3">Tài liệu Giảng dạy</h2>
+                <p class="text-slate-500">Chọn một học phần để xem chi tiết và giao bài tập cho học sinh.</p>
+            </div>
+            
+            <!-- Vùng chứa danh sách Grid -->
+            <div id="materials-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Nội dung được render bằng JavaScript tự động -->
+            </div>
+        </section>
+
+        <!-- VIEW 3: CHI TIẾT TÀI LIỆU (MÀN HÌNH BÀI TẬP CÓ LINK RIÊNG) -->
+        <section id="view-detail" class="view-section w-full py-6 max-w-4xl mx-auto">
+            
+            <button id="back-btn" class="mb-6 flex items-center gap-2 text-slate-500 hover:text-slate-800 transition-colors font-medium w-fit hover-bounce">
+                <i class="fa-solid fa-arrow-left"></i> Quay lại danh sách
+            </button>
+
+            <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-soft relative overflow-hidden">
+                <!-- Decoration background -->
+                <div class="absolute -top-16 -right-16 w-32 h-32 rounded-full blur-2xl detail-decor transition-colors duration-500"></div>
+                
+                <div class="relative z-10 flex flex-col md:flex-row gap-8 items-start md:items-center justify-between mb-8 pb-8 border-b border-slate-100">
+                    <div class="flex items-center gap-5">
+                        <div>
+                            <h2 id="detail-title" class="text-2xl sm:text-3xl font-bold text-slate-800">Tên bài học</h2>
+                            <p id="detail-subtitle" class="font-medium mt-1" style="color: var(--theme-color);">Bài tập thực hành</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Nút Copy Link dành cho giáo viên (Học sinh sẽ không thấy nút này) -->
+                    <div id="teacher-tools" class="w-full md:w-auto hidden">
+                        <button onclick="copyCurrentLink()" class="w-full md:w-auto py-3 px-6 bg-slate-50 hover:bg-slate-800 hover:text-white border border-slate-200 font-semibold rounded-2xl transition-all flex items-center justify-center gap-2 shadow-sm hover-bounce" style="color: var(--theme-color);">
+                            <i class="fa-solid fa-link"></i>
+                            <span>Copy Link Giao Bài</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Vùng chứa nội dung động (Thư mục con hoặc Bài tập) -->
+                <div id="dynamic-content-container" class="relative z-10">
+                    <!-- Rendered by JS tự động -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // --- Dữ liệu các cấp độ học (Materials) dựa trên yêu cầu ---
+        const materialsData = [
+            { id: 'pre-a1-starters', name: 'Pre-A1 Starters', description: 'Trình độ cơ bản nhất cho trẻ em mới bắt đầu.', color: '#F5A623', folders: [{ id: 'i-dictionary', name: 'I Dictionary' }] },
+            { id: 'a1-movers', name: 'A1 Movers', description: 'Bước thứ hai trong hành trình học tiếng Anh.', color: '#A8C63B', folders: [{ id: 'i-dictionary', name: 'I Dictionary', topics: [
+                { id: 'animals', name: 'Animals' },
+                { id: 'the-body', name: 'The Body' },
+                { id: 'people', name: 'People' },
+                { id: 'food-and-drink', name: 'Food and Drink' },
+                { id: 'health', name: 'Health' },
+                { id: 'the-home', name: 'The Home' },
+                { id: 'time', name: 'Time' },
+                { id: 'sports-and-leisure', name: 'Sports and Leisure' },
+                { id: 'numbers', name: 'Numbers' },
+                { id: 'places', name: 'Places' },
+                { id: 'weather-and-clothes', name: 'Weather and Clothes' },
+                { id: 'our-world', name: 'Our World' },
+                { id: 'past-verbs', name: 'Past Verbs' },
+                { id: 'adjectives', name: 'Adjectives' },
+                { id: 'revision', name: 'Revision' }
+            ]}] },
+            { id: 'a2-flyers', name: 'A2 Flyers', description: 'Cấp độ cao nhất trong hệ thống YLE cho trẻ.', color: '#21B6A8', folders: [{ id: 'i-dictionary', name: 'I Dictionary' }] },
+            { id: 'a2-key', name: 'A2 Key', description: 'Chứng chỉ tiếng Anh tổng quát trình độ A2 (KET).', color: '#00AFA9' },
+            { id: 'b1-preliminary', name: 'B1 Preliminary', description: 'Nắm vững các kiến thức cơ bản ngôn ngữ (PET).', color: '#009D98' },
+            { id: 'b2-first', name: 'B2 First', description: 'Chứng minh đủ khả năng làm việc/học tập (FCE).', color: '#008F9C' },
+            { id: 'c1-advanced', name: 'C1 Advanced', description: 'Chứng chỉ trình độ tiếng Anh cao cấp (CAE).', color: '#148DA8' }
+        ];
+
+        // Mật khẩu giáo viên cố định theo yêu cầu
+        const TEACHER_CODE = '123';
+        
+        // Kiểm tra xem giáo viên đã đăng nhập từ trước chưa (Lưu session)
+        let isLoggedIn = sessionStorage.getItem('elm_teacher_logged_in') === 'true';
+
+        // Tham chiếu các phần tử DOM
+        const viewLogin = document.getElementById('view-login');
+        const viewDashboard = document.getElementById('view-dashboard');
+        const viewDetail = document.getElementById('view-detail');
+        const mainNav = document.getElementById('main-nav');
+        
+        // --- Render UI Dashboard (Danh sách khóa học) ---
+        function renderDashboard() {
+            const grid = document.getElementById('materials-grid');
+            grid.innerHTML = '';
+            
+            materialsData.forEach(mat => {
+                // Tạo mã màu bg với opacity
+                const bgColorWithOpacity = mat.color + '25';
+                
+                // Thêm thuộc tính aspect-square và flex-col để tạo hình vuông bo góc, chữ căn giữa
+                const cardHtml = `
+                    <a href="#/material/${mat.id}" class="material-card aspect-square flex flex-col justify-center items-center text-center group block bg-white rounded-3xl p-6 border border-slate-100 hover-bounce cursor-pointer relative overflow-hidden shadow-sm" style="--theme-color: ${mat.color}; --theme-bg-color: ${bgColorWithOpacity};">
+                        <div class="absolute -right-4 -top-4 w-24 h-24 rounded-full transition-transform group-hover:scale-150 z-0 duration-500 card-bg-decor"></div>
+                        <div class="relative z-10 flex flex-col justify-center items-center h-full w-full">
+                            <h3 class="text-xl sm:text-2xl font-bold text-slate-800 mb-2 transition-colors duration-300 card-title">${mat.name}</h3>
+                            <p class="text-slate-500 text-sm leading-relaxed">${mat.description}</p>
+                        </div>
+                    </a>
+                `;
+                grid.innerHTML += cardHtml;
+            });
+        }
+
+        // --- Render UI Chi tiết Bài Học & Thư mục ---
+        function renderDetail(pathString) {
+            const pathParts = pathString.split('/');
+            const materialId = pathParts[0];
+            const folderId = pathParts[1];
+            const topicId = pathParts[2];
+
+            const material = materialsData.find(m => m.id === materialId);
+
+            if (!material) {
+                Swal.fire('Lỗi', 'Không tìm thấy tài liệu này!', 'error')
+                    .then(() => window.location.hash = '#/dashboard');
+                return;
+            }
+
+            const viewDetail = document.getElementById('view-detail');
+            viewDetail.style.setProperty('--theme-color', material.color);
+            viewDetail.style.setProperty('--theme-bg-color', material.color + '25');
+
+            let titleText = material.name;
+            let subtitleText = 'Danh sách thư mục';
+            let isShowingQuiz = false;
+
+            const container = document.getElementById('dynamic-content-container');
+            const backBtn = document.getElementById('back-btn');
+            container.innerHTML = '';
+
+            // Nút Quay lại theo cấp
+            if (topicId) {
+                backBtn.onclick = () => window.location.hash = `#/material/${materialId}/${folderId}`;
+                backBtn.innerHTML = '<i class="fa-solid fa-arrow-left"></i> Quay lại thư mục';
+            } else if (folderId) {
+                backBtn.onclick = () => window.location.hash = `#/material/${materialId}`;
+                backBtn.innerHTML = '<i class="fa-solid fa-arrow-left"></i> Quay lại thư mục';
+            } else {
+                backBtn.onclick = () => window.location.hash = '#/dashboard';
+                backBtn.innerHTML = '<i class="fa-solid fa-arrow-left"></i> Quay lại danh sách';
+            }
+
+            if (topicId) {
+                // Cấp 3: load bài tập từ JSON
+                const folder = material.folders?.find(f => f.id === folderId);
+                const topic = folder?.topics?.find(t => t.id === topicId);
+                if (topic) {
+                    titleText = `${material.name} / ${folder.name} / ${topic.name}`;
+                    subtitleText = 'Bài tập thực hành';
+                }
+                document.getElementById('detail-title').innerText = titleText;
+                document.getElementById('detail-subtitle').innerText = subtitleText;
+                const teacherTools = document.getElementById('teacher-tools');
+                if (isLoggedIn) { teacherTools.classList.remove('hidden'); backBtn.style.display = 'flex'; }
+                else { teacherTools.classList.add('hidden'); backBtn.style.display = 'none'; }
+                loadExercisesFromJson(`data/${materialId}/${folderId}/${topicId}.json`, container);
+                return;
+            } else if (folderId) {
+                const folder = material.folders?.find(f => f.id === folderId);
+                if (folder) {
+                    if (folder.topics && folder.topics.length > 0) {
+                        // Cấp 2: folder có topics -> hiện danh sách topics
+                        titleText = `${material.name} / ${folder.name}`;
+                        subtitleText = 'Chọn chủ đề';
+                        let topicsHtml = '<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">';
+                        folder.topics.forEach(t => {
+                            topicsHtml += `
+                                <a href="#/material/${material.id}/${folder.id}/${t.id}" class="aspect-square bg-white rounded-3xl p-4 border border-slate-100 shadow-sm hover-bounce flex flex-col items-center justify-center text-center cursor-pointer group" style="background-color: var(--theme-bg-color);">
+                                    <i class="fa-solid fa-book text-3xl mb-2 opacity-80" style="color: var(--theme-color);"></i>
+                                    <span class="text-sm sm:text-base font-bold transition-transform group-hover:scale-105 leading-tight" style="color: var(--theme-color);">${t.name}</span>
+                                </a>
+                            `;
+                        });
+                        topicsHtml += '</div>';
+                        container.innerHTML = topicsHtml;
+                    } else {
+                        // Cấp 2: folder không có topics -> load JSON
+                        titleText = `${material.name} / ${folder.name}`;
+                        subtitleText = 'Bài tập thực hành';
+                        document.getElementById('detail-title').innerText = titleText;
+                        document.getElementById('detail-subtitle').innerText = subtitleText;
+                        const teacherTools = document.getElementById('teacher-tools');
+                        if (isLoggedIn) { teacherTools.classList.remove('hidden'); backBtn.style.display = 'flex'; }
+                        else { teacherTools.classList.add('hidden'); backBtn.style.display = 'none'; }
+                        loadExercisesFromJson(`data/${materialId}/${folderId}.json`, container);
+                        return;
+                    }
+                }
+            } else if (!material.folders || material.folders.length === 0) {
+                // Không có folder -> load JSON trực tiếp
+                subtitleText = 'Bài tập thực hành';
+                document.getElementById('detail-title').innerText = titleText;
+                document.getElementById('detail-subtitle').innerText = subtitleText;
+                const teacherTools = document.getElementById('teacher-tools');
+                if (isLoggedIn) { teacherTools.classList.remove('hidden'); backBtn.style.display = 'flex'; }
+                else { teacherTools.classList.add('hidden'); backBtn.style.display = 'none'; }
+                loadExercisesFromJson(`data/${materialId}.json`, container);
+                return;
+            } else {
+                // Cấp 1: hiện danh sách folders
+                let foldersHtml = '<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">';
+                material.folders.forEach(f => {
+                    foldersHtml += `
+                        <a href="#/material/${material.id}/${f.id}" class="aspect-square bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover-bounce flex flex-col items-center justify-center text-center cursor-pointer relative overflow-hidden group" style="background-color: var(--theme-bg-color);">
+                            <i class="fa-solid fa-folder-open text-4xl mb-3 opacity-80" style="color: var(--theme-color);"></i>
+                            <span class="relative z-10 text-lg sm:text-xl font-bold transition-transform group-hover:scale-105" style="color: var(--theme-color);">${f.name}</span>
+                        </a>
+                    `;
+                });
+                foldersHtml += '</div>';
+                container.innerHTML = foldersHtml;
+            }
+
+            document.getElementById('detail-title').innerText = titleText;
+            document.getElementById('detail-subtitle').innerText = subtitleText;
+            
+            // Xử lý quyền hiển thị nút:
+            const teacherTools = document.getElementById('teacher-tools');
+            
+            if (isLoggedIn) {
+                // Là giáo viên -> Hiển thị nút copy link và nút quay lại dashboard
+                teacherTools.classList.remove('hidden');
+                backBtn.style.display = 'flex';
+            } else {
+                // Là học sinh (Truy cập trực tiếp qua link) -> Ẩn công cụ giáo viên và nút quay lại
+                teacherTools.classList.add('hidden');
+                backBtn.style.display = 'none'; 
+            }
+        }
+
+        // --- Load bài tập từ file JSON ---
+        async function loadExercisesFromJson(jsonPath, container) {
+            container.innerHTML = `
+                <div class="flex flex-col items-center justify-center py-16 text-slate-400">
+                    <i class="fa-solid fa-spinner fa-spin text-4xl mb-4" style="color: var(--theme-color);"></i>
+                    <p class="font-medium">Đang tải dữ liệu...</p>
+                </div>
+            `;
+            try {
+                const res = await fetch(jsonPath);
+                if (!res.ok) throw new Error('not found');
+                const data = await res.json();
+                if (!data || !data.exercises || data.exercises.length === 0) throw new Error('empty');
+                renderExercises(data, container);
+            } catch (e) {
+                container.innerHTML = `
+                    <div class="flex flex-col items-center justify-center py-20 text-slate-400">
+                        <div class="w-20 h-20 rounded-3xl flex items-center justify-center mb-5 text-4xl" style="background-color: var(--theme-bg-color); color: var(--theme-color);">
+                            <i class="fa-solid fa-box-open"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-600 mb-2">Chưa có dữ liệu</h3>
+                        <p class="text-sm text-slate-400 text-center max-w-xs">Bài tập cho chủ đề này đang được chuẩn bị. Vui lòng quay lại sau.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // --- Render bài tập từ dữ liệu JSON ---
+        let _exAnswers = {}; // { blankId: answer } for word-bank and passage
+        let _wbSelected = null; // currently selected word from bank
+        let _sortState = {}; // { exId: { wordId: chosenCategory } }
+        let _pfSelectedChip = null; // currently selected chip in passage-fill
+
+        function renderExercises(data, container) {
+            _exAnswers = {}; _wbSelected = null; _sortState = {}; _pfSelectedChip = null;
+            let html = '<div class="space-y-8">';
+            data.exercises.forEach(ex => {
+                if (ex.type === 'word-bank-fill') html += renderWordBankFill(ex);
+                else if (ex.type === 'passage-fill')  html += renderPassageFill(ex);
+                else if (ex.type === 'drag-sort')      html += renderDragSort(ex);
+                else if (ex.type === 'image-type')     html += renderImageType(ex);
+                else if (ex.type === 'story-type')     html += renderStoryType(ex);
+                else if (ex.type === 'sort')           html += renderSort(ex);
+                else if (ex.type === 'story-choice')   html += renderStoryChoice(ex);
+                else if (ex.type === 'multiple-choice') html += renderMC(ex);
+                else if (ex.type === 'fill-in')         html += renderFillIn(ex);
+            });
+            html += `
+                <div class="text-center pt-2 pb-4">
+                    <button onclick="checkAllAnswers()" class="py-4 px-12 text-white font-bold text-lg rounded-2xl transition-colors shadow-lg hover-bounce inline-block" style="background-color: var(--theme-color);">
+                        Kiểm tra bài
+                    </button>
+                </div>
+            </div>`;
+            container.innerHTML = html;
+            attachExerciseListeners();
+        }
+
+        function exCard(title, instruction, content) {
+            return `<div class="bg-slate-50 rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
+                <div class="px-6 pt-5 pb-3">
+                    <h3 class="font-bold text-slate-800 text-base mb-1" style="color: var(--theme-color);">${title}</h3>
+                    <p class="text-slate-500 text-sm font-medium mb-4">${instruction}</p>
+                    ${content}
+                </div>
+            </div>`;
+        }
+
+        function wordBankHtml(words, exId) {
+            const chips = words.map(w =>
+                `<button class="wb-chip px-3 py-1.5 rounded-xl text-sm font-semibold border-2 transition-all"
+                    data-ex="${exId}" data-word="${w}"
+                    style="border-color: var(--theme-color); color: var(--theme-color); background: var(--theme-bg-color);">${w}</button>`
+            ).join('');
+            return `<div class="flex flex-wrap gap-2 mb-5 p-4 bg-white rounded-2xl border border-slate-200">${chips}</div>`;
+        }
+
+        function renderWordBankFill(ex) {
+            // If items have img paths → image-based fill (type into field)
+            if (ex.items && ex.items[0] && ex.items[0].img) {
+                const shuffled = [...(ex.wordBank || [])].sort(() => Math.random() - 0.5);
+                const wbRef = `<div class="flex flex-wrap gap-2 mb-5 p-4 bg-white rounded-2xl border border-slate-200">
+                    ${shuffled.map(w => `<span class="px-3 py-1.5 rounded-xl text-sm font-semibold" style="background:var(--theme-bg-color);color:var(--theme-color);">${w}</span>`).join('')}
+                </div>`;
+                const grid = ex.items.map(item => {
+                    if (item.given) {
+                        return `<div class="flex flex-col items-center bg-white rounded-2xl p-3 border-2 border-green-200">
+                            <img src="${item.img}" class="w-full rounded-xl mb-2 object-cover" style="height:6rem;">
+                            <span class="font-bold text-sm text-green-600">${item.answer}</span>
+                            <span class="text-xs text-slate-400">example</span>
+                        </div>`;
+                    }
+                    return `<div class="flex flex-col items-center bg-white rounded-2xl p-3 border-2 border-slate-200">
+                        <img src="${item.img}" class="w-full rounded-xl mb-2 object-cover" style="height:6rem;">
+                        <input type="text" class="wbf-input w-full text-center focus:outline-none font-bold text-sm bg-transparent border-b-2"
+                            data-answer="${item.answer}"
+                            style="border-color:var(--theme-color);"
+                            placeholder="...">
+                    </div>`;
+                }).join('');
+                return exCard(ex.title, ex.instruction,
+                    wbRef + `<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">${grid}</div>`
+                );
+            }
+            // Legacy: label-based fill (click chip → click card)
+            const allWords = ex.items.filter(i => !i.given).map(i => i.answer);
+            const shuffled = [...ex.wordBank || allWords].sort(() => Math.random() - 0.5);
+            const grid = ex.items.map(item => {
+                if (item.given) {
+                    return `<div class="flex items-center gap-3 bg-white rounded-2xl p-3 border border-slate-200">
+                        <div class="flex-1 min-w-0">
+                            <span class="font-bold text-sm" style="color:var(--theme-color);">${item.answer}</span>
+                        </div>
+                    </div>`;
+                }
+                return `<div class="flex items-center gap-3 bg-white rounded-2xl p-3 border-2 border-slate-200 wb-blank-card"
+                            data-blank="${item.id}" data-answer="${item.answer}" data-ex="${ex.id}">
+                    <div class="flex-1 min-w-0">
+                        <span class="wb-blank-text text-sm font-bold italic text-slate-300">click to fill</span>
+                    </div>
+                </div>`;
+            }).join('');
+            return exCard(ex.title, ex.instruction,
+                wordBankHtml(shuffled, ex.id) +
+                `<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">${grid}</div>`
+            );
+        }
+
+        function renderPassageFill(ex) {
+            const wbHtml = `<div class="flex flex-wrap gap-2 mb-4 p-3 bg-white rounded-2xl border border-slate-200">
+                ${ex.wordBank.map(w => `<button class="pf-chip px-3 py-1.5 rounded-xl text-sm font-semibold border-2 transition-all"
+                    data-ex="${ex.id}" data-word="${w}"
+                    style="border-color:var(--theme-color);color:var(--theme-color);background:var(--theme-bg-color);">${w}</button>`).join('')}
+            </div>`;
+            const passagesHtml = ex.passages.map(p => {
+                let txt = '';
+                p.parts.forEach(part => {
+                    if (part.text) {
+                        txt += part.text.replace(/\n/g, '<br>');
+                    } else {
+                        txt += `<input type="text"
+                            class="pf-input inline-block border-b-2 focus:outline-none text-center font-bold text-sm w-24 mx-1 bg-transparent transition-colors cursor-pointer"
+                            data-blank="${part.blank}" data-answer="${part.answer}" data-ex="${ex.id}"
+                            placeholder="${part.num}"
+                            style="border-color: var(--theme-color);" readonly>`;
+                    }
+                });
+                return `<div class="bg-white rounded-2xl border border-slate-200 p-5 mb-4">
+                    <p class="text-xs font-semibold mb-3" style="color:var(--theme-color);">${p.header}</p>
+                    <p class="text-slate-700 text-sm leading-loose">${txt}</p>
+                </div>`;
+            }).join('');
+            return exCard(ex.title, ex.instruction, wbHtml + passagesHtml);
+        }
+
+        function renderDragSort(ex) {
+            const wordsHtml = ex.words.map((w, i) =>
+                `<div class="drag-word px-3 py-2 rounded-xl text-sm font-semibold border-2 cursor-grab text-center select-none"
+                    draggable="true"
+                    data-ex="${ex.id}" data-idx="${i}" data-cat="${w.category}"
+                    style="border-color:var(--theme-color);color:var(--theme-color);background:var(--theme-bg-color);">${w.word}</div>`
+            ).join('');
+            return exCard(ex.title, ex.instruction,
+                `<div class="grid grid-cols-3 gap-4 items-start">
+                    <div class="drop-zone rounded-2xl p-3 border-2 border-dashed transition-colors" style="min-height:10rem;border-color:var(--theme-color);"
+                        id="drop-${ex.id}-0" data-ex="${ex.id}" data-col="0">
+                        <p class="text-xs font-bold text-center mb-3" style="color:var(--theme-color);">${ex.categories[0]}</p>
+                        <div class="drop-items space-y-2"></div>
+                    </div>
+                    <div class="flex flex-col gap-2">${wordsHtml}</div>
+                    <div class="drop-zone rounded-2xl p-3 border-2 border-dashed transition-colors" style="min-height:10rem;border-color:var(--theme-color);"
+                        id="drop-${ex.id}-1" data-ex="${ex.id}" data-col="1">
+                        <p class="text-xs font-bold text-center mb-3" style="color:var(--theme-color);">${ex.categories[1]}</p>
+                        <div class="drop-items space-y-2"></div>
+                    </div>
+                </div>`
+            );
+        }
+
+        function renderImageType(ex) {
+            const grid = ex.items.map(item => {
+                if (item.given) {
+                    return `<div class="flex flex-col items-center bg-white rounded-2xl p-3 border-2 border-green-200">
+                        <img src="${item.img}" class="w-full rounded-xl mb-2 object-cover" style="height:7rem;">
+                        <p class="font-bold text-sm text-green-600 text-center">${item.present}</p>
+                        <p class="font-bold text-sm text-green-600 text-center">${item.past}</p>
+                        <span class="text-xs text-slate-400">example</span>
+                    </div>`;
+                }
+                return `<div class="flex flex-col items-center bg-white rounded-2xl p-3 border-2 border-slate-200">
+                    <img src="${item.img}" class="w-full rounded-xl mb-2 object-cover" style="height:7rem;">
+                    <input type="text" class="it-input w-full text-center focus:outline-none font-bold text-sm bg-transparent border-b-2 mb-1"
+                        data-answer="${item.present}" data-id="${item.id}" data-field="present"
+                        style="border-color:var(--theme-color);"
+                        placeholder="present...">
+                    <input type="text" class="it-input w-full text-center focus:outline-none font-bold text-sm bg-transparent border-b-2"
+                        data-answer="${item.past}" data-id="${item.id}" data-field="past"
+                        style="border-color:var(--theme-color);"
+                        placeholder="past...">
+                </div>`;
+            }).join('');
+            return exCard(ex.title, ex.instruction,
+                `<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">${grid}</div>`
+            );
+        }
+
+        function renderStoryType(ex) {
+            const contextHtml = `<div class="bg-white rounded-2xl p-4 border-l-4 mb-4 text-slate-600 text-sm italic leading-relaxed" style="border-color:var(--theme-color);">${ex.context}</div>`;
+            const items = ex.items.map(item => {
+                const hintsHtml = item.options.map(o =>
+                    `<span class="px-2 py-1 rounded-lg text-xs font-semibold" style="background:var(--theme-bg-color);color:var(--theme-color);">${o}</span>`
+                ).join('');
+                return `<div class="bg-white rounded-2xl p-4 border border-slate-200">
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full text-xs font-bold flex items-center justify-center text-white flex-shrink-0 mt-0.5" style="background:var(--theme-color);">${item.num}</span>
+                        <div class="flex-1">
+                            <div class="flex flex-wrap gap-1 mb-2">${hintsHtml}</div>
+                            <p class="text-slate-700 text-sm leading-loose">${item.before}
+                                <input type="text" class="st-input inline-block border-b-2 focus:outline-none text-center font-bold text-sm w-28 mx-1 bg-transparent"
+                                    data-answer="${item.answer}"
+                                    style="border-color:var(--theme-color);"
+                                    placeholder="...">
+                                ${item.after}
+                            </p>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+            return exCard(ex.title, ex.instruction, contextHtml + `<div class="space-y-3">${items}</div>`);
+        }
+
+        function renderSort(ex) {
+            _sortState[ex.id] = {};
+            ex.words.forEach((w,i) => { _sortState[ex.id][i] = null; });
+            const wordsHtml = ex.words.map((w,i) =>
+                `<button class="sort-word px-3 py-2 rounded-xl text-sm font-semibold border-2 transition-all w-full"
+                    data-ex="${ex.id}" data-idx="${i}" data-cat="${w.category}"
+                    style="border-color:var(--theme-color);color:var(--theme-color);background:var(--theme-bg-color);">${w.word}</button>`
+            ).join('');
+            return exCard(`${ex.title}`, ex.instruction,
+                `<div class="grid grid-cols-3 gap-3 items-start">
+                    <div class="sort-col rounded-2xl p-3 min-h-32 border-2 border-dashed border-slate-300" id="sort-${ex.id}-0">
+                        <p class="text-xs font-bold text-center mb-3 text-slate-500">${ex.categories[0]}</p>
+                        <div class="sort-drop space-y-2" data-ex="${ex.id}" data-col="0"></div>
+                    </div>
+                    <div class="flex flex-col gap-2">${wordsHtml}</div>
+                    <div class="sort-col rounded-2xl p-3 min-h-32 border-2 border-dashed border-slate-300" id="sort-${ex.id}-1">
+                        <p class="text-xs font-bold text-center mb-3 text-slate-500">${ex.categories[1]}</p>
+                        <div class="sort-drop space-y-2" data-ex="${ex.id}" data-col="1"></div>
+                    </div>
+                </div>`
+            );
+        }
+
+        function renderStoryChoice(ex) {
+            const items = ex.items.map(item => {
+                const opts = item.options.map(o =>
+                    `<button class="sc-opt px-3 py-1.5 rounded-xl text-sm font-semibold border-2 transition-all"
+                        data-sc="${ex.id}" data-item="${item.id}" data-val="${o}" data-answer="${item.answer}"
+                        style="border-color:var(--theme-color);color:var(--theme-color);background:var(--theme-bg-color);">${o}</button>`
+                ).join('');
+                return `<div class="bg-white rounded-2xl p-4 border border-slate-200">
+                    <div class="flex items-start gap-3">
+                        <span class="w-6 h-6 rounded-full text-xs font-bold flex items-center justify-center text-white flex-shrink-0 mt-0.5" style="background:var(--theme-color);">${item.num}</span>
+                        <div>
+                            <p class="text-slate-700 text-sm mb-2">
+                                ${item.before} <span id="sc-answer-${item.id}" class="font-bold px-2">______</span> ${item.after}
+                            </p>
+                            <div class="flex flex-wrap gap-2">${opts}</div>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+            return exCard(`${ex.title}`, ex.instruction,
+                `<div class="bg-white rounded-2xl p-4 border-l-4 mb-4 text-slate-600 text-sm italic" style="border-color:var(--theme-color);">${ex.context}</div>
+                <div class="space-y-3">${items}</div>`
+            );
+        }
+
+        function renderMC(ex) {
+            return exCard(ex.title || 'Multiple Choice', ex.instruction || '',
+                `<p class="text-slate-700 font-medium mb-3">${ex.question}</p>
+                <div class="space-y-2">
+                    ${ex.options.map((o,i) => `
+                        <label class="flex items-center gap-3 p-3 bg-white rounded-2xl border border-slate-200 cursor-pointer hover:border-slate-300 transition-colors">
+                            <input type="radio" name="mc-${ex.id||i}" value="${i}" class="w-4 h-4" style="accent-color:var(--theme-color);">
+                            <span class="font-medium text-slate-700">${o}</span>
+                        </label>`).join('')}
+                </div>`
+            );
+        }
+
+        function renderFillIn(ex) {
+            return exCard(ex.title || 'Fill in', ex.instruction || '',
+                `<p class="text-slate-700 font-medium mb-3">${ex.question}</p>
+                <input type="text" placeholder="Nhập câu trả lời..."
+                    class="w-full px-4 py-3 bg-white border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 transition-all">`
+            );
+        }
+
+        // --- Event listeners cho các loại bài tập ---
+        function attachExerciseListeners() {
+            // Legacy word bank chips (click-to-fill card)
+            document.querySelectorAll('.wb-chip').forEach(chip => {
+                chip.addEventListener('click', function() {
+                    if (this.classList.contains('used')) return;
+                    document.querySelectorAll('.wb-chip').forEach(c => c.classList.remove('ring-2', 'ring-offset-1'));
+                    this.classList.add('ring-2', 'ring-offset-1');
+                    _wbSelected = { word: this.dataset.word, chip: this };
+                });
+            });
+
+            // Legacy word bank blank cards
+            document.querySelectorAll('.wb-blank-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const span = this.querySelector('.wb-blank-text');
+                    if (this.dataset.filled && _wbSelected === null) {
+                        const oldWord = span.textContent;
+                        const oldChip = document.querySelector(`.wb-chip[data-word="${oldWord}"][data-ex="${this.dataset.ex}"]`);
+                        if (oldChip) { oldChip.classList.remove('used', 'opacity-30'); oldChip.style.pointerEvents = ''; }
+                        span.textContent = 'click to fill';
+                        span.classList.add('italic', 'text-slate-300');
+                        span.classList.remove('text-slate-800');
+                        this.style.borderColor = '';
+                        delete this.dataset.filled;
+                        return;
+                    }
+                    if (!_wbSelected) return;
+                    span.textContent = _wbSelected.word;
+                    span.classList.remove('italic', 'text-slate-300');
+                    span.classList.add('text-slate-800');
+                    this.dataset.filled = _wbSelected.word;
+                    this.style.borderColor = 'var(--theme-color)';
+                    _wbSelected.chip.classList.add('used', 'opacity-30');
+                    _wbSelected.chip.style.pointerEvents = 'none';
+                    _wbSelected.chip.classList.remove('ring-2', 'ring-offset-1');
+                    _wbSelected = null;
+                });
+            });
+
+            // Legacy sort words
+            document.querySelectorAll('.sort-word').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const exId = this.dataset.ex;
+                    const idx = this.dataset.idx;
+                    const currentCat = _sortState[exId][idx];
+                    if (currentCat !== null) {
+                        const drop = document.querySelector(`.sort-drop[data-ex="${exId}"][data-col="${currentCat}"]`);
+                        if (drop) { const placed = drop.querySelector(`[data-placed="${idx}"]`); if (placed) placed.remove(); }
+                    }
+                    const next = currentCat === null ? 0 : currentCat === 0 ? 1 : null;
+                    _sortState[exId][idx] = next;
+                    if (next !== null) {
+                        const drop = document.querySelector(`.sort-drop[data-ex="${exId}"][data-col="${next}"]`);
+                        const tag = document.createElement('div');
+                        tag.dataset.placed = idx;
+                        tag.className = 'px-2 py-1 rounded-lg text-xs font-bold text-center';
+                        tag.style.background = 'var(--theme-bg-color)';
+                        tag.style.color = 'var(--theme-color)';
+                        tag.textContent = this.textContent;
+                        drop.appendChild(tag);
+                        this.style.opacity = '0.4';
+                    } else {
+                        this.style.opacity = '';
+                    }
+                });
+            });
+
+            // Legacy story choice buttons
+            document.querySelectorAll('.sc-opt').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const itemId = this.dataset.item;
+                    const exId = this.dataset.sc;
+                    document.querySelectorAll(`.sc-opt[data-sc="${exId}"][data-item="${itemId}"]`).forEach(b => {
+                        b.style.background = 'var(--theme-bg-color)';
+                        b.style.color = 'var(--theme-color)';
+                        b.classList.remove('font-extrabold');
+                    });
+                    this.style.background = 'var(--theme-color)';
+                    this.style.color = 'white';
+                    this.classList.add('font-extrabold');
+                    const answerSpan = document.getElementById(`sc-answer-${itemId}`);
+                    if (answerSpan) answerSpan.textContent = this.dataset.val;
+                });
+            });
+
+            // NEW: Passage fill chips (click chip → select, then click input → fill)
+            document.querySelectorAll('.pf-chip').forEach(chip => {
+                chip.addEventListener('click', function() {
+                    if (this.classList.contains('used')) return;
+                    document.querySelectorAll('.pf-chip').forEach(c => {
+                        c.classList.remove('ring-2', 'ring-offset-1');
+                        c.style.background = 'var(--theme-bg-color)';
+                        c.style.color = 'var(--theme-color)';
+                    });
+                    this.classList.add('ring-2', 'ring-offset-1');
+                    this.style.background = 'var(--theme-color)';
+                    this.style.color = 'white';
+                    _pfSelectedChip = { word: this.dataset.word, chip: this };
+                });
+            });
+
+            document.querySelectorAll('.pf-input').forEach(input => {
+                input.addEventListener('click', function() {
+                    if (this.value && !_pfSelectedChip) {
+                        // Click filled input with no chip selected → clear it
+                        const oldWord = this.value;
+                        const oldChip = document.querySelector(`.pf-chip[data-word="${oldWord}"][data-ex="${this.dataset.ex}"]`);
+                        if (oldChip) {
+                            oldChip.classList.remove('used', 'opacity-30');
+                            oldChip.style.pointerEvents = '';
+                        }
+                        this.value = '';
+                        this.style.borderColor = 'var(--theme-color)';
+                        return;
+                    }
+                    if (!_pfSelectedChip) return;
+                    this.value = _pfSelectedChip.word;
+                    _pfSelectedChip.chip.classList.add('used', 'opacity-30');
+                    _pfSelectedChip.chip.style.pointerEvents = 'none';
+                    _pfSelectedChip.chip.classList.remove('ring-2', 'ring-offset-1');
+                    _pfSelectedChip.chip.style.background = 'var(--theme-bg-color)';
+                    _pfSelectedChip.chip.style.color = 'var(--theme-color)';
+                    _pfSelectedChip = null;
+                });
+            });
+
+            // NEW: Drag-and-drop for drag-sort
+            document.querySelectorAll('.drag-word').forEach(word => {
+                word.addEventListener('dragstart', function(e) {
+                    e.dataTransfer.setData('text/plain', JSON.stringify({
+                        exId: this.dataset.ex,
+                        idx: this.dataset.idx,
+                        cat: this.dataset.cat,
+                        word: this.textContent.trim()
+                    }));
+                    this.classList.add('opacity-40');
+                });
+                word.addEventListener('dragend', function() {
+                    this.classList.remove('opacity-40');
+                });
+            });
+
+            document.querySelectorAll('.drop-zone').forEach(zone => {
+                zone.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    this.style.background = 'var(--theme-bg-color)';
+                });
+                zone.addEventListener('dragleave', function() {
+                    this.style.background = '';
+                });
+                zone.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    this.style.background = '';
+                    let data;
+                    try { data = JSON.parse(e.dataTransfer.getData('text/plain')); } catch(err) { return; }
+                    const col = parseInt(this.dataset.col);
+                    // Remove from any previous drop zone
+                    document.querySelectorAll(`.drop-zone[data-ex="${data.exId}"] [data-placed="${data.idx}"]`).forEach(el => el.remove());
+                    // Fade original word
+                    const original = document.querySelector(`.drag-word[data-ex="${data.exId}"][data-idx="${data.idx}"]`);
+                    if (original) original.style.opacity = '0.4';
+                    // Create placed tag
+                    const tag = document.createElement('div');
+                    tag.dataset.placed = data.idx;
+                    tag.dataset.cat = data.cat;
+                    tag.dataset.colPlaced = col;
+                    tag.className = 'px-2 py-1 rounded-lg text-sm font-bold text-center cursor-pointer';
+                    tag.style.background = 'var(--theme-bg-color)';
+                    tag.style.color = 'var(--theme-color)';
+                    tag.textContent = data.word;
+                    const exId = data.exId, idx = data.idx;
+                    // Click placed tag to remove
+                    tag.addEventListener('click', function() {
+                        const orig = document.querySelector(`.drag-word[data-ex="${exId}"][data-idx="${idx}"]`);
+                        if (orig) orig.style.opacity = '';
+                        this.remove();
+                    });
+                    this.querySelector('.drop-items').appendChild(tag);
+                });
+            });
+        }
+
+        // --- Kiểm tra tất cả đáp án ---
+        function checkAllAnswers() {
+            let correct = 0, total = 0;
+
+            // NEW: Word bank fill with images (wbf-input text fields)
+            document.querySelectorAll('.wbf-input').forEach(input => {
+                total++;
+                const userAns = input.value.trim().toLowerCase();
+                const correctAns = input.dataset.answer.trim().toLowerCase();
+                const card = input.closest('div');
+                if (userAns === correctAns) {
+                    correct++;
+                    input.style.borderColor = '#22c55e';
+                    input.style.color = '#16a34a';
+                    if (card) card.style.borderColor = '#22c55e';
+                } else {
+                    input.style.borderColor = '#ef4444';
+                    input.style.color = '#dc2626';
+                    if (card) card.style.borderColor = '#ef4444';
+                    if (!input.value) input.placeholder = input.dataset.answer;
+                }
+            });
+
+            // Legacy word bank blank cards
+            document.querySelectorAll('.wb-blank-card').forEach(card => {
+                total++;
+                const span = card.querySelector('.wb-blank-text');
+                const userAns = (card.dataset.filled || '').trim().toLowerCase();
+                const correctAns = card.dataset.answer.trim().toLowerCase();
+                if (userAns === correctAns) {
+                    card.style.borderColor = '#22c55e'; span.style.color = '#16a34a'; correct++;
+                } else {
+                    card.style.borderColor = '#ef4444'; span.style.color = '#dc2626';
+                    if (!card.dataset.filled) span.textContent = '?';
+                }
+            });
+
+            // Passage fill inputs (filled by chip click)
+            document.querySelectorAll('.pf-input').forEach(input => {
+                total++;
+                const userAns = input.value.trim().toLowerCase();
+                const correctAns = input.dataset.answer.trim().toLowerCase();
+                if (userAns === correctAns) {
+                    input.style.borderColor = '#22c55e'; input.style.color = '#16a34a'; correct++;
+                } else {
+                    input.style.borderColor = '#ef4444'; input.style.color = '#dc2626';
+                    if (!input.value) input.placeholder = input.dataset.answer;
+                }
+            });
+
+            // NEW: Drag-sort — check each placed tag's column vs correct category
+            document.querySelectorAll('.drop-zone').forEach(zone => {
+                const col = parseInt(zone.dataset.col);
+                zone.querySelectorAll('[data-placed]').forEach(placed => {
+                    total++;
+                    const correctCat = parseInt(placed.dataset.cat);
+                    if (col === correctCat) {
+                        correct++;
+                        placed.style.background = '#dcfce7';
+                        placed.style.color = '#16a34a';
+                        placed.style.border = '2px solid #22c55e';
+                    } else {
+                        placed.style.background = '#fee2e2';
+                        placed.style.color = '#dc2626';
+                        placed.style.border = '2px solid #ef4444';
+                    }
+                });
+            });
+
+            // NEW: Image type (it-input — present and past text fields)
+            document.querySelectorAll('.it-input').forEach(input => {
+                total++;
+                const userAns = input.value.trim().toLowerCase();
+                const correctAns = input.dataset.answer.trim().toLowerCase();
+                if (userAns === correctAns) {
+                    correct++;
+                    input.style.borderColor = '#22c55e';
+                    input.style.color = '#16a34a';
+                } else {
+                    input.style.borderColor = '#ef4444';
+                    input.style.color = '#dc2626';
+                    if (!input.value) input.placeholder = input.dataset.answer;
+                }
+            });
+
+            // NEW: Story type (st-input text fields)
+            document.querySelectorAll('.st-input').forEach(input => {
+                total++;
+                const userAns = input.value.trim().toLowerCase();
+                const correctAns = input.dataset.answer.trim().toLowerCase();
+                if (userAns === correctAns) {
+                    correct++;
+                    input.style.borderColor = '#22c55e';
+                    input.style.color = '#16a34a';
+                } else {
+                    input.style.borderColor = '#ef4444';
+                    input.style.color = '#dc2626';
+                    if (!input.value) input.placeholder = input.dataset.answer;
+                }
+            });
+
+            // Legacy sort words
+            document.querySelectorAll('.sort-word').forEach(btn => {
+                const exId = btn.dataset.ex;
+                const idx = btn.dataset.idx;
+                const correctCat = parseInt(btn.dataset.cat);
+                const chosen = _sortState[exId]?.[idx];
+                if (chosen === null || chosen === undefined) return;
+                total++;
+                const drop = document.querySelector(`.sort-drop[data-ex="${exId}"][data-col="${chosen}"]`);
+                const placed = drop?.querySelector(`[data-placed="${idx}"]`);
+                if (chosen === correctCat) {
+                    correct++;
+                    if (placed) { placed.style.background = '#dcfce7'; placed.style.color = '#16a34a'; placed.style.border = '1px solid #22c55e'; }
+                } else {
+                    if (placed) { placed.style.background = '#fee2e2'; placed.style.color = '#dc2626'; placed.style.border = '1px solid #ef4444'; }
+                }
+            });
+
+            // Legacy story choice buttons
+            document.querySelectorAll('.sc-opt').forEach(btn => {
+                if (!btn.classList.contains('font-extrabold')) return;
+                total++;
+                const userAns = btn.dataset.val;
+                const correctAns = btn.dataset.answer;
+                if (userAns === correctAns) {
+                    btn.style.background = '#22c55e'; correct++;
+                } else {
+                    btn.style.background = '#ef4444';
+                    const itemId = btn.dataset.item;
+                    const exId = btn.dataset.sc;
+                    document.querySelectorAll(`.sc-opt[data-sc="${exId}"][data-item="${itemId}"][data-val="${correctAns}"]`).forEach(b => {
+                        b.style.background = '#22c55e'; b.style.color = 'white';
+                    });
+                }
+            });
+
+            Swal.fire({
+                title: correct === total ? '🎉 Xuất sắc!' : `Kết quả: ${correct}/${total}`,
+                html: correct === total
+                    ? 'Bạn trả lời đúng tất cả! Tuyệt vời!'
+                    : `Bạn trả lời đúng <b>${correct}</b> trên tổng số <b>${total}</b> câu đã làm.`,
+                icon: correct === total ? 'success' : 'info',
+                confirmButtonColor: '#20a1a0',
+                confirmButtonText: 'OK'
+            });
+        }
+
+        // --- Router (Quản lý chuyển trang bằng URL Hash) ---
+        // Giúp tạo ra các link duy nhất cho từng bài tập
+        function handleRouting() {
+            const hash = window.location.hash || '#/';
+            
+            // Ẩn tất cả view trước khi hiển thị view mới
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+
+            if (hash.startsWith('#/material/')) {
+                // Route: Chi tiết tài liệu hoặc thư mục
+                const path = hash.replace('#/material/', '');
+                renderDetail(path);
+                viewDetail.classList.add('active');
+                
+                // Hiển thị Navbar nếu là giáo viên, ẩn nếu là học sinh
+                if (isLoggedIn) mainNav.classList.remove('hidden');
+                else mainNav.classList.add('hidden'); 
+            } 
+            else if (hash === '#/dashboard') {
+                // Route: Bảng điều khiển chọn tài liệu (Bắt buộc phải đăng nhập)
+                if (!isLoggedIn) {
+                    window.location.hash = '#/';
+                    return;
+                }
+                renderDashboard();
+                viewDashboard.classList.add('active');
+                mainNav.classList.remove('hidden');
+            } 
+            else {
+                // Route mặc định: Màn hình đăng nhập
+                if (isLoggedIn) {
+                    window.location.hash = '#/dashboard';
+                    return;
+                }
+                viewLogin.classList.add('active');
+                mainNav.classList.add('hidden');
+            }
+        }
+
+        // --- Xử lý sự kiện Đăng nhập ---
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const codeInput = document.getElementById('teacher-code').value;
+            
+            if (codeInput === TEACHER_CODE) {
+                isLoggedIn = true;
+                sessionStorage.setItem('elm_teacher_logged_in', 'true');
+                document.getElementById('teacher-code').value = '';
+                
+                Swal.fire({
+                    title: 'Thành công!',
+                    text: 'Chào mừng giáo viên đăng nhập.',
+                    icon: 'success',
+                    timer: 1500,
+                    showConfirmButton: false,
+                    confirmButtonColor: '#20a1a0'
+                }).then(() => {
+                    window.location.hash = '#/dashboard';
+                });
+            } else {
+                Swal.fire({
+                    title: 'Lỗi!',
+                    text: 'Mã giáo viên không chính xác.',
+                    icon: 'error',
+                    confirmButtonColor: '#20a1a0'
+                });
+            }
+        });
+
+        // --- Xử lý sự kiện Đăng xuất ---
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            Swal.fire({
+                title: 'Đăng xuất?',
+                text: 'Bạn có chắc chắn muốn thoát khỏi hệ thống?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#20a1a0',
+                cancelButtonColor: '#ef4444',
+                confirmButtonText: 'Đăng xuất',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    isLoggedIn = false;
+                    sessionStorage.removeItem('elm_teacher_logged_in');
+                    window.location.hash = '#/';
+                }
+            });
+        });
+
+        // --- Hàm Copy Link dành cho giáo viên để gửi cho học sinh ---
+        function copyCurrentLink() {
+            // Lấy URL hiện tại (bao gồm cả Hash chứa bài tập)
+            const currentUrl = window.location.href;
+            
+            // Thử sử dụng Clipboard API hiện đại
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(currentUrl).then(showCopySuccess);
+            } else {
+                // Cách fallback cho các trình duyệt cũ hơn hoặc môi trường iframe
+                let textArea = document.createElement("textarea");
+                textArea.value = currentUrl;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showCopySuccess();
+                } catch (err) {
+                    Swal.fire('Lỗi', 'Không thể copy link tự động.', 'error');
+                }
+                textArea.remove();
+            }
+        }
+
+        function showCopySuccess() {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+            Toast.fire({
+                icon: 'success',
+                title: 'Đã copy link bài tập thành công!'
+            });
+        }
+        
+        // Mô phỏng nộp bài cho học sinh
+        function submitQuiz() {
+            Swal.fire({
+                title: 'Nộp bài thành công!',
+                text: 'Câu trả lời của bạn đã được ghi nhận.',
+                icon: 'success',
+                confirmButtonColor: '#20a1a0'
+            });
+        }
+
+        // Lắng nghe sự kiện đổi URL (hash) để thay đổi view tương ứng
+        window.addEventListener('hashchange', handleRouting);
+        
+        // Chạy hàm kiểm tra router lần đầu tiên khi vừa tải trang xong
+        window.addEventListener('DOMContentLoaded', handleRouting);
+        
+    </script>
+</body>
+</html>
