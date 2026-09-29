@@ -99,20 +99,40 @@
             #dynamic-content-container h3 { font-size: 1.4rem !important; }
         }
 
-        /* Side-by-side item card: image/question LEFT, input/answer RIGHT */
+        /* Two-panel exercise layout: left sidebar + right content */
+        .ex-two-panel { display: flex; flex-direction: column; gap: 1rem; }
+        .ex-left-panel { width: 100%; }
+        .ex-right-panel { width: 100%; }
+
+        @media (min-width: 640px) {
+            .ex-two-panel { flex-direction: row; align-items: flex-start; gap: 1.25rem; }
+            .ex-left-panel { flex: 0 0 190px; max-width: 190px; position: sticky; top: 1rem; }
+            .ex-right-panel { flex: 1; overflow-y: auto; max-height: 72vh; padding-right: 4px; }
+        }
+
+        /* Item card within right panel: image left, input right */
         .ex-item-row {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
+            display: flex; flex-direction: column; gap: 0; overflow: hidden;
+            border-radius: 1rem;
         }
         @media (min-width: 640px) {
-            .ex-item-row {
-                flex-direction: row;
-                align-items: center;
-                gap: 1rem;
-            }
-            .ex-item-row .ex-item-left  { flex: 0 0 40%; max-width: 40%; }
+            .ex-item-row { flex-direction: row; align-items: stretch; }
+            .ex-item-row .ex-item-left  { flex: 0 0 42%; max-width: 42%; }
             .ex-item-row .ex-item-right { flex: 1; }
+        }
+
+        /* Navigator number button */
+        .q-nav-btn {
+            width: 2rem; height: 2rem; border-radius: 0.5rem;
+            font-size: 0.8rem; font-weight: 700;
+            border: 2px solid var(--theme-color);
+            color: var(--theme-color);
+            background: var(--theme-bg-color);
+            cursor: pointer; transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .q-nav-btn:hover, .q-nav-btn.active {
+            background: var(--theme-color); color: white;
         }
     </style>
 </head>
@@ -465,11 +485,37 @@
 
         function exCard(title, instruction, content) {
             return `<div class="bg-slate-50 rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
-                <div class="px-6 pt-5 pb-3">
-                    <h3 class="font-bold text-slate-800 text-base mb-1" style="color: var(--theme-color);">${title}</h3>
+                <div class="px-6 pt-5 pb-4">
+                    <h3 class="font-bold text-base mb-1" style="color: var(--theme-color);">${title}</h3>
                     <p class="text-slate-500 text-sm font-medium mb-4">${instruction}</p>
                     ${content}
                 </div>
+            </div>`;
+        }
+
+        // Navigator: numbered buttons students click to jump to an item
+        function navPanel(items, labelFn) {
+            const btns = items.map((item, i) =>
+                `<button class="q-nav-btn" data-target="item-${item.id || i}" title="${labelFn ? labelFn(item, i) : i+1}">${i + 1}</button>`
+            ).join('');
+            return `<div class="bg-white rounded-2xl p-3 border border-slate-200 mb-3">
+                <p class="text-xs font-bold text-slate-400 mb-2">QUESTIONS</p>
+                <div class="flex flex-wrap gap-1">${btns}</div>
+            </div>`;
+        }
+
+        // Vertical word bank for left panel
+        function leftWordBank(words, chipClass, exId, clickable) {
+            const chips = words.map(w => clickable
+                ? `<button class="${chipClass} px-3 py-2 rounded-xl text-sm font-semibold border-2 transition-all w-full text-center"
+                    data-ex="${exId}" data-word="${w}"
+                    style="border-color:var(--theme-color);color:var(--theme-color);background:var(--theme-bg-color);">${w}</button>`
+                : `<span class="px-3 py-2 rounded-xl text-sm font-semibold block text-center"
+                    style="background:var(--theme-bg-color);color:var(--theme-color);">${w}</span>`
+            ).join('');
+            return `<div class="bg-white rounded-2xl p-3 border border-slate-200">
+                <p class="text-xs font-bold text-slate-400 mb-2">WORD BANK</p>
+                <div class="flex flex-col gap-2">${chips}</div>
             </div>`;
         }
 
@@ -483,29 +529,28 @@
         }
 
         function renderWordBankFill(ex) {
-            // If items have img paths → image-based fill (type into field)
+            // Image-based: left panel = navigator + word bank; right panel = items (image | input)
             if (ex.items && ex.items[0] && ex.items[0].img) {
                 const shuffled = [...(ex.wordBank || [])].sort(() => Math.random() - 0.5);
-                const wbRef = `<div class="flex flex-wrap gap-2 mb-5 p-4 bg-white rounded-2xl border border-slate-200">
-                    ${shuffled.map(w => `<span class="px-3 py-1.5 rounded-xl text-sm font-semibold" style="background:var(--theme-bg-color);color:var(--theme-color);">${w}</span>`).join('')}
-                </div>`;
-                const rows = ex.items.map(item => {
+                const rows = ex.items.map((item, i) => {
                     if (item.given) {
-                        return `<div class="ex-item-row bg-white rounded-2xl border-2 border-green-200 shadow-sm overflow-hidden">
+                        return `<div id="item-${item.id}" class="ex-item-row bg-white border-2 border-green-200 shadow-sm">
                             <div class="ex-item-left">
-                                <img src="${item.img}" class="w-full object-cover" style="min-height:7rem;max-height:10rem;">
+                                <img src="${item.img}" class="w-full h-full object-cover" style="min-height:7rem;">
                             </div>
-                            <div class="ex-item-right p-3 flex flex-col items-center justify-center gap-1">
+                            <div class="ex-item-right p-4 flex flex-col items-center justify-center gap-1">
+                                <span class="text-xs font-bold text-slate-400">${i+1}</span>
                                 <span class="font-bold text-sm text-green-600">${item.answer}</span>
                                 <span class="text-xs text-slate-400">example</span>
                             </div>
                         </div>`;
                     }
-                    return `<div class="ex-item-row bg-white rounded-2xl border-2 border-slate-200 shadow-sm overflow-hidden">
+                    return `<div id="item-${item.id}" class="ex-item-row bg-white border-2 border-slate-200 shadow-sm">
                         <div class="ex-item-left">
-                            <img src="${item.img}" class="w-full object-cover" style="min-height:7rem;max-height:10rem;">
+                            <img src="${item.img}" class="w-full h-full object-cover" style="min-height:7rem;">
                         </div>
-                        <div class="ex-item-right p-3 flex items-center justify-center">
+                        <div class="ex-item-right p-4 flex flex-col items-center justify-center gap-2">
+                            <span class="text-xs font-bold text-slate-400">${i+1}</span>
                             <input type="text" class="wbf-input w-full text-center focus:outline-none font-bold text-sm bg-transparent border-b-2"
                                 data-answer="${item.answer}"
                                 style="border-color:var(--theme-color);"
@@ -514,39 +559,26 @@
                     </div>`;
                 }).join('');
                 return exCard(ex.title, ex.instruction,
-                    wbRef + `<div class="space-y-3">${rows}</div>`
+                    `<div class="ex-two-panel">
+                        <div class="ex-left-panel">
+                            ${navPanel(ex.items)}
+                            ${leftWordBank(shuffled, '', '', false)}
+                        </div>
+                        <div class="ex-right-panel space-y-3">${rows}</div>
+                    </div>`
                 );
             }
-            // Legacy: label-based fill (click chip → click card)
-            const allWords = ex.items.filter(i => !i.given).map(i => i.answer);
-            const shuffled = [...ex.wordBank || allWords].sort(() => Math.random() - 0.5);
+            // Legacy click-to-fill
+            const shuffled = [...(ex.wordBank || ex.items.filter(i=>!i.given).map(i=>i.answer))].sort(() => Math.random() - 0.5);
             const grid = ex.items.map(item => {
-                if (item.given) {
-                    return `<div class="flex items-center gap-3 bg-white rounded-2xl p-3 border border-slate-200">
-                        <div class="flex-1 min-w-0">
-                            <span class="font-bold text-sm" style="color:var(--theme-color);">${item.answer}</span>
-                        </div>
-                    </div>`;
-                }
-                return `<div class="flex items-center gap-3 bg-white rounded-2xl p-3 border-2 border-slate-200 wb-blank-card"
-                            data-blank="${item.id}" data-answer="${item.answer}" data-ex="${ex.id}">
-                    <div class="flex-1 min-w-0">
-                        <span class="wb-blank-text text-sm font-bold italic text-slate-300">click to fill</span>
-                    </div>
-                </div>`;
+                if (item.given) return `<div class="flex items-center bg-white rounded-2xl p-3 border border-slate-200"><span class="font-bold text-sm" style="color:var(--theme-color);">${item.answer}</span></div>`;
+                return `<div class="flex items-center bg-white rounded-2xl p-3 border-2 border-slate-200 wb-blank-card" data-blank="${item.id}" data-answer="${item.answer}" data-ex="${ex.id}"><span class="wb-blank-text text-sm font-bold italic text-slate-300">click to fill</span></div>`;
             }).join('');
-            return exCard(ex.title, ex.instruction,
-                wordBankHtml(shuffled, ex.id) +
-                `<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">${grid}</div>`
-            );
+            return exCard(ex.title, ex.instruction, wordBankHtml(shuffled, ex.id) + `<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">${grid}</div>`);
         }
 
         function renderPassageFill(ex) {
-            const wbHtml = `<div class="flex flex-wrap gap-2 mb-4 p-3 bg-white rounded-2xl border border-slate-200">
-                ${ex.wordBank.map(w => `<button class="pf-chip px-3 py-1.5 rounded-xl text-sm font-semibold border-2 transition-all"
-                    data-ex="${ex.id}" data-word="${w}"
-                    style="border-color:var(--theme-color);color:var(--theme-color);background:var(--theme-bg-color);">${w}</button>`).join('')}
-            </div>`;
+            // Left panel = clickable word bank; right panel = passages
             const passagesHtml = ex.passages.map(p => {
                 let txt = '';
                 p.parts.forEach(part => {
@@ -560,57 +592,75 @@
                             style="border-color: var(--theme-color);" readonly>`;
                     }
                 });
-                return `<div class="bg-white rounded-2xl border border-slate-200 p-5 mb-4">
+                return `<div class="bg-white rounded-2xl border border-slate-200 p-5 mb-3">
                     <p class="text-xs font-semibold mb-3" style="color:var(--theme-color);">${p.header}</p>
                     <p class="text-slate-700 text-sm leading-loose">${txt}</p>
                 </div>`;
             }).join('');
-            return exCard(ex.title, ex.instruction, wbHtml + passagesHtml);
+            return exCard(ex.title, ex.instruction,
+                `<div class="ex-two-panel">
+                    <div class="ex-left-panel">
+                        ${leftWordBank(ex.wordBank, 'pf-chip', ex.id, true)}
+                    </div>
+                    <div class="ex-right-panel">${passagesHtml}</div>
+                </div>`
+            );
         }
 
         function renderDragSort(ex) {
+            // Left panel = word pool (draggable); right panel = two drop zones side by side
             const wordsHtml = ex.words.map((w, i) =>
                 `<div class="drag-word px-3 py-2 rounded-xl text-sm font-semibold border-2 cursor-grab text-center select-none"
                     draggable="true"
                     data-ex="${ex.id}" data-idx="${i}" data-cat="${w.category}"
                     style="border-color:var(--theme-color);color:var(--theme-color);background:var(--theme-bg-color);">${w.word}</div>`
             ).join('');
+            const leftPool = `<div class="bg-white rounded-2xl p-3 border border-slate-200">
+                <p class="text-xs font-bold text-slate-400 mb-2">WORDS</p>
+                <div class="flex flex-col gap-2">${wordsHtml}</div>
+            </div>`;
+            const dropZones = `<div class="grid grid-cols-2 gap-4 h-full">
+                <div class="drop-zone rounded-2xl p-3 border-2 border-dashed transition-colors" style="min-height:14rem;border-color:var(--theme-color);"
+                    id="drop-${ex.id}-0" data-ex="${ex.id}" data-col="0">
+                    <p class="text-sm font-bold text-center mb-3" style="color:var(--theme-color);">${ex.categories[0]}</p>
+                    <div class="drop-items space-y-2"></div>
+                </div>
+                <div class="drop-zone rounded-2xl p-3 border-2 border-dashed transition-colors" style="min-height:14rem;border-color:var(--theme-color);"
+                    id="drop-${ex.id}-1" data-ex="${ex.id}" data-col="1">
+                    <p class="text-sm font-bold text-center mb-3" style="color:var(--theme-color);">${ex.categories[1]}</p>
+                    <div class="drop-items space-y-2"></div>
+                </div>
+            </div>`;
             return exCard(ex.title, ex.instruction,
-                `<div class="grid grid-cols-3 gap-4 items-start">
-                    <div class="drop-zone rounded-2xl p-3 border-2 border-dashed transition-colors" style="min-height:10rem;border-color:var(--theme-color);"
-                        id="drop-${ex.id}-0" data-ex="${ex.id}" data-col="0">
-                        <p class="text-xs font-bold text-center mb-3" style="color:var(--theme-color);">${ex.categories[0]}</p>
-                        <div class="drop-items space-y-2"></div>
-                    </div>
-                    <div class="flex flex-col gap-2">${wordsHtml}</div>
-                    <div class="drop-zone rounded-2xl p-3 border-2 border-dashed transition-colors" style="min-height:10rem;border-color:var(--theme-color);"
-                        id="drop-${ex.id}-1" data-ex="${ex.id}" data-col="1">
-                        <p class="text-xs font-bold text-center mb-3" style="color:var(--theme-color);">${ex.categories[1]}</p>
-                        <div class="drop-items space-y-2"></div>
-                    </div>
+                `<div class="ex-two-panel">
+                    <div class="ex-left-panel">${leftPool}</div>
+                    <div class="ex-right-panel">${dropZones}</div>
                 </div>`
             );
         }
 
         function renderImageType(ex) {
-            const rows = ex.items.map(item => {
+            // Left panel = navigator; right panel = items (image | inputs)
+            const rows = ex.items.map((item, i) => {
                 if (item.given) {
-                    return `<div class="ex-item-row bg-white rounded-2xl border-2 border-green-200 shadow-sm overflow-hidden">
+                    return `<div id="item-${item.id}" class="ex-item-row bg-white border-2 border-green-200 shadow-sm">
                         <div class="ex-item-left">
-                            <img src="${item.img}" class="w-full object-cover" style="min-height:7rem;max-height:10rem;">
+                            <img src="${item.img}" class="w-full h-full object-cover" style="min-height:7rem;">
                         </div>
-                        <div class="ex-item-right p-3 flex flex-col items-center justify-center gap-2">
+                        <div class="ex-item-right p-4 flex flex-col items-center justify-center gap-2">
+                            <span class="text-xs font-bold text-slate-400">${i+1}</span>
                             <p class="font-bold text-sm text-green-600">${item.present}</p>
                             <p class="font-bold text-sm text-green-600">${item.past}</p>
                             <span class="text-xs text-slate-400">example</span>
                         </div>
                     </div>`;
                 }
-                return `<div class="ex-item-row bg-white rounded-2xl border-2 border-slate-200 shadow-sm overflow-hidden">
+                return `<div id="item-${item.id}" class="ex-item-row bg-white border-2 border-slate-200 shadow-sm">
                     <div class="ex-item-left">
-                        <img src="${item.img}" class="w-full object-cover" style="min-height:7rem;max-height:10rem;">
+                        <img src="${item.img}" class="w-full h-full object-cover" style="min-height:7rem;">
                     </div>
-                    <div class="ex-item-right p-3 flex flex-col items-center justify-center gap-3">
+                    <div class="ex-item-right p-4 flex flex-col items-center justify-center gap-3">
+                        <span class="text-xs font-bold text-slate-400">${i+1}</span>
                         <input type="text" class="it-input w-full text-center focus:outline-none font-bold text-sm bg-transparent border-b-2"
                             data-answer="${item.present}" data-id="${item.id}" data-field="present"
                             style="border-color:var(--theme-color);"
@@ -623,22 +673,29 @@
                 </div>`;
             }).join('');
             return exCard(ex.title, ex.instruction,
-                `<div class="space-y-3">${rows}</div>`
+                `<div class="ex-two-panel">
+                    <div class="ex-left-panel">${navPanel(ex.items)}</div>
+                    <div class="ex-right-panel space-y-3">${rows}</div>
+                </div>`
             );
         }
 
         function renderStoryType(ex) {
-            const contextHtml = `<div class="bg-white rounded-2xl p-4 border-l-4 mb-4 text-slate-600 text-sm italic leading-relaxed" style="border-color:var(--theme-color);">${ex.context}</div>`;
-            const items = ex.items.map(item => {
+            // Left panel = navigator + context; right panel = items (hints | sentence+input)
+            const contextBox = `<div class="bg-white rounded-2xl p-3 border border-slate-200 mt-3">
+                <p class="text-xs font-bold text-slate-400 mb-1">CONTEXT</p>
+                <p class="text-slate-600 text-xs italic leading-relaxed">${ex.context}</p>
+            </div>`;
+            const items = ex.items.map((item, i) => {
                 const hintsHtml = item.options.map(o =>
                     `<span class="px-2 py-1 rounded-lg text-xs font-semibold block text-center" style="background:var(--theme-bg-color);color:var(--theme-color);">${o}</span>`
                 ).join('');
-                return `<div class="ex-item-row bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                    <div class="ex-item-left p-3 flex flex-col items-center justify-center gap-2 border-r border-slate-100">
-                        <span class="w-7 h-7 rounded-full text-sm font-bold flex items-center justify-center text-white mb-1" style="background:var(--theme-color);">${item.num}</span>
+                return `<div id="item-${item.id}" class="ex-item-row bg-white border border-slate-200 shadow-sm">
+                    <div class="ex-item-left p-3 flex flex-col items-center justify-center gap-2" style="border-right:1px solid #f1f5f9;background:var(--theme-bg-color);">
+                        <span class="w-7 h-7 rounded-full text-sm font-bold flex items-center justify-center text-white" style="background:var(--theme-color);">${item.num}</span>
                         ${hintsHtml}
                     </div>
-                    <div class="ex-item-right p-3 flex items-center">
+                    <div class="ex-item-right p-4 flex items-center">
                         <p class="text-slate-700 text-sm leading-loose">${item.before}
                             <input type="text" class="st-input inline-block border-b-2 focus:outline-none text-center font-bold text-sm w-28 mx-1 bg-transparent"
                                 data-answer="${item.answer}"
@@ -649,7 +706,15 @@
                     </div>
                 </div>`;
             }).join('');
-            return exCard(ex.title, ex.instruction, contextHtml + `<div class="space-y-3">${items}</div>`);
+            return exCard(ex.title, ex.instruction,
+                `<div class="ex-two-panel">
+                    <div class="ex-left-panel">
+                        ${navPanel(ex.items)}
+                        ${contextBox}
+                    </div>
+                    <div class="ex-right-panel space-y-3">${items}</div>
+                </div>`
+            );
         }
 
         function renderSort(ex) {
@@ -900,6 +965,20 @@
                         this.remove();
                     });
                     this.querySelector('.drop-items').appendChild(tag);
+                });
+            });
+
+            // Navigator buttons: scroll to question item
+            document.querySelectorAll('.q-nav-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const target = document.getElementById(this.dataset.target);
+                    if (target) {
+                        const panel = target.closest('.ex-right-panel');
+                        if (panel) panel.scrollTo({ top: target.offsetTop - 8, behavior: 'smooth' });
+                        else target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                    document.querySelectorAll('.q-nav-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
                 });
             });
         }
