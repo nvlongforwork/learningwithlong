@@ -84,17 +84,33 @@
         .detail-decor { background-color: var(--theme-color); opacity: 0.15; }
         .detail-icon { background-color: var(--theme-bg-color); color: var(--theme-color); }
 
-        /* Desktop: scale exercise text 1.5× */
+        /* Desktop: scale exercise text 2.25× (1.5 × 1.5 of base) */
         @media (min-width: 768px) {
-            #dynamic-content-container .text-sm { font-size: 1.05rem !important; }
-            #dynamic-content-container .text-xs { font-size: 0.9rem !important; }
-            #dynamic-content-container p { font-size: 1.05rem; }
-            #dynamic-content-container input[type="text"] { font-size: 1rem !important; width: 8rem !important; }
+            #dynamic-content-container { font-size: 1.35rem; }
+            #dynamic-content-container .text-sm  { font-size: 1.35rem !important; }
+            #dynamic-content-container .text-xs  { font-size: 1.15rem !important; }
+            #dynamic-content-container .text-base { font-size: 1.5rem !important; }
+            #dynamic-content-container p          { font-size: 1.35rem; line-height: 2rem; }
+            #dynamic-content-container input[type="text"] { font-size: 1.2rem !important; width: 10rem !important; }
             #dynamic-content-container button.wb-chip,
             #dynamic-content-container button.pf-chip,
-            #dynamic-content-container .drag-word { font-size: 1rem !important; }
-            #dynamic-content-container .space-y-3 > div,
-            #dynamic-content-container .space-y-2 > div { padding: 1rem; }
+            #dynamic-content-container .drag-word { font-size: 1.2rem !important; padding: 0.5rem 1rem !important; }
+            #dynamic-content-container .space-y-3 > div { padding: 1.25rem; }
+            #dynamic-content-container h3 { font-size: 1.4rem !important; }
+        }
+
+        /* Side-by-side exercise layout on desktop */
+        @media (min-width: 900px) {
+            #dynamic-content-container .space-y-8 {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+                align-items: start;
+            }
+            /* Check button spans full width */
+            #dynamic-content-container .space-y-8 > .text-center {
+                grid-column: 1 / -1;
+            }
         }
     </style>
 </head>
@@ -473,22 +489,26 @@
                 </div>`;
                 const grid = ex.items.map(item => {
                     if (item.given) {
-                        return `<div class="flex flex-col items-center bg-white rounded-2xl p-3 border-2 border-green-200">
-                            <img src="${item.img}" class="w-full rounded-xl mb-2 object-cover" style="height:6rem;">
-                            <span class="font-bold text-sm text-green-600">${item.answer}</span>
-                            <span class="text-xs text-slate-400">example</span>
+                        return `<div class="bg-white rounded-2xl overflow-hidden border-2 border-green-200 shadow-sm">
+                            <img src="${item.img}" class="w-full object-cover" style="height:8rem;">
+                            <div class="p-2 text-center">
+                                <span class="font-bold text-sm text-green-600">${item.answer}</span>
+                                <div class="text-xs text-slate-400">example</div>
+                            </div>
                         </div>`;
                     }
-                    return `<div class="flex flex-col items-center bg-white rounded-2xl p-3 border-2 border-slate-200">
-                        <img src="${item.img}" class="w-full rounded-xl mb-2 object-cover" style="height:6rem;">
-                        <input type="text" class="wbf-input w-full text-center focus:outline-none font-bold text-sm bg-transparent border-b-2"
-                            data-answer="${item.answer}"
-                            style="border-color:var(--theme-color);"
-                            placeholder="...">
+                    return `<div class="bg-white rounded-2xl overflow-hidden border-2 border-slate-200 shadow-sm">
+                        <img src="${item.img}" class="w-full object-cover" style="height:8rem;">
+                        <div class="p-2">
+                            <input type="text" class="wbf-input w-full text-center focus:outline-none font-bold text-sm bg-transparent border-b-2"
+                                data-answer="${item.answer}"
+                                style="border-color:var(--theme-color);"
+                                placeholder="...">
+                        </div>
                     </div>`;
                 }).join('');
                 return exCard(ex.title, ex.instruction,
-                    wbRef + `<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">${grid}</div>`
+                    wbRef + `<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">${grid}</div>`
                 );
             }
             // Legacy: label-based fill (click chip → click card)
