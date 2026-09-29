@@ -8,18 +8,20 @@
       "instruction": "Write the words.",
       "wordBank": ["gave", "played", "hopped", "jumped", "danced", "laughed", "bought", "ran", "read", "threw", "drank", "walked", "climbed"],
       "items": [
-        { "id": "1a", "label": "🍦 A boy eating an ice cream", "answer": "ate", "given": true },
-        { "id": "1b", "label": "🛒 Someone buying at a shop", "answer": "bought" },
-        { "id": "1c", "label": "🏄 Someone jumping at the beach", "answer": "jumped" },
-        { "id": "1d", "label": "👨‍👩‍👧 A family at the beach", "answer": "walked" },
-        { "id": "1e", "label": "🥤 A boy drinking", "answer": "drank" },
-        { "id": "1f", "label": "🎁 A boy giving something", "answer": "gave" },
-        { "id": "1g", "label": "💃 A girl dancing", "answer": "danced" },
-        { "id": "1h", "label": "🏃 A boy running fast", "answer": "ran" },
-        { "id": "1i", "label": "😄 People laughing on the beach", "answer": "laughed" },
-        { "id": "1j", "label": "🎾 Someone throwing a ball", "answer": "threw" },
-        { "id": "1k", "label": "📖 A girl reading under a tree", "answer": "read" },
-        { "id": "1l", "label": "🧗 A boy climbing", "answer": "climbed" }
+        { "id": "1a", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-01.jpg", "answer": "ate",     "given": true  },
+        { "id": "1b", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-02.jpg", "answer": "bought",  "given": false },
+        { "id": "1c", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-03.jpg", "answer": "jumped",  "given": false },
+        { "id": "1d", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-04.jpg", "answer": "played",  "given": false },
+        { "id": "1e", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-05.jpg", "answer": "drank",   "given": false },
+        { "id": "1f", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-06.jpg", "answer": "gave",    "given": false },
+        { "id": "1g", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-07.jpg", "answer": "danced",  "given": false },
+        { "id": "1h", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-08.jpg", "answer": "ran",     "given": false },
+        { "id": "1i", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-09.jpg", "answer": "laughed", "given": false },
+        { "id": "1j", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-10.jpg", "answer": "threw",   "given": false },
+        { "id": "1k", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-11.jpg", "answer": "hopped",  "given": false },
+        { "id": "1l", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-12.jpg", "answer": "read",    "given": false },
+        { "id": "1m", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-13.jpg", "answer": "climbed", "given": false },
+        { "id": "1n", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-14.jpg", "answer": "walked",  "given": false }
       ]
     },
     {
@@ -30,7 +32,7 @@
       "wordBank": ["kicked", "walked", "bought", "ate", "read", "went", "played", "swam", "cooked"],
       "passages": [
         {
-          "header": "📧 Letter from Katy to Michael",
+          "header": "Letter from Katy to Michael",
           "parts": [
             { "text": "Dear Michael,\nHow are you? Is your new school OK? I wanted to write yesterday, but I was very busy. In the morning I " },
             { "blank": "b1", "num": 1, "answer": "played" },
@@ -46,7 +48,7 @@
           ]
         },
         {
-          "header": "📧 Letter from Michael to Katy",
+          "header": "Letter from Michael to Katy",
           "parts": [
             { "text": "Dear Katy,\nNice to hear from you. I also had a busy day yesterday.\n\nIn the morning we went to the sports centre and I " },
             { "blank": "b6", "num": 6, "answer": "played" },
@@ -64,37 +66,51 @@
       ]
     },
     {
-      "type": "sort",
+      "type": "drag-sort",
       "id": "ex3",
       "title": "Exercise 3",
       "instruction": "Write the words on the correct ladder.",
       "categories": ["You do it", "You did it"],
       "words": [
-        { "word": "throw", "category": 0 },
-        { "word": "laugh", "category": 0 },
-        { "word": "jump", "category": 0 },
-        { "word": "give", "category": 0 },
-        { "word": "run", "category": 0 },
-        { "word": "jumped", "category": 1 },
+        { "word": "throw",   "category": 0 },
+        { "word": "laugh",   "category": 0 },
+        { "word": "jump",    "category": 0 },
+        { "word": "give",    "category": 0 },
+        { "word": "run",     "category": 0 },
+        { "word": "jumped",  "category": 1 },
         { "word": "laughed", "category": 1 },
-        { "word": "gave", "category": 1 },
-        { "word": "threw", "category": 1 },
-        { "word": "ran", "category": 1 }
+        { "word": "gave",    "category": 1 },
+        { "word": "threw",   "category": 1 },
+        { "word": "ran",     "category": 1 }
       ]
     },
     {
-      "type": "story-choice",
+      "type": "image-type",
+      "id": "ex4",
+      "title": "Exercise 4",
+      "instruction": "Write the words from exercise 3 by the pictures.",
+      "items": [
+        { "id": "4a", "img": "data/a1-movers/i-dictionary/past-verbs-images/ex4-01.jpg", "present": "buy",   "past": "bought",  "given": true  },
+        { "id": "4b", "img": "data/a1-movers/i-dictionary/past-verbs-images/ex4-02.jpg", "present": "give",  "past": "gave",    "given": false },
+        { "id": "4c", "img": "data/a1-movers/i-dictionary/past-verbs-images/ex4-03.jpg", "present": "run",   "past": "ran",     "given": false },
+        { "id": "4d", "img": "data/a1-movers/i-dictionary/past-verbs-images/ex4-04.jpg", "present": "laugh", "past": "laughed", "given": false },
+        { "id": "4e", "img": "data/a1-movers/i-dictionary/past-verbs-images/ex4-05.jpg", "present": "throw", "past": "threw",   "given": false },
+        { "id": "4f", "img": "data/a1-movers/i-dictionary/past-verbs-images/ex4-06.jpg", "present": "jump",  "past": "jumped",  "given": false }
+      ]
+    },
+    {
+      "type": "story-type",
       "id": "ex5",
       "title": "Exercise 5",
       "instruction": "Read, choose the word and write.",
       "context": "Our last summer holiday was fun. My family and I sailed on a big sailing boat. We stayed on a beautiful island with high mountains.",
       "items": [
-        { "id": "s1", "num": 1, "before": "One day, my father and I", "after": "a high mountain on the island.", "options": ["hopped", "jumped", "climbed"], "answer": "climbed" },
-        { "id": "s2", "num": 2, "before": "My older brother", "after": "from a boat into the sea.", "options": ["threw", "jumped", "hopped"], "answer": "jumped" },
-        { "id": "s3", "num": 3, "before": "I swam in the sea and", "after": "with dolphins.", "options": ["played", "danced", "hopped"], "answer": "played" },
-        { "id": "s4", "num": 4, "before": "We", "after": "a lot of water because it was very hot.", "options": ["threw", "drank", "gave"], "answer": "drank" },
-        { "id": "s5", "num": 5, "before": "We had a party in the evening and we", "after": "on the beach.", "options": ["walked", "ran", "danced"], "answer": "danced" },
-        { "id": "s6", "num": 6, "before": "One evening we had a competition and everybody", "after": "on one leg!", "options": ["danced", "hopped", "climbed"], "answer": "hopped" }
+        { "id": "s1", "num": 1, "before": "One day, my father and I",              "after": "a high mountain on the island.", "options": ["hopped","jumped","climbed"],  "answer": "climbed" },
+        { "id": "s2", "num": 2, "before": "My older brother",                      "after": "from a boat into the sea.",       "options": ["threw","jumped","hopped"],   "answer": "jumped"  },
+        { "id": "s3", "num": 3, "before": "I swam in the sea and",                 "after": "with dolphins.",                  "options": ["played","danced","hopped"],  "answer": "played"  },
+        { "id": "s4", "num": 4, "before": "We",                                    "after": "a lot of water because it was very hot.", "options": ["threw","drank","gave"], "answer": "drank" },
+        { "id": "s5", "num": 5, "before": "We had a party in the evening and we",  "after": "on the beach.",                  "options": ["walked","ran","danced"],     "answer": "danced"  },
+        { "id": "s6", "num": 6, "before": "One evening we had a competition and everybody", "after": "on one leg!",           "options": ["danced","hopped","climbed"], "answer": "hopped"  }
       ]
     }
   ]
