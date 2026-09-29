@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Language Material</title>
+    
+    <!-- Tailwind CSS cho thiết kế responsive và UI -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome cho icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- SweetAlert2 để thay thế alert() mặc định, tạo thông báo đẹp mắt -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Màu Blue Turtle nhẹ nhàng, thanh lịch
+                        'turtle': {
+                            50: '#f0fbfa',
+                            100: '#ccf2ef',
+                            200: '#99e4df',
+                            300: '#66d3cc',
+                            400: '#3fbcba',
+                            500: '#20a1a0', // Main Blue Turtle color
+                            600: '#178082',
+                            700: '#136768',
+                            800: '#115254',
+                            900: '#0f4446',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(32, 161, 160, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        /* Hiệu ứng nảy nhẹ khi hover cho các tương tác */
+        .hover-bounce {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .hover-bounce:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(32, 161, 160, 0.2), 0 10px 10px -5px rgba(32, 161, 160, 0.1);
+        }
+
+        /* Ẩn hiện các view để tạo ứng dụng Single Page (SPA) */
+        .view-section {
+            display: none;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        .view-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .material-card .card-bg-decor { background-color: var(--theme-color); opacity: 0.1; }
+        .material-card .card-icon { background-color: var(--theme-bg-color); color: var(--theme-color); }
+        .material-card:hover .card-icon { background-color: var(--theme-color) !important; color: white !important; }
+        .material-card:hover .card-title { color: var(--theme-color); }
+        
+        .detail-decor { background-color: var(--theme-color); opacity: 0.15; }
+        .detail-icon { background-color: var(--theme-bg-color); color: var(--theme-color); }
+    </style>
+</head>
+<body class="text-slate-700 min-h-screen flex flex-col">
+
+    <!-- Navbar chung (sẽ ẩn ở màn hình đăng nhập) -->
+    <nav id="main-nav" class="bg-white shadow-sm px-6 py-4 hidden sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3 text-turtle-600 font-bold text-xl cursor-pointer hover-bounce" onclick="window.location.hash='#/dashboard'">
+                <div class="bg-turtle-100 p-2 rounded-xl text-turtle-600">
+                    <i class="fa-solid fa-earth-americas"></i>
+                </div>
+                <span>ELM Portal</span>
+            </div>
+            <div>
+                <button id="logout-btn" class="text-slate-500 hover:text-turtle-600 font-medium px-4 py-2 rounded-xl hover:bg-turtle-50 transition-colors">
+                    <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i>Đăng xuất
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow flex flex-col p-4 sm:p-6 w-full max-w-6xl mx-auto">
+        
+        <!-- VIEW 1: ĐĂNG NHẬP -->
+        <section id="view-login" class="view-section active m-auto w-full max-w-md">
+            <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-soft text-center hover-bounce">
+                <div class="w-20 h-20 bg-turtle-100 rounded-3xl flex items-center justify-center mx-auto mb-6 text-turtle-500 text-4xl shadow-sm rotate-3 hover:rotate-0 transition-transform">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-bold text-slate-800 mb-2">ENGLISH LANGUAGE MATERIAL</h1>
+                <p class="text-slate-500 text-sm mb-8">Dành riêng cho giáo viên. Vui lòng nhập mã truy cập.</p>
+                
+                <form id="login-form" class="space-y-6">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i class="fa-solid fa-lock text-slate-400"></i>
+                        </div>
+                        <input type="password" id="teacher-code" placeholder="Nhập mã giáo viên (123)" 
+                            class="w-full pl-11 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 focus:outline-none focus:ring-2 focus:ring-turtle-400 focus:bg-white transition-all shadow-inner font-medium"
+                            required>
+                    </div>
+                    
+                    <button type="submit" 
+                        class="w-full py-4 px-6 bg-turtle-500 text-white font-bold rounded-2xl hover:bg-turtle-600 active:scale-95 transition-all shadow-lg shadow-turtle-500/30 flex items-center justify-center gap-2">
+                        <span>Truy cập hệ thống</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- VIEW 2: DANH SÁCH TÀI LIỆU (DASHBOARD) -->
+        <section id="view-dashboard" class="view-section w-full py-6">
+            <div class="mb-10 text-center sm:text-left">
+                <h2 class="text-3xl font-bold text-slate-800 mb-3">Tài liệu Giảng dạy</h2>
+                <p class="text-slate-500">Chọn một học phần để xem chi tiết và giao bài tập cho học sinh.</p>
+            </div>
+            
+            <!-- Vùng chứa danh sách Grid -->
+            <div id="materials-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Nội dung được render bằng JavaScript tự động -->
+            </div>
+        </section>
+
+        <!-- VIEW 3: CHI TIẾT TÀI LIỆU (MÀN HÌNH BÀI TẬP CÓ LINK RIÊNG) -->
+        <section id="view-detail" class="view-section w-full py-6 max-w-4xl mx-auto">
+            
+            <button id="back-btn" class="mb-6 flex items-center gap-2 text-slate-500 hover:text-slate-800 transition-colors font-medium w-fit hover-bounce">
+                <i class="fa-solid fa-arrow-left"></i> Quay lại danh sách
+            </button>
+
+            <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-soft relative overflow-hidden">
+                <!-- Decoration background -->
+                <div class="absolute -top-16 -right-16 w-32 h-32 rounded-full blur-2xl detail-decor transition-colors duration-500"></div>
+                
+                <div class="relative z-10 flex flex-col md:flex-row gap-8 items-start md:items-center justify-between mb-8 pb-8 border-b border-slate-100">
+                    <div class="flex items-center gap-5">
+                        <div>
+                            <h2 id="detail-title" class="text-2xl sm:text-3xl font-bold text-slate-800">Tên bài học</h2>
+                            <p id="detail-subtitle" class="font-medium mt-1" style="color: var(--theme-color);">Bài tập thực hành</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Nút Copy Link dành cho giáo viên (Học sinh sẽ không thấy nút này) -->
+                    <div id="teacher-tools" class="w-full md:w-auto hidden">
+                        <button onclick="copyCurrentLink()" class="w-full md:w-auto py-3 px-6 bg-slate-50 hover:bg-slate-800 hover:text-white border border-slate-200 font-semibold rounded-2xl transition-all flex items-center justify-center gap-2 shadow-sm hover-bounce" style="color: var(--theme-color);">
+                            <i class="fa-solid fa-link"></i>
+                            <span>Copy Link Giao Bài</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Vùng chứa nội dung động (Thư mục con hoặc Bài tập) -->
+                <div id="dynamic-content-container" class="relative z-10">
+                    <!-- Rendered by JS tự động -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // --- Dữ liệu các cấp độ học (Materials) dựa trên yêu cầu ---
+        const materialsData = [
+            { id: 'pre-a1-starters', name: 'Pre-A1 Starters', description: 'Trình độ cơ bản nhất cho trẻ em mới bắt đầu.', color: '#F5A623', folders: [{ id: 'i-dictionary', name: 'I Dictionary' }] },
+            { id: 'a1-movers', name: 'A1 Movers', description: 'Bước thứ hai trong hành trình học tiếng Anh.', color: '#A8C63B', folders: [{ id: 'i-dictionary', name: 'I Dictionary' }] },
+            { id: 'a2-flyers', name: 'A2 Flyers', description: 'Cấp độ cao nhất trong hệ thống YLE cho trẻ.', color: '#21B6A8', folders: [{ id: 'i-dictionary', name: 'I Dictionary' }] },
+            { id: 'a2-key', name: 'A2 Key', description: 'Chứng chỉ tiếng Anh tổng quát trình độ A2 (KET).', color: '#00AFA9' },
+            { id: 'b1-preliminary', name: 'B1 Preliminary', description: 'Nắm vững các kiến thức cơ bản ngôn ngữ (PET).', color: '#009D98' },
+            { id: 'b2-first', name: 'B2 First', description: 'Chứng minh đủ khả năng làm việc/học tập (FCE).', color: '#008F9C' },
+            { id: 'c1-advanced', name: 'C1 Advanced', description: 'Chứng chỉ trình độ tiếng Anh cao cấp (CAE).', color: '#148DA8' }
+        ];
+
+        // Mật khẩu giáo viên cố định theo yêu cầu
+        const TEACHER_CODE = '123';
+        
+        // Kiểm tra xem giáo viên đã đăng nhập từ trước chưa (Lưu session)
+        let isLoggedIn = sessionStorage.getItem('elm_teacher_logged_in') === 'true';
+
+        // Tham chiếu các phần tử DOM
+        const viewLogin = document.getElementById('view-login');
+        const viewDashboard = document.getElementById('view-dashboard');
+        const viewDetail = document.getElementById('view-detail');
+        const mainNav = document.getElementById('main-nav');
+        
+        // --- Render UI Dashboard (Danh sách khóa học) ---
+        function renderDashboard() {
+            const grid = document.getElementById('materials-grid');
+            grid.innerHTML = '';
+            
+            materialsData.forEach(mat => {
+                // Tạo mã màu bg với opacity
+                const bgColorWithOpacity = mat.color + '25';
+                
+                // Thêm thuộc tính aspect-square và flex-col để tạo hình vuông bo góc, chữ căn giữa
+                const cardHtml = `
+                    <a href="#/material/${mat.id}" class="material-card aspect-square flex flex-col justify-center items-center text-center group block bg-white rounded-3xl p-6 border border-slate-100 hover-bounce cursor-pointer relative overflow-hidden shadow-sm" style="--theme-color: ${mat.color}; --theme-bg-color: ${bgColorWithOpacity};">
+                        <div class="absolute -right-4 -top-4 w-24 h-24 rounded-full transition-transform group-hover:scale-150 z-0 duration-500 card-bg-decor"></div>
+                        <div class="relative z-10 flex flex-col justify-center items-center h-full w-full">
+                            <h3 class="text-xl sm:text-2xl font-bold text-slate-800 mb-2 transition-colors duration-300 card-title">${mat.name}</h3>
+                            <p class="text-slate-500 text-sm leading-relaxed">${mat.description}</p>
+                        </div>
+                    </a>
+                `;
+                grid.innerHTML += cardHtml;
+            });
+        }
+
+        // --- Render UI Chi tiết Bài Học & Thư mục ---
+        function renderDetail(pathString) {
+            // Tách chuỗi URL để phân biệt Material và Sub-folder
+            const pathParts = pathString.split('/');
+            const materialId = pathParts[0];
+            const folderId = pathParts[1];
+            
+            const material = materialsData.find(m => m.id === materialId);
+            
+            if (!material) {
+                Swal.fire('Lỗi', 'Không tìm thấy tài liệu này!', 'error')
+                    .then(() => window.location.hash = '#/dashboard');
+                return;
+            }
+
+            // Gán biến CSS để cập nhật màu cho các phần tử decor và icon
+            const viewDetail = document.getElementById('view-detail');
+            viewDetail.style.setProperty('--theme-color', material.color);
+            viewDetail.style.setProperty('--theme-bg-color', material.color + '25');
+
+            let titleText = material.name;
+            let subtitleText = 'Danh sách thư mục';
+            let isShowingQuiz = false;
+
+            const container = document.getElementById('dynamic-content-container');
+            const backBtn = document.getElementById('back-btn');
+            container.innerHTML = ''; // Làm sạch vùng chứa
+
+            // Xử lý logic Nút Quay lại
+            if (folderId) {
+                backBtn.onclick = () => window.location.hash = `#/material/${materialId}`;
+                backBtn.innerHTML = '<i class="fa-solid fa-arrow-left"></i> Quay lại thư mục';
+            } else {
+                backBtn.onclick = () => window.location.hash = '#/dashboard';
+                backBtn.innerHTML = '<i class="fa-solid fa-arrow-left"></i> Quay lại danh sách';
+            }
+
+            // Kiểm tra xem đang ở màn hình thư mục hay đang xem bài tập
+            if (folderId) {
+                // Đang xem bài tập bên trong thư mục con
+                const folder = material.folders?.find(f => f.id === folderId);
+                if (folder) {
+                    titleText = `${material.name} / ${folder.name}`;
+                    subtitleText = 'Bài tập thực hành';
+                    isShowingQuiz = true;
+                }
+            } else if (!material.folders || material.folders.length === 0) {
+                // Môn học không có thư mục con (ví dụ: A2 Key) -> Hiện bài tập ngay lập tức
+                subtitleText = 'Bài tập thực hành';
+                isShowingQuiz = true;
+            } else {
+                // Render danh sách thư mục con dưới dạng hình vuông bo góc
+                let foldersHtml = '<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">';
+                material.folders.forEach(f => {
+                    foldersHtml += `
+                        <a href="#/material/${material.id}/${f.id}" class="aspect-square bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover-bounce flex flex-col items-center justify-center text-center cursor-pointer relative overflow-hidden group" style="background-color: var(--theme-bg-color);">
+                            <i class="fa-solid fa-folder-open text-4xl mb-3 opacity-80" style="color: var(--theme-color);"></i>
+                            <span class="relative z-10 text-lg sm:text-xl font-bold transition-transform group-hover:scale-105" style="color: var(--theme-color);">${f.name}</span>
+                        </a>
+                    `;
+                });
+                foldersHtml += '</div>';
+                container.innerHTML = foldersHtml;
+            }
+
+            // Nếu đang ở màn hình bài tập (isShowingQuiz) thì render bộ câu hỏi
+            if (isShowingQuiz) {
+                container.innerHTML = `
+                    <div class="space-y-6">
+                        <div class="bg-slate-50 p-6 rounded-3xl border border-slate-100 hover-bounce shadow-sm">
+                            <h3 class="font-bold text-slate-700 mb-4 flex items-center gap-2 text-lg">
+                                <i class="fa-regular fa-pen-to-square" style="color: var(--theme-color);"></i> Bài tập 1: Multiple Choice
+                            </h3>
+                            <p class="text-slate-500 text-sm mb-4">Read the questions and choose the best answer.</p>
+                            <div class="space-y-3">
+                                <label class="flex items-center gap-3 p-4 bg-white rounded-2xl border border-slate-200 cursor-pointer hover:border-slate-300 transition-colors">
+                                    <input type="radio" name="q1" class="focus:ring-2 w-4 h-4" style="accent-color: var(--theme-color);">
+                                    <span class="font-medium text-slate-700">A. The correct answer option 1</span>
+                                </label>
+                                <label class="flex items-center gap-3 p-4 bg-white rounded-2xl border border-slate-200 cursor-pointer hover:border-slate-300 transition-colors">
+                                    <input type="radio" name="q1" class="focus:ring-2 w-4 h-4" style="accent-color: var(--theme-color);">
+                                    <span class="font-medium text-slate-700">B. The correct answer option 2</span>
+                                </label>
+                                <label class="flex items-center gap-3 p-4 bg-white rounded-2xl border border-slate-200 cursor-pointer hover:border-slate-300 transition-colors">
+                                    <input type="radio" name="q1" class="focus:ring-2 w-4 h-4" style="accent-color: var(--theme-color);">
+                                    <span class="font-medium text-slate-700">C. The correct answer option 3</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center pt-4">
+                            <button onclick="submitQuiz()" class="py-4 px-12 bg-slate-800 text-white font-bold text-lg rounded-2xl hover:bg-slate-700 transition-colors shadow-lg hover-bounce inline-block">
+                                Nộp bài
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            document.getElementById('detail-title').innerText = titleText;
+            document.getElementById('detail-subtitle').innerText = subtitleText;
+            
+            // Xử lý quyền hiển thị nút:
+            const teacherTools = document.getElementById('teacher-tools');
+            
+            if (isLoggedIn) {
+                // Là giáo viên -> Hiển thị nút copy link và nút quay lại dashboard
+                teacherTools.classList.remove('hidden');
+                backBtn.style.display = 'flex';
+            } else {
+                // Là học sinh (Truy cập trực tiếp qua link) -> Ẩn công cụ giáo viên và nút quay lại
+                teacherTools.classList.add('hidden');
+                backBtn.style.display = 'none'; 
+            }
+        }
+
+        // --- Router (Quản lý chuyển trang bằng URL Hash) ---
+        // Giúp tạo ra các link duy nhất cho từng bài tập
+        function handleRouting() {
+            const hash = window.location.hash || '#/';
+            
+            // Ẩn tất cả view trước khi hiển thị view mới
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+
+            if (hash.startsWith('#/material/')) {
+                // Route: Chi tiết tài liệu hoặc thư mục
+                const path = hash.replace('#/material/', '');
+                renderDetail(path);
+                viewDetail.classList.add('active');
+                
+                // Hiển thị Navbar nếu là giáo viên, ẩn nếu là học sinh
+                if (isLoggedIn) mainNav.classList.remove('hidden');
+                else mainNav.classList.add('hidden'); 
+            } 
+            else if (hash === '#/dashboard') {
+                // Route: Bảng điều khiển chọn tài liệu (Bắt buộc phải đăng nhập)
+                if (!isLoggedIn) {
+                    window.location.hash = '#/';
+                    return;
+                }
+                renderDashboard();
+                viewDashboard.classList.add('active');
+                mainNav.classList.remove('hidden');
+            } 
+            else {
+                // Route mặc định: Màn hình đăng nhập
+                if (isLoggedIn) {
+                    window.location.hash = '#/dashboard';
+                    return;
+                }
+                viewLogin.classList.add('active');
+                mainNav.classList.add('hidden');
+            }
+        }
+
+        // --- Xử lý sự kiện Đăng nhập ---
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const codeInput = document.getElementById('teacher-code').value;
+            
+            if (codeInput === TEACHER_CODE) {
+                isLoggedIn = true;
+                sessionStorage.setItem('elm_teacher_logged_in', 'true');
+                document.getElementById('teacher-code').value = '';
+                
+                Swal.fire({
+                    title: 'Thành công!',
+                    text: 'Chào mừng giáo viên đăng nhập.',
+                    icon: 'success',
+                    timer: 1500,
+                    showConfirmButton: false,
+                    confirmButtonColor: '#20a1a0'
+                }).then(() => {
+                    window.location.hash = '#/dashboard';
+                });
+            } else {
+                Swal.fire({
+                    title: 'Lỗi!',
+                    text: 'Mã giáo viên không chính xác.',
+                    icon: 'error',
+                    confirmButtonColor: '#20a1a0'
+                });
+            }
+        });
+
+        // --- Xử lý sự kiện Đăng xuất ---
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            Swal.fire({
+                title: 'Đăng xuất?',
+                text: 'Bạn có chắc chắn muốn thoát khỏi hệ thống?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#20a1a0',
+                cancelButtonColor: '#ef4444',
+                confirmButtonText: 'Đăng xuất',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    isLoggedIn = false;
+                    sessionStorage.removeItem('elm_teacher_logged_in');
+                    window.location.hash = '#/';
+                }
+            });
+        });
+
+        // --- Hàm Copy Link dành cho giáo viên để gửi cho học sinh ---
+        function copyCurrentLink() {
+            // Lấy URL hiện tại (bao gồm cả Hash chứa bài tập)
+            const currentUrl = window.location.href;
+            
+            // Thử sử dụng Clipboard API hiện đại
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(currentUrl).then(showCopySuccess);
+            } else {
+                // Cách fallback cho các trình duyệt cũ hơn hoặc môi trường iframe
+                let textArea = document.createElement("textarea");
+                textArea.value = currentUrl;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showCopySuccess();
+                } catch (err) {
+                    Swal.fire('Lỗi', 'Không thể copy link tự động.', 'error');
+                }
+                textArea.remove();
+            }
+        }
+
+        function showCopySuccess() {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+            Toast.fire({
+                icon: 'success',
+                title: 'Đã copy link bài tập thành công!'
+            });
+        }
+        
+        // Mô phỏng nộp bài cho học sinh
+        function submitQuiz() {
+            Swal.fire({
+                title: 'Nộp bài thành công!',
+                text: 'Câu trả lời của bạn đã được ghi nhận.',
+                icon: 'success',
+                confirmButtonColor: '#20a1a0'
+            });
+        }
+
+        // Lắng nghe sự kiện đổi URL (hash) để thay đổi view tương ứng
+        window.addEventListener('hashchange', handleRouting);
+        
+        // Chạy hàm kiểm tra router lần đầu tiên khi vừa tải trang xong
+        window.addEventListener('DOMContentLoaded', handleRouting);
+        
+    </script>
+</body>
+</html>
