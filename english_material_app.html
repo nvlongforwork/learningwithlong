@@ -188,7 +188,23 @@
         // --- Dữ liệu các cấp độ học (Materials) dựa trên yêu cầu ---
         const materialsData = [
             { id: 'pre-a1-starters', name: 'Pre-A1 Starters', description: 'Trình độ cơ bản nhất cho trẻ em mới bắt đầu.', color: '#F5A623', folders: [{ id: 'i-dictionary', name: 'I Dictionary' }] },
-            { id: 'a1-movers', name: 'A1 Movers', description: 'Bước thứ hai trong hành trình học tiếng Anh.', color: '#A8C63B', folders: [{ id: 'i-dictionary', name: 'I Dictionary' }] },
+            { id: 'a1-movers', name: 'A1 Movers', description: 'Bước thứ hai trong hành trình học tiếng Anh.', color: '#A8C63B', folders: [{ id: 'i-dictionary', name: 'I Dictionary', topics: [
+                { id: 'animals', name: 'Animals' },
+                { id: 'the-body', name: 'The Body' },
+                { id: 'people', name: 'People' },
+                { id: 'food-and-drink', name: 'Food and Drink' },
+                { id: 'health', name: 'Health' },
+                { id: 'the-home', name: 'The Home' },
+                { id: 'time', name: 'Time' },
+                { id: 'sports-and-leisure', name: 'Sports and Leisure' },
+                { id: 'numbers', name: 'Numbers' },
+                { id: 'places', name: 'Places' },
+                { id: 'weather-and-clothes', name: 'Weather and Clothes' },
+                { id: 'our-world', name: 'Our World' },
+                { id: 'past-verbs', name: 'Past Verbs' },
+                { id: 'adjectives', name: 'Adjectives' },
+                { id: 'revision', name: 'Revision' }
+            ]}] },
             { id: 'a2-flyers', name: 'A2 Flyers', description: 'Cấp độ cao nhất trong hệ thống YLE cho trẻ.', color: '#21B6A8', folders: [{ id: 'i-dictionary', name: 'I Dictionary' }] },
             { id: 'a2-key', name: 'A2 Key', description: 'Chứng chỉ tiếng Anh tổng quát trình độ A2 (KET).', color: '#00AFA9' },
             { id: 'b1-preliminary', name: 'B1 Preliminary', description: 'Nắm vững các kiến thức cơ bản ngôn ngữ (PET).', color: '#009D98' },
@@ -233,20 +249,19 @@
 
         // --- Render UI Chi tiết Bài Học & Thư mục ---
         function renderDetail(pathString) {
-            // Tách chuỗi URL để phân biệt Material và Sub-folder
             const pathParts = pathString.split('/');
             const materialId = pathParts[0];
             const folderId = pathParts[1];
-            
+            const topicId = pathParts[2];
+
             const material = materialsData.find(m => m.id === materialId);
-            
+
             if (!material) {
                 Swal.fire('Lỗi', 'Không tìm thấy tài liệu này!', 'error')
                     .then(() => window.location.hash = '#/dashboard');
                 return;
             }
 
-            // Gán biến CSS để cập nhật màu cho các phần tử decor và icon
             const viewDetail = document.getElementById('view-detail');
             viewDetail.style.setProperty('--theme-color', material.color);
             viewDetail.style.setProperty('--theme-bg-color', material.color + '25');
@@ -257,10 +272,13 @@
 
             const container = document.getElementById('dynamic-content-container');
             const backBtn = document.getElementById('back-btn');
-            container.innerHTML = ''; // Làm sạch vùng chứa
+            container.innerHTML = '';
 
-            // Xử lý logic Nút Quay lại
-            if (folderId) {
+            // Nút Quay lại theo cấp
+            if (topicId) {
+                backBtn.onclick = () => window.location.hash = `#/material/${materialId}/${folderId}`;
+                backBtn.innerHTML = '<i class="fa-solid fa-arrow-left"></i> Quay lại thư mục';
+            } else if (folderId) {
                 backBtn.onclick = () => window.location.hash = `#/material/${materialId}`;
                 backBtn.innerHTML = '<i class="fa-solid fa-arrow-left"></i> Quay lại thư mục';
             } else {
@@ -268,21 +286,45 @@
                 backBtn.innerHTML = '<i class="fa-solid fa-arrow-left"></i> Quay lại danh sách';
             }
 
-            // Kiểm tra xem đang ở màn hình thư mục hay đang xem bài tập
-            if (folderId) {
-                // Đang xem bài tập bên trong thư mục con
+            if (topicId) {
+                // Cấp 3: đang xem bài tập trong topic
                 const folder = material.folders?.find(f => f.id === folderId);
-                if (folder) {
-                    titleText = `${material.name} / ${folder.name}`;
+                const topic = folder?.topics?.find(t => t.id === topicId);
+                if (topic) {
+                    titleText = `${material.name} / ${folder.name} / ${topic.name}`;
                     subtitleText = 'Bài tập thực hành';
                     isShowingQuiz = true;
                 }
+            } else if (folderId) {
+                const folder = material.folders?.find(f => f.id === folderId);
+                if (folder) {
+                    if (folder.topics && folder.topics.length > 0) {
+                        // Cấp 2: folder có topics -> hiện danh sách topics
+                        titleText = `${material.name} / ${folder.name}`;
+                        subtitleText = 'Chọn chủ đề';
+                        let topicsHtml = '<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">';
+                        folder.topics.forEach(t => {
+                            topicsHtml += `
+                                <a href="#/material/${material.id}/${folder.id}/${t.id}" class="aspect-square bg-white rounded-3xl p-4 border border-slate-100 shadow-sm hover-bounce flex flex-col items-center justify-center text-center cursor-pointer group" style="background-color: var(--theme-bg-color);">
+                                    <i class="fa-solid fa-book text-3xl mb-2 opacity-80" style="color: var(--theme-color);"></i>
+                                    <span class="text-sm sm:text-base font-bold transition-transform group-hover:scale-105 leading-tight" style="color: var(--theme-color);">${t.name}</span>
+                                </a>
+                            `;
+                        });
+                        topicsHtml += '</div>';
+                        container.innerHTML = topicsHtml;
+                    } else {
+                        // Cấp 2: folder không có topics -> hiện bài tập
+                        titleText = `${material.name} / ${folder.name}`;
+                        subtitleText = 'Bài tập thực hành';
+                        isShowingQuiz = true;
+                    }
+                }
             } else if (!material.folders || material.folders.length === 0) {
-                // Môn học không có thư mục con (ví dụ: A2 Key) -> Hiện bài tập ngay lập tức
                 subtitleText = 'Bài tập thực hành';
                 isShowingQuiz = true;
             } else {
-                // Render danh sách thư mục con dưới dạng hình vuông bo góc
+                // Cấp 1: hiện danh sách folders
                 let foldersHtml = '<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">';
                 material.folders.forEach(f => {
                     foldersHtml += `
