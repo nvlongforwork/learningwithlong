@@ -84,18 +84,18 @@
         .detail-decor { background-color: var(--theme-color); opacity: 0.15; }
         .detail-icon { background-color: var(--theme-bg-color); color: var(--theme-color); }
 
-        /* Desktop: scale exercise text */
+        /* Desktop: scale exercise text for young learners */
         @media (min-width: 768px) {
-            #dynamic-content-container { font-size: 1.15rem; }
-            #dynamic-content-container .text-sm  { font-size: 1.1rem !important; }
-            #dynamic-content-container .text-xs  { font-size: 0.95rem !important; }
-            #dynamic-content-container .text-base { font-size: 1.2rem !important; }
-            #dynamic-content-container p          { font-size: 1.1rem; line-height: 1.8rem; }
-            #dynamic-content-container input[type="text"] { font-size: 1.05rem !important; width: 9rem !important; }
+            #dynamic-content-container { font-size: 1.3rem; }
+            #dynamic-content-container .text-sm  { font-size: 1.2rem !important; }
+            #dynamic-content-container .text-xs  { font-size: 1.05rem !important; }
+            #dynamic-content-container .text-base { font-size: 1.35rem !important; }
+            #dynamic-content-container p          { font-size: 1.2rem; line-height: 2rem; }
+            #dynamic-content-container input[type="text"] { font-size: 1.15rem !important; width: 9.5rem !important; min-height: 2.5rem; }
             #dynamic-content-container button.wb-chip,
             #dynamic-content-container button.pf-chip,
-            #dynamic-content-container .drag-word { font-size: 1rem !important; padding: 0.4rem 0.8rem !important; }
-            #dynamic-content-container h3 { font-size: 1.15rem !important; }
+            #dynamic-content-container .drag-word { font-size: 1.1rem !important; padding: 0.5rem 1rem !important; }
+            #dynamic-content-container h3 { font-size: 1.25rem !important; }
         }
 
         /* Full-screen exercise mode on desktop */
@@ -119,25 +119,32 @@
 
         /* Three-column exercise layout */
         .ex-three-panel { display: flex; flex-direction: column; gap: 0.75rem; }
+        /* mobile: hide empty nav/wb cols */
+        .ex-nav-col:empty, .ex-wb-col:empty { display: none; }
         @media (min-width: 768px) {
-            .ex-three-panel { flex-direction: row; align-items: flex-start; gap: 0.875rem; }
-            .ex-nav-col   { flex: 0 0 2.75rem; max-width: 2.75rem; position: sticky; top: 4.5rem; align-self: flex-start; }
-            .ex-wb-col    { flex: 0 0 160px;   max-width: 160px;   position: sticky; top: 4.5rem; align-self: flex-start; }
+            .ex-three-panel { flex-direction: row; align-items: flex-start; gap: 1rem; }
+            .ex-nav-col   { flex: 0 0 3.25rem; max-width: 3.25rem; position: sticky; top: 4.75rem; align-self: flex-start; }
+            .ex-wb-col    { flex: 0 0 170px;   max-width: 170px;   position: sticky; top: 4.75rem; align-self: flex-start; }
             .ex-main-col  { flex: 1; min-width: 0; }
+            .ex-nav-col:empty { display: block; } /* keep column width on desktop */
+            .ex-wb-col:empty  { display: block; }
         }
 
-        /* Item card: image/hints left, input right */
+        /* Item card: image left, input right */
         .ex-item-row { display: flex; flex-direction: column; gap: 0; overflow: hidden; border-radius: 1rem; }
         @media (min-width: 640px) {
             .ex-item-row { flex-direction: row; align-items: stretch; }
-            .ex-item-row .ex-item-left  { flex: 0 0 42%; max-width: 42%; }
+            .ex-item-row .ex-item-left  { flex: 0 0 48%; max-width: 48%; }
             .ex-item-row .ex-item-right { flex: 1; }
         }
 
+        /* Scroll offset for sticky nav bar */
+        .ex-item-anchor { scroll-margin-top: 5.5rem; }
+
         /* Navigator number button */
         .q-nav-btn {
-            width: 2.25rem; height: 2.25rem; border-radius: 0.5rem;
-            font-size: 0.8rem; font-weight: 700;
+            width: 2.75rem; height: 2.75rem; border-radius: 0.6rem;
+            font-size: 0.9rem; font-weight: 700;
             border: 2px solid var(--theme-color);
             color: var(--theme-color);
             background: var(--theme-bg-color);
@@ -147,6 +154,13 @@
         .q-nav-btn:hover, .q-nav-btn.active {
             background: var(--theme-color); color: white;
         }
+
+        /* Answer feedback shown below wrong input */
+        .ans-hint {
+            font-size: 0.85rem; color: #16a34a; font-weight: 700;
+            margin-top: 0.25rem; display: none;
+        }
+        .ans-hint.visible { display: block; }
     </style>
 </head>
 <body class="text-slate-700 min-h-screen flex flex-col">
@@ -510,24 +524,29 @@
         // Navigator: numbered buttons students click to jump to an item (vertical on desktop)
         function navPanel(items, labelFn) {
             const btns = items.map((item, i) =>
-                `<button class="q-nav-btn w-full" data-target="item-${item.id || i}" title="${labelFn ? labelFn(item, i) : i+1}">${i + 1}</button>`
+                `<button class="q-nav-btn w-full" data-target="item-${item.id || i}" title="Câu ${i+1}">${i + 1}</button>`
             ).join('');
-            return `<div class="bg-white rounded-2xl p-1.5 border border-slate-200">
-                <div class="flex flex-col gap-1 items-center">${btns}</div>
+            return `<div class="bg-white rounded-2xl p-2 border border-slate-200">
+                <p class="text-xs font-bold text-slate-400 text-center mb-1.5">Câu</p>
+                <div class="flex flex-col gap-1.5 items-center">${btns}</div>
             </div>`;
         }
 
         // Vertical word bank for left panel
         function leftWordBank(words, chipClass, exId, clickable) {
             const chips = words.map(w => clickable
-                ? `<button class="${chipClass} px-3 py-2 rounded-xl text-sm font-semibold border-2 transition-all w-full text-center"
+                ? `<button class="${chipClass} px-3 py-2 rounded-xl font-semibold border-2 transition-all w-full text-center"
                     data-ex="${exId}" data-word="${w}"
                     style="border-color:var(--theme-color);color:var(--theme-color);background:var(--theme-bg-color);">${w}</button>`
-                : `<span class="px-3 py-2 rounded-xl text-sm font-semibold block text-center"
+                : `<span class="px-3 py-2 rounded-xl font-semibold block text-center"
                     style="background:var(--theme-bg-color);color:var(--theme-color);">${w}</span>`
             ).join('');
+            const hint = clickable
+                ? `<p class="text-xs text-slate-400 italic mb-2">👆 Chọn từ rồi nhấn vào ô trống</p>`
+                : '';
             return `<div class="bg-white rounded-2xl p-3 border border-slate-200">
-                <p class="text-xs font-bold text-slate-400 mb-2">WORD BANK</p>
+                <p class="text-xs font-bold mb-1" style="color:var(--theme-color);">Từ gợi ý</p>
+                ${hint}
                 <div class="flex flex-col gap-2">${chips}</div>
             </div>`;
         }
@@ -547,27 +566,28 @@
                 const shuffled = [...(ex.wordBank || [])].sort(() => Math.random() - 0.5);
                 const rows = ex.items.map((item, i) => {
                     if (item.given) {
-                        return `<div id="item-${item.id}" class="ex-item-row bg-white border-2 border-green-200 shadow-sm">
+                        return `<div id="item-${item.id}" class="ex-item-anchor ex-item-row bg-white border-2 border-green-200 shadow-sm">
                             <div class="ex-item-left">
-                                <img src="${item.img}" class="w-full h-full object-cover" style="min-height:7rem;">
+                                <img src="${item.img}" class="w-full h-full object-cover" style="min-height:8rem;">
                             </div>
                             <div class="ex-item-right p-4 flex flex-col items-center justify-center gap-1">
                                 <span class="text-xs font-bold text-slate-400">${i+1}</span>
-                                <span class="font-bold text-sm text-green-600">${item.answer}</span>
-                                <span class="text-xs text-slate-400">example</span>
+                                <span class="font-bold text-lg text-green-600">${item.answer}</span>
+                                <span class="text-xs font-semibold px-2 py-0.5 rounded-full" style="background:var(--theme-bg-color);color:var(--theme-color);">Mẫu</span>
                             </div>
                         </div>`;
                     }
-                    return `<div id="item-${item.id}" class="ex-item-row bg-white border-2 border-slate-200 shadow-sm">
+                    return `<div id="item-${item.id}" class="ex-item-anchor ex-item-row bg-white border-2 border-slate-200 shadow-sm">
                         <div class="ex-item-left">
-                            <img src="${item.img}" class="w-full h-full object-cover" style="min-height:7rem;">
+                            <img src="${item.img}" class="w-full h-full object-cover" style="min-height:8rem;">
                         </div>
                         <div class="ex-item-right p-4 flex flex-col items-center justify-center gap-2">
-                            <span class="text-xs font-bold text-slate-400">${i+1}</span>
-                            <input type="text" class="wbf-input w-full text-center focus:outline-none font-bold text-sm bg-transparent border-b-2"
-                                data-answer="${item.answer}"
+                            <span class="w-7 h-7 rounded-full text-sm font-bold flex items-center justify-center text-white flex-shrink-0" style="background:var(--theme-color);">${i+1}</span>
+                            <input type="text" class="wbf-input w-full text-center focus:outline-none font-bold bg-transparent border-b-2 py-1"
+                                data-answer="${item.answer}" data-id="${item.id}"
                                 style="border-color:var(--theme-color);"
-                                placeholder="...">
+                                placeholder="✏️ ...">
+                            <span class="ans-hint" id="hint-${item.id}"></span>
                         </div>
                     </div>`;
                 }).join('');
@@ -626,7 +646,8 @@
                     style="border-color:var(--theme-color);color:var(--theme-color);background:var(--theme-bg-color);">${w.word}</div>`
             ).join('');
             const leftPool = `<div class="bg-white rounded-2xl p-3 border border-slate-200">
-                <p class="text-xs font-bold text-slate-400 mb-2">WORDS</p>
+                <p class="text-xs font-bold mb-1" style="color:var(--theme-color);">Các từ</p>
+                <p class="text-xs text-slate-400 italic mb-2">👆 Kéo sang cột đúng</p>
                 <div class="flex flex-col gap-2">${wordsHtml}</div>
             </div>`;
             const dropZones = `<div class="grid grid-cols-2 gap-4 h-full">
@@ -654,32 +675,32 @@
             // Left panel = navigator; right panel = items (image | inputs)
             const rows = ex.items.map((item, i) => {
                 if (item.given) {
-                    return `<div id="item-${item.id}" class="ex-item-row bg-white border-2 border-green-200 shadow-sm">
+                    return `<div id="item-${item.id}" class="ex-item-anchor ex-item-row bg-white border-2 border-green-200 shadow-sm">
                         <div class="ex-item-left">
-                            <img src="${item.img}" class="w-full h-full object-cover" style="min-height:7rem;">
+                            <img src="${item.img}" class="w-full h-full object-cover" style="min-height:8rem;">
                         </div>
                         <div class="ex-item-right p-4 flex flex-col items-center justify-center gap-2">
-                            <span class="text-xs font-bold text-slate-400">${i+1}</span>
-                            <p class="font-bold text-sm text-green-600">${item.present}</p>
-                            <p class="font-bold text-sm text-green-600">${item.past}</p>
-                            <span class="text-xs text-slate-400">example</span>
+                            <span class="w-7 h-7 rounded-full text-sm font-bold flex items-center justify-center text-white" style="background:#22c55e;">${i+1}</span>
+                            <p class="font-bold text-lg text-green-600">${item.present}</p>
+                            <p class="font-bold text-lg text-green-600">${item.past}</p>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded-full" style="background:var(--theme-bg-color);color:var(--theme-color);">Mẫu</span>
                         </div>
                     </div>`;
                 }
-                return `<div id="item-${item.id}" class="ex-item-row bg-white border-2 border-slate-200 shadow-sm">
+                return `<div id="item-${item.id}" class="ex-item-anchor ex-item-row bg-white border-2 border-slate-200 shadow-sm">
                     <div class="ex-item-left">
-                        <img src="${item.img}" class="w-full h-full object-cover" style="min-height:7rem;">
+                        <img src="${item.img}" class="w-full h-full object-cover" style="min-height:8rem;">
                     </div>
                     <div class="ex-item-right p-4 flex flex-col items-center justify-center gap-3">
-                        <span class="text-xs font-bold text-slate-400">${i+1}</span>
-                        <input type="text" class="it-input w-full text-center focus:outline-none font-bold text-sm bg-transparent border-b-2"
+                        <span class="w-7 h-7 rounded-full text-sm font-bold flex items-center justify-center text-white" style="background:var(--theme-color);">${i+1}</span>
+                        <input type="text" class="it-input w-full text-center focus:outline-none font-bold bg-transparent border-b-2 py-1"
                             data-answer="${item.present}" data-id="${item.id}" data-field="present"
                             style="border-color:var(--theme-color);"
-                            placeholder="present...">
-                        <input type="text" class="it-input w-full text-center focus:outline-none font-bold text-sm bg-transparent border-b-2"
+                            placeholder="✏️ hiện tại...">
+                        <input type="text" class="it-input w-full text-center focus:outline-none font-bold bg-transparent border-b-2 py-1"
                             data-answer="${item.past}" data-id="${item.id}" data-field="past"
                             style="border-color:var(--theme-color);"
-                            placeholder="past...">
+                            placeholder="✏️ quá khứ...">
                     </div>
                 </div>`;
             }).join('');
@@ -694,27 +715,28 @@
 
         function renderStoryType(ex) {
             // Left panel = navigator + context; right panel = items (hints | sentence+input)
-            const contextBox = `<div class="bg-white rounded-2xl p-3 border border-slate-200 mt-3">
-                <p class="text-xs font-bold text-slate-400 mb-1">CONTEXT</p>
-                <p class="text-slate-600 text-xs italic leading-relaxed">${ex.context}</p>
+            const contextBox = `<div class="bg-white rounded-2xl p-3 border border-slate-200">
+                <p class="text-xs font-bold mb-1" style="color:var(--theme-color);">Bối cảnh</p>
+                <p class="text-slate-600 text-sm italic leading-relaxed">${ex.context}</p>
             </div>`;
             const items = ex.items.map((item, i) => {
                 const hintsHtml = item.options.map(o =>
                     `<span class="px-2 py-1 rounded-lg text-xs font-semibold block text-center" style="background:var(--theme-bg-color);color:var(--theme-color);">${o}</span>`
                 ).join('');
-                return `<div id="item-${item.id}" class="ex-item-row bg-white border border-slate-200 shadow-sm">
+                return `<div id="item-${item.id}" class="ex-item-anchor ex-item-row bg-white border border-slate-200 shadow-sm">
                     <div class="ex-item-left p-3 flex flex-col items-center justify-center gap-2" style="border-right:1px solid #f1f5f9;background:var(--theme-bg-color);">
-                        <span class="w-7 h-7 rounded-full text-sm font-bold flex items-center justify-center text-white" style="background:var(--theme-color);">${item.num}</span>
+                        <span class="w-8 h-8 rounded-full font-bold flex items-center justify-center text-white" style="background:var(--theme-color);">${item.num}</span>
                         ${hintsHtml}
                     </div>
-                    <div class="ex-item-right p-4 flex items-center">
-                        <p class="text-slate-700 text-sm leading-loose">${item.before}
-                            <input type="text" class="st-input inline-block border-b-2 focus:outline-none text-center font-bold text-sm w-28 mx-1 bg-transparent"
-                                data-answer="${item.answer}"
+                    <div class="ex-item-right p-4 flex flex-col justify-center gap-1">
+                        <p class="text-slate-700 leading-loose">${item.before}
+                            <input type="text" class="st-input inline-block border-b-2 focus:outline-none text-center font-bold w-28 mx-1 bg-transparent py-0.5"
+                                data-answer="${item.answer}" data-id="${item.id}"
                                 style="border-color:var(--theme-color);"
-                                placeholder="...">
+                                placeholder="✏️ ...">
                             ${item.after}
                         </p>
+                        <span class="ans-hint" id="hint-${item.id}"></span>
                     </div>
                 </div>`;
             }).join('');
@@ -982,11 +1004,7 @@
             document.querySelectorAll('.q-nav-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const target = document.getElementById(this.dataset.target);
-                    if (target) {
-                        const panel = target.closest('.ex-right-panel');
-                        if (panel) panel.scrollTo({ top: target.offsetTop - 8, behavior: 'smooth' });
-                        else target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    }
+                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     document.querySelectorAll('.q-nav-btn').forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
                 });
@@ -1002,17 +1020,18 @@
                 total++;
                 const userAns = input.value.trim().toLowerCase();
                 const correctAns = input.dataset.answer.trim().toLowerCase();
-                const card = input.closest('div');
+                const row = input.closest('.ex-item-anchor, .ex-item-row');
+                const hint = input.dataset.id ? document.getElementById(`hint-${input.dataset.id}`) : null;
                 if (userAns === correctAns) {
                     correct++;
-                    input.style.borderColor = '#22c55e';
-                    input.style.color = '#16a34a';
-                    if (card) card.style.borderColor = '#22c55e';
+                    input.style.borderColor = '#22c55e'; input.style.color = '#16a34a';
+                    if (row) row.style.borderColor = '#22c55e';
+                    if (hint) { hint.classList.remove('visible'); }
                 } else {
-                    input.style.borderColor = '#ef4444';
-                    input.style.color = '#dc2626';
-                    if (card) card.style.borderColor = '#ef4444';
-                    if (!input.value) input.placeholder = input.dataset.answer;
+                    input.style.borderColor = '#ef4444'; input.style.color = '#dc2626';
+                    if (row) row.style.borderColor = '#ef4444';
+                    if (hint) { hint.textContent = '✓ ' + input.dataset.answer; hint.classList.add('visible'); }
+                    else if (!input.value) input.placeholder = input.dataset.answer;
                 }
             });
 
@@ -1083,14 +1102,15 @@
                 total++;
                 const userAns = input.value.trim().toLowerCase();
                 const correctAns = input.dataset.answer.trim().toLowerCase();
+                const hint = input.dataset.id ? document.getElementById(`hint-${input.dataset.id}`) : null;
                 if (userAns === correctAns) {
                     correct++;
-                    input.style.borderColor = '#22c55e';
-                    input.style.color = '#16a34a';
+                    input.style.borderColor = '#22c55e'; input.style.color = '#16a34a';
+                    if (hint) hint.classList.remove('visible');
                 } else {
-                    input.style.borderColor = '#ef4444';
-                    input.style.color = '#dc2626';
-                    if (!input.value) input.placeholder = input.dataset.answer;
+                    input.style.borderColor = '#ef4444'; input.style.color = '#dc2626';
+                    if (hint) { hint.textContent = '✓ ' + input.dataset.answer; hint.classList.add('visible'); }
+                    else if (!input.value) input.placeholder = input.dataset.answer;
                 }
             });
 
@@ -1130,14 +1150,22 @@
                 }
             });
 
+            const pct = total > 0 ? Math.round(correct / total * 100) : 0;
+            const stars = pct === 100 ? '⭐⭐⭐' : pct >= 70 ? '⭐⭐' : pct >= 40 ? '⭐' : '';
+            const msg = pct === 100
+                ? 'Tuyệt vời! Em đã trả lời đúng tất cả các câu! 🎊'
+                : pct >= 70
+                    ? 'Rất tốt! Em làm tốt lắm! Xem lại những câu chưa đúng nhé! 💪'
+                    : pct >= 40
+                        ? 'Cố lên! Em hãy xem lại các câu sai và thử lại nhé! 📚'
+                        : 'Cố gắng thêm nhé! Hãy xem gợi ý và thử làm lại! 🌱';
             Swal.fire({
-                title: correct === total ? '🎉 Xuất sắc!' : `Kết quả: ${correct}/${total}`,
-                html: correct === total
-                    ? 'Bạn trả lời đúng tất cả! Tuyệt vời!'
-                    : `Bạn trả lời đúng <b>${correct}</b> trên tổng số <b>${total}</b> câu đã làm.`,
-                icon: correct === total ? 'success' : 'info',
+                title: `${stars || '📝'} ${correct}/${total} câu đúng`,
+                html: `<div style="font-size:1.1rem;margin-top:0.5rem;">${msg}</div>
+                       <div style="font-size:2rem;margin-top:0.75rem;font-weight:bold;color:#20a1a0;">${pct}%</div>`,
+                icon: pct === 100 ? 'success' : pct >= 70 ? 'success' : 'info',
                 confirmButtonColor: '#20a1a0',
-                confirmButtonText: 'OK'
+                confirmButtonText: pct < 100 ? 'Xem lại bài' : 'Tuyệt vời!'
             });
         }
 
