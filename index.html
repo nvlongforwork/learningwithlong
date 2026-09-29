@@ -99,18 +99,20 @@
             #dynamic-content-container h3 { font-size: 1.4rem !important; }
         }
 
-        /* Side-by-side exercise layout on desktop */
-        @media (min-width: 900px) {
-            #dynamic-content-container .space-y-8 {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 2rem;
-                align-items: start;
+        /* Side-by-side item card: image/question LEFT, input/answer RIGHT */
+        .ex-item-row {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        @media (min-width: 640px) {
+            .ex-item-row {
+                flex-direction: row;
+                align-items: center;
+                gap: 1rem;
             }
-            /* Check button spans full width */
-            #dynamic-content-container .space-y-8 > .text-center {
-                grid-column: 1 / -1;
-            }
+            .ex-item-row .ex-item-left  { flex: 0 0 40%; max-width: 40%; }
+            .ex-item-row .ex-item-right { flex: 1; }
         }
     </style>
 </head>
@@ -487,19 +489,23 @@
                 const wbRef = `<div class="flex flex-wrap gap-2 mb-5 p-4 bg-white rounded-2xl border border-slate-200">
                     ${shuffled.map(w => `<span class="px-3 py-1.5 rounded-xl text-sm font-semibold" style="background:var(--theme-bg-color);color:var(--theme-color);">${w}</span>`).join('')}
                 </div>`;
-                const grid = ex.items.map(item => {
+                const rows = ex.items.map(item => {
                     if (item.given) {
-                        return `<div class="bg-white rounded-2xl overflow-hidden border-2 border-green-200 shadow-sm">
-                            <img src="${item.img}" class="w-full object-cover" style="height:8rem;">
-                            <div class="p-2 text-center">
+                        return `<div class="ex-item-row bg-white rounded-2xl border-2 border-green-200 shadow-sm overflow-hidden">
+                            <div class="ex-item-left">
+                                <img src="${item.img}" class="w-full object-cover" style="min-height:7rem;max-height:10rem;">
+                            </div>
+                            <div class="ex-item-right p-3 flex flex-col items-center justify-center gap-1">
                                 <span class="font-bold text-sm text-green-600">${item.answer}</span>
-                                <div class="text-xs text-slate-400">example</div>
+                                <span class="text-xs text-slate-400">example</span>
                             </div>
                         </div>`;
                     }
-                    return `<div class="bg-white rounded-2xl overflow-hidden border-2 border-slate-200 shadow-sm">
-                        <img src="${item.img}" class="w-full object-cover" style="height:8rem;">
-                        <div class="p-2">
+                    return `<div class="ex-item-row bg-white rounded-2xl border-2 border-slate-200 shadow-sm overflow-hidden">
+                        <div class="ex-item-left">
+                            <img src="${item.img}" class="w-full object-cover" style="min-height:7rem;max-height:10rem;">
+                        </div>
+                        <div class="ex-item-right p-3 flex items-center justify-center">
                             <input type="text" class="wbf-input w-full text-center focus:outline-none font-bold text-sm bg-transparent border-b-2"
                                 data-answer="${item.answer}"
                                 style="border-color:var(--theme-color);"
@@ -508,7 +514,7 @@
                     </div>`;
                 }).join('');
                 return exCard(ex.title, ex.instruction,
-                    wbRef + `<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">${grid}</div>`
+                    wbRef + `<div class="space-y-3">${rows}</div>`
                 );
             }
             // Legacy: label-based fill (click chip → click card)
@@ -587,29 +593,37 @@
         }
 
         function renderImageType(ex) {
-            const grid = ex.items.map(item => {
+            const rows = ex.items.map(item => {
                 if (item.given) {
-                    return `<div class="flex flex-col items-center bg-white rounded-2xl p-3 border-2 border-green-200">
-                        <img src="${item.img}" class="w-full rounded-xl mb-2 object-cover" style="height:7rem;">
-                        <p class="font-bold text-sm text-green-600 text-center">${item.present}</p>
-                        <p class="font-bold text-sm text-green-600 text-center">${item.past}</p>
-                        <span class="text-xs text-slate-400">example</span>
+                    return `<div class="ex-item-row bg-white rounded-2xl border-2 border-green-200 shadow-sm overflow-hidden">
+                        <div class="ex-item-left">
+                            <img src="${item.img}" class="w-full object-cover" style="min-height:7rem;max-height:10rem;">
+                        </div>
+                        <div class="ex-item-right p-3 flex flex-col items-center justify-center gap-2">
+                            <p class="font-bold text-sm text-green-600">${item.present}</p>
+                            <p class="font-bold text-sm text-green-600">${item.past}</p>
+                            <span class="text-xs text-slate-400">example</span>
+                        </div>
                     </div>`;
                 }
-                return `<div class="flex flex-col items-center bg-white rounded-2xl p-3 border-2 border-slate-200">
-                    <img src="${item.img}" class="w-full rounded-xl mb-2 object-cover" style="height:7rem;">
-                    <input type="text" class="it-input w-full text-center focus:outline-none font-bold text-sm bg-transparent border-b-2 mb-1"
-                        data-answer="${item.present}" data-id="${item.id}" data-field="present"
-                        style="border-color:var(--theme-color);"
-                        placeholder="present...">
-                    <input type="text" class="it-input w-full text-center focus:outline-none font-bold text-sm bg-transparent border-b-2"
-                        data-answer="${item.past}" data-id="${item.id}" data-field="past"
-                        style="border-color:var(--theme-color);"
-                        placeholder="past...">
+                return `<div class="ex-item-row bg-white rounded-2xl border-2 border-slate-200 shadow-sm overflow-hidden">
+                    <div class="ex-item-left">
+                        <img src="${item.img}" class="w-full object-cover" style="min-height:7rem;max-height:10rem;">
+                    </div>
+                    <div class="ex-item-right p-3 flex flex-col items-center justify-center gap-3">
+                        <input type="text" class="it-input w-full text-center focus:outline-none font-bold text-sm bg-transparent border-b-2"
+                            data-answer="${item.present}" data-id="${item.id}" data-field="present"
+                            style="border-color:var(--theme-color);"
+                            placeholder="present...">
+                        <input type="text" class="it-input w-full text-center focus:outline-none font-bold text-sm bg-transparent border-b-2"
+                            data-answer="${item.past}" data-id="${item.id}" data-field="past"
+                            style="border-color:var(--theme-color);"
+                            placeholder="past...">
+                    </div>
                 </div>`;
             }).join('');
             return exCard(ex.title, ex.instruction,
-                `<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">${grid}</div>`
+                `<div class="space-y-3">${rows}</div>`
             );
         }
 
@@ -617,21 +631,21 @@
             const contextHtml = `<div class="bg-white rounded-2xl p-4 border-l-4 mb-4 text-slate-600 text-sm italic leading-relaxed" style="border-color:var(--theme-color);">${ex.context}</div>`;
             const items = ex.items.map(item => {
                 const hintsHtml = item.options.map(o =>
-                    `<span class="px-2 py-1 rounded-lg text-xs font-semibold" style="background:var(--theme-bg-color);color:var(--theme-color);">${o}</span>`
+                    `<span class="px-2 py-1 rounded-lg text-xs font-semibold block text-center" style="background:var(--theme-bg-color);color:var(--theme-color);">${o}</span>`
                 ).join('');
-                return `<div class="bg-white rounded-2xl p-4 border border-slate-200">
-                    <div class="flex items-start gap-3">
-                        <span class="w-6 h-6 rounded-full text-xs font-bold flex items-center justify-center text-white flex-shrink-0 mt-0.5" style="background:var(--theme-color);">${item.num}</span>
-                        <div class="flex-1">
-                            <div class="flex flex-wrap gap-1 mb-2">${hintsHtml}</div>
-                            <p class="text-slate-700 text-sm leading-loose">${item.before}
-                                <input type="text" class="st-input inline-block border-b-2 focus:outline-none text-center font-bold text-sm w-28 mx-1 bg-transparent"
-                                    data-answer="${item.answer}"
-                                    style="border-color:var(--theme-color);"
-                                    placeholder="...">
-                                ${item.after}
-                            </p>
-                        </div>
+                return `<div class="ex-item-row bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                    <div class="ex-item-left p-3 flex flex-col items-center justify-center gap-2 border-r border-slate-100">
+                        <span class="w-7 h-7 rounded-full text-sm font-bold flex items-center justify-center text-white mb-1" style="background:var(--theme-color);">${item.num}</span>
+                        ${hintsHtml}
+                    </div>
+                    <div class="ex-item-right p-3 flex items-center">
+                        <p class="text-slate-700 text-sm leading-loose">${item.before}
+                            <input type="text" class="st-input inline-block border-b-2 focus:outline-none text-center font-bold text-sm w-28 mx-1 bg-transparent"
+                                data-answer="${item.answer}"
+                                style="border-color:var(--theme-color);"
+                                placeholder="...">
+                            ${item.after}
+                        </p>
                     </div>
                 </div>`;
             }).join('');
