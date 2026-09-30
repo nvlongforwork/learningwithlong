@@ -1,0 +1,62 @@
+{
+  "type": "listening-test",
+  "title": "Test 1 - Listening",
+  "parts": [
+    {
+      "id": "part1",
+      "title": "Part 1",
+      "questions": 5,
+      "instructions": "Listen and draw lines. There is one example.",
+      "type": "drag-match",
+      "image": "images/collins-movers/test1/part1-classroom.png",
+      "audio": "audio/collins-movers/test1/part1.mp3",
+      "names": ["Alex", "Bill", "Nick", "Daisy", "Sally", "Vicky", "Tom"],
+      "actions": ["is standing by the window", "is using the computer", "is drawing a house on the board", "is sitting and reading", "is writing at a desk", "is talking to the teacher", "is holding a ball"],
+      "example": { "name": "Daisy", "action": "is drawing a house on the board" },
+      "answers": [
+        { "name": "Alex", "action": "is standing by the window" },
+        { "name": "Bill", "action": "is using the computer" },
+        { "name": "Nick", "action": "is sitting and reading" },
+        { "name": "Sally", "action": "is writing at a desk" },
+        { "name": "Vicky", "action": "is talking to the teacher" }
+      ]
+    },
+    {
+      "id": "part2",
+      "title": "Part 2",
+      "questions": 5,
+      "instructions": "Listen and write. There is one example.",
+      "type": "fill-blank",
+      "audio": "audio/collins-movers/test1/part2.mp3",
+      "formTitle": "Sports centre homework",
+      "example": { "label": "Comes:", "prefix": "every", "answer": "Saturday" },
+      "rows": [
+        { "num": 1, "label": "Favourite sport:", "prefix": "", "answer": "basketball" },
+        { "num": 2, "label": "Comes to sports centre by:", "prefix": "", "answer": "bus" },
+        { "num": 3, "label": "Comes to sports centre with:", "prefix": "his", "answer": "dad" },
+        { "num": 4, "label": "Likes sports centre because:", "prefix": "it's", "answer": "big" },
+        { "num": 5, "label": "Name:", "prefix": "Mr", "answer": "Green" }
+      ]
+    },
+    {
+      "id": "part3",
+      "title": "Part 3",
+      "questions": 5,
+      "instructions": "Julia is telling her teacher about her family's weekend. What did each person do?\nListen and write a letter in each box. There is one example.",
+      "type": "drag-match-letters",
+      "audio": "audio/collins-movers/test1/part3.mp3",
+      "peopleImage": "images/collins-movers/test1/part3-people.png",
+      "activitiesImage": "images/collins-movers/test1/part3-activities.png",
+      "people": ["Mum", "Dad", "Aunt Zoe", "Uncle Fred", "Grandpa", "Clare"],
+      "options": ["A", "B", "C", "D", "E", "F", "G", "H"],
+      "example": { "person": "Mum", "answer": "E" },
+      "answers": [
+        { "person": "Dad", "answer": "C" },
+        { "person": "Aunt Zoe", "answer": "F" },
+        { "person": "Uncle Fred", "answer": "D" },
+        { "person": "Grandpa", "answer": "A" },
+        { "person": "Clare", "answer": "H" }
+      ]
+    }
+  ]
+}

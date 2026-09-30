@@ -86,6 +86,17 @@
 
         /* CSS riêng cho Giao diện Quiz Toàn màn hình */
         #view-quiz.active { display: flex !important; }
+        #view-listening.active { display: flex !important; }
+        .drop-slot { min-height: 2.5rem; border: 2px dashed #cbd5e1; border-radius: 0.75rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+        .drop-slot:hover { border-color: #20a1a0; background-color: #f0fbfa; }
+        .drop-slot.filled { border-style: solid; border-color: #20a1a0; background-color: #ccf2ef; color: #136768; font-weight: 600; }
+        .bank-chip { cursor: pointer; transition: all 0.2s; user-select: none; display: inline-block; }
+        .bank-chip:hover { transform: scale(1.05); }
+        .bank-chip.selected { outline: 3px solid #20a1a0; outline-offset: 2px; transform: scale(1.08); box-shadow: 0 4px 12px rgba(32, 161, 160, 0.3); }
+        .bank-chip.used { opacity: 0.3; pointer-events: none; }
+        .part-tab { transition: all 0.2s; }
+        .part-tab.active { background-color: #20a1a0; color: white; }
+        .listening-table th, .listening-table td { border: 1px solid #e2e8f0; }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
@@ -252,6 +263,38 @@
         </footer>
     </section>
 
+    <!-- Listening Test View -->
+    <section id="view-listening" class="view-section fixed inset-0 z-[100] bg-slate-50 flex-col overflow-hidden" style="display: none;">
+        <header class="bg-white px-4 py-3 shadow-sm flex items-center justify-between shrink-0 z-10">
+            <div class="flex items-center gap-3">
+                <button onclick="closeListening()" class="w-10 h-10 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-500 transition-colors">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+                <h2 id="listening-title" class="text-lg font-bold text-slate-800 hidden sm:block"></h2>
+            </div>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <div class="relative">
+                    <i class="fa-solid fa-user absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text" placeholder="Họ và tên" class="pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm w-32 sm:w-48 focus:outline-none focus:border-turtle-400">
+                </div>
+                <div class="relative">
+                    <i class="fa-solid fa-school absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text" placeholder="Lớp" class="pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm w-20 sm:w-28 focus:outline-none focus:border-turtle-400">
+                </div>
+            </div>
+        </header>
+        <div id="listening-tabs" class="bg-white border-b px-4 py-2 flex gap-2 shrink-0"></div>
+        <div id="listening-audio-box" class="bg-slate-100 px-4 py-3 border-b shrink-0 flex items-center justify-center">
+            <audio id="listening-audio-player" controls class="w-full max-w-xl h-10"></audio>
+        </div>
+        <div id="listening-content" class="flex-1 overflow-y-auto p-4 sm:p-6 custom-scrollbar"></div>
+        <footer class="bg-white border-t p-3 sm:p-5 shrink-0 flex items-center justify-end gap-4 z-10">
+            <button id="btn-submit-listening" onclick="submitListeningTest()" class="py-3 px-8 bg-turtle-500 text-white font-bold text-lg rounded-2xl hover:bg-turtle-600 transition-all shadow-lg hover-bounce">
+                <i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài
+            </button>
+        </footer>
+    </section>
+
     <script>
         // --- Dữ liệu các cấp độ học (Materials) dựa trên yêu cầu ---
         const materialsData = [
@@ -261,17 +304,7 @@
                 { id: 'collins-for-movers', name: 'Collins for Movers', subfolders: [
                     { id: 'test-1', name: 'Test 1', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'}] },
                     { id: 'test-2', name: 'Test 2', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'}] },
-                    { id: 'test-3', name: 'Test 3', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'}] },
-                    { id: 'test-4', name: 'Test 4', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'}] },
-                    { id: 'test-5', name: 'Test 5', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'}] },
-                    { id: 'test-6', name: 'Test 6', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'}] },
-                    { id: 'test-7', name: 'Test 7', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'}] },
-                    { id: 'test-8', name: 'Test 8', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'}] },
-                    { id: 'test-9', name: 'Test 9', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'}] },
-                    { id: 'test-10', name: 'Test 10', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'}] },
-                    { id: 'test-11', name: 'Test 11', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'}] },
-                    { id: 'test-12', name: 'Test 12', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'}] },
-                    { id: 'test-13', name: 'Test 13', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'}] }
+                    { id: 'test-3', name: 'Test 3', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'}] }
                 ]}
             ] },
             { id: 'a2-flyers', name: 'A2 Flyers', description: 'Cấp độ cao nhất trong hệ thống YLE cho trẻ.', color: '#21B6A8', folders: [{ id: 'i-dictionary', name: 'I Dictionary' }] },
@@ -614,7 +647,7 @@
             // Cấu trúc: ./data/[mã_tài_liệu]_[mã_thư_mục].json (nếu có thư mục)
             let jsonFileName = materialId;
             if (folderId) {
-                jsonFileName += `_${folderId}`;
+                jsonFileName += `_${folderId.replace(/\//g, '_')}`;
             }
             const jsonPath = `./data/${jsonFileName}.json`;
 
@@ -638,12 +671,16 @@
 
                 const data = await response.json();
 
-                // Kiểm tra nếu file rỗng
+                if (data && data.type === 'listening-test') {
+                    Swal.close();
+                    openListeningTest(data, title);
+                    return;
+                }
+
                 if (!data || data.length === 0) {
                     throw new Error('Dữ liệu rỗng');
                 }
 
-                // Nạp dữ liệu vào ứng dụng
                 quizData = data;
 
                 // Đóng popup tải dữ liệu
@@ -922,6 +959,396 @@
             document.getElementById('view-quiz').classList.remove('active');
             document.getElementById('view-detail').classList.add('active');
             if (isLoggedIn) document.getElementById('main-nav').classList.remove('hidden');
+        }
+
+        // --- LISTENING TEST LOGIC ---
+        let listeningData = null;
+        let listeningAnswers = {};
+        let activePart = 0;
+        let listeningSubmitted = false;
+        let selectedBank = null;
+
+        function openListeningTest(data, title) {
+            listeningData = data;
+            listeningAnswers = {};
+            activePart = 0;
+            listeningSubmitted = false;
+            selectedBank = null;
+
+            data.parts.forEach((part, i) => {
+                if (part.type === 'drag-match') {
+                    listeningAnswers[i] = part.answers.map(() => ({ name: '', action: '' }));
+                } else if (part.type === 'fill-blank') {
+                    listeningAnswers[i] = part.rows.map(() => '');
+                } else if (part.type === 'drag-match-letters') {
+                    listeningAnswers[i] = part.answers.map(() => '');
+                }
+            });
+
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.getElementById('view-listening').classList.add('active');
+            document.getElementById('main-nav').classList.add('hidden');
+            document.getElementById('listening-title').textContent = title;
+
+            renderListeningTabs();
+            renderListeningPart();
+        }
+
+        function renderListeningTabs() {
+            const tabs = document.getElementById('listening-tabs');
+            tabs.innerHTML = '';
+            listeningData.parts.forEach((part, i) => {
+                const btn = document.createElement('button');
+                btn.className = `part-tab px-5 py-2 rounded-xl font-bold text-sm ${i === activePart ? 'active' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`;
+                btn.textContent = part.title;
+                btn.onclick = () => { activePart = i; selectedBank = null; renderListeningTabs(); renderListeningPart(); };
+                tabs.appendChild(btn);
+            });
+        }
+
+        function renderListeningPart() {
+            const part = listeningData.parts[activePart];
+            const audio = document.getElementById('listening-audio-player');
+            if (part.audio) { audio.src = part.audio; audio.load(); }
+
+            if (part.type === 'drag-match') renderDragMatch(part);
+            else if (part.type === 'fill-blank') renderFillBlank(part);
+            else if (part.type === 'drag-match-letters') renderDragLetters(part);
+        }
+
+        function selectChip(value, bankType, el) {
+            if (listeningSubmitted) return;
+            document.querySelectorAll('.bank-chip.selected').forEach(c => c.classList.remove('selected'));
+            if (selectedBank && selectedBank.value === value && selectedBank.type === bankType) {
+                selectedBank = null; return;
+            }
+            selectedBank = { value, type: bankType };
+            el.classList.add('selected');
+        }
+
+        function clickSlot(rowIdx, colType) {
+            if (listeningSubmitted) return;
+            const answers = listeningAnswers[activePart];
+
+            if (answers[rowIdx][colType || 'value']) {
+                answers[rowIdx][colType || 'value'] = '';
+                selectedBank = null;
+                renderListeningPart();
+                return;
+            }
+
+            if (!selectedBank || selectedBank.type !== colType) return;
+
+            answers[rowIdx][colType || 'value'] = selectedBank.value;
+            selectedBank = null;
+            renderListeningPart();
+        }
+
+        function clickLetterSlot(rowIdx) {
+            if (listeningSubmitted) return;
+            const answers = listeningAnswers[activePart];
+
+            if (answers[rowIdx]) {
+                answers[rowIdx] = '';
+                selectedBank = null;
+                renderListeningPart();
+                return;
+            }
+
+            if (!selectedBank || selectedBank.type !== 'letter') return;
+            answers[rowIdx] = selectedBank.value;
+            selectedBank = null;
+            renderListeningPart();
+        }
+
+        function renderDragMatch(part) {
+            const content = document.getElementById('listening-content');
+            const answers = listeningAnswers[activePart];
+            const usedNames = answers.map(a => a.name).filter(Boolean);
+            const usedActions = answers.map(a => a.action).filter(Boolean);
+
+            let html = `
+            <div class="max-w-6xl mx-auto">
+                <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
+                <div class="flex flex-col lg:flex-row gap-6">
+                    <div class="lg:w-5/12 shrink-0">
+                        <img src="${part.image}" alt="Part 1" class="w-full rounded-2xl shadow-md border">
+                    </div>
+                    <div class="lg:w-7/12 flex flex-col gap-4">
+                        <div class="bg-white rounded-2xl shadow-sm border overflow-hidden">
+                            <table class="listening-table w-full">
+                                <thead><tr class="bg-turtle-50">
+                                    <th class="p-3 text-left text-turtle-700 font-bold w-12">#</th>
+                                    <th class="p-3 text-left text-turtle-700 font-bold">Name</th>
+                                    <th class="p-3 text-left text-turtle-700 font-bold">Action</th>
+                                </tr></thead>
+                                <tbody>
+                                    <tr class="bg-green-50">
+                                        <td class="p-3 font-bold text-green-600">Ex</td>
+                                        <td class="p-3 font-semibold text-green-700">${part.example.name}</td>
+                                        <td class="p-3 text-green-700">${part.example.action}</td>
+                                    </tr>`;
+
+            for (let i = 0; i < answers.length; i++) {
+                const nameClass = answers[i].name ? 'filled' : '';
+                const actionClass = answers[i].action ? 'filled' : '';
+                let nameExtra = '', actionExtra = '';
+                if (listeningSubmitted) {
+                    const correctName = part.answers[i].name;
+                    const correctAction = part.answers[i].action;
+                    nameExtra = answers[i].name === correctName ? 'border-green-500 bg-green-50 text-green-700' : (answers[i].name ? 'border-red-400 bg-red-50 text-red-700' : 'border-red-400 bg-red-50');
+                    actionExtra = answers[i].action === correctAction ? 'border-green-500 bg-green-50 text-green-700' : (answers[i].action ? 'border-red-400 bg-red-50 text-red-700' : 'border-red-400 bg-red-50');
+                }
+                html += `<tr>
+                    <td class="p-3 font-bold text-slate-500">${i + 1}</td>
+                    <td class="p-3"><div class="drop-slot ${nameClass} ${nameExtra} px-3 py-2" onclick="clickSlot(${i},'name')">${answers[i].name || '<span class=&quot;text-slate-400 text-sm&quot;>Chọn tên</span>'}</div></td>
+                    <td class="p-3"><div class="drop-slot ${actionClass} ${actionExtra} px-3 py-2" onclick="clickSlot(${i},'action')">${answers[i].action || '<span class=&quot;text-slate-400 text-sm&quot;>Chọn hành động</span>'}</div></td>
+                </tr>`;
+            }
+
+            html += `</tbody></table></div>`;
+
+            if (listeningSubmitted) {
+                html += `<div class="bg-blue-50 border border-blue-200 rounded-2xl p-4">
+                    <h4 class="font-bold text-blue-700 mb-2"><i class="fa-solid fa-lightbulb text-yellow-500 mr-1"></i> Đáp án đúng</h4>
+                    <ul class="text-blue-800 text-sm space-y-1">`;
+                part.answers.forEach((a, i) => { html += `<li><b>${i+1}.</b> ${a.name} — ${a.action}</li>`; });
+                html += `</ul></div>`;
+            } else {
+                html += `<div class="bg-white rounded-2xl p-4 shadow-sm border">
+                    <h4 class="font-bold text-slate-600 mb-2"><i class="fa-solid fa-users mr-1 text-blue-500"></i> Names</h4>
+                    <div class="flex flex-wrap gap-2 mb-4">`;
+                part.names.filter(n => n !== part.example.name).forEach(name => {
+                    const isUsed = usedNames.includes(name);
+                    const isSel = selectedBank && selectedBank.value === name && selectedBank.type === 'name';
+                    html += `<div class="bank-chip ${isUsed ? 'used' : ''} ${isSel ? 'selected' : ''} px-4 py-2 bg-blue-50 border border-blue-200 rounded-xl font-medium text-blue-700 text-sm" onclick="selectChip('${name}','name',this)">${name}</div>`;
+                });
+                html += `</div><h4 class="font-bold text-slate-600 mb-2"><i class="fa-solid fa-hand-point-right mr-1 text-amber-500"></i> Actions</h4><div class="flex flex-wrap gap-2">`;
+                part.actions.filter(a => a !== part.example.action).forEach(action => {
+                    const isUsed = usedActions.includes(action);
+                    const isSel = selectedBank && selectedBank.value === action && selectedBank.type === 'action';
+                    html += `<div class="bank-chip ${isUsed ? 'used' : ''} ${isSel ? 'selected' : ''} px-4 py-2 bg-amber-50 border border-amber-200 rounded-xl font-medium text-amber-700 text-sm" onclick="selectChip('${action.replace(/'/g, "\\'")}','action',this)">${action}</div>`;
+                });
+                html += `</div></div>`;
+            }
+
+            html += `</div></div></div>`;
+            content.innerHTML = html;
+        }
+
+        function renderFillBlank(part) {
+            const content = document.getElementById('listening-content');
+            const answers = listeningAnswers[activePart];
+
+            let html = `
+            <div class="max-w-2xl mx-auto">
+                <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
+                <div class="bg-white rounded-2xl shadow-sm border p-6 sm:p-8">
+                    <h3 class="text-2xl font-bold text-slate-800 text-center mb-6 pb-4 border-b">${part.formTitle}</h3>
+                    <div class="space-y-5">
+                        <div class="flex items-center gap-3 bg-green-50 p-4 rounded-xl border border-green-200">
+                            <span class="font-bold text-green-600 w-8 shrink-0">Ex</span>
+                            <span class="text-slate-700 font-medium w-48 shrink-0">${part.example.label}</span>
+                            <span class="text-green-700">${part.example.prefix}</span>
+                            <span class="font-bold text-green-700 border-b-2 border-green-400 px-2">${part.example.answer}</span>
+                        </div>`;
+
+            part.rows.forEach((row, i) => {
+                let inputHtml;
+                if (listeningSubmitted) {
+                    const isCorrect = answers[i].toLowerCase().trim() === row.answer.toLowerCase().trim();
+                    inputHtml = `<input type="text" value="${answers[i]}" readonly class="flex-1 px-3 py-2 border-2 rounded-xl font-bold ${isCorrect ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700'}">`;
+                    if (!isCorrect && row.answer) {
+                        inputHtml += `<span class="text-green-600 font-bold text-sm ml-2 shrink-0"><i class="fa-solid fa-arrow-right mr-1"></i>${row.answer}</span>`;
+                    }
+                } else {
+                    inputHtml = `<input type="text" value="${answers[i]}" placeholder="..." oninput="listeningAnswers[${activePart}][${i}]=this.value" class="flex-1 px-3 py-2 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-turtle-400 font-medium">`;
+                }
+
+                html += `
+                        <div class="flex items-center gap-3 p-4 rounded-xl border ${listeningSubmitted ? '' : 'hover:bg-slate-50'}">
+                            <span class="font-bold text-turtle-600 w-8 shrink-0">${row.num}</span>
+                            <span class="text-slate-700 font-medium w-48 shrink-0">${row.label}</span>
+                            ${row.prefix ? `<span class="text-slate-500 shrink-0">${row.prefix}</span>` : ''}
+                            ${inputHtml}
+                        </div>`;
+            });
+
+            html += `</div></div></div>`;
+            content.innerHTML = html;
+        }
+
+        function renderDragLetters(part) {
+            const content = document.getElementById('listening-content');
+            const answers = listeningAnswers[activePart];
+            const usedLetters = answers.filter(Boolean);
+
+            let html = `
+            <div class="max-w-6xl mx-auto">
+                <p class="text-slate-500 italic mb-4 text-sm whitespace-pre-line"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
+                <div class="flex flex-col lg:flex-row gap-6">
+                    <div class="lg:w-7/12 flex flex-col sm:flex-row gap-4">
+                        <div class="sm:w-1/2"><img src="${part.peopleImage}" alt="People" class="w-full rounded-2xl shadow-md border"></div>
+                        <div class="sm:w-1/2"><img src="${part.activitiesImage}" alt="Activities" class="w-full rounded-2xl shadow-md border"></div>
+                    </div>
+                    <div class="lg:w-5/12 flex flex-col gap-4">
+                        <div class="bg-white rounded-2xl shadow-sm border overflow-hidden">
+                            <table class="listening-table w-full">
+                                <thead><tr class="bg-turtle-50">
+                                    <th class="p-3 text-left text-turtle-700 font-bold w-12">#</th>
+                                    <th class="p-3 text-left text-turtle-700 font-bold">Person</th>
+                                    <th class="p-3 text-center text-turtle-700 font-bold w-24">Answer</th>
+                                </tr></thead>
+                                <tbody>
+                                    <tr class="bg-green-50">
+                                        <td class="p-3 font-bold text-green-600">Ex</td>
+                                        <td class="p-3 font-semibold text-green-700">${part.example.person}</td>
+                                        <td class="p-3 text-center"><span class="inline-flex items-center justify-center w-10 h-10 bg-green-500 text-white font-bold rounded-xl text-lg">${part.example.answer}</span></td>
+                                    </tr>`;
+
+            part.answers.forEach((row, i) => {
+                let slotHtml;
+                if (listeningSubmitted) {
+                    const isCorrect = answers[i] === row.answer;
+                    if (answers[i]) {
+                        slotHtml = `<span class="inline-flex items-center justify-center w-10 h-10 font-bold rounded-xl text-lg ${isCorrect ? 'bg-green-500 text-white' : 'bg-red-400 text-white'}">${answers[i]}</span>`;
+                        if (!isCorrect) slotHtml += `<span class="text-green-600 font-bold text-sm ml-1">${row.answer}</span>`;
+                    } else {
+                        slotHtml = `<span class="text-red-400 font-bold">—</span> <span class="text-green-600 font-bold text-sm">${row.answer}</span>`;
+                    }
+                } else {
+                    const filled = answers[i] ? 'filled' : '';
+                    slotHtml = `<div class="drop-slot ${filled} w-12 h-12 mx-auto text-lg font-bold" onclick="clickLetterSlot(${i})">${answers[i] || ''}</div>`;
+                }
+                html += `<tr>
+                    <td class="p-3 font-bold text-slate-500">${i + 1}</td>
+                    <td class="p-3 font-medium text-slate-700">${row.person}</td>
+                    <td class="p-3 text-center">${slotHtml}</td>
+                </tr>`;
+            });
+
+            html += `</tbody></table></div>`;
+
+            if (!listeningSubmitted) {
+                html += `<div class="bg-white rounded-2xl p-4 shadow-sm border">
+                    <h4 class="font-bold text-slate-600 mb-3"><i class="fa-solid fa-font mr-1 text-purple-500"></i> Letters</h4>
+                    <div class="flex flex-wrap gap-2 justify-center">`;
+                part.options.filter(o => o !== part.example.answer).forEach(letter => {
+                    const isUsed = usedLetters.includes(letter);
+                    const isSel = selectedBank && selectedBank.value === letter && selectedBank.type === 'letter';
+                    html += `<div class="bank-chip ${isUsed ? 'used' : ''} ${isSel ? 'selected' : ''} w-12 h-12 flex items-center justify-center bg-purple-50 border-2 border-purple-200 rounded-xl font-bold text-purple-700 text-lg" onclick="selectChip('${letter}','letter',this)">${letter}</div>`;
+                });
+                html += `</div></div>`;
+            }
+
+            html += `</div></div></div>`;
+            content.innerHTML = html;
+        }
+
+        function submitListeningTest() {
+            if (listeningSubmitted) { closeListening(); return; }
+
+            let totalAnswered = 0;
+            let totalQuestions = 0;
+            listeningData.parts.forEach((part, i) => {
+                totalQuestions += part.questions;
+                const ans = listeningAnswers[i];
+                if (part.type === 'drag-match') {
+                    totalAnswered += ans.filter(a => a.name && a.action).length;
+                } else if (part.type === 'fill-blank') {
+                    totalAnswered += ans.filter(a => a.trim()).length;
+                } else if (part.type === 'drag-match-letters') {
+                    totalAnswered += ans.filter(a => a).length;
+                }
+            });
+
+            const doSubmit = () => {
+                let score = 0;
+                listeningData.parts.forEach((part, i) => {
+                    const ans = listeningAnswers[i];
+                    if (part.type === 'drag-match') {
+                        part.answers.forEach((correct, j) => {
+                            if (ans[j].name === correct.name && ans[j].action === correct.action) score++;
+                        });
+                    } else if (part.type === 'fill-blank') {
+                        part.rows.forEach((row, j) => {
+                            if (row.answer && ans[j].toLowerCase().trim() === row.answer.toLowerCase().trim()) score++;
+                        });
+                    } else if (part.type === 'drag-match-letters') {
+                        part.answers.forEach((correct, j) => {
+                            if (ans[j] === correct.answer) score++;
+                        });
+                    }
+                });
+
+                listeningSubmitted = true;
+                Swal.fire({
+                    title: 'Nộp bài thành công!',
+                    html: `<div class="py-4"><p class="text-slate-500 mb-2">Điểm số của bạn:</p><div class="text-5xl font-bold text-turtle-600">${score} / ${totalQuestions}</div><p class="mt-4 text-sm text-slate-600">Xem lại đáp án ở từng phần nhé.</p></div>`,
+                    icon: 'success',
+                    confirmButtonColor: '#20a1a0',
+                    confirmButtonText: 'Xem đáp án'
+                }).then(() => {
+                    const btn = document.getElementById('btn-submit-listening');
+                    btn.innerHTML = '<i class="fa-solid fa-door-open mr-2"></i> Quay lại';
+                    btn.className = btn.className.replace('bg-turtle-500', 'bg-slate-600').replace('hover:bg-turtle-600', 'hover:bg-slate-700');
+                    activePart = 0;
+                    renderListeningTabs();
+                    renderListeningPart();
+                });
+            };
+
+            if (totalAnswered < totalQuestions) {
+                Swal.fire({
+                    title: 'Khoan đã!',
+                    html: `Bạn còn <b>${totalQuestions - totalAnswered} câu</b> chưa trả lời.<br>Nộp bài lúc này?`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#20a1a0',
+                    cancelButtonColor: '#94a3b8',
+                    confirmButtonText: 'Nộp luôn',
+                    cancelButtonText: 'Làm tiếp'
+                }).then(r => { if (r.isConfirmed) doSubmit(); });
+            } else {
+                Swal.fire({
+                    title: 'Xác nhận nộp bài',
+                    text: 'Bạn đã hoàn thành. Nộp bài nhé?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#20a1a0',
+                    cancelButtonColor: '#94a3b8',
+                    confirmButtonText: 'Đồng ý nộp',
+                    cancelButtonText: 'Kiểm tra lại'
+                }).then(r => { if (r.isConfirmed) doSubmit(); });
+            }
+        }
+
+        function closeListening() {
+            if (!listeningSubmitted) {
+                Swal.fire({
+                    title: 'Thoát bài tập?',
+                    text: 'Tiến độ sẽ không được lưu.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#ef4444',
+                    cancelButtonColor: '#94a3b8',
+                    confirmButtonText: 'Thoát',
+                    cancelButtonText: 'Ở lại'
+                }).then(r => {
+                    if (r.isConfirmed) doCloseListening();
+                });
+            } else {
+                doCloseListening();
+            }
+        }
+
+        function doCloseListening() {
+            document.getElementById('view-listening').classList.remove('active');
+            document.getElementById('view-detail').classList.add('active');
+            if (isLoggedIn) document.getElementById('main-nav').classList.remove('hidden');
+            const btn = document.getElementById('btn-submit-listening');
+            btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài';
+            btn.className = btn.className.replace('bg-slate-600', 'bg-turtle-500').replace('hover:bg-slate-700', 'hover:bg-turtle-600');
         }
 
         // Lắng nghe sự kiện đổi URL (hash) để thay đổi view tương ứng
