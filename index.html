@@ -986,7 +986,7 @@
                 } else if (part.type === 'multiple-choice-abc') {
                     listeningAnswers[i] = part.items.map(() => -1);
                 } else if (part.type === 'color-write') {
-                    listeningAnswers[i] = part.items.map(it => ({ item: it.type === 'write' ? it.item : '', answer: '' }));
+                    listeningAnswers[i] = part.items.map(() => ({ item: '', answer: '' }));
                 }
             });
 
@@ -1386,9 +1386,7 @@
             part.items.forEach((item, i) => {
                 // Item cell
                 let itemCell;
-                if (item.type === 'write') {
-                    itemCell = `<span class="font-medium text-slate-700">${item.item}</span>`;
-                } else if (listeningSubmitted) {
+                if (listeningSubmitted) {
                     const itemCorrect = answers[i].item === item.item;
                     itemCell = answers[i].item
                         ? `<span class="font-medium ${itemCorrect ? 'text-green-700' : 'text-red-500 line-through'}">${answers[i].item}</span>`
