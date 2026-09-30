@@ -1,0 +1,159 @@
+{
+  "type": "reading-test",
+  "title": "Test 1 - Reading & Writing",
+  "parts": [
+    {
+      "id": "part1",
+      "title": "Part 1",
+      "questions": 5,
+      "instructions": "Look and read. Choose the correct words and write them on the lines. There is one example.",
+      "type": "definition-match",
+      "wordBank": ["a whale", "a clown", "earache", "a kitten", "a hospital", "a teacher", "football", "a doctor"],
+      "example": { "definition": "This person is very funny.", "answer": "a clown" },
+      "items": [
+        { "num": 1, "definition": "You go and see this person when you are not well.", "answer": "a doctor" },
+        { "num": 2, "definition": "This is a baby cat.", "answer": "a kitten" },
+        { "num": 3, "definition": "You have this when your ears hurt.", "answer": "earache" },
+        { "num": 4, "definition": "You go to this place when you are not well.", "answer": "a hospital" },
+        { "num": 5, "definition": "You kick a ball with your feet to play this sport.", "answer": "football" }
+      ]
+    },
+    {
+      "id": "part2",
+      "title": "Part 2",
+      "questions": 6,
+      "instructions": "Read the text and choose the best answer.",
+      "type": "conversation-choice",
+      "context": "Paul is telling his friend Daisy about a film he saw at the cinema.",
+      "example": {
+        "speaker": "Daisy",
+        "question": "Hi Paul, did you enjoy the cinema?",
+        "options": ["Yes, I have.", "Yes, I did.", "Yes, I do."],
+        "answer": 1
+      },
+      "items": [
+        { "num": 1, "speaker": "Daisy", "question": "Did you see the new film about lions in the jungle?", "options": ["Yes, I saw a film about pirates.", "No, I saw a film about pirates.", "Yes, I can."], "answer": 1 },
+        { "num": 2, "speaker": "Daisy", "question": "What's the name of the film?", "options": ["It's called Pirate Island.", "It's about pirates who find some treasure.", "It was funny."], "answer": 0 },
+        { "num": 3, "speaker": "Daisy", "question": "Was the film exciting?", "options": ["Yes, it was.", "Yes, I did.", "Yes, it can."], "answer": 0 },
+        { "num": 4, "speaker": "Daisy", "question": "Did you go with your friend Vicky?", "options": ["No, she's eight years old now.", "No, she couldn't come today.", "Yes, she can play the guitar."], "answer": 1 },
+        { "num": 5, "speaker": "Daisy", "question": "Did you go by bus?", "options": ["No, we went by train.", "No, we went on Tuesday.", "No, we can't."], "answer": 0 },
+        { "num": 6, "speaker": "Daisy", "question": "How often do you go to the cinema?", "options": ["I go with my mother.", "I go by bus.", "I go every weekend."], "answer": 2 }
+      ]
+    },
+    {
+      "id": "part3",
+      "title": "Part 3",
+      "questions": 6,
+      "instructions": "Read the story. Choose a word from the box. Write the correct word next to numbers 1–5. There is one example.",
+      "type": "story-fill",
+      "storyParts": [
+        "Last Tuesday, it was very sunny. Vicky went to the park with her mum.",
+        "They rode their %%example%% and took a picnic. When they got to the park, Vicky played football with some children. Then Vicky and her mum (1) %%blank%% their cheese sandwiches and drank some orange juice.",
+        "\"I want to climb (2) %%blank%% now,\" said Vicky.",
+        "\"What a good idea!\" said Mum.",
+        "\"I want to climb the (3) %%blank%% tree!\" said Vicky.",
+        "\"Be careful, Vicky,\" said Mum. \"That tree is very tall.\"",
+        "Vicky climbed up the tallest tree, but she couldn't climb down again.",
+        "She (4) %%blank%% \"Help me, please, Mum!\"",
+        "Mum stood under the tree and Vicky jumped into her (5) %%blank%% .",
+        "\"Thank you, Mum. I can climb up trees, but I can't climb down again!\""
+      ],
+      "wordBank": ["cold", "tallest", "trousers", "arms", "shouted", "trees", "ate", "jumped"],
+      "example": { "word": "bikes" },
+      "items": [
+        { "num": 1, "answer": "ate" },
+        { "num": 2, "answer": "trees" },
+        { "num": 3, "answer": "tallest" },
+        { "num": 4, "answer": "shouted" },
+        { "num": 5, "answer": "arms" }
+      ],
+      "titleQuestion": {
+        "num": 6,
+        "instruction": "Now choose the best name for the story.",
+        "options": [
+          "Vicky's exciting day at the park",
+          "Vicky can't play football",
+          "Vicky and Mum ride bikes"
+        ],
+        "answer": 0
+      }
+    },
+    {
+      "id": "part4",
+      "title": "Part 4",
+      "questions": 5,
+      "instructions": "Read the text. Choose the correct words and write them on the lines.",
+      "type": "grammar-cloze",
+      "storyParts": [
+        "Sandwiches",
+        "You make a sandwich with bread. You can put cheese, fish, meat or salad %%example%% sandwiches. Children sometimes take sandwiches (1) %%blank%% school. People sometimes eat sandwiches when they have a picnic.",
+        "In 1762, a man called Mr Sandwich (2) %%blank%% the first sandwich, which had meat in it. He was hungry but he (3) %%blank%% want to stop playing a game with his friends. He wanted to eat his dinner between bread. The word \"sandwich\" comes from (4) %%blank%% name.",
+        "Now, there are Sandwich Days in some countries (5) %%blank%% lots of people eat sandwiches all day."
+      ],
+      "example": { "options": ["out of", "off", "in"], "answer": 2 },
+      "items": [
+        { "num": 1, "options": ["to", "on", "under"], "answer": 0 },
+        { "num": 2, "options": ["eating", "ate", "eats"], "answer": 1 },
+        { "num": 3, "options": ["don't", "doesn't", "didn't"], "answer": 2 },
+        { "num": 4, "options": ["her", "his", "their"], "answer": 1 },
+        { "num": 5, "options": ["when", "which", "who"], "answer": 0 }
+      ]
+    },
+    {
+      "id": "part5",
+      "title": "Part 5",
+      "questions": 7,
+      "instructions": "Look at the pictures and read the story. Write some words to complete the sentences about the story. You can use 1, 2 or 3 words.",
+      "type": "story-write",
+      "storySegments": [
+        {
+          "title": "Jane and Mr Sam",
+          "text": "Last week, Jane went for a drive with her parents. They put a big picnic in the car. Dad drove and Jane listened to music. They got to the forest and they went for a long walk. Jane saw a small pink house by a river.\n\n\"Whose house is that?\" asked Jane. \"I don't know,\" said Mum.\n\nThey stopped and ate their picnic. Then they sat under a tree and Jane listened to Mum who told her a story.\n\n\"There was a little girl called Jane who went for a walk in a forest and saw a nice bear called Mr Sam...\"\n\nJane was very tired. She closed her eyes and slept. She started to dream.",
+          "examples": [
+            { "sentence": "Jane and her parents went for a drive %%answer%% .", "answer": "last week" },
+            { "sentence": "They took a big %%answer%% with them.", "answer": "picnic" }
+          ],
+          "questions": [
+            { "num": 1, "sentence": "There was a %%blank%% next to a river in the forest.", "answer": "small pink house" },
+            { "num": 2, "sentence": "They sat under a tree and Mum told Jane %%blank%% .", "answer": "a story" }
+          ]
+        },
+        {
+          "text": "\"Hello, Jane,\" said a nice big brown bear, \"my name is Mr Sam.\"\n\n\"I know,\" answered Jane. \"My mum told me about you.\"\n\n\"Would you like to see my house?\" asked Mr Sam.\n\n\"Yes, please,\" said Jane.\n\nMr Sam showed Jane his small pink house, which was next to a river.\n\n\"What a great house!\" said Jane.\n\nThey went inside and had some cake and milk. Mr Sam gave Jane his old scarf to wear because she was cold. It was purple and white.\n\n\"You can take my old scarf home, Jane,\" said Mr Sam. \"It's a present.\"\n\n\"Thank you,\" said Jane. \"I love it.\"",
+          "questions": [
+            { "num": 3, "sentence": "Jane had a dream and talked to a bear who was called %%blank%% .", "answer": "Mr Sam" },
+            { "num": 4, "sentence": "Mr Sam took Jane to see %%blank%% , which was next to a river.", "answer": "his house" },
+            { "num": 5, "sentence": "Mr Sam told Jane that she could take %%blank%% home.", "answer": "his old scarf" }
+          ]
+        },
+        {
+          "text": "Then Jane woke up and said to her mother, \"Where did Mr Sam go?\"\n\n\"Mr Sam isn't here, Jane. He's only in a story.\"\n\nJane told her mum that she went to Mr Sam's small house in the forest.\n\n\"It was a dream,\" said Mum. \"Come on, let's go home.\"\n\nJane was sad because she liked Mr Sam. Then she saw the purple and white scarf, which was round her neck. She looked at the forest again and saw the nice big brown bear behind a tree.\n\n\"Goodbye, Mr Sam,\" Jane said very quietly. \"Thank you again for the beautiful scarf.\"\n\nMr Sam smiled at her and waved goodbye.",
+          "questions": [
+            { "num": 6, "sentence": "When Jane %%blank%% , she asked for Mr Sam and her mum said he was only a bear in a story.", "answer": "woke up" },
+            { "num": 7, "sentence": "But Jane saw Mr Sam %%blank%% and said goodbye to him.", "answer": "behind a tree" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part6",
+      "title": "Part 6",
+      "questions": 6,
+      "instructions": "Look and read and write.",
+      "type": "picture-write",
+      "image": "images/collins-movers/test1/part6-park.webp",
+      "examples": [
+        { "type": "complete", "sentence": "There are %%answer%% children in the park.", "answer": "four" },
+        { "type": "answer", "question": "How many dogs are there?", "answer": "two" }
+      ],
+      "items": [
+        { "num": 1, "type": "complete", "sentence": "The boy who is wearing a scarf is eating a %%blank%% .", "answer": "apple" },
+        { "num": 2, "type": "complete", "sentence": "There are six ducks in the %%blank%% .", "answer": "pond" },
+        { "num": 3, "type": "answer", "question": "What is the man with the grey moustache doing?", "answer": "reading a book" },
+        { "num": 4, "type": "answer", "question": "What colour are the girls' kites?", "answer": "red and yellow" },
+        { "num": 5, "type": "free", "instruction": "Now write two sentences about the picture.", "answer": "" },
+        { "num": 6, "type": "free", "instruction": "", "answer": "" }
+      ]
+    }
+  ]
+}

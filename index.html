@@ -90,6 +90,7 @@
         /* CSS riêng cho Giao diện Quiz Toàn màn hình */
         #view-quiz.active { display: flex !important; }
         #view-listening.active { display: flex !important; }
+        #view-reading.active { display: flex !important; }
         .drop-slot { min-height: 2.5rem; border: 2px dashed #cbd5e1; border-radius: 0.75rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
         .drop-slot:hover { border-color: #20a1a0; background-color: #f0fbfa; }
         .drop-slot.filled { border-style: solid; border-color: #20a1a0; background-color: #ccf2ef; color: #136768; font-weight: 600; }
@@ -286,6 +287,24 @@
         <div id="listening-content" class="flex-1 overflow-y-auto p-2 sm:p-4 custom-scrollbar"></div>
         <footer class="bg-white border-t p-3 sm:p-5 shrink-0 flex items-center justify-end gap-4 z-10">
             <button id="btn-submit-listening" onclick="submitListeningTest()" class="py-1.5 px-4 bg-turtle-500 text-white font-semibold text-sm rounded-xl hover:bg-turtle-600 transition-all shadow hover-bounce">
+                <i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài
+            </button>
+        </footer>
+    </section>
+
+    <section id="view-reading" class="view-section fixed inset-0 z-[100] bg-slate-50 flex-col overflow-hidden" style="display: none;">
+        <header class="bg-white px-4 py-3 shadow-sm flex items-center justify-between shrink-0 z-10">
+            <div class="flex items-center gap-3">
+                <button onclick="closeReading()" class="w-10 h-10 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-500 transition-colors">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+                <h2 id="reading-title" class="text-lg font-bold text-slate-800 hidden sm:block"></h2>
+            </div>
+        </header>
+        <div id="reading-tabs" class="bg-white border-b px-4 py-2 flex gap-2 shrink-0"></div>
+        <div id="reading-content" class="flex-1 overflow-y-auto p-2 sm:p-4 custom-scrollbar"></div>
+        <footer class="bg-white border-t p-3 sm:p-5 shrink-0 flex items-center justify-end gap-4 z-10">
+            <button id="btn-submit-reading" onclick="submitReadingTest()" class="py-1.5 px-4 bg-turtle-500 text-white font-semibold text-sm rounded-xl hover:bg-turtle-600 transition-all shadow hover-bounce">
                 <i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài
             </button>
         </footer>
@@ -671,6 +690,12 @@
                     Swal.close();
                     // askStudentCode(data, title); // DEACTIVATED — reactivate when needed
                     openListeningTest(data, title);
+                    return;
+                }
+
+                if (data && data.type === 'reading-test') {
+                    Swal.close();
+                    openReadingTest(data, title);
                     return;
                 }
 
@@ -1749,6 +1774,649 @@
             document.getElementById('view-detail').classList.add('active');
             if (isLoggedIn) document.getElementById('main-nav').classList.remove('hidden');
             const btn = document.getElementById('btn-submit-listening');
+            btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài';
+            btn.className = btn.className.replace('bg-slate-600', 'bg-turtle-500').replace('hover:bg-slate-700', 'hover:bg-turtle-600');
+        }
+
+        // ============================================================
+        // READING TEST
+        // ============================================================
+        let readingData = null;
+        let readingAnswers = {};
+        let activeReadingPart = 0;
+        let readingSubmitted = false;
+        let readingStartTime = null;
+
+        function openReadingTest(data, title) {
+            readingData = data;
+            readingSubmitted = false;
+            readingStartTime = Date.now();
+            readingAnswers = {};
+
+            data.parts.forEach((part, i) => {
+                if (part.type === 'definition-match') {
+                    readingAnswers[i] = part.items.map(() => '');
+                } else if (part.type === 'conversation-choice') {
+                    readingAnswers[i] = part.items.map(() => -1);
+                } else if (part.type === 'story-fill') {
+                    readingAnswers[i] = { blanks: part.items.map(() => ''), title: -1 };
+                } else if (part.type === 'grammar-cloze') {
+                    readingAnswers[i] = part.items.map(() => -1);
+                } else if (part.type === 'story-write') {
+                    const total = part.storySegments.reduce((s, seg) => s + (seg.questions ? seg.questions.length : 0), 0);
+                    readingAnswers[i] = Array(total).fill('');
+                } else if (part.type === 'picture-write') {
+                    readingAnswers[i] = part.items.map(() => '');
+                }
+            });
+
+            activeReadingPart = 0;
+
+            document.getElementById('reading-title').textContent = title || data.title;
+            document.getElementById('view-detail').classList.remove('active');
+            document.getElementById('main-nav').classList.add('hidden');
+            document.getElementById('view-reading').classList.add('active');
+
+            renderReadingTabs();
+            renderReadingPart();
+        }
+
+        function renderReadingTabs() {
+            const tabs = document.getElementById('reading-tabs');
+            tabs.innerHTML = '';
+            readingData.parts.forEach((part, i) => {
+                const isActive = activeReadingPart === i;
+                const tab = document.createElement('button');
+                tab.className = `px-4 py-2 rounded-xl text-sm font-bold transition-all ${isActive ? 'bg-turtle-500 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`;
+                tab.textContent = part.title;
+                tab.onclick = () => { activeReadingPart = i; renderReadingTabs(); renderReadingPart(); };
+                tabs.appendChild(tab);
+            });
+        }
+
+        function renderReadingPart() {
+            const part = readingData.parts[activeReadingPart];
+            if (part.type === 'definition-match') renderDefinitionMatch(part);
+            else if (part.type === 'conversation-choice') renderConversationChoice(part);
+            else if (part.type === 'story-fill') renderStoryFill(part);
+            else if (part.type === 'grammar-cloze') renderGrammarCloze(part);
+            else if (part.type === 'story-write') renderStoryWrite(part);
+            else if (part.type === 'picture-write') renderPictureWrite(part);
+        }
+
+        // --- Part 1: Definition Match ---
+        function selectDefinitionWord(idx, word) {
+            if (readingSubmitted) return;
+            readingAnswers[activeReadingPart][idx] = word;
+            renderDefinitionMatch(readingData.parts[activeReadingPart]);
+        }
+
+        function renderDefinitionMatch(part) {
+            const content = document.getElementById('reading-content');
+            const answers = readingAnswers[activeReadingPart];
+            const usedWords = answers.filter(Boolean);
+
+            let html = `<div class="max-w-3xl mx-auto">
+                <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
+
+            // Word bank
+            if (!readingSubmitted) {
+                html += `<div class="bg-white rounded-2xl p-4 shadow-sm border mb-4">
+                    <h4 class="font-bold text-slate-600 mb-2"><i class="fa-solid fa-list mr-1 text-indigo-500"></i> Words</h4>
+                    <div class="flex flex-wrap gap-2">`;
+                part.wordBank.filter(w => w !== part.example.answer).forEach(w => {
+                    const isUsed = usedWords.includes(w);
+                    html += `<div class="bank-chip ${isUsed ? 'used' : ''} px-4 py-2 bg-indigo-50 border border-indigo-200 rounded-xl font-medium text-indigo-700 text-base cursor-pointer hover:bg-indigo-100 transition-all">${w}</div>`;
+                });
+                html += `</div></div>`;
+            }
+
+            // Example
+            html += `<div class="bg-green-50 rounded-2xl p-4 border border-green-200 mb-3">
+                <div class="flex items-start gap-3">
+                    <span class="bg-green-500 text-white px-3 py-1 rounded-lg font-bold text-sm shrink-0">Example</span>
+                    <div class="flex-1">
+                        <p class="text-slate-700 mb-2">${part.example.definition}</p>
+                        <span class="font-bold text-green-700 border-b-2 border-green-400 px-2">${part.example.answer}</span>
+                    </div>
+                </div>
+            </div>`;
+
+            // Questions
+            part.items.forEach((item, i) => {
+                let answerHtml;
+                if (readingSubmitted) {
+                    const isCorrect = answers[i].toLowerCase().trim() === item.answer.toLowerCase().trim();
+                    answerHtml = `<span class="font-bold px-3 py-1 rounded-lg text-base ${isCorrect ? 'bg-green-100 text-green-700 border border-green-300' : 'bg-red-100 text-red-700 border border-red-300'}">${answers[i] || '—'}</span>`;
+                    if (!isCorrect) answerHtml += ` <span class="text-green-600 font-bold text-sm ml-2"><i class="fa-solid fa-arrow-right mr-1"></i>${item.answer}</span>`;
+                } else {
+                    if (answers[i]) {
+                        answerHtml = `<span class="font-bold px-3 py-1 rounded-lg bg-turtle-100 text-turtle-700 border border-turtle-300 cursor-pointer text-base" onclick="readingAnswers[${activeReadingPart}][${i}]=''; renderDefinitionMatch(readingData.parts[${activeReadingPart}])">${answers[i]} <i class="fa-solid fa-xmark ml-1 text-xs"></i></span>`;
+                    } else {
+                        answerHtml = `<span class="px-3 py-1 rounded-lg border-2 border-dashed border-slate-300 text-slate-400 text-base">............................................</span>`;
+                    }
+                }
+                html += `<div class="bg-white rounded-2xl p-4 border shadow-sm mb-3">
+                    <div class="flex items-start gap-3">
+                        <span class="font-bold text-turtle-600 text-lg shrink-0">${item.num}.</span>
+                        <div class="flex-1">
+                            <p class="text-slate-700 mb-2">${item.definition}</p>
+                            ${answerHtml}
+                        </div>
+                    </div>
+                </div>`;
+            });
+
+            html += `</div>`;
+            content.innerHTML = html;
+
+            if (!readingSubmitted) {
+                content.querySelectorAll('.bank-chip:not(.used)').forEach(chip => {
+                    chip.onclick = () => {
+                        const emptyIdx = answers.findIndex(a => !a);
+                        if (emptyIdx >= 0) selectDefinitionWord(emptyIdx, chip.textContent);
+                    };
+                });
+            }
+        }
+
+        // --- Part 2: Conversation Choice ---
+        function selectConvChoice(qIdx, optIdx) {
+            if (readingSubmitted) return;
+            readingAnswers[activeReadingPart][qIdx] = optIdx;
+            renderConversationChoice(readingData.parts[activeReadingPart]);
+        }
+
+        function renderConversationChoice(part) {
+            const content = document.getElementById('reading-content');
+            const answers = readingAnswers[activeReadingPart];
+            const letters = ['A', 'B', 'C'];
+
+            let html = `<div class="max-w-2xl mx-auto">
+                <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
+                <div class="bg-blue-50 rounded-2xl p-4 border border-blue-200 mb-4">
+                    <p class="text-blue-800 font-medium"><i class="fa-solid fa-comment-dots mr-2 text-blue-500"></i>${part.context}</p>
+                </div>`;
+
+            // Example
+            html += `<div class="bg-green-50 rounded-2xl p-4 border border-green-200 mb-3">
+                <div class="flex items-center gap-2 mb-2"><span class="bg-green-500 text-white px-3 py-1 rounded-lg font-bold text-sm">Example</span></div>
+                <p class="font-bold text-slate-800 mb-3"><span class="text-blue-600">${part.example.speaker}:</span> ${part.example.question}</p>
+                <div class="space-y-2">`;
+            part.example.options.forEach((opt, j) => {
+                const isAnswer = j === part.example.answer;
+                html += `<div class="p-3 rounded-xl text-base font-medium ${isAnswer ? 'bg-green-500 text-white' : 'bg-white border border-slate-200 text-slate-400'}">
+                    <span class="font-bold">${letters[j]}.</span> ${opt}</div>`;
+            });
+            html += `</div></div>`;
+
+            // Questions
+            part.items.forEach((item, i) => {
+                html += `<div class="bg-white rounded-2xl p-4 border shadow-sm mb-3">
+                    <p class="font-bold text-slate-800 mb-3"><span class="text-turtle-600 mr-2">${item.num}.</span><span class="text-blue-600">${item.speaker}:</span> ${item.question}</p>
+                    <div class="space-y-2">`;
+                item.options.forEach((opt, j) => {
+                    let btnClass = 'p-3 rounded-xl text-base font-medium transition-all ';
+                    if (readingSubmitted) {
+                        if (j === item.answer) btnClass += 'bg-green-500 text-white';
+                        else if (answers[i] === j && j !== item.answer) btnClass += 'bg-red-400 text-white';
+                        else btnClass += 'bg-slate-50 border border-slate-200 text-slate-400';
+                    } else {
+                        if (answers[i] === j) btnClass += 'bg-turtle-500 text-white shadow-md';
+                        else btnClass += 'bg-slate-50 border border-slate-200 text-slate-600 hover:border-turtle-300 hover:bg-turtle-50 cursor-pointer';
+                    }
+                    html += `<div class="${btnClass}" onclick="selectConvChoice(${i},${j})"><span class="font-bold">${letters[j]}.</span> ${opt}</div>`;
+                });
+                html += `</div></div>`;
+            });
+
+            html += `</div>`;
+            content.innerHTML = html;
+        }
+
+        // --- Part 3: Story Fill ---
+        function selectStoryWord(idx, word) {
+            if (readingSubmitted) return;
+            readingAnswers[activeReadingPart].blanks[idx] = word;
+            renderStoryFill(readingData.parts[activeReadingPart]);
+        }
+        function selectStoryTitle(optIdx) {
+            if (readingSubmitted) return;
+            readingAnswers[activeReadingPart].title = optIdx;
+            renderStoryFill(readingData.parts[activeReadingPart]);
+        }
+
+        function renderStoryFill(part) {
+            const content = document.getElementById('reading-content');
+            const answers = readingAnswers[activeReadingPart];
+            const usedWords = answers.blanks.filter(Boolean);
+
+            let html = `<div class="max-w-2xl mx-auto">
+                <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
+
+            // Word bank
+            if (!readingSubmitted) {
+                html += `<div class="bg-white rounded-2xl p-4 shadow-sm border mb-4">
+                    <h4 class="font-bold text-slate-600 mb-2"><i class="fa-solid fa-list mr-1 text-indigo-500"></i> Word box</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <div class="px-4 py-2 bg-green-50 border border-green-200 rounded-xl font-medium text-green-700 text-base opacity-50">${part.example.word}</div>`;
+                part.wordBank.forEach(w => {
+                    const isUsed = usedWords.includes(w);
+                    html += `<div class="bank-chip ${isUsed ? 'used' : ''} px-4 py-2 bg-indigo-50 border border-indigo-200 rounded-xl font-medium text-indigo-700 text-base cursor-pointer hover:bg-indigo-100 transition-all" data-word="${w}">${w}</div>`;
+                });
+                html += `</div></div>`;
+            }
+
+            // Story with blanks
+            html += `<div class="bg-white rounded-2xl p-6 shadow-sm border mb-4"><div class="prose max-w-none text-base leading-relaxed text-slate-700">`;
+            part.storyParts.forEach(para => {
+                let rendered = para;
+                rendered = rendered.replace('%%example%%', `<span class="font-bold text-green-700 border-b-2 border-green-400 px-1">${part.example.word}</span>`);
+                for (let i = 0; i < part.items.length; i++) {
+                    const item = part.items[i];
+                    let blankHtml;
+                    if (readingSubmitted) {
+                        const isCorrect = answers.blanks[i].toLowerCase().trim() === item.answer.toLowerCase().trim();
+                        blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers.blanks[i] || '—'}</span>`;
+                        if (!isCorrect) blankHtml += `<span class="text-green-600 font-bold text-sm ml-1">${item.answer}</span>`;
+                    } else {
+                        if (answers.blanks[i]) {
+                            blankHtml = `<span class="font-bold px-2 py-0.5 rounded bg-turtle-100 text-turtle-700 border border-turtle-300 cursor-pointer" onclick="readingAnswers[${activeReadingPart}].blanks[${i}]=''; renderStoryFill(readingData.parts[${activeReadingPart}])">${answers.blanks[i]} <i class="fa-solid fa-xmark text-xs"></i></span>`;
+                        } else {
+                            blankHtml = `<span class="inline-block w-24 border-b-2 border-dashed border-slate-400 text-center text-slate-400 cursor-pointer story-blank" data-idx="${i}">___</span>`;
+                        }
+                    }
+                    rendered = rendered.replace('%%blank%%', blankHtml);
+                }
+                html += `<p class="mb-3">${rendered}</p>`;
+            });
+            html += `</div></div>`;
+
+            // Title question (Q6)
+            if (part.titleQuestion) {
+                const tq = part.titleQuestion;
+                html += `<div class="bg-white rounded-2xl p-4 border shadow-sm mb-3">
+                    <p class="font-bold text-slate-800 mb-3"><span class="text-turtle-600 mr-2">${tq.num}.</span>${tq.instruction}</p>
+                    <div class="space-y-2">`;
+                tq.options.forEach((opt, j) => {
+                    let btnClass = 'p-3 rounded-xl text-base font-medium transition-all ';
+                    if (readingSubmitted) {
+                        if (j === tq.answer) btnClass += 'bg-green-500 text-white';
+                        else if (answers.title === j && j !== tq.answer) btnClass += 'bg-red-400 text-white';
+                        else btnClass += 'bg-slate-50 border border-slate-200 text-slate-400';
+                    } else {
+                        if (answers.title === j) btnClass += 'bg-turtle-500 text-white shadow-md';
+                        else btnClass += 'bg-slate-50 border border-slate-200 text-slate-600 hover:border-turtle-300 hover:bg-turtle-50 cursor-pointer';
+                    }
+                    html += `<div class="${btnClass}" onclick="selectStoryTitle(${j})">${opt}</div>`;
+                });
+                html += `</div></div>`;
+            }
+
+            html += `</div>`;
+            content.innerHTML = html;
+
+            if (!readingSubmitted) {
+                content.querySelectorAll('.bank-chip:not(.used)').forEach(chip => {
+                    chip.onclick = () => {
+                        const emptyIdx = answers.blanks.findIndex(a => !a);
+                        if (emptyIdx >= 0) selectStoryWord(emptyIdx, chip.dataset.word);
+                    };
+                });
+                content.querySelectorAll('.story-blank').forEach(blank => {
+                    blank.onclick = () => {
+                        const idx = parseInt(blank.dataset.idx);
+                        const nextWord = part.wordBank.find(w => !answers.blanks.includes(w));
+                    };
+                });
+            }
+        }
+
+        // --- Part 4: Grammar Cloze ---
+        function selectGrammarChoice(qIdx, optIdx) {
+            if (readingSubmitted) return;
+            readingAnswers[activeReadingPart][qIdx] = optIdx;
+            renderGrammarCloze(readingData.parts[activeReadingPart]);
+        }
+
+        function renderGrammarCloze(part) {
+            const content = document.getElementById('reading-content');
+            const answers = readingAnswers[activeReadingPart];
+            const letters = ['A', 'B', 'C'];
+
+            let html = `<div class="max-w-2xl mx-auto">
+                <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
+
+            // Story text
+            html += `<div class="bg-white rounded-2xl p-6 shadow-sm border mb-4"><div class="prose max-w-none text-base leading-relaxed text-slate-700">`;
+            part.storyParts.forEach((para, pIdx) => {
+                let rendered = para;
+                rendered = rendered.replace('%%example%%', `<span class="font-bold text-green-700 border-b-2 border-green-400 px-1">${part.example.options[part.example.answer]}</span>`);
+                for (let i = 0; i < part.items.length; i++) {
+                    const item = part.items[i];
+                    let blankHtml;
+                    if (readingSubmitted) {
+                        const chosen = answers[i] >= 0 ? item.options[answers[i]] : '—';
+                        const isCorrect = answers[i] === item.answer;
+                        blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${chosen}</span>`;
+                        if (!isCorrect) blankHtml += `<span class="text-green-600 font-bold text-sm ml-1">${item.options[item.answer]}</span>`;
+                    } else {
+                        const chosen = answers[i] >= 0 ? item.options[answers[i]] : '______';
+                        blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${answers[i] >= 0 ? 'bg-turtle-100 text-turtle-700 border border-turtle-300' : 'border-b-2 border-dashed border-slate-400 text-slate-400'}">${chosen}</span>`;
+                    }
+                    rendered = rendered.replace('%%blank%%', blankHtml);
+                }
+                html += `<p class="mb-3">${rendered}</p>`;
+            });
+            html += `</div></div>`;
+
+            // Choice table
+            html += `<div class="bg-white rounded-2xl shadow-sm border overflow-hidden mb-4">
+                <table class="w-full">
+                    <thead><tr class="bg-turtle-50">
+                        <th class="p-3 text-left text-turtle-700 font-bold w-20">#</th>
+                        <th class="p-3 text-center text-turtle-700 font-bold">A</th>
+                        <th class="p-3 text-center text-turtle-700 font-bold">B</th>
+                        <th class="p-3 text-center text-turtle-700 font-bold">C</th>
+                    </tr></thead><tbody>
+                    <tr class="bg-green-50">
+                        <td class="p-3 font-bold text-green-600">Example</td>`;
+            part.example.options.forEach((opt, j) => {
+                const isAnswer = j === part.example.answer;
+                html += `<td class="p-3 text-center font-medium ${isAnswer ? 'text-green-700 font-bold' : 'text-slate-400'}">${isAnswer ? '✓ ' : ''}${opt}</td>`;
+            });
+            html += `</tr>`;
+
+            part.items.forEach((item, i) => {
+                html += `<tr class="border-t">
+                    <td class="p-3 font-bold text-slate-500">${item.num}</td>`;
+                item.options.forEach((opt, j) => {
+                    let cls = 'p-3 text-center font-medium cursor-pointer transition-all ';
+                    if (readingSubmitted) {
+                        if (j === item.answer) cls += 'text-green-700 font-bold bg-green-50';
+                        else if (answers[i] === j) cls += 'text-red-500 line-through bg-red-50';
+                        else cls += 'text-slate-400';
+                    } else {
+                        if (answers[i] === j) cls += 'text-turtle-700 font-bold bg-turtle-50';
+                        else cls += 'text-slate-600 hover:bg-slate-50';
+                    }
+                    html += `<td class="${cls}" onclick="selectGrammarChoice(${i},${j})">${answers[i] === j && !readingSubmitted ? '● ' : ''}${opt}</td>`;
+                });
+                html += `</tr>`;
+            });
+            html += `</tbody></table></div></div>`;
+            content.innerHTML = html;
+        }
+
+        // --- Part 5: Story Write ---
+        function renderStoryWrite(part) {
+            const content = document.getElementById('reading-content');
+            const answers = readingAnswers[activeReadingPart];
+            let qCounter = 0;
+
+            let html = `<div class="max-w-2xl mx-auto">
+                <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
+
+            part.storySegments.forEach((seg, sIdx) => {
+                if (seg.title) {
+                    html += `<h3 class="text-xl font-bold text-slate-800 mb-3">${seg.title}</h3>`;
+                }
+
+                // Story text
+                html += `<div class="bg-slate-100 rounded-2xl p-4 mb-4"><div class="prose max-w-none text-base leading-relaxed text-slate-700 whitespace-pre-line">${seg.text}</div></div>`;
+
+                // Examples
+                if (seg.examples) {
+                    seg.examples.forEach(ex => {
+                        const rendered = ex.sentence.replace('%%answer%%', `<span class="font-bold text-green-700 border-b-2 border-green-400 px-1">${ex.answer}</span>`);
+                        html += `<div class="bg-green-50 rounded-xl p-3 border border-green-200 mb-2">
+                            <span class="bg-green-500 text-white px-2 py-0.5 rounded font-bold text-xs mr-2">Example</span>
+                            ${rendered}
+                        </div>`;
+                    });
+                }
+
+                // Questions
+                if (seg.questions) {
+                    seg.questions.forEach(q => {
+                        const aIdx = qCounter;
+                        let sentenceHtml;
+                        if (readingSubmitted) {
+                            const userAns = answers[aIdx] || '';
+                            const isCorrect = userAns.toLowerCase().trim() === q.answer.toLowerCase().trim();
+                            const blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${userAns || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${q.answer}</span>` : ''}`;
+                            sentenceHtml = q.sentence.replace('%%blank%%', blankHtml);
+                        } else {
+                            const blankHtml = `<input type="text" value="${answers[aIdx]}" placeholder="..." oninput="readingAnswers[${activeReadingPart}][${aIdx}]=this.value" class="inline-block w-48 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium text-base">`;
+                            sentenceHtml = q.sentence.replace('%%blank%%', blankHtml);
+                        }
+                        html += `<div class="bg-white rounded-xl p-4 border shadow-sm mb-2">
+                            <span class="font-bold text-turtle-600 mr-2">${q.num}.</span>${sentenceHtml}
+                        </div>`;
+                        qCounter++;
+                    });
+                }
+            });
+
+            html += `</div>`;
+            content.innerHTML = html;
+        }
+
+        // --- Part 6: Picture Write ---
+        function renderPictureWrite(part) {
+            const content = document.getElementById('reading-content');
+            const answers = readingAnswers[activeReadingPart];
+
+            let html = `<div class="w-full">
+                <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
+                <div class="flex flex-col lg:flex-row gap-4">
+                    <div class="shrink-0" style="width:45%">
+                        <img src="${part.image}" alt="Part 6" class="w-full rounded-2xl shadow-md border">
+                    </div>
+                    <div style="width:55%" class="flex flex-col gap-3">`;
+
+            // Examples
+            part.examples.forEach(ex => {
+                let exHtml;
+                if (ex.type === 'complete') {
+                    exHtml = ex.sentence.replace('%%answer%%', `<span class="font-bold text-green-700 border-b-2 border-green-400 px-1">${ex.answer}</span>`);
+                } else {
+                    exHtml = `${ex.question} <span class="font-bold text-green-700 border-b-2 border-green-400 px-1">${ex.answer}</span>`;
+                }
+                html += `<div class="bg-green-50 rounded-xl p-3 border border-green-200">
+                    <span class="bg-green-500 text-white px-2 py-0.5 rounded font-bold text-xs mr-2">Example</span>
+                    ${exHtml}
+                </div>`;
+            });
+
+            // Questions
+            part.items.forEach((item, i) => {
+                let questionHtml;
+                if (item.type === 'complete') {
+                    if (readingSubmitted) {
+                        const isCorrect = answers[i].toLowerCase().trim() === item.answer.toLowerCase().trim();
+                        const blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${item.answer}</span>` : ''}`;
+                        questionHtml = item.sentence.replace('%%blank%%', blankHtml);
+                    } else {
+                        const blankHtml = `<input type="text" value="${answers[i]}" placeholder="..." oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" class="inline-block w-40 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium text-base">`;
+                        questionHtml = item.sentence.replace('%%blank%%', blankHtml);
+                    }
+                } else if (item.type === 'answer') {
+                    if (readingSubmitted) {
+                        const isCorrect = answers[i].toLowerCase().trim() === item.answer.toLowerCase().trim();
+                        questionHtml = `${item.question}<br><span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${item.answer}</span>` : ''}`;
+                    } else {
+                        questionHtml = `${item.question}<br><input type="text" value="${answers[i]}" placeholder="..." oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" class="mt-2 w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium text-base">`;
+                    }
+                } else if (item.type === 'free') {
+                    if (item.instruction) {
+                        questionHtml = `<p class="text-slate-600 italic mb-2">${item.instruction}</p>`;
+                    } else {
+                        questionHtml = '';
+                    }
+                    if (readingSubmitted) {
+                        questionHtml += `<p class="text-slate-700 bg-slate-50 rounded-lg p-2">${answers[i] || '<span class="text-slate-400 italic">Không trả lời</span>'}</p>`;
+                    } else {
+                        questionHtml += `<textarea oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" placeholder="Write a sentence..." class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium text-base resize-none" rows="2">${answers[i]}</textarea>`;
+                    }
+                }
+
+                html += `<div class="bg-white rounded-xl p-4 border shadow-sm">
+                    <span class="font-bold text-turtle-600 mr-2">${item.num}.</span>
+                    ${questionHtml}
+                </div>`;
+            });
+
+            html += `</div></div></div>`;
+            content.innerHTML = html;
+        }
+
+        // --- Submit & Score ---
+        function submitReadingTest() {
+            if (readingSubmitted) { closeReading(); return; }
+
+            const totalQ = readingData.parts.reduce((s, p) => s + p.questions, 0);
+            let answeredCount = 0;
+            readingData.parts.forEach((part, i) => {
+                const ans = readingAnswers[i];
+                if (part.type === 'definition-match') answeredCount += ans.filter(a => a).length;
+                else if (part.type === 'conversation-choice') answeredCount += ans.filter(a => a >= 0).length;
+                else if (part.type === 'story-fill') { answeredCount += ans.blanks.filter(a => a).length; if (ans.title >= 0) answeredCount++; }
+                else if (part.type === 'grammar-cloze') answeredCount += ans.filter(a => a >= 0).length;
+                else if (part.type === 'story-write') answeredCount += ans.filter(a => a.trim()).length;
+                else if (part.type === 'picture-write') answeredCount += ans.filter(a => a.trim()).length;
+            });
+
+            Swal.fire({
+                title: 'Nộp bài?',
+                html: `Bạn đã trả lời <b>${answeredCount}/${totalQ}</b> câu hỏi.`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: '<i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài',
+                cancelButtonText: 'Quay lại',
+                confirmButtonColor: '#20a1a0'
+            }).then(r => { if (r.isConfirmed) doSubmitReading(); });
+        }
+
+        function doSubmitReading() {
+            readingSubmitted = true;
+            const elapsed = Math.floor((Date.now() - readingStartTime) / 1000);
+            const mins = Math.floor(elapsed / 60);
+            const secs = elapsed % 60;
+            const timeStr = `${mins} phút ${secs} giây`;
+
+            let partScores = [];
+            readingData.parts.forEach((part, i) => {
+                const ans = readingAnswers[i];
+                let correct = 0;
+                if (part.type === 'definition-match') {
+                    part.items.forEach((item, j) => { if (ans[j].toLowerCase().trim() === item.answer.toLowerCase().trim()) correct++; });
+                } else if (part.type === 'conversation-choice') {
+                    part.items.forEach((item, j) => { if (ans[j] === item.answer) correct++; });
+                } else if (part.type === 'story-fill') {
+                    part.items.forEach((item, j) => { if (ans.blanks[j].toLowerCase().trim() === item.answer.toLowerCase().trim()) correct++; });
+                    if (part.titleQuestion && ans.title === part.titleQuestion.answer) correct++;
+                } else if (part.type === 'grammar-cloze') {
+                    part.items.forEach((item, j) => { if (ans[j] === item.answer) correct++; });
+                } else if (part.type === 'story-write') {
+                    let qIdx = 0;
+                    part.storySegments.forEach(seg => {
+                        if (seg.questions) seg.questions.forEach(q => {
+                            if (ans[qIdx].toLowerCase().trim() === q.answer.toLowerCase().trim()) correct++;
+                            qIdx++;
+                        });
+                    });
+                } else if (part.type === 'picture-write') {
+                    part.items.forEach((item, j) => {
+                        if (item.type === 'free') return;
+                        if (ans[j].toLowerCase().trim() === item.answer.toLowerCase().trim()) correct++;
+                    });
+                }
+                const nonFreeQ = part.type === 'picture-write' ? part.items.filter(it => it.type !== 'free').length : part.questions;
+                partScores.push({ title: part.title, correct, total: nonFreeQ });
+            });
+
+            const totalCorrect = partScores.reduce((s, p) => s + p.correct, 0);
+            const totalQuestions = partScores.reduce((s, p) => s + p.total, 0);
+            const pct = Math.round((totalCorrect / totalQuestions) * 100);
+
+            let resultHtml = `<div id="reading-result-capture" style="background:#fff;padding:24px;border-radius:16px;max-width:400px;margin:0 auto;">
+                <div style="text-align:center;margin-bottom:16px;">
+                    <div style="font-size:24px;font-weight:800;color:#0f172a;">📝 Reading & Writing</div>
+                    <div style="font-size:14px;color:#64748b;margin-top:4px;">⏱ ${timeStr}</div>
+                </div>
+                <div style="margin-bottom:16px;">`;
+
+            partScores.forEach(ps => {
+                const partPct = Math.round((ps.correct / ps.total) * 100);
+                const color = partPct >= 80 ? '#22c55e' : partPct >= 50 ? '#eab308' : '#ef4444';
+                resultHtml += `<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f1f5f9;">
+                    <span style="font-weight:600;color:#334155;">${ps.title}</span>
+                    <span style="font-weight:700;color:${color};">${ps.correct}/${ps.total} (${partPct}%)</span>
+                </div>`;
+            });
+
+            const totalColor = pct >= 80 ? '#22c55e' : pct >= 50 ? '#eab308' : '#ef4444';
+            resultHtml += `</div>
+                <div style="text-align:center;padding:16px;background:${totalColor}15;border-radius:12px;">
+                    <div style="font-size:36px;font-weight:900;color:${totalColor};">${totalCorrect}/${totalQuestions}</div>
+                    <div style="font-size:18px;font-weight:700;color:${totalColor};">${pct}%</div>
+                </div>
+            </div>`;
+
+            Swal.fire({
+                html: resultHtml,
+                width: 480,
+                showConfirmButton: true,
+                showDenyButton: true,
+                confirmButtonText: '<i class="fa-solid fa-eye mr-2"></i> Xem lại bài làm',
+                denyButtonText: '<i class="fa-solid fa-download mr-2"></i> Lưu kết quả',
+                confirmButtonColor: '#20a1a0',
+                denyButtonColor: '#6366f1'
+            }).then(r => {
+                if (r.isDenied) {
+                    const el = document.getElementById('reading-result-capture');
+                    if (el) {
+                        html2canvas(el, { scale: 2, backgroundColor: '#ffffff' }).then(canvas => {
+                            const link = document.createElement('a');
+                            link.download = `reading-result-${Date.now()}.png`;
+                            link.href = canvas.toDataURL();
+                            link.click();
+                        });
+                    }
+                }
+                renderReadingTabs();
+                renderReadingPart();
+            });
+
+            const btn = document.getElementById('btn-submit-reading');
+            btn.innerHTML = '<i class="fa-solid fa-door-open mr-2"></i> Quay lại';
+            btn.className = btn.className.replace('bg-turtle-500', 'bg-slate-600').replace('hover:bg-turtle-600', 'hover:bg-slate-700');
+        }
+
+        function closeReading() {
+            if (!readingSubmitted) {
+                Swal.fire({
+                    title: 'Thoát bài làm?',
+                    text: 'Bài làm của bạn sẽ không được lưu.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Thoát',
+                    cancelButtonText: 'Ở lại',
+                    confirmButtonColor: '#ef4444'
+                }).then(r => {
+                    if (r.isConfirmed) doCloseReading();
+                });
+            } else {
+                doCloseReading();
+            }
+        }
+
+        function doCloseReading() {
+            document.getElementById('view-reading').classList.remove('active');
+            document.getElementById('view-detail').classList.add('active');
+            if (isLoggedIn) document.getElementById('main-nav').classList.remove('hidden');
+            const btn = document.getElementById('btn-submit-reading');
             btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài';
             btn.className = btn.className.replace('bg-slate-600', 'bg-turtle-500').replace('hover:bg-slate-700', 'hover:bg-turtle-600');
         }
