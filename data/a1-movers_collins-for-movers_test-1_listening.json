@@ -89,10 +89,24 @@
       "image": "images/collins-movers/test1/part5-beach.webp",
       "colors": ["red", "blue", "purple", "green", "pink", "yellow", "gray", "black", "orange", "brown"],
       "example": { "item": "Fisherman's trousers", "type": "color", "answer": "red" },
+      "itemBank": [
+        "Older boy's T-shirt",
+        "Younger boy's T-shirt",
+        "Blanket on the sand",
+        "Towel on the sand",
+        "Bigger boat",
+        "Smaller boat",
+        "Smaller boat's sail",
+        "Bigger boat's sail",
+        "Bird on the beach (next to fisherman)",
+        "Bird flying near the big boat",
+        "Man's bucket",
+        "Sandcastle"
+      ],
       "items": [
-        { "num": 1, "item": "Older boy's T-shirt (near the sea)", "type": "color", "answer": "green" },
+        { "num": 1, "item": "Older boy's T-shirt", "type": "color", "answer": "green" },
         { "num": 2, "item": "Blanket on the sand", "type": "color", "answer": "purple" },
-        { "num": 3, "item": "Write on the bigger boat", "type": "write", "answer": "wet" },
+        { "num": 3, "item": "Bigger boat", "type": "write", "answer": "wet" },
         { "num": 4, "item": "Smaller boat's sail", "type": "color", "answer": "yellow" },
         { "num": 5, "item": "Bird on the beach (next to fisherman)", "type": "color", "answer": "pink" }
       ]
