@@ -1362,13 +1362,13 @@
             const usedColors = answers.map(a => a.answer).filter(Boolean);
 
             let html = `
-            <div class="max-w-6xl mx-auto">
+            <div class="w-full">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
-                <div class="flex flex-col lg:flex-row gap-6">
-                    <div class="lg:w-5/12 shrink-0">
+                <div class="flex flex-col lg:flex-row gap-4">
+                    <div class="shrink-0" style="width:30%">
                         <img src="${part.image}" alt="Part 5" class="w-full rounded-2xl shadow-md border">
                     </div>
-                    <div class="lg:w-7/12 flex flex-col gap-4">
+                    <div style="width:40%" class="flex flex-col gap-4">
                         <div class="bg-white rounded-2xl shadow-sm border overflow-hidden">
                             <table class="listening-table w-full">
                                 <thead><tr class="bg-turtle-50">
@@ -1434,9 +1434,11 @@
                 </tr>`;
             });
 
-            html += `</tbody></table></div>`;
+            html += `</tbody></table></div>
+            </div>`;
 
             if (!listeningSubmitted) {
+                html += `<div style="width:30%" class="flex flex-col gap-3">`;
                 // Item word bank
                 html += `<div class="bg-white rounded-2xl p-3 shadow-sm border">
                     <h4 class="font-bold text-slate-600 mb-2 text-sm"><i class="fa-solid fa-list mr-1 text-indigo-500"></i> Items</h4>
@@ -1458,9 +1460,10 @@
                     html += `<div class="color-chip ${isSel ? 'selected' : ''} w-12 h-8 rounded-lg cursor-pointer transition-all flex items-center justify-center text-xs font-bold text-white shadow-sm hover:scale-105" style="background-color:${hex}" onclick="selectColor('${c}',this)">${c}</div>`;
                 });
                 html += `</div></div>`;
+                html += `</div>`;
             }
 
-            html += `</div></div></div>`;
+            html += `</div></div>`;
             content.innerHTML = html;
         }
 
