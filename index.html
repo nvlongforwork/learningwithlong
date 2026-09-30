@@ -649,12 +649,49 @@
 
         // --- LOGIC GIAO DIỆN LÀM BÀI FULL SCREEN (QUIZ) ---
         let currentQuizTheme = '#20a1a0';
+        let currentMaterialId = '';
         let quizData = [];
         let userAnswers = {};
         let activeQ = 0;
         let quizSubmitted = false;
 
+        const shieldThresholds = {
+            'pre-a1-starters': {
+                reading: [{ shields: 5, score: 21 }, { shields: 4, score: 19 }, { shields: 3, score: 16 }, { shields: 2, score: 13 }],
+                listening: [{ shields: 5, score: 18 }, { shields: 4, score: 16 }, { shields: 3, score: 13 }, { shields: 2, score: 11 }]
+            },
+            'a1-movers': {
+                reading: [{ shields: 5, score: 33 }, { shields: 4, score: 29 }, { shields: 3, score: 24 }, { shields: 2, score: 18 }],
+                listening: [{ shields: 5, score: 21 }, { shields: 4, score: 18 }, { shields: 3, score: 14 }, { shields: 2, score: 11 }]
+            },
+            'a2-flyers': {
+                reading: [{ shields: 5, score: 42 }, { shields: 4, score: 36 }, { shields: 3, score: 30 }, { shields: 2, score: 24 }],
+                listening: [{ shields: 5, score: 23 }, { shields: 4, score: 20 }, { shields: 3, score: 17 }, { shields: 2, score: 14 }]
+            }
+        };
+
+        function getShields(materialId, skillType, score) {
+            const thresholds = shieldThresholds[materialId];
+            if (!thresholds) return 0;
+            const levels = thresholds[skillType];
+            if (!levels) return 0;
+            for (const level of levels) {
+                if (score >= level.score) return level.shields;
+            }
+            return 1;
+        }
+
+        function renderShieldIcons(count) {
+            let html = '';
+            for (let i = 0; i < 5; i++) {
+                if (i < count) html += '<i class="fa-solid fa-shield" style="color:#f59e0b;font-size:28px;margin:0 2px;"></i>';
+                else html += '<i class="fa-solid fa-shield" style="color:#e2e8f0;font-size:28px;margin:0 2px;"></i>';
+            }
+            return html;
+        }
+
         async function openFullscreenQuiz(title, materialId, folderId) {
+            currentMaterialId = materialId;
             // Lấy màu chủ đạo của thư mục/tài liệu hiện tại
             currentQuizTheme = document.getElementById('view-detail').style.getPropertyValue('--theme-color') || '#20a1a0';
 
@@ -1683,6 +1720,11 @@
                             </tr>
                         </tbody>
                     </table>
+                    ${shieldThresholds[currentMaterialId] ? `<div style="text-align:center;margin:12px 0;padding:12px;background:#fffbeb;border-radius:12px;border:1px solid #fde68a">
+                        <div style="font-size:13px;color:#92400e;font-weight:600;margin-bottom:6px">🛡️ Số khiên đạt được</div>
+                        <div>${renderShieldIcons(getShields(currentMaterialId, 'listening', score))}</div>
+                        <div style="font-size:20px;font-weight:800;color:#b45309;margin-top:4px">${getShields(currentMaterialId, 'listening', score)} / 5 khiên</div>
+                    </div>` : ''}
                     <div style="display:flex;gap:8px;justify-content:center;margin-top:16px">
                         <button id="btn-review-result" style="padding:10px 20px;background:#20a1a0;color:white;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-size:15px"><i class="fa-solid fa-eye" style="margin-right:6px"></i>Xem lại bài làm</button>
                         <button id="btn-save-result" style="padding:10px 20px;background:#6366f1;color:white;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-size:15px"><i class="fa-solid fa-download" style="margin-right:6px"></i>Lưu kết quả</button>
@@ -2298,11 +2340,17 @@
             });
 
             const totalColor = pct >= 80 ? '#22c55e' : pct >= 50 ? '#eab308' : '#ef4444';
+            const readingShields = getShields(currentMaterialId, 'reading', totalCorrect);
             resultHtml += `</div>
                 <div style="text-align:center;padding:16px;background:${totalColor}15;border-radius:12px;">
                     <div style="font-size:36px;font-weight:900;color:${totalColor};">${totalCorrect}/${totalQuestions}</div>
                     <div style="font-size:18px;font-weight:700;color:${totalColor};">${pct}%</div>
                 </div>
+                ${shieldThresholds[currentMaterialId] ? `<div style="text-align:center;margin-top:12px;padding:12px;background:#fffbeb;border-radius:12px;border:1px solid #fde68a;">
+                    <div style="font-size:13px;color:#92400e;font-weight:600;margin-bottom:6px;">🛡️ Số khiên đạt được</div>
+                    <div>${renderShieldIcons(readingShields)}</div>
+                    <div style="font-size:20px;font-weight:800;color:#b45309;margin-top:4px;">${readingShields} / 5 khiên</div>
+                </div>` : ''}
             </div>`;
 
             Swal.fire({
