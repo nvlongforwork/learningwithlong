@@ -1194,11 +1194,11 @@
             <div class="w-full">
                 <p class="text-slate-500 italic mb-4 text-sm whitespace-pre-line"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
                 <div class="flex flex-col lg:flex-row gap-4">
-                    <div class="lg:w-5/12 flex flex-col gap-2 shrink-0">
+                    <div class="lg:w-3/12 flex flex-col gap-2 shrink-0">
                         <img src="${part.peopleImage}" alt="People" class="w-full rounded-xl shadow-md border">
                         <img src="${part.activitiesImage}" alt="Activities" class="w-full rounded-xl shadow-md border">
                     </div>
-                    <div class="lg:w-7/12 flex flex-col gap-4">
+                    <div class="lg:w-9/12 flex flex-col gap-4">
                         <div class="bg-white rounded-2xl shadow-sm border overflow-hidden">
                             <table class="listening-table w-full">
                                 <thead><tr class="bg-turtle-50">
@@ -1267,13 +1267,13 @@
             <div class="w-full">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
                 <div class="flex flex-col lg:flex-row gap-4">
-                    <div class="lg:w-5/12 flex flex-col gap-3 shrink-0">`;
+                    <div class="lg:w-3/12 flex flex-col gap-3 shrink-0">`;
             if (part.images) {
                 part.images.forEach(img => {
-                    html += `<img src="${img}" alt="Part 4" class="w-full rounded-2xl shadow-md border">`;
+                    html += `<img src="${img}" alt="Part 4" class="w-full rounded-xl shadow-md border">`;
                 });
             }
-            html += `</div><div class="lg:w-7/12 flex flex-col gap-4">`;
+            html += `</div><div class="lg:w-9/12 flex flex-col gap-4">`;
 
             // Example
             html += `<div class="bg-green-50 rounded-2xl p-4 border border-green-200">
