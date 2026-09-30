@@ -14,6 +14,9 @@
     <!-- SweetAlert2 để thay thế alert() mặc định, tạo thông báo đẹp mắt -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <!-- html2canvas để chụp ảnh kết quả -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
     <!-- Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -962,6 +965,7 @@
         let selectedBank = null;
         let currentStudent = null;
         let studentsData = null;
+        let listeningStartTime = null;
 
         async function loadStudents() {
             if (studentsData) return studentsData;
@@ -1041,6 +1045,8 @@
                     listeningAnswers[i] = part.items.map(() => ({ item: '', answer: '' }));
                 }
             });
+
+            listeningStartTime = Date.now();
 
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
             document.getElementById('view-listening').classList.add('active');
@@ -1553,47 +1559,119 @@
 
             const doSubmit = () => {
                 let score = 0;
+                const partScores = [];
                 listeningData.parts.forEach((part, i) => {
                     const ans = listeningAnswers[i];
+                    let partScore = 0;
                     if (part.type === 'drag-match') {
                         part.answers.forEach((correct, j) => {
-                            if (ans[j].name === correct.name && ans[j].action === correct.action) score++;
+                            if (ans[j].name === correct.name && ans[j].action === correct.action) partScore++;
                         });
                     } else if (part.type === 'fill-blank') {
                         part.rows.forEach((row, j) => {
-                            if (row.answer && ans[j].toLowerCase().trim() === row.answer.toLowerCase().trim()) score++;
+                            if (row.answer && ans[j].toLowerCase().trim() === row.answer.toLowerCase().trim()) partScore++;
                         });
                     } else if (part.type === 'drag-match-letters') {
                         part.answers.forEach((correct, j) => {
-                            if (ans[j] === correct.answer) score++;
+                            if (ans[j] === correct.answer) partScore++;
                         });
                     } else if (part.type === 'multiple-choice-abc') {
                         part.items.forEach((item, j) => {
-                            if (ans[j] === item.answer) score++;
+                            if (ans[j] === item.answer) partScore++;
                         });
                     } else if (part.type === 'color-write') {
                         part.items.forEach((item, j) => {
                             const itemCorrect = ans[j].item === item.item;
                             const ansCorrect = item.answer && ans[j].answer.toLowerCase().trim() === item.answer.toLowerCase().trim();
-                            if (itemCorrect && ansCorrect) score++;
+                            if (itemCorrect && ansCorrect) partScore++;
                         });
                     }
+                    score += partScore;
+                    partScores.push({ title: part.title, score: partScore, total: part.questions });
                 });
+
+                const elapsed = Math.floor((Date.now() - listeningStartTime) / 1000);
+                const mins = Math.floor(elapsed / 60);
+                const secs = elapsed % 60;
+                const timeStr = `${mins} phút ${secs < 10 ? '0' : ''}${secs} giây`;
+                const pct = Math.round((score / totalQuestions) * 100);
+
+                const studentName = currentStudent ? currentStudent.name : 'Học sinh';
+                const studentEng = currentStudent && currentStudent.englishName ? ` (${currentStudent.englishName})` : '';
+                const studentClass = currentStudent ? currentStudent.class : '';
+
+                let partRows = partScores.map(p => {
+                    const ppct = Math.round((p.score / p.total) * 100);
+                    const color = ppct >= 80 ? '#22c55e' : ppct >= 50 ? '#f59e0b' : '#ef4444';
+                    return `<tr>
+                        <td style="padding:8px 12px;text-align:left;font-weight:600">${p.title}</td>
+                        <td style="padding:8px 12px;text-align:center">${p.score} / ${p.total}</td>
+                        <td style="padding:8px 12px;text-align:center"><span style="background:${color};color:white;padding:2px 10px;border-radius:8px;font-weight:700;font-size:14px">${ppct}%</span></td>
+                    </tr>`;
+                }).join('');
+
+                const totalColor = pct >= 80 ? '#22c55e' : pct >= 50 ? '#f59e0b' : '#ef4444';
+
+                const resultHtml = `
+                <div id="result-card" style="text-align:left;font-family:Inter,sans-serif">
+                    <div style="text-align:center;margin-bottom:16px">
+                        <div style="font-size:14px;color:#64748b;margin-bottom:4px">${listeningData.title}</div>
+                        <div style="font-size:20px;font-weight:800;color:#1e293b">${studentName}${studentEng}</div>
+                        <div style="font-size:14px;color:#64748b;margin-top:2px"><i class="fa-solid fa-school" style="margin-right:4px"></i>${studentClass} &nbsp;|&nbsp; <i class="fa-solid fa-clock" style="margin-right:4px"></i>${timeStr}</div>
+                    </div>
+                    <table style="width:100%;border-collapse:collapse;margin-bottom:12px">
+                        <thead><tr style="background:#f1f5f9">
+                            <th style="padding:8px 12px;text-align:left;color:#475569;font-size:13px">Phần</th>
+                            <th style="padding:8px 12px;text-align:center;color:#475569;font-size:13px">Điểm</th>
+                            <th style="padding:8px 12px;text-align:center;color:#475569;font-size:13px">%</th>
+                        </tr></thead>
+                        <tbody style="font-size:15px">${partRows}
+                            <tr style="background:#f0fdfa;border-top:2px solid #20a1a0">
+                                <td style="padding:10px 12px;font-weight:800;color:#20a1a0;font-size:16px">Tổng</td>
+                                <td style="padding:10px 12px;text-align:center;font-weight:800;font-size:16px;color:#1e293b">${score} / ${totalQuestions}</td>
+                                <td style="padding:10px 12px;text-align:center"><span style="background:${totalColor};color:white;padding:4px 14px;border-radius:10px;font-weight:800;font-size:16px">${pct}%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="display:flex;gap:8px;justify-content:center;margin-top:16px">
+                        <button id="btn-review-result" style="padding:10px 20px;background:#20a1a0;color:white;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-size:15px"><i class="fa-solid fa-eye" style="margin-right:6px"></i>Xem lại bài làm</button>
+                        <button id="btn-save-result" style="padding:10px 20px;background:#6366f1;color:white;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-size:15px"><i class="fa-solid fa-download" style="margin-right:6px"></i>Lưu kết quả</button>
+                    </div>
+                </div>`;
 
                 listeningSubmitted = true;
                 Swal.fire({
                     title: 'Nộp bài thành công!',
-                    html: `<div class="py-4"><p class="text-slate-500 mb-2">Điểm số của bạn:</p><div class="text-5xl font-bold text-turtle-600">${score} / ${totalQuestions}</div><p class="mt-4 text-sm text-slate-600">Xem lại đáp án ở từng phần nhé.</p></div>`,
+                    html: resultHtml,
                     icon: 'success',
-                    confirmButtonColor: '#20a1a0',
-                    confirmButtonText: 'Xem đáp án'
-                }).then(() => {
-                    const btn = document.getElementById('btn-submit-listening');
-                    btn.innerHTML = '<i class="fa-solid fa-door-open mr-2"></i> Quay lại';
-                    btn.className = btn.className.replace('bg-turtle-500', 'bg-slate-600').replace('hover:bg-turtle-600', 'hover:bg-slate-700');
-                    activePart = 0;
-                    renderListeningTabs();
-                    renderListeningPart();
+                    showConfirmButton: false,
+                    showCloseButton: true,
+                    width: 520,
+                    didOpen: () => {
+                        document.getElementById('btn-review-result').addEventListener('click', () => {
+                            Swal.close();
+                            const btn = document.getElementById('btn-submit-listening');
+                            btn.innerHTML = '<i class="fa-solid fa-door-open mr-2"></i> Quay lại';
+                            btn.className = btn.className.replace('bg-turtle-500', 'bg-slate-600').replace('hover:bg-turtle-600', 'hover:bg-slate-700');
+                            activePart = 0;
+                            renderListeningTabs();
+                            renderListeningPart();
+                        });
+                        document.getElementById('btn-save-result').addEventListener('click', async () => {
+                            const card = document.getElementById('result-card');
+                            const btns = card.querySelector('div[style*="display:flex"]');
+                            btns.style.display = 'none';
+                            try {
+                                const canvas = await html2canvas(card, { backgroundColor: '#ffffff', scale: 2 });
+                                const link = document.createElement('a');
+                                const safeName = (currentStudent ? currentStudent.englishName || currentStudent.name : 'result').replace(/\s+/g, '_');
+                                link.download = `KetQua_${safeName}_${new Date().toISOString().slice(0,10)}.png`;
+                                link.href = canvas.toDataURL('image/png');
+                                link.click();
+                            } catch(e) { console.error(e); }
+                            btns.style.display = 'flex';
+                        });
+                    }
                 });
             };
 
