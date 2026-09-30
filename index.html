@@ -1,1168 +1,822 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Language Material</title>
-    
-    <!-- Tailwind CSS cho thiết kế responsive và UI -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Font Awesome cho icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- SweetAlert2 để thay thế alert() mặc định, tạo thông báo đẹp mắt -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
-    <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ELM Portal</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+:root {
+  --turtle: #20a1a0;
+  --turtle-light: #e0f5f5;
+  --turtle-dark: #178786;
+  --turtle-bg: #f0fafa;
+  --radius: 1rem;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter',sans-serif; background:#fff; color:#333; min-height:100vh; }
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        // Màu Blue Turtle nhẹ nhàng, thanh lịch
-                        'turtle': {
-                            50: '#f0fbfa',
-                            100: '#ccf2ef',
-                            200: '#99e4df',
-                            300: '#66d3cc',
-                            400: '#3fbcba',
-                            500: '#20a1a0', // Main Blue Turtle color
-                            600: '#178082',
-                            700: '#136768',
-                            800: '#115254',
-                            900: '#0f4446',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    boxShadow: {
-                        'soft': '0 10px 40px -10px rgba(32, 161, 160, 0.15)',
-                    }
-                }
-            }
-        }
-    </script>
+.bounce { transition: transform .2s ease; }
+.bounce:hover { transform: scale(1.05); }
+.bounce:active { transform: scale(0.97); }
 
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc;
-        }
-        
-        /* Hiệu ứng nảy nhẹ khi hover cho các tương tác */
-        .hover-bounce {
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        .hover-bounce:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 20px 25px -5px rgba(32, 161, 160, 0.2), 0 10px 10px -5px rgba(32, 161, 160, 0.1);
-        }
+/* login */
+.login-wrap { min-height:100vh; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,var(--turtle-bg),#fff); }
+.login-box { background:#fff; border-radius:var(--radius); box-shadow:0 8px 32px rgba(32,161,160,.15); padding:2.5rem; width:90%; max-width:400px; text-align:center; }
+.login-box h1 { font-size:1.5rem; font-weight:800; color:var(--turtle); margin-bottom:.5rem; line-height:1.3; }
+.login-box p { color:#888; font-size:.9rem; margin-bottom:1.5rem; }
+.login-input { width:100%; padding:.85rem 1rem; border:2px solid #e0e0e0; border-radius:.75rem; font-size:1.1rem; text-align:center; outline:none; transition:border .2s; font-family:inherit; }
+.login-input:focus { border-color:var(--turtle); }
+.login-btn { width:100%; margin-top:1rem; padding:.85rem; background:var(--turtle); color:#fff; border:none; border-radius:.75rem; font-size:1.1rem; font-weight:600; cursor:pointer; font-family:inherit; }
+.login-btn:hover { background:var(--turtle-dark); }
+.login-err { color:#e74c3c; font-size:.85rem; margin-top:.75rem; display:none; }
 
-        /* Ẩn hiện các view để tạo ứng dụng Single Page (SPA) */
-        .view-section {
-            display: none;
-            animation: fadeIn 0.4s ease-out forwards;
-        }
-        .view-section.active {
-            display: block;
-        }
+/* material grid */
+.mat-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:1rem; padding:1rem; max-width:900px; margin:0 auto; }
+.mat-card { border-radius:var(--radius); padding:1.5rem 1rem; text-align:center; color:#fff; font-weight:700; font-size:1.1rem; cursor:pointer; box-shadow:0 4px 16px rgba(0,0,0,.1); min-height:120px; display:flex; align-items:center; justify-content:center; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+/* top bar */
+.top-bar { background:var(--turtle); color:#fff; padding:.75rem 1rem; display:flex; align-items:center; gap:.75rem; position:sticky; top:0; z-index:50; }
+.top-bar button { background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer; }
+.top-bar h2 { font-size:1rem; font-weight:600; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 
-        .material-card .card-bg-decor { background-color: var(--theme-color); opacity: 0.1; }
-        .material-card .card-icon { background-color: var(--theme-bg-color); color: var(--theme-color); }
-        .material-card:hover .card-icon { background-color: var(--theme-color) !important; color: white !important; }
-        .material-card:hover .card-title { color: var(--theme-color); }
-        
-        .detail-decor { background-color: var(--theme-color); opacity: 0.15; }
-        .detail-icon { background-color: var(--theme-bg-color); color: var(--theme-color); }
+/* folder / topic list */
+.list-wrap { max-width:700px; margin:1rem auto; padding:0 1rem; }
+.list-item { display:flex; align-items:center; gap:.75rem; padding:1rem; background:#fff; border-radius:var(--radius); margin-bottom:.6rem; box-shadow:0 2px 8px rgba(0,0,0,.06); cursor:pointer; font-weight:500; font-size:1.05rem; border-left:4px solid var(--turtle); }
+.list-item:hover { background:var(--turtle-bg); }
+.list-item i { color:var(--turtle); width:1.5rem; text-align:center; }
 
-        /* Desktop: scale exercise text for young learners */
-        @media (min-width: 768px) {
-            #dynamic-content-container { font-size: 1.3rem; }
-            #dynamic-content-container .text-sm  { font-size: 1.2rem !important; }
-            #dynamic-content-container .text-xs  { font-size: 1.05rem !important; }
-            #dynamic-content-container .text-base { font-size: 1.35rem !important; }
-            #dynamic-content-container p          { font-size: 1.2rem; line-height: 2rem; }
-            #dynamic-content-container input[type="text"] { font-size: 1.15rem !important; width: 9.5rem !important; min-height: 2.5rem; }
-            #dynamic-content-container button.wb-chip,
-            #dynamic-content-container button.pf-chip,
-            #dynamic-content-container .drag-word { font-size: 1.1rem !important; padding: 0.5rem 1rem !important; }
-            #dynamic-content-container h3 { font-size: 1.25rem !important; }
-        }
+/* exercise full screen */
+.ex-screen { position:fixed; inset:0; background:#fff; z-index:100; display:flex; flex-direction:column; overflow:hidden; }
+.ex-top { background:var(--turtle); color:#fff; padding:.6rem 1rem; display:flex; align-items:center; gap:.75rem; flex-shrink:0; }
+.ex-top button { background:none; border:none; color:#fff; font-size:1.1rem; cursor:pointer; }
+.ex-top .ex-title { flex:1; font-weight:600; font-size:.95rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.ex-progress-bar { height:4px; background:rgba(32,161,160,.2); flex-shrink:0; }
+.ex-progress-fill { height:100%; background:var(--turtle); transition:width .3s; }
 
-        /* Full-screen exercise mode on desktop */
-        @media (min-width: 768px) {
-            body.has-exercise main {
-                max-width: 100% !important;
-                padding: 0 !important;
-            }
-            body.has-exercise #view-detail {
-                max-width: 100% !important;
-                padding: 0 !important;
-                margin: 0 !important;
-            }
-            body.has-exercise #view-detail > div.bg-white {
-                border-radius: 0 !important;
-                box-shadow: none !important;
-                padding: 0.5rem 1.25rem 1.5rem !important;
-                overflow: visible !important;
-            }
-        }
+.ex-body { flex:1; display:flex; overflow:hidden; }
+.ex-left { flex:1; overflow-y:auto; padding:1.5rem; display:flex; flex-direction:column; }
+.ex-right { width:320px; background:var(--turtle-bg); border-left:2px solid #d0eded; overflow-y:auto; padding:1.25rem; flex-shrink:0; display:flex; flex-direction:column; }
 
-        /* Three-column exercise layout */
-        .ex-three-panel { display: flex; flex-direction: column; gap: 0.75rem; }
-        /* mobile: hide empty nav/wb cols */
-        .ex-nav-col:empty, .ex-wb-col:empty { display: none; }
-        @media (min-width: 768px) {
-            .ex-three-panel { flex-direction: row; align-items: flex-start; gap: 1rem; }
-            .ex-nav-col   { flex: 0 0 3.25rem; max-width: 3.25rem; position: sticky; top: 4.75rem; align-self: flex-start; }
-            .ex-wb-col    { flex: 0 0 170px;   max-width: 170px;   position: sticky; top: 4.75rem; align-self: flex-start; }
-            .ex-main-col  { flex: 1; min-width: 0; }
-            .ex-nav-col:empty { display: block; } /* keep column width on desktop */
-            .ex-wb-col:empty  { display: block; }
-        }
+/* question nav */
+.q-nav { display:flex; flex-wrap:wrap; gap:.4rem; padding:.75rem 1rem; background:#f8f8f8; border-top:1px solid #eee; flex-shrink:0; justify-content:center; }
+.q-dot { width:2.2rem; height:2.2rem; border-radius:50%; border:2px solid #ccc; display:flex; align-items:center; justify-content:center; font-size:.8rem; font-weight:600; cursor:pointer; background:#fff; color:#666; transition:all .2s; }
+.q-dot.active { border-color:var(--turtle); background:var(--turtle); color:#fff; }
+.q-dot.done { border-color:#4ade80; background:#d1fae5; color:#16a34a; }
 
-        /* Item card: image left, input right */
-        .ex-item-row { display: flex; flex-direction: column; gap: 0; overflow: hidden; border-radius: 1rem; }
-        @media (min-width: 640px) {
-            .ex-item-row { flex-direction: row; align-items: stretch; }
-            .ex-item-row .ex-item-left  { flex: 0 0 48%; max-width: 48%; }
-            .ex-item-row .ex-item-right { flex: 1; }
-        }
+/* exercise cards */
+.ex-instruction { font-size:1rem; font-weight:600; color:var(--turtle-dark); margin-bottom:1rem; }
+.ex-card { background:#fff; border-radius:var(--radius); padding:1rem; margin-bottom:.75rem; box-shadow:0 2px 8px rgba(0,0,0,.06); }
+.ex-card img { border-radius:.75rem; max-width:100%; height:auto; }
+.ex-card-img-wrap { display:flex; justify-content:center; margin-bottom:.75rem; }
+.ex-card-img-wrap img { width:120px; height:auto; }
 
-        /* Scroll offset for sticky nav bar */
-        .ex-item-anchor { scroll-margin-top: 5.5rem; }
+/* word bank chips */
+.wb-chip { display:inline-block; padding:.5rem .9rem; background:#fff; border:2px solid var(--turtle); color:var(--turtle); border-radius:2rem; font-weight:600; font-size:.95rem; cursor:pointer; margin:.25rem; transition:all .2s; user-select:none; }
+.wb-chip:hover { background:var(--turtle); color:#fff; }
+.wb-chip.used { opacity:.35; pointer-events:none; text-decoration:line-through; }
 
-        /* Navigator number button */
-        .q-nav-btn {
-            width: 2.75rem; height: 2.75rem; border-radius: 0.6rem;
-            font-size: 0.9rem; font-weight: 700;
-            border: 2px solid var(--theme-color);
-            color: var(--theme-color);
-            background: var(--theme-bg-color);
-            cursor: pointer; transition: all 0.2s;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .q-nav-btn:hover, .q-nav-btn.active {
-            background: var(--theme-color); color: white;
-        }
+/* answer input */
+.ans-input { border:none; border-bottom:2px solid #ccc; background:transparent; font-size:1.1rem; font-family:inherit; font-weight:600; padding:.3rem .2rem; outline:none; min-width:80px; text-align:center; color:var(--turtle-dark); }
+.ans-input:focus { border-color:var(--turtle); }
+.ans-input.correct { border-color:#4ade80; color:#16a34a; }
+.ans-input.wrong { border-color:#f87171; color:#ef4444; }
+.ans-input.given { color:#999; }
 
-        /* Answer feedback shown below wrong input */
-        .ans-hint {
-            font-size: 0.85rem; color: #16a34a; font-weight: 700;
-            margin-top: 0.25rem; display: none;
-        }
-        .ans-hint.visible { display: block; }
+/* passage */
+.passage-block { background:#fafafa; border-radius:var(--radius); padding:1.25rem; margin-bottom:1rem; line-height:2; font-size:1.05rem; }
+.passage-header { font-weight:700; color:var(--turtle); margin-bottom:.5rem; font-size:1rem; }
+.blank-num { font-size:.75rem; color:#999; vertical-align:super; margin-right:2px; }
 
-        /* === Overlay Exercise UI === */
-        .ex-tabs-bar {
-            display: flex; gap: 0.5rem; padding: 0.6rem 1rem;
-            background: white; border-bottom: 1px solid #e2e8f0;
-            overflow-x: auto; flex-shrink: 0; align-items: center;
-        }
-        .ex-tab-btn {
-            padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.82rem; font-weight: 700;
-            border: 2px solid var(--theme-color, #20a1a0); color: var(--theme-color, #20a1a0);
-            background: transparent; cursor: pointer; transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
-        }
-        .ex-tab-active { background: var(--theme-color, #20a1a0); color: white; }
-        .ex-body-row { flex: 1; display: flex; min-height: 0; }
-        .ex-sidebar {
-            width: 168px; flex-shrink: 0; background: white; border-right: 1px solid #e2e8f0;
-            padding: 0.9rem 0.65rem; overflow-y: auto;
-        }
-        @media (max-width: 640px) { .ex-sidebar { width: 110px; } }
-        .ex-sidebar-title {
-            font-size: 0.65rem; font-weight: 800; color: var(--theme-color, #20a1a0);
-            letter-spacing: 0.06em; margin-bottom: 0.65rem; text-align: center;
-        }
-        .ex-q-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.35rem; }
-        @media (max-width: 640px) { .ex-q-grid { grid-template-columns: repeat(3, 1fr); } }
-        .ex-q-btn {
-            width: 100%; aspect-ratio: 1; border-radius: 50%; font-size: 0.75rem; font-weight: 700;
-            border: 2px solid #cbd5e1; color: #64748b; background: white;
-            cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center;
-        }
-        .ex-q-btn:hover { border-color: var(--theme-color, #20a1a0); color: var(--theme-color, #20a1a0); }
-        .ex-q-current {
-            border-color: var(--theme-color, #20a1a0); color: white;
-            background: var(--theme-color, #20a1a0);
-            box-shadow: 0 0 0 3px rgba(32,161,160,0.25);
-        }
-        .ex-q-answered {
-            border-color: var(--theme-color, #20a1a0); color: var(--theme-color, #20a1a0);
-            background: rgba(32,161,160,0.12);
-        }
-        .ex-main-area {
-            flex: 1; overflow-y: auto; padding: 1.25rem;
-            display: flex; flex-direction: column; gap: 0.9rem;
-        }
-        .ex-qh { font-size: 1rem; font-weight: 800; color: var(--theme-color, #20a1a0); margin-bottom: 0.25rem; }
-        .ex-qbody { display: flex; flex-direction: column; gap: 0.9rem; }
-        .ex-bottom-bar {
-            background: white; border-top: 1px solid #e2e8f0; padding: 0.65rem 1.25rem; flex-shrink: 0;
-        }
-        .ex-prog-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.6rem; }
-        .ex-prog-text { font-size: 0.8rem; font-weight: 600; color: #64748b; white-space: nowrap; }
-        .ex-prog-bar { flex: 1; height: 0.45rem; background: #e2e8f0; border-radius: 999px; overflow: hidden; }
-        .ex-prog-fill { height: 100%; background: var(--theme-color, #20a1a0); border-radius: 999px; transition: width 0.3s; }
-        .ex-nav-row { display: flex; gap: 0.6rem; justify-content: center; }
-        .ex-prev-btn, .ex-next-btn {
-            padding: 0.55rem 1.25rem; border-radius: 0.7rem; font-weight: 700; font-size: 0.9rem;
-            border: 2px solid var(--theme-color, #20a1a0); color: var(--theme-color, #20a1a0);
-            background: white; cursor: pointer; transition: all 0.2s;
-        }
-        .ex-prev-btn:hover, .ex-next-btn:hover { background: var(--theme-color, #20a1a0); color: white; }
-        .ex-submit-btn {
-            padding: 0.55rem 1.75rem; border-radius: 0.7rem; font-weight: 800; font-size: 0.9rem;
-            background: #f59e0b; color: white; border: none; cursor: pointer; transition: all 0.2s;
-        }
-        .ex-submit-btn:hover { background: #d97706; }
+/* drag sort */
+.ds-cat { flex:1; min-width:0; }
+.ds-cat-title { text-align:center; font-weight:700; color:#fff; background:var(--turtle); padding:.5rem; border-radius:.75rem .75rem 0 0; font-size:.95rem; }
+.ds-drop { min-height:120px; background:#f0fafa; border:2px dashed #b0dede; border-radius:0 0 .75rem .75rem; padding:.5rem; }
+.ds-drop.drag-over { background:#d0f0f0; border-color:var(--turtle); }
+.ds-word { display:inline-block; padding:.45rem .8rem; background:var(--turtle); color:#fff; border-radius:2rem; font-weight:600; font-size:.9rem; margin:.25rem; cursor:grab; user-select:none; }
+.ds-word:active { cursor:grabbing; }
 
-        /* Item image cards */
-        .ex-img-card {
-            display: flex; background: white; border-radius: 1rem; overflow: hidden;
-            border: 2px solid #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.06); min-height: 8.5rem;
-        }
-        @media (max-width: 640px) { .ex-img-card { flex-direction: column; min-height: 0; } }
-        .ex-card-img { width: 33%; object-fit: cover; }
-        @media (max-width: 640px) { .ex-card-img { width: 100%; min-height: 5.5rem; } }
-        .ex-card-right {
-            flex: 1; padding: 1.5rem; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; gap: 0.65rem;
-        }
-        .ex-card-given { background: #f0fdf4; }
-        .ex-given-word { font-size: 1.4rem; font-weight: 800; color: #16a34a; }
-        .ex-given-badge {
-            font-size: 0.72rem; font-weight: 700; padding: 0.2rem 0.7rem; border-radius: 999px;
-            background: var(--theme-bg-color, rgba(32,161,160,0.1)); color: var(--theme-color, #20a1a0);
-        }
-        .ex-text-inp {
-            width: 100%; text-align: center; font-size: 1.25rem; font-weight: 700;
-            border: none; border-bottom: 3px solid; background: transparent; padding: 0.4rem; outline: none;
-        }
+/* image type */
+.it-card { display:flex; align-items:center; gap:1rem; padding:.75rem; background:#fff; border-radius:var(--radius); margin-bottom:.6rem; box-shadow:0 1px 6px rgba(0,0,0,.05); }
+.it-card img { width:80px; height:80px; object-fit:cover; border-radius:.75rem; }
+.it-labels { flex:1; display:flex; flex-direction:column; gap:.4rem; }
+.it-row { display:flex; align-items:center; gap:.5rem; font-size:.95rem; }
+.it-row span { font-weight:500; color:#888; min-width:3rem; }
 
-        /* Word bank chips */
-        .ex-bank-box { background: white; border-radius: 1rem; padding: 0.9rem; border: 1px solid #e2e8f0; }
-        .ex-bank-label { font-size: 0.78rem; font-weight: 700; color: var(--theme-color, #20a1a0); margin-bottom: 0.45rem; }
-        .ex-bank-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
-        .ex-chip-disp {
-            padding: 0.3rem 0.75rem; border-radius: 0.55rem; font-weight: 600; font-size: 0.9rem;
-            background: var(--theme-bg-color, rgba(32,161,160,0.1)); color: var(--theme-color, #20a1a0);
-        }
-        .ex-chip-btn {
-            padding: 0.3rem 0.75rem; border-radius: 0.55rem; font-weight: 600; font-size: 0.9rem;
-            border: 2px solid var(--theme-color, #20a1a0); color: var(--theme-color, #20a1a0);
-            background: var(--theme-bg-color, rgba(32,161,160,0.1)); cursor: pointer; transition: all 0.15s;
-        }
-        .ex-chip-btn:hover { background: var(--theme-color, #20a1a0); color: white; }
-        .ex-chip-used { opacity: 0.35; pointer-events: none; }
-        .ex-chip-sel { background: var(--theme-color, #20a1a0) !important; color: white !important; box-shadow: 0 0 0 3px rgba(32,161,160,0.3); }
+/* story type */
+.st-context { background:var(--turtle-bg); border-radius:var(--radius); padding:1rem; margin-bottom:1rem; font-size:.95rem; color:#555; line-height:1.6; border-left:4px solid var(--turtle); }
+.st-item { display:flex; flex-wrap:wrap; align-items:center; gap:.3rem; padding:.75rem 0; font-size:1.05rem; line-height:1.8; border-bottom:1px solid #f0f0f0; }
+.st-num { font-weight:700; color:var(--turtle); margin-right:.3rem; }
+.st-opt { padding:.4rem .75rem; border:2px solid #ddd; border-radius:2rem; cursor:pointer; font-weight:500; font-size:.9rem; transition:all .2s; }
+.st-opt:hover { border-color:var(--turtle); background:var(--turtle-bg); }
+.st-opt.selected { border-color:var(--turtle); background:var(--turtle); color:#fff; }
+.st-opt.correct { border-color:#4ade80; background:#d1fae5; color:#16a34a; }
+.st-opt.wrong { border-color:#f87171; background:#fee2e2; color:#ef4444; }
 
-        /* Story type */
-        .ex-st-ctx {
-            background: #f8fafc; border-left: 4px solid var(--theme-color, #20a1a0);
-            padding: 0.7rem 1rem; border-radius: 0 0.75rem 0.75rem 0;
-            font-size: 0.95rem; color: #475569; font-style: italic;
-        }
-        .ex-st-sent {
-            background: white; border-radius: 1rem; padding: 1.1rem 1.25rem;
-            border: 2px solid #e2e8f0; font-size: 1.1rem; color: #1e293b; line-height: 2;
-        }
-        .ex-st-blank {
-            font-weight: 800; color: var(--theme-color, #20a1a0);
-            border-bottom: 2px solid var(--theme-color, #20a1a0); padding: 0 0.2rem;
-        }
-        .ex-st-opts { display: flex; flex-wrap: wrap; gap: 0.65rem; }
-        .ex-st-opt {
-            padding: 0.55rem 1.35rem; border-radius: 0.7rem; font-weight: 700; font-size: 1rem;
-            border: 2px solid var(--theme-color, #20a1a0); color: var(--theme-color, #20a1a0);
-            background: white; cursor: pointer; transition: all 0.2s;
-        }
-        .ex-st-opt:hover { background: var(--theme-color, #20a1a0); color: white; }
-        .ex-st-sel { background: var(--theme-color, #20a1a0) !important; color: white !important; }
+.share-btn { background:none; border:1px solid rgba(255,255,255,.5); color:#fff; padding:.3rem .6rem; border-radius:.5rem; font-size:.8rem; cursor:pointer; white-space:nowrap; }
+.share-btn:hover { background:rgba(255,255,255,.15); }
 
-        /* Passage fill overlay */
-        .ex-pass-card {
-            background: white; border-radius: 1rem; padding: 1.1rem 1.25rem;
-            border: 1px solid #e2e8f0; margin-bottom: 0.65rem;
-        }
-        .ex-pass-hdr { font-size: 0.82rem; font-weight: 700; color: var(--theme-color, #20a1a0); margin-bottom: 0.65rem; }
-        .ex-pass-txt { font-size: 0.98rem; line-height: 2.2; color: #334155; }
-        .pf-inp-ov {
-            display: inline-block; border: none; border-bottom: 2px solid; background: transparent;
-            text-align: center; font-weight: 700; width: 5rem; margin: 0 0.2rem;
-            font-size: 0.98rem; outline: none; cursor: text;
-        }
+.check-btn { width:100%; padding:.85rem; background:var(--turtle); color:#fff; border:none; border-radius:var(--radius); font-size:1.1rem; font-weight:700; cursor:pointer; font-family:inherit; margin-top:auto; }
+.check-btn:hover { background:var(--turtle-dark); }
 
-        /* Drag sort */
-        .ex-sort-wrap { display: flex; flex-direction: column; gap: 0.9rem; }
-        @media (min-width: 640px) { .ex-sort-wrap { flex-direction: row; align-items: flex-start; } }
-        .ex-sort-pool { flex: 0 0 180px; background: white; border-radius: 1rem; padding: 0.9rem; border: 1px solid #e2e8f0; }
-        .ex-sort-words { display: flex; flex-wrap: wrap; gap: 0.45rem; }
-        .ex-drag-word {
-            padding: 0.35rem 0.75rem; border-radius: 0.55rem; font-weight: 600; font-size: 0.9rem;
-            border: 2px solid var(--theme-color, #20a1a0); color: var(--theme-color, #20a1a0);
-            background: var(--theme-bg-color, rgba(32,161,160,0.1)); cursor: grab; user-select: none;
-        }
-        .ex-drag-placed { opacity: 0.35; }
-        .ex-sort-zones { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
-        .drop-zone-ov {
-            min-height: 9rem; border-radius: 1rem; padding: 0.9rem;
-            border: 2px dashed var(--theme-color, #20a1a0); background: white; transition: background 0.15s;
-        }
-        .drop-zone-ov.drag-over { background: rgba(32,161,160,0.07); }
-        .ex-zone-lbl { font-size: 0.82rem; font-weight: 700; color: var(--theme-color, #20a1a0); margin-bottom: 0.5rem; text-align: center; }
-        .ex-zone-items { display: flex; flex-direction: column; gap: 0.3rem; }
-        .ex-placed-tag {
-            padding: 0.3rem 0.7rem; border-radius: 0.5rem; font-size: 0.88rem; font-weight: 600;
-            background: var(--theme-bg-color, rgba(32,161,160,0.1)); color: var(--theme-color, #20a1a0);
-            cursor: pointer; text-align: center; transition: all 0.15s;
-        }
-        .ex-placed-tag:hover { background: #fee2e2; color: #dc2626; }
-    </style>
+.not-avail { text-align:center; padding:3rem 1rem; color:#aaa; }
+.not-avail i { font-size:3rem; margin-bottom:1rem; display:block; color:#ccc; }
+
+@media (max-width:768px) {
+  .ex-body { flex-direction:column; }
+  .ex-right { width:100%; border-left:none; border-top:2px solid #d0eded; max-height:40vh; }
+  .ex-left { padding:1rem; }
+  .mat-grid { grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); }
+  .mat-card { min-height:100px; font-size:1rem; padding:1.25rem .75rem; }
+  .login-box { padding:2rem 1.5rem; }
+  .ex-card-img-wrap img { width:90px; }
+}
+@media (max-width:480px) {
+  .mat-grid { grid-template-columns:repeat(2,1fr); gap:.75rem; }
+  .mat-card { min-height:90px; font-size:.9rem; }
+}
+</style>
 </head>
-<body class="text-slate-700 min-h-screen flex flex-col">
+<body>
+<div id="app"></div>
 
-    <!-- Navbar chung (sẽ ẩn ở màn hình đăng nhập) -->
-    <nav id="main-nav" class="bg-white shadow-sm px-6 py-4 hidden sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3 text-turtle-600 font-bold text-xl cursor-pointer hover-bounce" onclick="window.location.hash='#/dashboard'">
-                <div class="bg-turtle-100 p-2 rounded-xl text-turtle-600">
-                    <i class="fa-solid fa-earth-americas"></i>
-                </div>
-                <span>ELM Portal</span>
-            </div>
-            <div>
-                <button id="logout-btn" class="text-slate-500 hover:text-turtle-600 font-medium px-4 py-2 rounded-xl hover:bg-turtle-50 transition-colors">
-                    <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i>Đăng xuất
-                </button>
-            </div>
+<script>
+const TEACHER_CODE = '123';
+
+const materialsData = [
+  { id:'pre-a1-starters', name:'Pre-A1 Starters', color:'#F5A623', icon:'fa-star',
+    folders:[{id:'i-dictionary',name:'I Dictionary'}] },
+  { id:'a1-movers', name:'A1 Movers', color:'#A8C63B', icon:'fa-shoe-prints',
+    folders:[{id:'i-dictionary',name:'I Dictionary', topics:[
+      {id:'animals',name:'Animals'},{id:'the-body',name:'The Body'},
+      {id:'people',name:'People'},{id:'food-and-drink',name:'Food and Drink'},
+      {id:'health',name:'Health'},{id:'the-home',name:'The Home'},
+      {id:'time',name:'Time'},{id:'sports-and-leisure',name:'Sports and Leisure'},
+      {id:'numbers',name:'Numbers'},{id:'places',name:'Places'},
+      {id:'weather-and-clothes',name:'Weather and Clothes'},{id:'our-world',name:'Our World'},
+      {id:'past-verbs',name:'Past Verbs'},{id:'adjectives',name:'Adjectives'},
+      {id:'revision',name:'Revision'}
+    ]}] },
+  { id:'a2-flyers', name:'A2 Flyers', color:'#21B6A8', icon:'fa-paper-plane',
+    folders:[{id:'i-dictionary',name:'I Dictionary'}] },
+  { id:'a2-key', name:'A2 Key', color:'#00AFA9', icon:'fa-key', folders:[] },
+  { id:'b1-preliminary', name:'B1 Preliminary', color:'#009D98', icon:'fa-book', folders:[] },
+  { id:'b2-first', name:'B2 First', color:'#008F9C', icon:'fa-graduation-cap', folders:[] },
+  { id:'c1-advanced', name:'C1 Advanced', color:'#148DA8', icon:'fa-trophy', folders:[] }
+];
+
+let currentData = null;
+let answers = {};
+
+function isLoggedIn() {
+  return sessionStorage.getItem('elm_logged') === '1';
+}
+
+function router() {
+  const hash = location.hash.slice(2) || '';
+  const parts = hash.split('/').filter(Boolean);
+
+  if (parts[0] === 'ex') {
+    loadExercise(parts[1], parts[2], parts[3]);
+    return;
+  }
+
+  if (!isLoggedIn()) { renderLogin(); return; }
+
+  if (parts[0] === 'material') {
+    const mat = materialsData.find(m => m.id === parts[1]);
+    if (!mat) { renderMaterials(); return; }
+    if (parts[3]) { loadExercise(parts[1], parts[2], parts[3]); return; }
+    if (parts[2]) {
+      const folder = (mat.folders||[]).find(f => f.id === parts[2]);
+      if (folder && folder.topics) { renderTopics(mat, folder); return; }
+      loadExercise(parts[1], parts[2]);
+      return;
+    }
+    renderFolders(mat);
+    return;
+  }
+
+  renderMaterials();
+}
+
+function renderLogin() {
+  document.getElementById('app').innerHTML = `
+    <div class="login-wrap">
+      <div class="login-box">
+        <div style="font-size:3rem;color:var(--turtle);margin-bottom:.75rem"><i class="fas fa-chalkboard-teacher"></i></div>
+        <h1>ENGLISH LANGUAGE<br>MATERIAL</h1>
+        <p>Teacher Access Portal</p>
+        <input class="login-input" id="codeInput" type="password" placeholder="Nhập mã giáo viên" maxlength="10" autofocus>
+        <button class="login-btn bounce" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> Đăng nhập</button>
+        <div class="login-err" id="loginErr">Mã không đúng. Vui lòng thử lại.</div>
+      </div>
+    </div>`;
+  setTimeout(() => {
+    const inp = document.getElementById('codeInput');
+    if (inp) inp.addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+  }, 0);
+}
+
+function doLogin() {
+  const v = document.getElementById('codeInput').value.trim();
+  if (v === TEACHER_CODE) {
+    sessionStorage.setItem('elm_logged','1');
+    location.hash = '#/';
+  } else {
+    document.getElementById('loginErr').style.display = 'block';
+    document.getElementById('codeInput').value = '';
+    document.getElementById('codeInput').focus();
+  }
+}
+
+function renderMaterials() {
+  document.getElementById('app').innerHTML = `
+    <div class="top-bar">
+      <i class="fas fa-chalkboard-teacher" style="font-size:1.3rem"></i>
+      <h2>ELM Portal</h2>
+      <button onclick="sessionStorage.removeItem('elm_logged');location.hash='#/'" title="Đăng xuất"><i class="fas fa-sign-out-alt"></i></button>
+    </div>
+    <div style="padding:1.5rem 1rem .5rem;text-align:center">
+      <h2 style="font-size:1.3rem;font-weight:700;color:var(--turtle)">Chọn giáo trình</h2>
+      <p style="color:#999;font-size:.85rem;margin-top:.3rem">Nhấn vào một giáo trình để xem nội dung</p>
+    </div>
+    <div class="mat-grid">
+      ${materialsData.map(m => `
+        <div class="mat-card bounce" style="background:${m.color}" onclick="location.hash='#/material/${m.id}'">
+          <div><i class="fas ${m.icon}" style="font-size:1.8rem;margin-bottom:.5rem;display:block;opacity:.8"></i>${m.name}</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+function renderFolders(mat) {
+  const folders = mat.folders || [];
+  document.getElementById('app').innerHTML = `
+    <div class="top-bar" style="background:${mat.color}">
+      <button onclick="location.hash='#/'"><i class="fas fa-arrow-left"></i></button>
+      <h2>${mat.name}</h2>
+      <button class="share-btn" onclick="copyLink()"><i class="fas fa-link"></i> Link</button>
+    </div>
+    <div class="list-wrap">
+      ${folders.length ? folders.map(f => `
+        <div class="list-item bounce" onclick="location.hash='#/material/${mat.id}/${f.id}'" style="border-left-color:${mat.color}">
+          <i class="fas fa-folder"></i> ${f.name}
+        </div>`).join('') : notAvail()}
+    </div>`;
+}
+
+function renderTopics(mat, folder) {
+  const topics = folder.topics || [];
+  document.getElementById('app').innerHTML = `
+    <div class="top-bar" style="background:${mat.color}">
+      <button onclick="location.hash='#/material/${mat.id}'"><i class="fas fa-arrow-left"></i></button>
+      <h2>${mat.name} — ${folder.name}</h2>
+      <button class="share-btn" onclick="copyLink()"><i class="fas fa-link"></i> Link</button>
+    </div>
+    <div class="list-wrap">
+      ${topics.length ? topics.map(t => `
+        <div class="list-item bounce" onclick="location.hash='#/material/${mat.id}/${folder.id}/${t.id}'" style="border-left-color:${mat.color}">
+          <i class="fas fa-file-alt"></i> ${t.name}
+        </div>`).join('') : notAvail()}
+    </div>`;
+}
+
+function notAvail() {
+  return `<div class="not-avail"><i class="fas fa-clock"></i><p>Nội dung chưa được cập nhật.<br>Vui lòng quay lại sau.</p></div>`;
+}
+
+function copyLink() {
+  navigator.clipboard.writeText(location.href).then(() =>
+    Swal.fire({icon:'success',title:'Đã sao chép!',text:'Link đã được sao chép vào clipboard.',timer:1500,showConfirmButton:false})
+  );
+}
+
+/* ── Load Exercise ── */
+async function loadExercise(matId, folderId, topicId) {
+  const mat = materialsData.find(m => m.id === matId);
+  const path = topicId
+    ? `data/${matId}/${folderId}/${topicId}.json`
+    : `data/${matId}/${folderId}.json`;
+
+  try {
+    const res = await fetch(path);
+    if (!res.ok) throw new Error('not found');
+    currentData = await res.json();
+    answers = {};
+    renderExercise(mat, currentData, 0);
+  } catch(e) {
+    document.getElementById('app').innerHTML = `
+      <div class="top-bar" style="background:${mat?mat.color:'var(--turtle)'}">
+        <button onclick="history.back()"><i class="fas fa-arrow-left"></i></button>
+        <h2>${mat?mat.name:'Exercise'}</h2>
+      </div>
+      <div class="list-wrap">${notAvail()}</div>`;
+  }
+}
+
+/* ── Render Exercise ── */
+function renderExercise(mat, data, exIdx) {
+  const exercises = data.exercises;
+  const ex = exercises[exIdx];
+  const color = mat ? mat.color : 'var(--turtle)';
+  const totalQ = countQuestions(ex);
+  const answeredQ = countAnswered(ex, exIdx);
+  const pct = totalQ ? Math.round(answeredQ/totalQ*100) : 0;
+
+  document.getElementById('app').innerHTML = `
+    <div class="ex-screen">
+      <div class="ex-top" style="background:${color}">
+        <button onclick="exitExercise()"><i class="fas fa-times"></i></button>
+        <span class="ex-title">${data.title} — ${ex.title}</span>
+        <button class="share-btn" onclick="copyLink()"><i class="fas fa-link"></i> Link</button>
+      </div>
+      <div class="ex-progress-bar"><div class="ex-progress-fill" style="width:${pct}%"></div></div>
+      <div class="ex-body">
+        <div class="ex-left" id="exLeft"></div>
+        <div class="ex-right" id="exRight"></div>
+      </div>
+      ${exercises.length > 1 ? `
+      <div class="q-nav" id="exNav">
+        ${exercises.map((e,i) => `<div class="q-dot ${i===exIdx?'active':''} ${isExDone(e,i)?'done':''}" onclick="switchEx(${i})">${i+1}</div>`).join('')}
+      </div>` : ''}
+    </div>`;
+
+  renderExContent(ex, exIdx, color);
+}
+
+function exitExercise() {
+  answers = {};
+  currentData = null;
+  history.back();
+}
+
+function switchEx(idx) {
+  renderExercise(getMat(), currentData, idx);
+}
+
+function getMat() {
+  const parts = location.hash.slice(2).split('/').filter(Boolean);
+  const matId = parts[1] || parts[0];
+  return materialsData.find(m => m.id === matId) || materialsData[0];
+}
+
+function renderExContent(ex, exIdx, color) {
+  const left = document.getElementById('exLeft');
+  const right = document.getElementById('exRight');
+  switch(ex.type) {
+    case 'word-bank-fill': renderWordBankFill(ex, exIdx, left, right); break;
+    case 'passage-fill':   renderPassageFill(ex, exIdx, left, right); break;
+    case 'drag-sort':      renderDragSort(ex, exIdx, left, right); break;
+    case 'image-type':     renderImageType(ex, exIdx, left, right); break;
+    case 'story-type':     renderStoryType(ex, exIdx, left, right); break;
+    default: left.innerHTML = `<p>Loại bài tập không được hỗ trợ.</p>`;
+  }
+}
+
+/* ── Type 1: Word Bank Fill ── */
+function renderWordBankFill(ex, exIdx, left, right) {
+  const key = 'ex'+exIdx;
+  if (!answers[key]) answers[key] = {};
+
+  left.innerHTML = `
+    <div class="ex-instruction"><i class="fas fa-pencil-alt"></i> ${ex.instruction}</div>
+    <div id="wbItems">${ex.items.map(item => {
+      const val = item.given ? item.answer : (answers[key][item.id] || '');
+      return `
+      <div class="ex-card" style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+        <div class="ex-card-img-wrap" style="margin-bottom:0"><img src="${item.img}" alt=""></div>
+        <div style="flex:1;min-width:100px">
+          ${item.given
+            ? `<input class="ans-input given" value="${item.answer}" disabled style="width:100%"><div style="font-size:.75rem;color:#999;margin-top:.2rem">Mẫu</div>`
+            : `<input class="ans-input" id="wb_${item.id}" value="${escAttr(val)}" placeholder="..." oninput="saveWB('${key}','${item.id}',this.value,${exIdx})" style="width:100%">`}
         </div>
-    </nav>
+      </div>`;
+    }).join('')}</div>`;
 
-    <main class="flex-grow flex flex-col p-4 sm:p-6 w-full max-w-6xl mx-auto">
-        
-        <!-- VIEW 1: ĐĂNG NHẬP -->
-        <section id="view-login" class="view-section active m-auto w-full max-w-md">
-            <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-soft text-center hover-bounce">
-                <div class="w-20 h-20 bg-turtle-100 rounded-3xl flex items-center justify-center mx-auto mb-6 text-turtle-500 text-4xl shadow-sm rotate-3 hover:rotate-0 transition-transform">
-                    <i class="fa-solid fa-book-open-reader"></i>
-                </div>
-                <h1 class="text-2xl sm:text-3xl font-bold text-slate-800 mb-2">ENGLISH LANGUAGE MATERIAL</h1>
-                <p class="text-slate-500 text-sm mb-8">Dành riêng cho giáo viên. Vui lòng nhập mã truy cập.</p>
-                
-                <form id="login-form" class="space-y-6">
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <i class="fa-solid fa-lock text-slate-400"></i>
-                        </div>
-                        <input type="password" id="teacher-code" placeholder="Nhập mã giáo viên"
-                            class="w-full pl-11 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 focus:outline-none focus:ring-2 focus:ring-turtle-400 focus:bg-white transition-all shadow-inner font-medium"
-                            required>
-                    </div>
-                    
-                    <button type="submit" 
-                        class="w-full py-4 px-6 bg-turtle-500 text-white font-bold rounded-2xl hover:bg-turtle-600 active:scale-95 transition-all shadow-lg shadow-turtle-500/30 flex items-center justify-center gap-2">
-                        <span>Truy cập hệ thống</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </form>
-            </div>
-        </section>
+  right.innerHTML = `
+    <div style="font-weight:600;color:var(--turtle-dark);margin-bottom:.75rem"><i class="fas fa-th"></i> Ngân hàng từ</div>
+    <div id="wbBank">${renderWordBank(ex.wordBank, answers[key])}</div>
+    <button class="check-btn bounce" onclick="checkWB(${exIdx})"><i class="fas fa-check-circle"></i> Kiểm tra</button>`;
+}
 
-        <!-- VIEW 2: DANH SÁCH TÀI LIỆU (DASHBOARD) -->
-        <section id="view-dashboard" class="view-section w-full py-6">
-            <div class="mb-10 text-center sm:text-left">
-                <h2 class="text-3xl font-bold text-slate-800 mb-3">Tài liệu Giảng dạy</h2>
-                <p class="text-slate-500">Chọn một học phần để xem chi tiết và giao bài tập cho học sinh.</p>
-            </div>
-            
-            <!-- Vùng chứa danh sách Grid -->
-            <div id="materials-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                <!-- Nội dung được render bằng JavaScript tự động -->
-            </div>
-        </section>
+function renderWordBank(bank, ans) {
+  const used = Object.values(ans).map(v => v.toLowerCase());
+  return bank.map(w => {
+    const u = used.includes(w.toLowerCase());
+    return `<span class="wb-chip ${u?'used':''}" onclick="pickWord('${esc(w)}')">${w}</span>`;
+  }).join('');
+}
 
-        <!-- VIEW 3: CHI TIẾT TÀI LIỆU (MÀN HÌNH BÀI TẬP CÓ LINK RIÊNG) -->
-        <section id="view-detail" class="view-section w-full py-6 max-w-4xl mx-auto">
-            
-            <button id="back-btn" class="mb-6 flex items-center gap-2 text-slate-500 hover:text-slate-800 transition-colors font-medium w-fit hover-bounce">
-                <i class="fa-solid fa-arrow-left"></i> Quay lại danh sách
-            </button>
+function pickWord(word) {
+  const exIdx = getCurrentExIdx();
+  const key = 'ex'+exIdx;
+  const ex = currentData.exercises[exIdx];
+  if (!answers[key]) answers[key] = {};
 
-            <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-soft relative overflow-hidden">
-                <!-- Decoration background -->
-                <div class="absolute -top-16 -right-16 w-32 h-32 rounded-full blur-2xl detail-decor transition-colors duration-500"></div>
-                
-                <div class="relative z-10 flex flex-col md:flex-row gap-8 items-start md:items-center justify-between mb-8 pb-8 border-b border-slate-100">
-                    <div class="flex items-center gap-5">
-                        <div>
-                            <h2 id="detail-title" class="text-2xl sm:text-3xl font-bold text-slate-800">Tên bài học</h2>
-                            <p id="detail-subtitle" class="font-medium mt-1" style="color: var(--theme-color);">Bài tập thực hành</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Nút Copy Link dành cho giáo viên (Học sinh sẽ không thấy nút này) -->
-                    <div id="teacher-tools" class="w-full md:w-auto hidden">
-                        <button onclick="copyCurrentLink()" class="w-full md:w-auto py-3 px-6 bg-slate-50 hover:bg-slate-800 hover:text-white border border-slate-200 font-semibold rounded-2xl transition-all flex items-center justify-center gap-2 shadow-sm hover-bounce" style="color: var(--theme-color);">
-                            <i class="fa-solid fa-link"></i>
-                            <span>Copy Link Giao Bài</span>
-                        </button>
-                    </div>
-                </div>
+  for (const item of ex.items) {
+    if (item.given) continue;
+    const inp = document.getElementById('wb_'+item.id);
+    if (inp && !inp.value.trim()) {
+      inp.value = word;
+      answers[key][item.id] = word;
+      break;
+    }
+  }
+  document.getElementById('wbBank').innerHTML = renderWordBank(ex.wordBank, answers[key]);
+  updateProgress(exIdx);
+}
 
-                <!-- Vùng chứa nội dung động (Thư mục con hoặc Bài tập) -->
-                <div id="dynamic-content-container" class="relative z-10">
-                    <!-- Rendered by JS tự động -->
-                </div>
-            </div>
-        </section>
+function saveWB(key, id, val, exIdx) {
+  if (!answers[key]) answers[key] = {};
+  answers[key][id] = val;
+  const ex = currentData.exercises[exIdx];
+  document.getElementById('wbBank').innerHTML = renderWordBank(ex.wordBank, answers[key]);
+  updateProgress(exIdx);
+}
 
-    </main>
+function checkWB(exIdx) {
+  const ex = currentData.exercises[exIdx];
+  const key = 'ex'+exIdx;
+  let correct = 0, total = 0;
+  ex.items.forEach(item => {
+    if (item.given) return;
+    total++;
+    const inp = document.getElementById('wb_'+item.id);
+    if (!inp) return;
+    if (inp.value.trim().toLowerCase() === item.answer.toLowerCase()) {
+      inp.classList.add('correct'); correct++;
+    } else {
+      inp.classList.add('wrong');
+    }
+    inp.disabled = true;
+  });
+  showResult(correct, total);
+}
 
-    <script>
-        // --- Dữ liệu các cấp độ học (Materials) dựa trên yêu cầu ---
-        const materialsData = [
-            { id: 'pre-a1-starters', name: 'Pre-A1 Starters', description: 'Trình độ cơ bản nhất cho trẻ em mới bắt đầu.', color: '#F5A623', folders: [{ id: 'i-dictionary', name: 'I Dictionary' }] },
-            { id: 'a1-movers', name: 'A1 Movers', description: 'Bước thứ hai trong hành trình học tiếng Anh.', color: '#A8C63B', folders: [{ id: 'i-dictionary', name: 'I Dictionary', topics: [
-                { id: 'animals', name: 'Animals' },
-                { id: 'the-body', name: 'The Body' },
-                { id: 'people', name: 'People' },
-                { id: 'food-and-drink', name: 'Food and Drink' },
-                { id: 'health', name: 'Health' },
-                { id: 'the-home', name: 'The Home' },
-                { id: 'time', name: 'Time' },
-                { id: 'sports-and-leisure', name: 'Sports and Leisure' },
-                { id: 'numbers', name: 'Numbers' },
-                { id: 'places', name: 'Places' },
-                { id: 'weather-and-clothes', name: 'Weather and Clothes' },
-                { id: 'our-world', name: 'Our World' },
-                { id: 'past-verbs', name: 'Past Verbs' },
-                { id: 'adjectives', name: 'Adjectives' },
-                { id: 'revision', name: 'Revision' }
-            ]}] },
-            { id: 'a2-flyers', name: 'A2 Flyers', description: 'Cấp độ cao nhất trong hệ thống YLE cho trẻ.', color: '#21B6A8', folders: [{ id: 'i-dictionary', name: 'I Dictionary' }] },
-            { id: 'a2-key', name: 'A2 Key', description: 'Chứng chỉ tiếng Anh tổng quát trình độ A2 (KET).', color: '#00AFA9' },
-            { id: 'b1-preliminary', name: 'B1 Preliminary', description: 'Nắm vững các kiến thức cơ bản ngôn ngữ (PET).', color: '#009D98' },
-            { id: 'b2-first', name: 'B2 First', description: 'Chứng minh đủ khả năng làm việc/học tập (FCE).', color: '#008F9C' },
-            { id: 'c1-advanced', name: 'C1 Advanced', description: 'Chứng chỉ trình độ tiếng Anh cao cấp (CAE).', color: '#148DA8' }
-        ];
+/* ── Type 2: Passage Fill ── */
+function renderPassageFill(ex, exIdx, left, right) {
+  const key = 'ex'+exIdx;
+  if (!answers[key]) answers[key] = {};
 
-        // Mật khẩu giáo viên cố định theo yêu cầu
-        const TEACHER_CODE = '123';
-        
-        // Kiểm tra xem giáo viên đã đăng nhập từ trước chưa (Lưu session)
-        let isLoggedIn = sessionStorage.getItem('elm_teacher_logged_in') === 'true';
+  let html = '';
+  ex.passages.forEach(p => {
+    html += `<div class="passage-block"><div class="passage-header">${p.header}</div><div style="white-space:pre-wrap">`;
+    p.parts.forEach(part => {
+      if (part.text !== undefined) {
+        html += escHtml(part.text);
+      } else if (part.blank !== undefined) {
+        const val = answers[key][part.blank] || '';
+        html += `<span class="blank-num">(${part.num})</span><input class="ans-input" id="pf_${part.blank}" value="${escAttr(val)}" placeholder="..." style="width:100px" oninput="savePF('${key}','${part.blank}',this.value,${exIdx})">`;
+      }
+    });
+    html += `</div></div>`;
+  });
 
-        // Tham chiếu các phần tử DOM
-        const viewLogin = document.getElementById('view-login');
-        const viewDashboard = document.getElementById('view-dashboard');
-        const viewDetail = document.getElementById('view-detail');
-        const mainNav = document.getElementById('main-nav');
-        
-        // --- Render UI Dashboard (Danh sách khóa học) ---
-        function renderDashboard() {
-            const grid = document.getElementById('materials-grid');
-            grid.innerHTML = '';
-            
-            materialsData.forEach(mat => {
-                // Tạo mã màu bg với opacity
-                const bgColorWithOpacity = mat.color + '25';
-                
-                // Thêm thuộc tính aspect-square và flex-col để tạo hình vuông bo góc, chữ căn giữa
-                const cardHtml = `
-                    <a href="#/material/${mat.id}" class="material-card aspect-square flex flex-col justify-center items-center text-center group block bg-white rounded-3xl p-6 border border-slate-100 hover-bounce cursor-pointer relative overflow-hidden shadow-sm" style="--theme-color: ${mat.color}; --theme-bg-color: ${bgColorWithOpacity};">
-                        <div class="absolute -right-4 -top-4 w-24 h-24 rounded-full transition-transform group-hover:scale-150 z-0 duration-500 card-bg-decor"></div>
-                        <div class="relative z-10 flex flex-col justify-center items-center h-full w-full">
-                            <h3 class="text-xl sm:text-2xl font-bold text-slate-800 mb-2 transition-colors duration-300 card-title">${mat.name}</h3>
-                            <p class="text-slate-500 text-sm leading-relaxed">${mat.description}</p>
-                        </div>
-                    </a>
-                `;
-                grid.innerHTML += cardHtml;
-            });
-        }
+  left.innerHTML = `<div class="ex-instruction"><i class="fas fa-book-open"></i> ${ex.instruction}</div>${html}`;
 
-        // --- Render UI Chi tiết Bài Học & Thư mục ---
-        function renderDetail(pathString) {
-            const pathParts = pathString.split('/');
-            const materialId = pathParts[0];
-            const folderId = pathParts[1];
-            const topicId = pathParts[2];
+  right.innerHTML = `
+    <div style="font-weight:600;color:var(--turtle-dark);margin-bottom:.75rem"><i class="fas fa-th"></i> Ngân hàng từ</div>
+    <div id="pfBank">${renderPFBank(ex.wordBank, answers[key])}</div>
+    <button class="check-btn bounce" onclick="checkPF(${exIdx})"><i class="fas fa-check-circle"></i> Kiểm tra</button>`;
+}
 
-            const material = materialsData.find(m => m.id === materialId);
+function renderPFBank(bank, ans) {
+  const used = Object.values(ans).map(v => v.toLowerCase());
+  return bank.map(w => {
+    const u = used.includes(w.toLowerCase());
+    return `<span class="wb-chip ${u?'used':''}" onclick="pickPF('${esc(w)}')">${w}</span>`;
+  }).join('');
+}
 
-            if (!material) {
-                Swal.fire('Lỗi', 'Không tìm thấy tài liệu này!', 'error')
-                    .then(() => window.location.hash = '#/dashboard');
-                return;
-            }
+function pickPF(word) {
+  const exIdx = getCurrentExIdx();
+  const key = 'ex'+exIdx;
+  const ex = currentData.exercises[exIdx];
+  if (!answers[key]) answers[key] = {};
 
-            const viewDetail = document.getElementById('view-detail');
-            viewDetail.style.setProperty('--theme-color', material.color);
-            viewDetail.style.setProperty('--theme-bg-color', material.color + '25');
+  for (const p of ex.passages) {
+    for (const part of p.parts) {
+      if (part.blank === undefined) continue;
+      const inp = document.getElementById('pf_'+part.blank);
+      if (inp && !inp.value.trim()) {
+        inp.value = word;
+        answers[key][part.blank] = word;
+        document.getElementById('pfBank').innerHTML = renderPFBank(ex.wordBank, answers[key]);
+        updateProgress(exIdx);
+        return;
+      }
+    }
+  }
+}
 
-            let titleText = material.name;
-            let subtitleText = 'Danh sách thư mục';
-            let isShowingQuiz = false;
+function savePF(key, blank, val, exIdx) {
+  if (!answers[key]) answers[key] = {};
+  answers[key][blank] = val;
+  const ex = currentData.exercises[exIdx];
+  document.getElementById('pfBank').innerHTML = renderPFBank(ex.wordBank, answers[key]);
+  updateProgress(exIdx);
+}
 
-            const container = document.getElementById('dynamic-content-container');
-            const backBtn = document.getElementById('back-btn');
-            container.innerHTML = '';
+function checkPF(exIdx) {
+  const ex = currentData.exercises[exIdx];
+  const key = 'ex'+exIdx;
+  let correct = 0, total = 0;
+  ex.passages.forEach(p => {
+    p.parts.forEach(part => {
+      if (part.blank === undefined) return;
+      total++;
+      const inp = document.getElementById('pf_'+part.blank);
+      if (!inp) return;
+      if (inp.value.trim().toLowerCase() === part.answer.toLowerCase()) {
+        inp.classList.add('correct'); correct++;
+      } else {
+        inp.classList.add('wrong');
+      }
+      inp.disabled = true;
+    });
+  });
+  showResult(correct, total);
+}
 
-            // Nút Quay lại theo cấp
-            if (topicId) {
-                backBtn.onclick = () => window.location.hash = `#/material/${materialId}/${folderId}`;
-                backBtn.innerHTML = '<i class="fa-solid fa-arrow-left"></i> Quay lại thư mục';
-            } else if (folderId) {
-                backBtn.onclick = () => window.location.hash = `#/material/${materialId}`;
-                backBtn.innerHTML = '<i class="fa-solid fa-arrow-left"></i> Quay lại thư mục';
-            } else {
-                backBtn.onclick = () => window.location.hash = '#/dashboard';
-                backBtn.innerHTML = '<i class="fa-solid fa-arrow-left"></i> Quay lại danh sách';
-            }
+/* ── Type 3: Drag Sort ── */
+function renderDragSort(ex, exIdx, left, right) {
+  const key = 'ex'+exIdx;
+  if (!answers[key]) answers[key] = {};
 
-            if (topicId) {
-                // Cấp 3: load bài tập từ JSON
-                const folder = material.folders?.find(f => f.id === folderId);
-                const topic = folder?.topics?.find(t => t.id === topicId);
-                if (topic) {
-                    titleText = `${material.name} / ${folder.name} / ${topic.name}`;
-                    subtitleText = 'Bài tập thực hành';
-                }
-                document.getElementById('detail-title').innerText = titleText;
-                document.getElementById('detail-subtitle').innerText = subtitleText;
-                const teacherTools = document.getElementById('teacher-tools');
-                if (isLoggedIn) { teacherTools.classList.remove('hidden'); backBtn.style.display = 'flex'; }
-                else { teacherTools.classList.add('hidden'); backBtn.style.display = 'none'; }
-                loadExercisesFromJson(`data/${materialId}/${folderId}/${topicId}.json`, container);
-                return;
-            } else if (folderId) {
-                const folder = material.folders?.find(f => f.id === folderId);
-                if (folder) {
-                    if (folder.topics && folder.topics.length > 0) {
-                        // Cấp 2: folder có topics -> hiện danh sách topics
-                        titleText = `${material.name} / ${folder.name}`;
-                        subtitleText = 'Chọn chủ đề';
-                        let topicsHtml = '<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">';
-                        folder.topics.forEach(t => {
-                            topicsHtml += `
-                                <a href="#/material/${material.id}/${folder.id}/${t.id}" class="aspect-square bg-white rounded-3xl p-4 border border-slate-100 shadow-sm hover-bounce flex flex-col items-center justify-center text-center cursor-pointer group" style="background-color: var(--theme-bg-color);">
-                                    <i class="fa-solid fa-book text-3xl mb-2 opacity-80" style="color: var(--theme-color);"></i>
-                                    <span class="text-sm sm:text-base font-bold transition-transform group-hover:scale-105 leading-tight" style="color: var(--theme-color);">${t.name}</span>
-                                </a>
-                            `;
-                        });
-                        topicsHtml += '</div>';
-                        container.innerHTML = topicsHtml;
-                    } else {
-                        // Cấp 2: folder không có topics -> load JSON
-                        titleText = `${material.name} / ${folder.name}`;
-                        subtitleText = 'Bài tập thực hành';
-                        document.getElementById('detail-title').innerText = titleText;
-                        document.getElementById('detail-subtitle').innerText = subtitleText;
-                        const teacherTools = document.getElementById('teacher-tools');
-                        if (isLoggedIn) { teacherTools.classList.remove('hidden'); backBtn.style.display = 'flex'; }
-                        else { teacherTools.classList.add('hidden'); backBtn.style.display = 'none'; }
-                        loadExercisesFromJson(`data/${materialId}/${folderId}.json`, container);
-                        return;
-                    }
-                }
-            } else if (!material.folders || material.folders.length === 0) {
-                // Không có folder -> load JSON trực tiếp
-                subtitleText = 'Bài tập thực hành';
-                document.getElementById('detail-title').innerText = titleText;
-                document.getElementById('detail-subtitle').innerText = subtitleText;
-                const teacherTools = document.getElementById('teacher-tools');
-                if (isLoggedIn) { teacherTools.classList.remove('hidden'); backBtn.style.display = 'flex'; }
-                else { teacherTools.classList.add('hidden'); backBtn.style.display = 'none'; }
-                loadExercisesFromJson(`data/${materialId}.json`, container);
-                return;
-            } else {
-                // Cấp 1: hiện danh sách folders
-                let foldersHtml = '<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">';
-                material.folders.forEach(f => {
-                    foldersHtml += `
-                        <a href="#/material/${material.id}/${f.id}" class="aspect-square bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover-bounce flex flex-col items-center justify-center text-center cursor-pointer relative overflow-hidden group" style="background-color: var(--theme-bg-color);">
-                            <i class="fa-solid fa-folder-open text-4xl mb-3 opacity-80" style="color: var(--theme-color);"></i>
-                            <span class="relative z-10 text-lg sm:text-xl font-bold transition-transform group-hover:scale-105" style="color: var(--theme-color);">${f.name}</span>
-                        </a>
-                    `;
-                });
-                foldersHtml += '</div>';
-                container.innerHTML = foldersHtml;
-            }
+  left.innerHTML = `
+    <div class="ex-instruction"><i class="fas fa-arrows-alt"></i> ${ex.instruction}</div>
+    <div style="display:flex;gap:1rem;flex:1">
+      ${ex.categories.map((cat, ci) => `
+        <div class="ds-cat">
+          <div class="ds-cat-title">${cat}</div>
+          <div class="ds-drop" id="dsDrop${ci}" data-cat="${ci}"
+            ondragover="event.preventDefault();this.classList.add('drag-over')"
+            ondragleave="this.classList.remove('drag-over')"
+            ondrop="dropWord(event,${ci},${exIdx})">
+            ${getDropped(key, ci)}
+          </div>
+        </div>`).join('')}
+    </div>`;
 
-            document.getElementById('detail-title').innerText = titleText;
-            document.getElementById('detail-subtitle').innerText = subtitleText;
-            
-            // Xử lý quyền hiển thị nút:
-            const teacherTools = document.getElementById('teacher-tools');
-            
-            if (isLoggedIn) {
-                // Là giáo viên -> Hiển thị nút copy link và nút quay lại dashboard
-                teacherTools.classList.remove('hidden');
-                backBtn.style.display = 'flex';
-            } else {
-                // Là học sinh (Truy cập trực tiếp qua link) -> Ẩn công cụ giáo viên và nút quay lại
-                teacherTools.classList.add('hidden');
-                backBtn.style.display = 'none'; 
-            }
-        }
+  const placed = Object.values(answers[key]).flat();
+  right.innerHTML = `
+    <div style="font-weight:600;color:var(--turtle-dark);margin-bottom:.75rem"><i class="fas fa-hand-pointer"></i> Kéo từ vào đúng cột</div>
+    <div id="dsBank">
+      ${shuffleOnce(ex.words, key).map(w => {
+        const inP = placed.includes(w.word);
+        return `<span class="ds-word ${inP?'used':''}" draggable="${!inP}" ondragstart="dragW(event,'${esc(w.word)}')" ${inP?'style="opacity:.3;pointer-events:none"':''}>${w.word}</span>`;
+      }).join('')}
+    </div>
+    <button class="check-btn bounce" onclick="checkDS(${exIdx})" style="margin-top:auto"><i class="fas fa-check-circle"></i> Kiểm tra</button>`;
+}
 
-        // --- Load bài tập từ file JSON ---
-        async function loadExercisesFromJson(jsonPath, container) {
-            container.innerHTML = `
-                <div class="flex flex-col items-center justify-center py-16 text-slate-400">
-                    <i class="fa-solid fa-spinner fa-spin text-4xl mb-4" style="color: var(--theme-color);"></i>
-                    <p class="font-medium">Đang tải dữ liệu...</p>
-                </div>
-            `;
-            try {
-                const res = await fetch(jsonPath);
-                if (!res.ok) throw new Error('not found');
-                const data = await res.json();
-                if (!data || !data.exercises || data.exercises.length === 0) throw new Error('empty');
-                renderExercises(data, container);
-            } catch (e) {
-                container.innerHTML = `
-                    <div class="flex flex-col items-center justify-center py-20 text-slate-400">
-                        <div class="w-20 h-20 rounded-3xl flex items-center justify-center mb-5 text-4xl" style="background-color: var(--theme-bg-color); color: var(--theme-color);">
-                            <i class="fa-solid fa-box-open"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-600 mb-2">Chưa có dữ liệu</h3>
-                        <p class="text-sm text-slate-400 text-center max-w-xs">Bài tập cho chủ đề này đang được chuẩn bị. Vui lòng quay lại sau.</p>
-                    </div>
-                `;
-            }
-        }
+const _shuffled = {};
+function shuffleOnce(words, key) {
+  if (_shuffled[key]) return _shuffled[key];
+  const arr = [...words];
+  for (let i = arr.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]] = [arr[j],arr[i]];
+  }
+  _shuffled[key] = arr;
+  return arr;
+}
 
-        // --- Render bài tập từ dữ liệu JSON ---
-        let _exData = null, _exIdx = 0, _itemIdx = 0, _answers = {}, _pfOvSel = null;
+function getDropped(key, catIdx) {
+  const words = (answers[key] && answers[key][catIdx]) || [];
+  return words.map(w => `<span class="ds-word" style="cursor:pointer" onclick="removeDS('${key}',${catIdx},'${esc(w)}')">${w} <i class="fas fa-times" style="font-size:.7rem;opacity:.6"></i></span>`).join('');
+}
 
-        function getExItems(ex) {
-            if (ex.type === 'word-bank-fill' || ex.type === 'image-type' || ex.type === 'story-type') return ex.items;
-            return [{ id: '__full__' }];
-        }
+function dragW(e, word) { e.dataTransfer.setData('text/plain', word); }
 
-        function renderExercises(data, container) {
-            _exData = data; _exIdx = 0; _itemIdx = 0; _answers = {}; _pfOvSel = null;
-            document.body.classList.add('has-exercise');
-            document.getElementById('exov')?.remove();
-            const nav = document.getElementById('main-nav');
-            const navH = nav ? nav.offsetHeight : 0;
-            const detail = document.getElementById('view-detail');
-            const tc = detail ? getComputedStyle(detail).getPropertyValue('--theme-color').trim() : '#20a1a0';
-            const tb = detail ? getComputedStyle(detail).getPropertyValue('--theme-bg-color').trim() : 'rgba(32,161,160,0.1)';
-            const ov = document.createElement('div');
-            ov.id = 'exov';
-            ov.style.cssText = `position:fixed;left:0;right:0;top:${navH}px;bottom:0;z-index:200;display:flex;flex-direction:column;background:#f1f5f9;`;
-            ov.style.setProperty('--theme-color', tc);
-            ov.style.setProperty('--theme-bg-color', tb);
-            ov.innerHTML = `
-                <div id="ex-tabs" class="ex-tabs-bar"></div>
-                <div class="ex-body-row">
-                    <div id="ex-sidebar" class="ex-sidebar"></div>
-                    <div id="ex-main" class="ex-main-area"></div>
-                </div>
-                <div id="ex-bottom" class="ex-bottom-bar"></div>`;
-            document.body.appendChild(ov);
-            renderExTabs(); renderExSidebar(); renderExMain(); renderExBottom();
-        }
+function dropWord(e, catIdx, exIdx) {
+  e.preventDefault();
+  const el = e.currentTarget || e.target.closest('.ds-drop');
+  if (el) el.classList.remove('drag-over');
+  const word = e.dataTransfer.getData('text/plain');
+  const key = 'ex'+exIdx;
+  if (!answers[key]) answers[key] = {};
+  if (!answers[key][catIdx]) answers[key][catIdx] = [];
+  if (!answers[key][catIdx].includes(word)) {
+    const other = catIdx === 0 ? 1 : 0;
+    if (answers[key][other]) answers[key][other] = answers[key][other].filter(w => w !== word);
+    answers[key][catIdx].push(word);
+  }
+  renderExercise(getMat(), currentData, exIdx);
+}
 
-        function renderExTabs() {
-            const el = document.getElementById('ex-tabs');
-            if (!el || !_exData) return;
-            el.innerHTML = _exData.exercises.map((ex, i) =>
-                `<button class="ex-tab-btn${i===_exIdx?' ex-tab-active':''}" onclick="exGoExercise(${i})">${ex.title}</button>`
-            ).join('');
-        }
+function removeDS(key, catIdx, word) {
+  if (answers[key] && answers[key][catIdx]) {
+    answers[key][catIdx] = answers[key][catIdx].filter(w => w !== word);
+  }
+  renderExercise(getMat(), currentData, getCurrentExIdx());
+}
 
-        function renderExSidebar() {
-            const el = document.getElementById('ex-sidebar');
-            if (!el || !_exData) return;
-            const ex = _exData.exercises[_exIdx];
-            const items = getExItems(ex);
-            const btns = items.map((item, i) => {
-                const answered = isItemAnswered(ex, item);
-                const cur = i === _itemIdx;
-                let cls = 'ex-q-btn';
-                if (cur) cls += ' ex-q-current';
-                else if (answered) cls += ' ex-q-answered';
-                return `<button class="${cls}" onclick="exGoItem(${i})">${i+1}</button>`;
-            }).join('');
-            el.innerHTML = `<p class="ex-sidebar-title">BẢNG CÂU HỎI</p><div class="ex-q-grid">${btns}</div>`;
-        }
+function checkDS(exIdx) {
+  const ex = currentData.exercises[exIdx];
+  const key = 'ex'+exIdx;
+  let correct = 0;
+  ex.words.forEach(w => {
+    const placed = (answers[key] && answers[key][w.category]) || [];
+    if (placed.includes(w.word)) correct++;
+  });
+  showResult(correct, ex.words.length);
+}
 
-        function isItemAnswered(ex, item) {
-            if (item.given) return true;
-            if (item.id === '__full__') {
-                if (ex.type === 'passage-fill') return ex.passages?.some(p => p.parts.some(pt => pt.blank && _answers[`${ex.id}-${pt.blank}`]));
-                if (ex.type === 'drag-sort') return ex.words?.some((w,i) => _answers[`${ex.id}-sort-${i}`] !== undefined);
-                return false;
-            }
-            if (ex.type === 'word-bank-fill') return !!_answers[`${ex.id}-${item.id}`];
-            if (ex.type === 'image-type') return !!_answers[`${ex.id}-${item.id}-present`] || !!_answers[`${ex.id}-${item.id}-past`];
-            if (ex.type === 'story-type') return !!_answers[`${ex.id}-${item.id}`];
-            return false;
-        }
+/* ── Type 4: Image Type ── */
+function renderImageType(ex, exIdx, left, right) {
+  const key = 'ex'+exIdx;
+  if (!answers[key]) answers[key] = {};
 
-        function getGlobalNum() {
-            if (!_exData) return 1;
-            let n = 0;
-            for (let i = 0; i < _exIdx; i++) n += getExItems(_exData.exercises[i]).length;
-            return n + _itemIdx + 1;
-        }
-        function getGlobalTotal() {
-            if (!_exData) return 1;
-            return _exData.exercises.reduce((s,ex) => s + getExItems(ex).length, 0);
-        }
-        function countAnswered() {
-            if (!_exData) return 0;
-            let c = 0;
-            _exData.exercises.forEach(ex => getExItems(ex).forEach(item => { if (isItemAnswered(ex, item)) c++; }));
-            return c;
-        }
+  left.innerHTML = `
+    <div class="ex-instruction"><i class="fas fa-images"></i> ${ex.instruction}</div>
+    ${ex.items.map(item => {
+      const pVal = item.given ? item.present : (answers[key][item.id+'_p'] || '');
+      const pastVal = item.given ? item.past : (answers[key][item.id+'_past'] || '');
+      return `
+      <div class="it-card">
+        <img src="${item.img}" alt="">
+        <div class="it-labels">
+          <div class="it-row">
+            <span>Now:</span>
+            ${item.given
+              ? `<input class="ans-input given" value="${item.present}" disabled>`
+              : `<input class="ans-input" id="it_${item.id}_p" value="${escAttr(pVal)}" placeholder="..." oninput="saveIT('${key}','${item.id}_p',this.value,${exIdx})">`}
+          </div>
+          <div class="it-row">
+            <span>Past:</span>
+            ${item.given
+              ? `<input class="ans-input given" value="${item.past}" disabled><span style="font-size:.75rem;color:#999;margin-left:.3rem">Mẫu</span>`
+              : `<input class="ans-input" id="it_${item.id}_past" value="${escAttr(pastVal)}" placeholder="..." oninput="saveIT('${key}','${item.id}_past',this.value,${exIdx})">`}
+          </div>
+        </div>
+      </div>`;
+    }).join('')}`;
 
-        function renderExMain() {
-            const el = document.getElementById('ex-main');
-            if (!el || !_exData) return;
-            const ex = _exData.exercises[_exIdx];
-            const items = getExItems(ex);
-            const item = items[_itemIdx];
-            let qHtml = '';
-            if (item.id === '__full__') {
-                if (ex.type === 'passage-fill') qHtml = renderPassageOv(ex);
-                else if (ex.type === 'drag-sort') qHtml = renderSortOv(ex);
-            } else if (ex.type === 'word-bank-fill') {
-                qHtml = renderWbfOv(ex, item);
-            } else if (ex.type === 'image-type') {
-                qHtml = renderItOv(ex, item);
-            } else if (ex.type === 'story-type') {
-                qHtml = renderStOv(ex, item);
-            }
-            el.innerHTML = `<div class="ex-qh">CÂU HỎI ${getGlobalNum()} / ${getGlobalTotal()}</div><div class="ex-qbody">${qHtml}</div>`;
-            el.scrollTop = 0;
-            attachItemListeners(ex, item);
-        }
+  right.innerHTML = `
+    <div style="font-weight:600;color:var(--turtle-dark);margin-bottom:.75rem"><i class="fas fa-info-circle"></i> Hướng dẫn</div>
+    <p style="color:#666;font-size:.9rem;line-height:1.6">Nhìn hình và viết dạng hiện tại (Now) và quá khứ (Past) của động từ.</p>
+    <button class="check-btn bounce" onclick="checkIT(${exIdx})" style="margin-top:auto"><i class="fas fa-check-circle"></i> Kiểm tra</button>`;
+}
 
-        function renderExBottom() {
-            const el = document.getElementById('ex-bottom');
-            if (!el) return;
-            const total = getGlobalTotal(), answered = countAnswered();
-            const pct = total > 0 ? Math.round(answered / total * 100) : 0;
-            el.innerHTML = `
-                <div class="ex-prog-row">
-                    <span class="ex-prog-text">Tiến độ: ${answered}/${total} câu (${pct}%)</span>
-                    <div class="ex-prog-bar"><div class="ex-prog-fill" style="width:${pct}%"></div></div>
-                </div>
-                <div class="ex-nav-row">
-                    <button class="ex-prev-btn" onclick="exGoPrev()">← CÂU TRƯỚC</button>
-                    <button class="ex-submit-btn" onclick="submitAll()">NỘP BÀI</button>
-                    <button class="ex-next-btn" onclick="exGoNext()">CÂU TIẾP →</button>
-                </div>`;
-        }
+function saveIT(key, field, val, exIdx) {
+  if (!answers[key]) answers[key] = {};
+  answers[key][field] = val;
+  updateProgress(exIdx);
+}
 
-        function exGoExercise(idx) {
-            if (!_exData || idx < 0 || idx >= _exData.exercises.length) return;
-            _exIdx = idx; _itemIdx = 0; _pfOvSel = null;
-            renderExTabs(); renderExSidebar(); renderExMain(); renderExBottom();
-        }
-        function exGoItem(idx) {
-            if (!_exData) return;
-            const items = getExItems(_exData.exercises[_exIdx]);
-            if (idx < 0 || idx >= items.length) return;
-            _itemIdx = idx;
-            renderExSidebar(); renderExMain(); renderExBottom();
-        }
-        function exGoNext() {
-            if (!_exData) return;
-            const items = getExItems(_exData.exercises[_exIdx]);
-            if (_itemIdx < items.length - 1) exGoItem(_itemIdx + 1);
-            else if (_exIdx < _exData.exercises.length - 1) exGoExercise(_exIdx + 1);
-        }
-        function exGoPrev() {
-            if (!_exData) return;
-            if (_itemIdx > 0) { exGoItem(_itemIdx - 1); }
-            else if (_exIdx > 0) {
-                const prevEx = _exData.exercises[_exIdx - 1];
-                _exIdx--; _itemIdx = getExItems(prevEx).length - 1; _pfOvSel = null;
-                renderExTabs(); renderExSidebar(); renderExMain(); renderExBottom();
-            }
-        }
-        function saveAnswer(key, value) {
-            if (value === '' || value === null || value === undefined) delete _answers[key];
-            else _answers[key] = value;
-            renderExSidebar(); renderExBottom();
-        }
+function checkIT(exIdx) {
+  const ex = currentData.exercises[exIdx];
+  const key = 'ex'+exIdx;
+  let correct = 0, total = 0;
+  ex.items.forEach(item => {
+    if (item.given) return;
+    total += 2;
+    const pInp = document.getElementById('it_'+item.id+'_p');
+    const pastInp = document.getElementById('it_'+item.id+'_past');
+    if (pInp) {
+      if (pInp.value.trim().toLowerCase() === item.present.toLowerCase()) { pInp.classList.add('correct'); correct++; }
+      else pInp.classList.add('wrong');
+      pInp.disabled = true;
+    }
+    if (pastInp) {
+      if (pastInp.value.trim().toLowerCase() === item.past.toLowerCase()) { pastInp.classList.add('correct'); correct++; }
+      else pastInp.classList.add('wrong');
+      pastInp.disabled = true;
+    }
+  });
+  showResult(correct, total);
+}
 
-        // === Single-item renderers ===
-        function renderWbfOv(ex, item) {
-            if (!ex._shuffledBank) ex._shuffledBank = [...(ex.wordBank||[])].sort(() => Math.random()-0.5);
-            const bank = ex._shuffledBank;
-            if (item.given) {
-                return `<div class="ex-img-card"><img src="${item.img}" class="ex-card-img">
-                    <div class="ex-card-right ex-card-given">
-                        <span class="ex-given-word">${item.answer}</span>
-                        <span class="ex-given-badge">Mẫu</span>
-                    </div></div>
-                    <div class="ex-bank-box"><p class="ex-bank-label">Từ gợi ý</p>
-                    <div class="ex-bank-chips">${bank.map(w=>`<span class="ex-chip-disp">${w}</span>`).join('')}</div></div>`;
-            }
-            const key = `${ex.id}-${item.id}`, val = _answers[key]||'';
-            const esc = s => s.replace(/'/g, "\\'");
-            return `<div class="ex-img-card"><img src="${item.img}" class="ex-card-img">
-                <div class="ex-card-right">
-                    <input type="text" class="ex-text-inp" value="${val}" placeholder="✏️ Nhập từ..."
-                        oninput="saveAnswer('${esc(key)}',this.value)" style="border-color:var(--theme-color);">
-                </div></div>
-                <div class="ex-bank-box"><p class="ex-bank-label">Từ gợi ý — nhấn để điền</p>
-                <div class="ex-bank-chips">${bank.map(w=>{
-                    const used = val===w;
-                    return `<button class="ex-chip-btn${used?' ex-chip-used':''}" onclick="wbChipClick('${esc(w)}','${esc(key)}')">${w}</button>`;
-                }).join('')}</div></div>`;
-        }
-        function wbChipClick(word, key) {
-            _answers[key] = word;
-            renderExSidebar(); renderExMain(); renderExBottom();
-        }
+/* ── Type 5: Story Type ── */
+function renderStoryType(ex, exIdx, left, right) {
+  const key = 'ex'+exIdx;
+  if (!answers[key]) answers[key] = {};
 
-        function renderItOv(ex, item) {
-            if (item.given) {
-                return `<div class="ex-img-card"><img src="${item.img}" class="ex-card-img">
-                    <div class="ex-card-right ex-card-given">
-                        <p class="ex-given-word">${item.present}</p>
-                        <p class="ex-given-word">${item.past}</p>
-                        <span class="ex-given-badge">Mẫu</span>
-                    </div></div>`;
-            }
-            const esc = s=>s.replace(/'/g,"\\'");
-            const kp=`${ex.id}-${item.id}-present`, kq=`${ex.id}-${item.id}-past`;
-            const vp=_answers[kp]||'', vq=_answers[kq]||'';
-            return `<div class="ex-img-card"><img src="${item.img}" class="ex-card-img">
-                <div class="ex-card-right" style="gap:1rem;">
-                    <input type="text" class="ex-text-inp" value="${vp}" placeholder="✏️ Hiện tại..."
-                        oninput="saveAnswer('${esc(kp)}',this.value)" style="border-color:var(--theme-color);">
-                    <input type="text" class="ex-text-inp" value="${vq}" placeholder="✏️ Quá khứ..."
-                        oninput="saveAnswer('${esc(kq)}',this.value)" style="border-color:var(--theme-color);">
-                </div></div>`;
-        }
+  left.innerHTML = `
+    <div class="ex-instruction"><i class="fas fa-book-reader"></i> ${ex.instruction}</div>
+    <div class="st-context">${ex.context}</div>
+    ${ex.items.map(item => {
+      const sel = answers[key][item.id] || '';
+      return `
+      <div class="st-item">
+        <span class="st-num">${item.num}.</span>
+        <span>${item.before}</span>
+        ${item.options.map(opt =>
+          `<span class="st-opt ${sel===opt?'selected':''}" onclick="pickST('${key}','${item.id}','${esc(opt)}',${exIdx})">${opt}</span>`
+        ).join('')}
+        <span>${item.after}</span>
+      </div>`;
+    }).join('')}`;
 
-        function renderStOv(ex, item) {
-            const esc = s=>s.replace(/'/g,"\\'");
-            const key=`${ex.id}-${item.id}`, val=_answers[key]||'';
-            const opts = item.options.map(o=>{
-                const sel = val===o;
-                return `<button class="ex-st-opt${sel?' ex-st-sel':''}" onclick="stClick('${esc(o)}','${esc(key)}')">${o}</button>`;
-            }).join('');
-            return `<div class="ex-st-ctx">${ex.context}</div>
-                <div class="ex-st-sent">${item.before} <span class="ex-st-blank">${val||'______'}</span> ${item.after}</div>
-                <div class="ex-st-opts">${opts}</div>`;
-        }
-        function stClick(word, key) {
-            _answers[key] = word;
-            renderExSidebar(); renderExMain(); renderExBottom();
-        }
+  right.innerHTML = `
+    <div style="font-weight:600;color:var(--turtle-dark);margin-bottom:.75rem"><i class="fas fa-info-circle"></i> Hướng dẫn</div>
+    <p style="color:#666;font-size:.9rem;line-height:1.6">Đọc đoạn văn, chọn từ đúng và điền vào chỗ trống.</p>
+    <button class="check-btn bounce" onclick="checkST(${exIdx})" style="margin-top:auto"><i class="fas fa-check-circle"></i> Kiểm tra</button>`;
+}
 
-        function renderPassageOv(ex) {
-            const esc = s=>s.replace(/'/g,"\\'");
-            const passHtml = ex.passages.map(p => {
-                let txt = '';
-                p.parts.forEach(part => {
-                    if (part.text) txt += part.text.replace(/\n/g,'<br>');
-                    else {
-                        const key=`${ex.id}-${part.blank}`, val=_answers[key]||'';
-                        txt += `<input type="text" class="pf-inp-ov" id="pf-${part.blank}" value="${val}" placeholder="${part.num}"
-                            oninput="saveAnswer('${esc(key)}',this.value)" data-pfkey="${esc(key)}"
-                            style="border-color:var(--theme-color);">`;
-                    }
-                });
-                return `<div class="ex-pass-card"><p class="ex-pass-hdr">${p.header}</p><p class="ex-pass-txt">${txt}</p></div>`;
-            }).join('');
-            const chips = ex.wordBank.map(w => {
-                const used = Object.values(_answers).includes(w);
-                const isSel = _pfOvSel===w;
-                return `<button class="ex-chip-btn${used?' ex-chip-used':''}${isSel?' ex-chip-sel':''}" onclick="pfChipClick('${esc(w)}','${ex.id}')">${w}</button>`;
-            }).join('');
-            return `<div class="ex-bank-box"><p class="ex-bank-label">Từ gợi ý — nhấn từ rồi nhấn ô trống</p><div class="ex-bank-chips">${chips}</div></div>${passHtml}`;
-        }
-        function pfChipClick(word, exId) {
-            _pfOvSel = (_pfOvSel === word) ? null : word;
-            renderExMain();
-        }
+function pickST(key, itemId, opt, exIdx) {
+  if (!answers[key]) answers[key] = {};
+  answers[key][itemId] = opt;
+  renderExercise(getMat(), currentData, exIdx);
+}
 
-        function renderSortOv(ex) {
-            const esc = s=>s.replace(/'/g,"\\'");
-            const words = ex.words.map((w,i) => {
-                const placed = _answers[`${ex.id}-sort-${i}`] !== undefined;
-                return `<div class="ex-drag-word${placed?' ex-drag-placed':''}" draggable="true"
-                    data-ex="${ex.id}" data-idx="${i}" data-cat="${w.category}">${w.word}</div>`;
-            }).join('');
-            const mkZone = col => {
-                const items = ex.words.map((w,i)=>({w,i})).filter(({i})=>_answers[`${ex.id}-sort-${i}`]===col)
-                    .map(({w,i})=>`<div class="ex-placed-tag" onclick="removeSortAns('${esc(ex.id)}',${i})">${w.word}</div>`).join('');
-                return `<div class="drop-zone-ov" data-ex="${ex.id}" data-col="${col}">
-                    <p class="ex-zone-lbl">${ex.categories[col]}</p>
-                    <div class="ex-zone-items">${items}</div></div>`;
-            };
-            return `<div class="ex-sort-wrap">
-                <div class="ex-sort-pool"><p class="ex-bank-label">Các từ — kéo sang cột đúng</p><div class="ex-sort-words">${words}</div></div>
-                <div class="ex-sort-zones">${mkZone(0)}${mkZone(1)}</div></div>`;
-        }
-        function removeSortAns(exId, idx) {
-            delete _answers[`${exId}-sort-${idx}`];
-            renderExSidebar(); renderExMain(); renderExBottom();
-        }
+function checkST(exIdx) {
+  const ex = currentData.exercises[exIdx];
+  const key = 'ex'+exIdx;
+  let correct = 0;
+  ex.items.forEach((item, i) => {
+    const sel = (answers[key] && answers[key][item.id]) || '';
+    const row = document.querySelectorAll('.st-item')[i];
+    if (!row) return;
+    row.querySelectorAll('.st-opt').forEach(el => {
+      const w = el.textContent.trim();
+      if (w === item.answer) el.classList.add('correct');
+      else if (w === sel && sel !== item.answer) el.classList.add('wrong');
+      el.style.pointerEvents = 'none';
+    });
+    if (sel.toLowerCase() === item.answer.toLowerCase()) correct++;
+  });
+  showResult(correct, ex.items.length);
+}
 
-        function attachItemListeners(ex, item) {
-            if (ex.type === 'passage-fill') {
-                document.querySelectorAll('.pf-inp-ov').forEach(inp => {
-                    inp.addEventListener('click', function() {
-                        if (_pfOvSel && !this.value) {
-                            saveAnswer(this.dataset.pfkey, _pfOvSel);
-                            _pfOvSel = null;
-                            renderExMain();
-                        }
-                    });
-                });
-                return;
-            }
-            if (ex.type === 'drag-sort') {
-                document.querySelectorAll('.ex-drag-word').forEach(word => {
-                    word.addEventListener('dragstart', function(e) {
-                        e.dataTransfer.setData('text/plain', JSON.stringify({
-                            exId: this.dataset.ex, idx: this.dataset.idx, cat: this.dataset.cat, word: this.textContent.trim()
-                        }));
-                        this.style.opacity = '0.4';
-                    });
-                    word.addEventListener('dragend', function() { this.style.opacity = ''; });
-                });
-                document.querySelectorAll('.drop-zone-ov').forEach(zone => {
-                    zone.addEventListener('dragover', function(e) { e.preventDefault(); this.classList.add('drag-over'); });
-                    zone.addEventListener('dragleave', function() { this.classList.remove('drag-over'); });
-                    zone.addEventListener('drop', function(e) {
-                        e.preventDefault(); this.classList.remove('drag-over');
-                        let data; try { data = JSON.parse(e.dataTransfer.getData('text/plain')); } catch(err) { return; }
-                        _answers[`${data.exId}-sort-${data.idx}`] = parseInt(this.dataset.col);
-                        renderExSidebar(); renderExMain(); renderExBottom();
-                    });
-                });
-            }
-        }
+/* ── Helpers ── */
+function getCurrentExIdx() {
+  const dots = document.querySelectorAll('.q-dot');
+  for (let i = 0; i < dots.length; i++) {
+    if (dots[i].classList.contains('active')) return i;
+  }
+  return 0;
+}
 
-        // === Submit / Check all answers ===
-        function submitAll() {
-            if (!_exData) return;
-            let correct = 0, total = 0;
-            _exData.exercises.forEach(ex => {
-                if (ex.type === 'word-bank-fill') {
-                    ex.items.filter(i=>!i.given).forEach(item => {
-                        total++;
-                        if ((_answers[`${ex.id}-${item.id}`]||'').trim().toLowerCase() === item.answer.trim().toLowerCase()) correct++;
-                    });
-                } else if (ex.type === 'image-type') {
-                    ex.items.filter(i=>!i.given).forEach(item => {
-                        total += 2;
-                        if ((_answers[`${ex.id}-${item.id}-present`]||'').trim().toLowerCase() === item.present.trim().toLowerCase()) correct++;
-                        if ((_answers[`${ex.id}-${item.id}-past`]||'').trim().toLowerCase() === item.past.trim().toLowerCase()) correct++;
-                    });
-                } else if (ex.type === 'story-type') {
-                    ex.items.forEach(item => {
-                        total++;
-                        if (_answers[`${ex.id}-${item.id}`] === item.answer) correct++;
-                    });
-                } else if (ex.type === 'passage-fill') {
-                    ex.passages.forEach(p => p.parts.filter(pt=>pt.blank).forEach(part => {
-                        total++;
-                        if ((_answers[`${ex.id}-${part.blank}`]||'').trim().toLowerCase() === part.answer.trim().toLowerCase()) correct++;
-                    }));
-                } else if (ex.type === 'drag-sort') {
-                    ex.words.forEach((w,i) => {
-                        total++;
-                        if (_answers[`${ex.id}-sort-${i}`] === w.category) correct++;
-                    });
-                }
-            });
-            const pct = total > 0 ? Math.round(correct / total * 100) : 0;
-            const stars = pct===100?'⭐⭐⭐':pct>=70?'⭐⭐':pct>=40?'⭐':'';
-            const msg = pct===100?'Tuyệt vời! Em đã trả lời đúng tất cả các câu! 🎊'
-                :pct>=70?'Rất tốt! Em làm tốt lắm! 💪'
-                :pct>=40?'Cố lên! Xem lại các câu sai nhé! 📚'
-                :'Cố gắng thêm nhé! 🌱';
-            Swal.fire({
-                title: `${stars||'📝'} ${correct}/${total} câu đúng`,
-                html: `<div style="font-size:1.1rem;margin-top:0.5rem;">${msg}</div>
-                       <div style="font-size:2rem;margin-top:0.75rem;font-weight:bold;color:#20a1a0;">${pct}%</div>`,
-                icon: pct>=70?'success':'info',
-                confirmButtonColor: '#20a1a0',
-                confirmButtonText: pct<100?'Xem lại bài':'Tuyệt vời!'
-            });
-        }
-        function checkAllAnswers() { submitAll(); }
+function countQuestions(ex) {
+  switch(ex.type) {
+    case 'word-bank-fill': return ex.items.filter(i=>!i.given).length;
+    case 'passage-fill': return ex.passages.reduce((s,p) => s + p.parts.filter(pt=>pt.blank!==undefined).length, 0);
+    case 'drag-sort': return ex.words.length;
+    case 'image-type': return ex.items.filter(i=>!i.given).length * 2;
+    case 'story-type': return ex.items.length;
+    default: return 0;
+  }
+}
 
+function countAnswered(ex, exIdx) {
+  const key = 'ex'+exIdx;
+  const ans = answers[key] || {};
+  switch(ex.type) {
+    case 'word-bank-fill': return Object.keys(ans).filter(k => ans[k].trim()).length;
+    case 'passage-fill': return Object.keys(ans).filter(k => ans[k].trim()).length;
+    case 'drag-sort': return Object.values(ans).flat().length;
+    case 'image-type': return Object.keys(ans).filter(k => ans[k].trim()).length;
+    case 'story-type': return Object.keys(ans).filter(k => ans[k]).length;
+    default: return 0;
+  }
+}
 
-                // --- Router (Quản lý chuyển trang bằng URL Hash) ---
-        // Giúp tạo ra các link duy nhất cho từng bài tập
-        function handleRouting() {
-            const hash = window.location.hash || '#/';
-            
-            // Ẩn tất cả view trước khi hiển thị view mới
-            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-            document.body.classList.remove('has-exercise');
-            document.getElementById('exov')?.remove();
-            _exData = null;
+function isExDone(ex, exIdx) {
+  return countAnswered(ex, exIdx) >= countQuestions(ex) && countQuestions(ex) > 0;
+}
 
-            if (hash.startsWith('#/material/')) {
-                // Route: Chi tiết tài liệu hoặc thư mục
-                const path = hash.replace('#/material/', '');
-                renderDetail(path);
-                viewDetail.classList.add('active');
-                
-                // Hiển thị Navbar nếu là giáo viên, ẩn nếu là học sinh
-                if (isLoggedIn) mainNav.classList.remove('hidden');
-                else mainNav.classList.add('hidden'); 
-            } 
-            else if (hash === '#/dashboard') {
-                // Route: Bảng điều khiển chọn tài liệu (Bắt buộc phải đăng nhập)
-                if (!isLoggedIn) {
-                    window.location.hash = '#/';
-                    return;
-                }
-                renderDashboard();
-                viewDashboard.classList.add('active');
-                mainNav.classList.remove('hidden');
-            } 
-            else {
-                // Route mặc định: Màn hình đăng nhập
-                if (isLoggedIn) {
-                    window.location.hash = '#/dashboard';
-                    return;
-                }
-                viewLogin.classList.add('active');
-                mainNav.classList.add('hidden');
-            }
-        }
+function updateProgress(exIdx) {
+  const ex = currentData.exercises[exIdx];
+  const pct = countQuestions(ex) ? Math.round(countAnswered(ex, exIdx)/countQuestions(ex)*100) : 0;
+  const bar = document.querySelector('.ex-progress-fill');
+  if (bar) bar.style.width = pct + '%';
+  const dot = document.querySelectorAll('.q-dot')[exIdx];
+  if (dot) {
+    if (isExDone(ex, exIdx)) dot.classList.add('done');
+    else dot.classList.remove('done');
+  }
+}
 
-        // --- Xử lý sự kiện Đăng nhập ---
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const codeInput = document.getElementById('teacher-code').value;
-            
-            if (codeInput === TEACHER_CODE) {
-                isLoggedIn = true;
-                sessionStorage.setItem('elm_teacher_logged_in', 'true');
-                document.getElementById('teacher-code').value = '';
-                
-                Swal.fire({
-                    title: 'Thành công!',
-                    text: 'Chào mừng giáo viên đăng nhập.',
-                    icon: 'success',
-                    timer: 1500,
-                    showConfirmButton: false,
-                    confirmButtonColor: '#20a1a0'
-                }).then(() => {
-                    window.location.hash = '#/dashboard';
-                });
-            } else {
-                Swal.fire({
-                    title: 'Lỗi!',
-                    text: 'Mã giáo viên không chính xác.',
-                    icon: 'error',
-                    confirmButtonColor: '#20a1a0'
-                });
-            }
-        });
+function showResult(correct, total) {
+  const pct = total ? Math.round(correct/total*100) : 0;
+  let icon = 'success', title = 'Xuất sắc!';
+  if (pct < 50) { icon = 'error'; title = 'Cố gắng hơn nhé!'; }
+  else if (pct < 80) { icon = 'warning'; title = 'Khá tốt!'; }
+  Swal.fire({
+    icon, title,
+    html: `<div style="font-size:1.3rem;font-weight:700;color:var(--turtle)">${correct}/${total}</div><p style="color:#888;margin-top:.5rem">${pct}% đúng</p>`,
+    confirmButtonColor: '#20a1a0',
+    confirmButtonText: 'OK'
+  });
+}
 
-        // --- Xử lý sự kiện Đăng xuất ---
-        document.getElementById('logout-btn').addEventListener('click', function() {
-            Swal.fire({
-                title: 'Đăng xuất?',
-                text: 'Bạn có chắc chắn muốn thoát khỏi hệ thống?',
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonColor: '#20a1a0',
-                cancelButtonColor: '#ef4444',
-                confirmButtonText: 'Đăng xuất',
-                cancelButtonText: 'Hủy'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    isLoggedIn = false;
-                    sessionStorage.removeItem('elm_teacher_logged_in');
-                    window.location.hash = '#/';
-                }
-            });
-        });
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+}
+function escAttr(s) {
+  return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function esc(s) {
+  return s.replace(/'/g,"\\'");
+}
 
-        // --- Hàm Copy Link dành cho giáo viên để gửi cho học sinh ---
-        function copyCurrentLink() {
-            // Lấy URL hiện tại (bao gồm cả Hash chứa bài tập)
-            const currentUrl = window.location.href;
-            
-            // Thử sử dụng Clipboard API hiện đại
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(currentUrl).then(showCopySuccess);
-            } else {
-                // Cách fallback cho các trình duyệt cũ hơn hoặc môi trường iframe
-                let textArea = document.createElement("textarea");
-                textArea.value = currentUrl;
-                textArea.style.position = "fixed";
-                textArea.style.left = "-999999px";
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    showCopySuccess();
-                } catch (err) {
-                    Swal.fire('Lỗi', 'Không thể copy link tự động.', 'error');
-                }
-                textArea.remove();
-            }
-        }
-
-        function showCopySuccess() {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 2000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            });
-            Toast.fire({
-                icon: 'success',
-                title: 'Đã copy link bài tập thành công!'
-            });
-        }
-        
-        // Mô phỏng nộp bài cho học sinh
-        function submitQuiz() {
-            Swal.fire({
-                title: 'Nộp bài thành công!',
-                text: 'Câu trả lời của bạn đã được ghi nhận.',
-                icon: 'success',
-                confirmButtonColor: '#20a1a0'
-            });
-        }
-
-        // Lắng nghe sự kiện đổi URL (hash) để thay đổi view tương ứng
-        window.addEventListener('hashchange', handleRouting);
-        
-        // Chạy hàm kiểm tra router lần đầu tiên khi vừa tải trang xong
-        window.addEventListener('DOMContentLoaded', handleRouting);
-        
-    </script>
+window.addEventListener('hashchange', router);
+window.addEventListener('load', router);
+</script>
 </body>
 </html>
