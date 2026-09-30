@@ -1108,8 +1108,8 @@
                 }
                 html += `<tr>
                     <td class="p-3 font-bold text-slate-500">${i + 1}</td>
-                    <td class="p-3"><div class="drop-slot ${nameClass} ${nameExtra} px-3 py-2" onclick="clickSlot(${i},'name')">${answers[i].name || '<span class=&quot;text-slate-400 text-sm&quot;>Chọn tên</span>'}</div></td>
-                    <td class="p-3"><div class="drop-slot ${actionClass} ${actionExtra} px-3 py-2" onclick="clickSlot(${i},'action')">${answers[i].action || '<span class=&quot;text-slate-400 text-sm&quot;>Chọn hành động</span>'}</div></td>
+                    <td class="p-3"><div class="drop-slot ${nameClass} ${nameExtra} px-3 py-2 text-base" onclick="clickSlot(${i},'name')">${answers[i].name || '<span class=&quot;text-slate-400&quot;>Chọn tên</span>'}</div></td>
+                    <td class="p-3"><div class="drop-slot ${actionClass} ${actionExtra} px-3 py-2 text-base" onclick="clickSlot(${i},'action')">${answers[i].action || '<span class=&quot;text-slate-400&quot;>Chọn hành động</span>'}</div></td>
                 </tr>`;
             }
 
@@ -1394,9 +1394,9 @@
                     if (!itemCorrect) itemCell += `<br><span class="text-green-600 font-bold text-xs">${item.item}</span>`;
                 } else {
                     if (answers[i].item) {
-                        itemCell = `<div class="drop-slot filled px-2 py-1 text-sm cursor-pointer" onclick="clickP5ItemSlot(${i})">${answers[i].item}</div>`;
+                        itemCell = `<div class="drop-slot filled px-3 py-2 text-base cursor-pointer" onclick="clickP5ItemSlot(${i})">${answers[i].item}</div>`;
                     } else {
-                        itemCell = `<div class="drop-slot px-2 py-1 cursor-pointer" onclick="clickP5ItemSlot(${i})"><span class="text-slate-400 text-xs">Chọn item</span></div>`;
+                        itemCell = `<div class="drop-slot px-3 py-2 text-base cursor-pointer" onclick="clickP5ItemSlot(${i})"><span class="text-slate-400">Chọn item</span></div>`;
                     }
                 }
 
@@ -1412,9 +1412,9 @@
                         if (!isCorrect) answerCell += ` <span class="inline-block px-2 py-1 rounded-lg text-white font-bold text-xs" style="background-color:${colorHex[item.answer]}">${item.answer}</span>`;
                     } else {
                         if (answers[i].answer) {
-                            answerCell = `<div class="drop-slot filled cursor-pointer mx-auto w-20 h-8 rounded-lg text-white font-bold text-xs flex items-center justify-center" style="background-color:${colorHex[answers[i].answer]};border-color:${colorHex[answers[i].answer]}" onclick="clickP5ColorSlot(${i})">${answers[i].answer}</div>`;
+                            answerCell = `<div class="drop-slot filled cursor-pointer mx-auto w-24 h-10 rounded-lg text-white font-bold text-base flex items-center justify-center" style="background-color:${colorHex[answers[i].answer]};border-color:${colorHex[answers[i].answer]}" onclick="clickP5ColorSlot(${i})">${answers[i].answer}</div>`;
                         } else {
-                            answerCell = `<div class="drop-slot cursor-pointer mx-auto w-20 h-8" onclick="clickP5ColorSlot(${i})"><span class="text-slate-400 text-xs">Màu</span></div>`;
+                            answerCell = `<div class="drop-slot cursor-pointer mx-auto w-24 h-10 text-base" onclick="clickP5ColorSlot(${i})"><span class="text-slate-400">Màu</span></div>`;
                         }
                     }
                 } else {
