@@ -11,14 +11,14 @@
       "image": "images/collins-movers/test1/part1-classroom.png",
       "audio": "audio/collins-movers/test1/part1.mp3",
       "names": ["Alex", "Bill", "Nick", "Daisy", "Sally", "Vicky", "Tom"],
-      "actions": ["is standing by the window", "is using the computer", "is drawing a house on the board", "is sitting and reading", "is writing at a desk", "is talking to the teacher", "is holding a ball"],
-      "example": { "name": "Daisy", "action": "is drawing a house on the board" },
+      "actions": ["is looking out of the window", "is reading a book", "is painting a picture", "is playing on the computer", "is drawing a house on the board", "is sitting under the desk", "is writing in a notebook"],
+      "example": { "name": "Vicky", "action": "is drawing a house on the board" },
       "answers": [
-        { "name": "Alex", "action": "is standing by the window" },
-        { "name": "Bill", "action": "is using the computer" },
-        { "name": "Nick", "action": "is sitting and reading" },
-        { "name": "Sally", "action": "is writing at a desk" },
-        { "name": "Vicky", "action": "is talking to the teacher" }
+        { "name": "Nick", "action": "is painting a picture" },
+        { "name": "Sally", "action": "is playing on the computer" },
+        { "name": "Bill", "action": "is reading a book" },
+        { "name": "Alex", "action": "is looking out of the window" },
+        { "name": "Tom", "action": "is sitting under the desk" }
       ]
     },
     {
@@ -31,11 +31,11 @@
       "formTitle": "Sports centre homework",
       "example": { "label": "Comes:", "prefix": "every", "answer": "Saturday" },
       "rows": [
-        { "num": 1, "label": "Favourite sport:", "prefix": "", "answer": "basketball" },
-        { "num": 2, "label": "Comes to sports centre by:", "prefix": "", "answer": "bus" },
-        { "num": 3, "label": "Comes to sports centre with:", "prefix": "his", "answer": "dad" },
-        { "num": 4, "label": "Likes sports centre because:", "prefix": "it's", "answer": "big" },
-        { "num": 5, "label": "Name:", "prefix": "Mr", "answer": "Green" }
+        { "num": 1, "label": "Favourite sport:", "prefix": "", "answer": "tennis" },
+        { "num": 2, "label": "Comes to sports centre by:", "prefix": "", "answer": "car" },
+        { "num": 3, "label": "Comes to sports centre with:", "prefix": "his", "answer": "son" },
+        { "num": 4, "label": "Likes sports centre because:", "prefix": "it's", "answer": "clean" },
+        { "num": 5, "label": "Name:", "prefix": "Mr", "answer": "Pitt" }
       ]
     },
     {
@@ -51,11 +51,50 @@
       "options": ["A", "B", "C", "D", "E", "F", "G", "H"],
       "example": { "person": "Mum", "answer": "E" },
       "answers": [
-        { "person": "Dad", "answer": "C" },
-        { "person": "Aunt Zoe", "answer": "F" },
-        { "person": "Uncle Fred", "answer": "D" },
-        { "person": "Grandpa", "answer": "A" },
-        { "person": "Clare", "answer": "H" }
+        { "person": "Dad", "answer": "G" },
+        { "person": "Aunt Zoe", "answer": "B" },
+        { "person": "Uncle Fred", "answer": "F" },
+        { "person": "Grandpa", "answer": "H" },
+        { "person": "Clare", "answer": "A" }
+      ]
+    },
+    {
+      "id": "part4",
+      "title": "Part 4",
+      "questions": 5,
+      "instructions": "Listen and tick (✓) the box. There is one example.",
+      "type": "multiple-choice-abc",
+      "audio": "audio/collins-movers/test1/part4.mp3",
+      "images": ["images/collins-movers/test1/part4-page1.png", "images/collins-movers/test1/part4-page2.webp"],
+      "example": {
+        "question": "What's the matter with Paul?",
+        "options": ["Earache (covering ears)", "Stomach ache (feeling sick)", "Headache (holding head)"],
+        "answer": 0
+      },
+      "items": [
+        { "num": 1, "question": "Which man is Mary's father?", "options": ["Man with dark hair, beard and moustache", "Man with blonde curly hair and moustache", "Man with brown hair and moustache"], "answer": 0 },
+        { "num": 2, "question": "What's Jane doing now?", "options": ["Playing tennis", "Watching a DVD about football", "Playing football outside"], "answer": 1 },
+        { "num": 3, "question": "What did Fred have for breakfast today?", "options": ["An orange", "Egg and tomato", "A banana and an apple"], "answer": 2 },
+        { "num": 4, "question": "What work does Sue's mum do?", "options": ["Doctor", "Teacher", "Farmer"], "answer": 0 },
+        { "num": 5, "question": "What present did Kim get yesterday?", "options": ["A puppy", "A radio", "A new bike"], "answer": 0 }
+      ]
+    },
+    {
+      "id": "part5",
+      "title": "Part 5",
+      "questions": 5,
+      "instructions": "Listen and colour and write. There is one example.",
+      "type": "color-write",
+      "audio": "audio/collins-movers/test1/part5.mp3",
+      "image": "images/collins-movers/test1/part5-beach.webp",
+      "colors": ["red", "blue", "purple", "green", "pink", "yellow", "gray", "black", "orange", "brown"],
+      "example": { "item": "Fisherman's trousers", "type": "color", "answer": "red" },
+      "items": [
+        { "num": 1, "item": "Older boy's T-shirt (near the sea)", "type": "color", "answer": "green" },
+        { "num": 2, "item": "Blanket on the sand", "type": "color", "answer": "purple" },
+        { "num": 3, "item": "Write on the bigger boat", "type": "write", "answer": "wet" },
+        { "num": 4, "item": "Smaller boat's sail", "type": "color", "answer": "yellow" },
+        { "num": 5, "item": "Bird on the beach (next to fisherman)", "type": "color", "answer": "pink" }
       ]
     }
   ]
