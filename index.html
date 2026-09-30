@@ -273,15 +273,7 @@
                 </button>
                 <h2 id="listening-title" class="text-lg font-bold text-slate-800 hidden sm:block"></h2>
             </div>
-            <div class="flex items-center gap-2 sm:gap-4">
-                <div class="relative">
-                    <i class="fa-solid fa-user absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                    <input type="text" placeholder="Họ và tên" class="pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm w-32 sm:w-48 focus:outline-none focus:border-turtle-400">
-                </div>
-                <div class="relative">
-                    <i class="fa-solid fa-school absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                    <input type="text" placeholder="Lớp" class="pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm w-20 sm:w-28 focus:outline-none focus:border-turtle-400">
-                </div>
+            <div id="listening-student-info" class="flex items-center gap-3 text-sm">
             </div>
         </header>
         <div id="listening-tabs" class="bg-white border-b px-4 py-2 flex gap-2 shrink-0"></div>
@@ -674,7 +666,7 @@
 
                 if (data && data.type === 'listening-test') {
                     Swal.close();
-                    openListeningTest(data, title);
+                    askStudentCode(data, title);
                     return;
                 }
 
@@ -968,6 +960,66 @@
         let activePart = 0;
         let listeningSubmitted = false;
         let selectedBank = null;
+        let currentStudent = null;
+        let studentsData = null;
+
+        async function loadStudents() {
+            if (studentsData) return studentsData;
+            try {
+                const res = await fetch('./data/students.json');
+                studentsData = await res.json();
+                return studentsData;
+            } catch(e) { return null; }
+        }
+
+        function findStudent(code) {
+            if (!studentsData) return null;
+            for (const cls of studentsData.classes) {
+                const s = cls.students.find(s => s.code === code);
+                if (s) return { ...s, class: cls.name };
+            }
+            return null;
+        }
+
+        async function askStudentCode(data, title) {
+            await loadStudents();
+            const { value: code } = await Swal.fire({
+                title: 'Nhập mã học sinh',
+                input: 'text',
+                inputPlaceholder: 'Ví dụ: 4601',
+                inputAttributes: { autocomplete: 'off', style: 'text-align:center;font-size:1.25rem;font-weight:bold;letter-spacing:0.1em' },
+                showCancelButton: true,
+                cancelButtonText: 'Huỷ',
+                confirmButtonText: 'Tiếp tục',
+                confirmButtonColor: '#20a1a0',
+                inputValidator: (val) => {
+                    if (!val) return 'Vui lòng nhập mã học sinh';
+                    const student = findStudent(val.trim());
+                    if (!student) return 'Mã học sinh không tồn tại';
+                }
+            });
+            if (!code) return;
+            const student = findStudent(code.trim());
+            const engName = student.englishName ? `<div class="text-lg text-turtle-600 font-bold">${student.englishName}</div>` : '';
+            const { isConfirmed } = await Swal.fire({
+                html: `<div class="py-2">
+                    <div class="w-16 h-16 rounded-full bg-turtle-100 flex items-center justify-center mx-auto mb-3">
+                        <i class="fa-solid fa-user-check text-turtle-600 text-2xl"></i>
+                    </div>
+                    <div class="text-xl font-bold text-slate-800 mb-1">${student.name}</div>
+                    ${engName}
+                    <div class="text-slate-500 mt-2"><i class="fa-solid fa-school mr-1"></i> ${student.class}</div>
+                    <div class="text-slate-400 text-sm mt-1">Mã: ${student.code}</div>
+                </div>`,
+                confirmButtonText: 'Xác nhận & Bắt đầu',
+                cancelButtonText: 'Quay lại',
+                showCancelButton: true,
+                confirmButtonColor: '#20a1a0'
+            });
+            if (!isConfirmed) return askStudentCode(data, title);
+            currentStudent = student;
+            openListeningTest(data, title);
+        }
 
         function openListeningTest(data, title) {
             listeningData = data;
@@ -994,6 +1046,17 @@
             document.getElementById('view-listening').classList.add('active');
             document.getElementById('main-nav').classList.add('hidden');
             document.getElementById('listening-title').textContent = title;
+
+            const infoEl = document.getElementById('listening-student-info');
+            if (currentStudent) {
+                const eng = currentStudent.englishName ? ` (${currentStudent.englishName})` : '';
+                infoEl.innerHTML = `<i class="fa-solid fa-user-check text-turtle-500"></i>
+                    <span class="font-semibold text-slate-700">${currentStudent.name}${eng}</span>
+                    <span class="text-slate-400">|</span>
+                    <span class="text-slate-500">${currentStudent.class}</span>`;
+            } else {
+                infoEl.innerHTML = '';
+            }
 
             renderListeningTabs();
             renderListeningPart();

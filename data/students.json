@@ -1,0 +1,39 @@
+{
+  "classes": [
+    {
+      "id": "4-6",
+      "name": "Lớp 4/6",
+      "students": [
+        { "code": "4601", "name": "Nguyễn Hoàng Minh", "englishName": "Michael" },
+        { "code": "4602", "name": "Nguyễn Phi Khôi", "englishName": "Leo" },
+        { "code": "4603", "name": "Phạm Ngọc Khánh Vy", "englishName": "Vivian" },
+        { "code": "4604", "name": "Ngô Yên Thảo", "englishName": "Terra" },
+        { "code": "4605", "name": "Nguyễn Ngọc Minh Anh", "englishName": "Ruby" },
+        { "code": "4606", "name": "Phương Tuấn Khải", "englishName": "Jacky" },
+        { "code": "4607", "name": "Trần Tiên Khôi", "englishName": "Peter" },
+        { "code": "4608", "name": "Lê Huỳnh Quốc Hữu", "englishName": "Ocean" },
+        { "code": "4609", "name": "Vũ Minh Trí", "englishName": "Troy" },
+        { "code": "4610", "name": "Nguyễn Huỳnh Bảo Quyên", "englishName": "Queen" },
+        { "code": "4611", "name": "Lê Hoàng Bách", "englishName": "Barry" },
+        { "code": "4612", "name": "Trần Lê An Nhiên", "englishName": "Nina" },
+        { "code": "4613", "name": "Lê Minh Thư", "englishName": "Mia" },
+        { "code": "4614", "name": "Nguyễn Minh Lâm", "englishName": "Leon" },
+        { "code": "4615", "name": "Lê Hữu Đăng Khôi", "englishName": "Kenny" },
+        { "code": "4616", "name": "Đinh Bảo Long", "englishName": "Liam" },
+        { "code": "4617", "name": "Nguyễn Song Hy", "englishName": "Helen" },
+        { "code": "4618", "name": "Trần Duy Anh", "englishName": "Andrew" },
+        { "code": "4619", "name": "Vũ Huỳnh Minh Thảo", "englishName": "Tiffany" },
+        { "code": "4620", "name": "Võ Khánh Ngọc", "englishName": "Nora" },
+        { "code": "4621", "name": "Trần Nguyễn Khánh My", "englishName": "Mary" },
+        { "code": "4622", "name": "Vũ Huỳnh Minh Đức", "englishName": "David" },
+        { "code": "4623", "name": "Nguyễn Thiên Phước", "englishName": "Parker" },
+        { "code": "4624", "name": "Nguyễn Nhã Khuyên", "englishName": "Lucy" },
+        { "code": "4625", "name": "Võ Minh Khôi", "englishName": "Ken" },
+        { "code": "4626", "name": "Nguyễn Mai Chi", "englishName": "Lavie" },
+        { "code": "4627", "name": "Trần Nguyễn Chi Anh", "englishName": "Sushi" },
+        { "code": "4628", "name": "Phạm Lê Quang Huy", "englishName": "Ken" },
+        { "code": "4629", "name": "Vũ Ngô Quang Đông", "englishName": "Ben" }
+      ]
+    }
+  ]
+}
