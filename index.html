@@ -2323,59 +2323,82 @@
             const totalQuestions = partScores.reduce((s, p) => s + p.total, 0);
             const pct = Math.round((totalCorrect / totalQuestions) * 100);
 
-            let resultHtml = `<div id="reading-result-capture" style="background:#fff;padding:24px;border-radius:16px;max-width:400px;margin:0 auto;">
-                <div style="text-align:center;margin-bottom:16px;">
-                    <div style="font-size:24px;font-weight:800;color:#0f172a;">📝 Reading & Writing</div>
-                    <div style="font-size:14px;color:#64748b;margin-top:4px;">⏱ ${timeStr}</div>
-                </div>
-                <div style="margin-bottom:16px;">`;
-
-            partScores.forEach(ps => {
-                const partPct = Math.round((ps.correct / ps.total) * 100);
-                const color = partPct >= 80 ? '#22c55e' : partPct >= 50 ? '#eab308' : '#ef4444';
-                resultHtml += `<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f1f5f9;">
-                    <span style="font-weight:600;color:#334155;">${ps.title}</span>
-                    <span style="font-weight:700;color:${color};">${ps.correct}/${ps.total} (${partPct}%)</span>
-                </div>`;
-            });
-
             const totalColor = pct >= 80 ? '#22c55e' : pct >= 50 ? '#eab308' : '#ef4444';
             const readingShields = getShields(currentMaterialId, 'reading', totalCorrect);
-            resultHtml += `</div>
-                <div style="text-align:center;padding:16px;background:${totalColor}15;border-radius:12px;">
-                    <div style="font-size:36px;font-weight:900;color:${totalColor};">${totalCorrect}/${totalQuestions}</div>
-                    <div style="font-size:18px;font-weight:700;color:${totalColor};">${pct}%</div>
+
+            let partRows = partScores.map(ps => {
+                const partPct = Math.round((ps.correct / ps.total) * 100);
+                const color = partPct >= 80 ? '#22c55e' : partPct >= 50 ? '#f59e0b' : '#ef4444';
+                return `<tr>
+                    <td style="padding:8px 12px;text-align:left;font-weight:600">${ps.title}</td>
+                    <td style="padding:8px 12px;text-align:center">${ps.correct} / ${ps.total}</td>
+                    <td style="padding:8px 12px;text-align:center"><span style="background:${color};color:white;padding:2px 10px;border-radius:8px;font-weight:700;font-size:14px">${partPct}%</span></td>
+                </tr>`;
+            }).join('');
+
+            const studentName = currentStudent ? currentStudent.name : 'Học sinh';
+            const studentEng = currentStudent && currentStudent.englishName ? ` (${currentStudent.englishName})` : '';
+            const studentClass = currentStudent ? currentStudent.class : '';
+
+            const resultHtml = `
+            <div id="result-card" style="text-align:left;font-family:Inter,sans-serif">
+                <div style="text-align:center;margin-bottom:16px">
+                    <div style="font-size:14px;color:#64748b;margin-bottom:4px">${readingData.title}</div>
+                    <div style="font-size:20px;font-weight:800;color:#1e293b">${studentName}${studentEng}</div>
+                    <div style="font-size:14px;color:#64748b;margin-top:2px"><i class="fa-solid fa-school" style="margin-right:4px"></i>${studentClass} &nbsp;|&nbsp; <i class="fa-solid fa-clock" style="margin-right:4px"></i>${timeStr}</div>
                 </div>
-                ${shieldThresholds[currentMaterialId] ? `<div style="text-align:center;margin-top:12px;padding:12px;background:#fffbeb;border-radius:12px;border:1px solid #fde68a;">
-                    <div style="font-size:13px;color:#92400e;font-weight:600;margin-bottom:6px;">🛡️ Số khiên đạt được</div>
+                <table style="width:100%;border-collapse:collapse;margin-bottom:12px">
+                    <thead><tr style="background:#f1f5f9">
+                        <th style="padding:8px 12px;text-align:left;color:#475569;font-size:13px">Phần</th>
+                        <th style="padding:8px 12px;text-align:center;color:#475569;font-size:13px">Điểm</th>
+                        <th style="padding:8px 12px;text-align:center;color:#475569;font-size:13px">%</th>
+                    </tr></thead>
+                    <tbody style="font-size:15px">${partRows}
+                        <tr style="background:#f0fdfa;border-top:2px solid #20a1a0">
+                            <td style="padding:10px 12px;font-weight:800;color:#20a1a0;font-size:16px">Tổng</td>
+                            <td style="padding:10px 12px;text-align:center;font-weight:800;font-size:16px;color:#1e293b">${totalCorrect} / ${totalQuestions}</td>
+                            <td style="padding:10px 12px;text-align:center"><span style="background:${totalColor};color:white;padding:4px 14px;border-radius:10px;font-weight:800;font-size:16px">${pct}%</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                ${shieldThresholds[currentMaterialId] ? `<div style="text-align:center;margin:12px 0;padding:12px;background:#fffbeb;border-radius:12px;border:1px solid #fde68a">
+                    <div style="font-size:13px;color:#92400e;font-weight:600;margin-bottom:6px">🛡️ Số khiên đạt được</div>
                     <div>${renderShieldIcons(readingShields)}</div>
-                    <div style="font-size:20px;font-weight:800;color:#b45309;margin-top:4px;">${readingShields} / 5 khiên</div>
+                    <div style="font-size:20px;font-weight:800;color:#b45309;margin-top:4px">${readingShields} / 5 khiên</div>
                 </div>` : ''}
+                <div style="display:flex;gap:8px;justify-content:center;margin-top:16px">
+                    <button id="btn-review-reading" style="padding:10px 20px;background:#20a1a0;color:white;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-size:15px"><i class="fa-solid fa-eye" style="margin-right:6px"></i>Xem lại bài làm</button>
+                    <button id="btn-save-reading" style="padding:10px 20px;background:#6366f1;color:white;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-size:15px"><i class="fa-solid fa-download" style="margin-right:6px"></i>Lưu kết quả</button>
+                </div>
             </div>`;
 
             Swal.fire({
+                title: 'Nộp bài thành công!',
                 html: resultHtml,
-                width: 480,
-                showConfirmButton: true,
-                showDenyButton: true,
-                confirmButtonText: '<i class="fa-solid fa-eye mr-2"></i> Xem lại bài làm',
-                denyButtonText: '<i class="fa-solid fa-download mr-2"></i> Lưu kết quả',
-                confirmButtonColor: '#20a1a0',
-                denyButtonColor: '#6366f1'
-            }).then(r => {
-                if (r.isDenied) {
-                    const el = document.getElementById('reading-result-capture');
-                    if (el) {
-                        html2canvas(el, { scale: 2, backgroundColor: '#ffffff' }).then(canvas => {
+                icon: 'success',
+                showConfirmButton: false,
+                showCloseButton: true,
+                width: 520,
+                didOpen: () => {
+                    document.getElementById('btn-review-reading').addEventListener('click', () => {
+                        Swal.close();
+                        renderReadingTabs();
+                        renderReadingPart();
+                    });
+                    document.getElementById('btn-save-reading').addEventListener('click', async () => {
+                        const card = document.getElementById('result-card');
+                        const btns = card.querySelector('div[style*="display:flex"]');
+                        btns.style.display = 'none';
+                        try {
+                            const canvas = await html2canvas(card, { backgroundColor: '#ffffff', scale: 2 });
                             const link = document.createElement('a');
-                            link.download = `reading-result-${Date.now()}.png`;
-                            link.href = canvas.toDataURL();
+                            link.download = `KetQua_Reading_${new Date().toISOString().slice(0,10)}.png`;
+                            link.href = canvas.toDataURL('image/png');
                             link.click();
-                        });
-                    }
+                        } catch(e) { console.error(e); }
+                        btns.style.display = 'flex';
+                    });
                 }
-                renderReadingTabs();
-                renderReadingPart();
             });
 
             const btn = document.getElementById('btn-submit-reading');
