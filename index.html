@@ -1797,7 +1797,7 @@
                 if (part.type === 'definition-match') {
                     readingAnswers[i] = part.items.map(() => '');
                 } else if (part.type === 'conversation-choice') {
-                    readingAnswers[i] = part.items.map(() => '');
+                    readingAnswers[i] = part.items.map(() => -1);
                 } else if (part.type === 'story-fill') {
                     readingAnswers[i] = { blanks: part.items.map(() => ''), title: -1 };
                 } else if (part.type === 'grammar-cloze') {
@@ -1854,11 +1854,11 @@
                 <div class="flex flex-col lg:flex-row gap-4">
                     <div class="shrink-0" style="width:35%">
                         <div class="bg-white rounded-2xl p-4 shadow-sm border sticky top-0">
-                            <h4 class="font-bold text-slate-600 mb-3"><i class="fa-solid fa-list mr-1 text-indigo-500"></i> Words</h4>
+                            <h4 class="font-bold text-slate-600 mb-3"><i class="fa-solid fa-list mr-1 text-indigo-500"></i><i class="fa-solid fa-spell-check ml-1 mr-1 text-indigo-500"></i> Words</h4>
                             <div class="flex flex-col gap-2">`;
             part.wordBank.forEach(w => {
                 const isExample = w === part.example.answer;
-                html += `<div class="px-4 py-2 ${isExample ? 'bg-green-50 border border-green-200 text-green-700 opacity-50' : 'bg-indigo-50 border border-indigo-200 text-indigo-700'} rounded-xl font-medium text-base">${w}</div>`;
+                html += `<div class="px-4 py-2 ${isExample ? 'bg-green-50 border border-green-200 text-green-700 opacity-50' : 'bg-indigo-50 border border-indigo-200 text-indigo-700'} rounded-xl font-medium" style="font-size:20px;">${w}</div>`;
             });
             html += `</div></div></div>
                     <div style="width:65%" class="flex flex-col gap-3">`;
@@ -1866,8 +1866,8 @@
             // Example
             html += `<div class="bg-green-50 rounded-2xl p-4 border border-green-200">
                 <div class="flex items-center gap-2 mb-2"><span class="bg-green-500 text-white px-3 py-1 rounded-lg font-bold text-sm">Example</span></div>
-                <p class="text-slate-700 mb-2">${part.example.definition}</p>
-                <span class="font-bold text-green-700 border-b-2 border-green-400 px-2">${part.example.answer}</span>
+                <p class="text-slate-700 mb-2" style="font-size:20px;">${part.example.definition}</p>
+                <span class="font-bold text-green-700 border-b-2 border-green-400 px-2" style="font-size:20px;">${part.example.answer}</span>
             </div>`;
 
             // Questions
@@ -1875,13 +1875,13 @@
                 let answerHtml;
                 if (readingSubmitted) {
                     const isCorrect = answers[i].toLowerCase().trim() === item.answer.toLowerCase().trim();
-                    answerHtml = `<input type="text" value="${answers[i]}" readonly class="w-full px-3 py-2 border-2 rounded-xl font-bold text-base ${isCorrect ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700'}">`;
+                    answerHtml = `<input type="text" value="${answers[i]}" readonly class="w-full px-3 py-2 border-2 rounded-xl font-bold ${isCorrect ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700'}" style="font-size:20px;">`;
                     if (!isCorrect && item.answer) answerHtml += `<span class="text-green-600 font-bold text-sm mt-1 block"><i class="fa-solid fa-arrow-right mr-1"></i>${item.answer}</span>`;
                 } else {
-                    answerHtml = `<input type="text" value="${answers[i]}" placeholder="Type your answer..." oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" class="w-full px-3 py-2 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-turtle-400 font-medium text-base">`;
+                    answerHtml = `<input type="text" value="${answers[i]}" placeholder="Type your answer..." oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" class="w-full px-3 py-2 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
                 }
                 html += `<div class="bg-white rounded-2xl p-4 border shadow-sm">
-                    <p class="text-slate-700 mb-2"><span class="font-bold text-turtle-600 mr-2">${item.num}.</span>${item.definition}</p>
+                    <p class="text-slate-700 mb-2" style="font-size:20px;"><span class="font-bold text-turtle-600 mr-2">${item.num}.</span>${item.definition}</p>
                     ${answerHtml}
                 </div>`;
             });
@@ -1891,6 +1891,12 @@
         }
 
         // --- Part 2: Conversation Choice ---
+        function selectConvChoice(qIdx, optIdx) {
+            if (readingSubmitted) return;
+            readingAnswers[activeReadingPart][qIdx] = optIdx;
+            renderConversationChoice(readingData.parts[activeReadingPart]);
+        }
+
         function renderConversationChoice(part) {
             const content = document.getElementById('reading-content');
             const answers = readingAnswers[activeReadingPart];
@@ -1899,17 +1905,17 @@
             let html = `<div class="max-w-2xl mx-auto">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
                 <div class="bg-blue-50 rounded-2xl p-4 border border-blue-200 mb-4">
-                    <p class="text-blue-800 font-medium"><i class="fa-solid fa-comment-dots mr-2 text-blue-500"></i>${part.context}</p>
+                    <p class="text-blue-800 font-medium" style="font-size:20px;"><i class="fa-solid fa-comment-dots mr-2 text-blue-500"></i>${part.context}</p>
                 </div>`;
 
             // Example
             html += `<div class="bg-green-50 rounded-2xl p-4 border border-green-200 mb-3">
                 <div class="flex items-center gap-2 mb-2"><span class="bg-green-500 text-white px-3 py-1 rounded-lg font-bold text-sm">Example</span></div>
-                <p class="font-bold text-slate-800 mb-3"><span class="text-blue-600">${part.example.speaker}:</span> ${part.example.question}</p>
+                <p class="font-bold text-slate-800 mb-3" style="font-size:20px;"><span class="text-blue-600">${part.example.speaker}:</span> ${part.example.question}</p>
                 <div class="space-y-2">`;
             part.example.options.forEach((opt, j) => {
                 const isAnswer = j === part.example.answer;
-                html += `<div class="p-3 rounded-xl text-base font-medium ${isAnswer ? 'bg-green-500 text-white' : 'bg-white border border-slate-200 text-slate-400'}">
+                html += `<div class="p-3 rounded-xl font-medium ${isAnswer ? 'bg-green-500 text-white' : 'bg-white border border-slate-200 text-slate-400'}" style="font-size:20px;">
                     <span class="font-bold">${letters[j]}.</span> ${opt}</div>`;
             });
             html += `</div></div>`;
@@ -1917,22 +1923,22 @@
             // Questions
             part.items.forEach((item, i) => {
                 html += `<div class="bg-white rounded-2xl p-4 border shadow-sm mb-3">
-                    <p class="font-bold text-slate-800 mb-3"><span class="text-turtle-600 mr-2">${item.num}.</span><span class="text-blue-600">${item.speaker}:</span> ${item.question}</p>
-                    <div class="space-y-2 mb-3">`;
+                    <p class="font-bold text-slate-800 mb-3" style="font-size:20px;"><span class="text-turtle-600 mr-2">${item.num}.</span><span class="text-blue-600">${item.speaker}:</span> ${item.question}</p>
+                    <div class="space-y-2">`;
                 item.options.forEach((opt, j) => {
-                    html += `<div class="p-3 rounded-xl text-base font-medium bg-slate-50 border border-slate-200 text-slate-600">
+                    let btnClass = 'p-3 rounded-xl font-medium transition-all ';
+                    if (readingSubmitted) {
+                        if (j === item.answer) btnClass += 'bg-green-500 text-white';
+                        else if (answers[i] === j && j !== item.answer) btnClass += 'bg-red-400 text-white';
+                        else btnClass += 'bg-slate-50 border border-slate-200 text-slate-400';
+                    } else {
+                        if (answers[i] === j) btnClass += 'bg-turtle-500 text-white shadow-md';
+                        else btnClass += 'bg-slate-50 border border-slate-200 text-slate-600 hover:border-turtle-300 hover:bg-turtle-50 cursor-pointer';
+                    }
+                    html += `<div class="${btnClass}" style="font-size:20px;" onclick="selectConvChoice(${i},${j})">
                         <span class="font-bold">${letters[j]}.</span> ${opt}</div>`;
                 });
-                html += `</div>`;
-                if (readingSubmitted) {
-                    const correctLetter = letters[item.answer];
-                    const isCorrect = answers[i].toUpperCase().trim() === correctLetter;
-                    html += `<input type="text" value="${answers[i]}" readonly class="w-20 px-3 py-2 border-2 rounded-xl font-bold text-base text-center ${isCorrect ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700'}">`;
-                    if (!isCorrect) html += `<span class="text-green-600 font-bold text-sm ml-2"><i class="fa-solid fa-arrow-right mr-1"></i>${correctLetter}</span>`;
-                } else {
-                    html += `<input type="text" value="${answers[i]}" placeholder="A, B or C" oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" class="w-20 px-3 py-2 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-turtle-400 font-bold text-base text-center" maxlength="1">`;
-                }
-                html += `</div>`;
+                html += `</div></div>`;
             });
 
             html += `</div>`;
@@ -1955,17 +1961,17 @@
                 <div class="flex flex-col lg:flex-row gap-4">
                     <div class="shrink-0" style="width:30%">
                         <div class="bg-white rounded-2xl p-4 shadow-sm border sticky top-0">
-                            <h4 class="font-bold text-slate-600 mb-3"><i class="fa-solid fa-list mr-1 text-indigo-500"></i> Word box</h4>
+                            <h4 class="font-bold text-slate-600 mb-3"><i class="fa-solid fa-list mr-1 text-indigo-500"></i><i class="fa-solid fa-spell-check ml-1 mr-1 text-indigo-500"></i> Word box</h4>
                             <div class="flex flex-col gap-2">
-                                <div class="px-4 py-2 bg-green-50 border border-green-200 rounded-xl font-medium text-green-700 text-base opacity-50">${part.example.word}</div>`;
+                                <div class="px-4 py-2 bg-green-50 border border-green-200 rounded-xl font-medium text-green-700 opacity-50" style="font-size:20px;">${part.example.word}</div>`;
             part.wordBank.forEach(w => {
-                html += `<div class="px-4 py-2 bg-indigo-50 border border-indigo-200 rounded-xl font-medium text-indigo-700 text-base">${w}</div>`;
+                html += `<div class="px-4 py-2 bg-indigo-50 border border-indigo-200 rounded-xl font-medium text-indigo-700" style="font-size:20px;">${w}</div>`;
             });
             html += `</div></div></div>
                     <div style="width:70%" class="flex flex-col gap-4">`;
 
             // Story with blanks (text inputs)
-            html += `<div class="bg-white rounded-2xl p-6 shadow-sm border"><div class="prose max-w-none text-base leading-relaxed text-slate-700">`;
+            html += `<div class="bg-white rounded-2xl p-6 shadow-sm border"><div class="prose max-w-none leading-relaxed text-slate-700" style="font-size:20px;">`;
             part.storyParts.forEach(para => {
                 let rendered = para;
                 rendered = rendered.replace('%%example%%', `<span class="font-bold text-green-700 border-b-2 border-green-400 px-1">${part.example.word}</span>`);
@@ -1977,7 +1983,7 @@
                         blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers.blanks[i] || '—'}</span>`;
                         if (!isCorrect) blankHtml += `<span class="text-green-600 font-bold text-sm ml-1">${item.answer}</span>`;
                     } else {
-                        blankHtml = `<input type="text" value="${answers.blanks[i]}" placeholder="..." oninput="readingAnswers[${activeReadingPart}].blanks[${i}]=this.value" class="inline-block w-28 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium text-base text-center">`;
+                        blankHtml = `<input type="text" value="${answers.blanks[i]}" placeholder="..." oninput="readingAnswers[${activeReadingPart}].blanks[${i}]=this.value" class="inline-block w-32 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium text-center" style="font-size:20px;">`;
                     }
                     rendered = rendered.replace('%%blank%%', blankHtml);
                 }
@@ -1989,10 +1995,10 @@
             if (part.titleQuestion) {
                 const tq = part.titleQuestion;
                 html += `<div class="bg-white rounded-2xl p-4 border shadow-sm">
-                    <p class="font-bold text-slate-800 mb-3"><span class="text-turtle-600 mr-2">${tq.num}.</span>${tq.instruction}</p>
+                    <p class="font-bold text-slate-800 mb-3" style="font-size:20px;"><span class="text-turtle-600 mr-2">${tq.num}.</span>${tq.instruction}</p>
                     <div class="space-y-2">`;
                 tq.options.forEach((opt, j) => {
-                    let btnClass = 'p-3 rounded-xl text-base font-medium transition-all ';
+                    let btnClass = 'p-3 rounded-xl font-medium transition-all ';
                     if (readingSubmitted) {
                         if (j === tq.answer) btnClass += 'bg-green-500 text-white';
                         else if (answers.title === j && j !== tq.answer) btnClass += 'bg-red-400 text-white';
@@ -2001,7 +2007,7 @@
                         if (answers.title === j) btnClass += 'bg-turtle-500 text-white shadow-md';
                         else btnClass += 'bg-slate-50 border border-slate-200 text-slate-600 hover:border-turtle-300 hover:bg-turtle-50 cursor-pointer';
                     }
-                    html += `<div class="${btnClass}" onclick="selectStoryTitle(${j})">${opt}</div>`;
+                    html += `<div class="${btnClass}" style="font-size:20px;" onclick="selectStoryTitle(${j})">${opt}</div>`;
                 });
                 html += `</div></div>`;
             }
@@ -2022,7 +2028,7 @@
                     <div style="width:55%" class="flex flex-col gap-4">`;
 
             // Story text with numbered blanks
-            html += `<div class="bg-white rounded-2xl p-6 shadow-sm border"><div class="prose max-w-none text-base leading-relaxed text-slate-700">`;
+            html += `<div class="bg-white rounded-2xl p-6 shadow-sm border"><div class="prose max-w-none leading-relaxed text-slate-700" style="font-size:20px;">`;
             part.storyParts.forEach(para => {
                 let rendered = para;
                 rendered = rendered.replace('%%example%%', `<span class="font-bold text-green-700 border-b-2 border-green-400 px-1">${part.example.options[part.example.answer]}</span>`);
@@ -2038,13 +2044,13 @@
 
             // Choice table with text input
             html += `<div class="bg-white rounded-2xl shadow-sm border overflow-hidden">
-                <table class="w-full">
+                <table class="w-full" style="font-size:20px;">
                     <thead><tr class="bg-turtle-50">
                         <th class="p-3 text-left text-turtle-700 font-bold w-16">#</th>
                         <th class="p-3 text-center text-turtle-700 font-bold">A</th>
                         <th class="p-3 text-center text-turtle-700 font-bold">B</th>
                         <th class="p-3 text-center text-turtle-700 font-bold">C</th>
-                        <th class="p-3 text-center text-turtle-700 font-bold w-24">Answer</th>
+                        <th class="p-3 text-center text-turtle-700 font-bold w-28">Answer</th>
                     </tr></thead><tbody>
                     <tr class="bg-green-50">
                         <td class="p-3 font-bold text-green-600">Ex</td>`;
@@ -2063,11 +2069,11 @@
                 if (readingSubmitted) {
                     const correctWord = item.options[item.answer];
                     const isCorrect = answers[i].toLowerCase().trim() === correctWord.toLowerCase().trim();
-                    html += `<td class="p-3 text-center"><input type="text" value="${answers[i]}" readonly class="w-full px-2 py-1 border-2 rounded-lg font-bold text-center text-base ${isCorrect ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700'}">`;
+                    html += `<td class="p-3 text-center"><input type="text" value="${answers[i]}" readonly class="w-full px-2 py-1 border-2 rounded-lg font-bold text-center ${isCorrect ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700'}" style="font-size:20px;">`;
                     if (!isCorrect) html += `<div class="text-green-600 font-bold text-xs mt-1">${correctWord}</div>`;
                     html += `</td>`;
                 } else {
-                    html += `<td class="p-3 text-center"><input type="text" value="${answers[i]}" placeholder="..." oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" class="w-full px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-bold text-center text-base"></td>`;
+                    html += `<td class="p-3 text-center"><input type="text" value="${answers[i]}" placeholder="..." oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" class="w-full px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-bold text-center" style="font-size:20px;"></td>`;
                 }
                 html += `</tr>`;
             });
@@ -2086,13 +2092,13 @@
 
             part.storySegments.forEach((seg, sIdx) => {
                 if (seg.title) {
-                    html += `<h3 class="text-xl font-bold text-slate-800 mb-3">${seg.title}</h3>`;
+                    html += `<h3 class="text-2xl font-bold text-slate-800 mb-3">${seg.title}</h3>`;
                 }
 
                 html += `<div class="flex flex-col lg:flex-row gap-4 mb-4">`;
 
                 // Story text LEFT
-                html += `<div style="width:55%"><div class="bg-slate-100 rounded-2xl p-4 h-full"><div class="prose max-w-none text-base leading-relaxed text-slate-700 whitespace-pre-line">${seg.text}</div></div></div>`;
+                html += `<div style="width:55%"><div class="bg-slate-100 rounded-2xl p-4 h-full"><div class="prose max-w-none leading-relaxed text-slate-700 whitespace-pre-line" style="font-size:20px;">${seg.text}</div></div></div>`;
 
                 // Questions RIGHT
                 html += `<div style="width:45%" class="flex flex-col gap-2">`;
@@ -2103,7 +2109,7 @@
                         const rendered = ex.sentence.replace('%%answer%%', `<span class="font-bold text-green-700 border-b-2 border-green-400 px-1">${ex.answer}</span>`);
                         html += `<div class="bg-green-50 rounded-xl p-3 border border-green-200">
                             <span class="bg-green-500 text-white px-2 py-0.5 rounded font-bold text-xs mr-2">Ex</span>
-                            <span class="text-sm">${rendered}</span>
+                            <span style="font-size:20px;">${rendered}</span>
                         </div>`;
                     });
                 }
@@ -2120,11 +2126,11 @@
                             const blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${userAns || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${q.answer}</span>` : ''}`;
                             questionHtml = parts[0] + blankHtml + (parts[1] || '');
                         } else {
-                            const blankHtml = `<input type="text" value="${answers[aIdx]}" placeholder="..." oninput="readingAnswers[${activeReadingPart}][${aIdx}]=this.value" class="inline-block w-40 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium text-base">`;
+                            const blankHtml = `<input type="text" value="${answers[aIdx]}" placeholder="..." oninput="readingAnswers[${activeReadingPart}][${aIdx}]=this.value" class="inline-block w-40 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
                             questionHtml = parts[0] + blankHtml + (parts[1] || '');
                         }
                         html += `<div class="bg-white rounded-xl p-3 border shadow-sm">
-                            <span class="font-bold text-turtle-600 mr-1">${q.num}.</span><span class="text-sm">${questionHtml}</span>
+                            <span class="font-bold text-turtle-600 mr-1" style="font-size:20px;">${q.num}.</span><span style="font-size:20px;">${questionHtml}</span>
                         </div>`;
                         qCounter++;
                     });
@@ -2158,7 +2164,7 @@
                 } else {
                     exHtml = `${ex.question} <span class="font-bold text-green-700 border-b-2 border-green-400 px-1">${ex.answer}</span>`;
                 }
-                html += `<div class="bg-green-50 rounded-xl p-3 border border-green-200">
+                html += `<div class="bg-green-50 rounded-xl p-3 border border-green-200" style="font-size:20px;">
                     <span class="bg-green-500 text-white px-2 py-0.5 rounded font-bold text-xs mr-2">Example</span>
                     ${exHtml}
                 </div>`;
@@ -2173,7 +2179,7 @@
                         const blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${item.answer}</span>` : ''}`;
                         questionHtml = item.sentence.replace('%%blank%%', blankHtml);
                     } else {
-                        const blankHtml = `<input type="text" value="${answers[i]}" placeholder="..." oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" class="inline-block w-40 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium text-base">`;
+                        const blankHtml = `<input type="text" value="${answers[i]}" placeholder="..." oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" class="inline-block w-40 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
                         questionHtml = item.sentence.replace('%%blank%%', blankHtml);
                     }
                 } else if (item.type === 'answer') {
@@ -2181,22 +2187,22 @@
                         const isCorrect = answers[i].toLowerCase().trim() === item.answer.toLowerCase().trim();
                         questionHtml = `${item.question}<br><span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${item.answer}</span>` : ''}`;
                     } else {
-                        questionHtml = `${item.question}<br><input type="text" value="${answers[i]}" placeholder="..." oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" class="mt-2 w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium text-base">`;
+                        questionHtml = `${item.question}<br><input type="text" value="${answers[i]}" placeholder="..." oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" class="mt-2 w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
                     }
                 } else if (item.type === 'free') {
                     if (item.instruction) {
-                        questionHtml = `<p class="text-slate-600 italic mb-2">${item.instruction}</p>`;
+                        questionHtml = `<p class="text-slate-600 italic mb-2" style="font-size:20px;">${item.instruction}</p>`;
                     } else {
                         questionHtml = '';
                     }
                     if (readingSubmitted) {
-                        questionHtml += `<p class="text-slate-700 bg-slate-50 rounded-lg p-2">${answers[i] || '<span class="text-slate-400 italic">Không trả lời</span>'}</p>`;
+                        questionHtml += `<p class="text-slate-700 bg-slate-50 rounded-lg p-2" style="font-size:20px;">${answers[i] || '<span class="text-slate-400 italic">Không trả lời</span>'}</p>`;
                     } else {
-                        questionHtml += `<textarea oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" placeholder="Write a sentence..." class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium text-base resize-none" rows="2">${answers[i]}</textarea>`;
+                        questionHtml += `<textarea oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" placeholder="Write a sentence..." class="w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium resize-none" rows="2" style="font-size:20px;">${answers[i]}</textarea>`;
                     }
                 }
 
-                html += `<div class="bg-white rounded-xl p-4 border shadow-sm">
+                html += `<div class="bg-white rounded-xl p-4 border shadow-sm" style="font-size:20px;">
                     <span class="font-bold text-turtle-600 mr-2">${item.num}.</span>
                     ${questionHtml}
                 </div>`;
@@ -2215,7 +2221,7 @@
             readingData.parts.forEach((part, i) => {
                 const ans = readingAnswers[i];
                 if (part.type === 'definition-match') answeredCount += ans.filter(a => a.trim()).length;
-                else if (part.type === 'conversation-choice') answeredCount += ans.filter(a => a.trim()).length;
+                else if (part.type === 'conversation-choice') answeredCount += ans.filter(a => a >= 0).length;
                 else if (part.type === 'story-fill') { answeredCount += ans.blanks.filter(a => a.trim()).length; if (ans.title >= 0) answeredCount++; }
                 else if (part.type === 'grammar-cloze') answeredCount += ans.filter(a => a.trim()).length;
                 else if (part.type === 'story-write') answeredCount += ans.filter(a => a.trim()).length;
@@ -2247,8 +2253,7 @@
                 if (part.type === 'definition-match') {
                     part.items.forEach((item, j) => { if (ans[j].toLowerCase().trim() === item.answer.toLowerCase().trim()) correct++; });
                 } else if (part.type === 'conversation-choice') {
-                    const convLetters = ['A', 'B', 'C'];
-                    part.items.forEach((item, j) => { if (ans[j].toUpperCase().trim() === convLetters[item.answer]) correct++; });
+                    part.items.forEach((item, j) => { if (ans[j] === item.answer) correct++; });
                 } else if (part.type === 'story-fill') {
                     part.items.forEach((item, j) => { if (ans.blanks[j].toLowerCase().trim() === item.answer.toLowerCase().trim()) correct++; });
                     if (part.titleQuestion && ans.title === part.titleQuestion.answer) correct++;
