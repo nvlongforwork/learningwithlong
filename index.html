@@ -1193,12 +1193,12 @@
             let html = `
             <div class="w-full">
                 <p class="text-slate-500 italic mb-4 text-sm whitespace-pre-line"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
-                <div class="flex flex-col gap-4">
-                    <div class="flex flex-row gap-3">
-                        <img src="${part.peopleImage}" alt="People" class="w-1/2 rounded-xl shadow-md border">
-                        <img src="${part.activitiesImage}" alt="Activities" class="w-1/2 rounded-xl shadow-md border">
+                <div class="flex flex-col lg:flex-row gap-4">
+                    <div class="lg:w-2/5 flex flex-row gap-2 shrink-0">
+                        <img src="${part.peopleImage}" alt="People" class="w-1/2 rounded-xl shadow-md border object-contain">
+                        <img src="${part.activitiesImage}" alt="Activities" class="w-1/2 rounded-xl shadow-md border object-contain">
                     </div>
-                    <div class="flex flex-col gap-4">
+                    <div class="lg:w-3/5 flex flex-col gap-4">
                         <div class="bg-white rounded-2xl shadow-sm border overflow-hidden">
                             <table class="listening-table w-full">
                                 <thead><tr class="bg-turtle-50">
@@ -1266,15 +1266,15 @@
             let html = `
             <div class="w-full">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
-                <div class="flex flex-col gap-4">
-                    <div class="flex flex-row gap-3">`;
+                <div class="flex flex-col lg:flex-row gap-4">
+                    <div class="lg:w-2/5 flex ${part.images && part.images.length > 1 ? 'flex-row gap-2' : 'flex-col'} shrink-0">`;
             if (part.images) {
                 const imgWidth = part.images.length > 1 ? 'w-1/2' : 'w-full';
                 part.images.forEach(img => {
-                    html += `<img src="${img}" alt="Part 4" class="${imgWidth} rounded-xl shadow-md border">`;
+                    html += `<img src="${img}" alt="Part 4" class="${imgWidth} rounded-xl shadow-md border object-contain">`;
                 });
             }
-            html += `</div><div class="flex flex-col gap-4">`;
+            html += `</div><div class="lg:w-3/5 flex flex-col gap-4">`;
 
             // Example
             html += `<div class="bg-green-50 rounded-2xl p-4 border border-green-200">
