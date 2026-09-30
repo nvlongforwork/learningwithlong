@@ -19,6 +19,13 @@
         { "name": "Bill", "action": "is reading a book" },
         { "name": "Alex", "action": "is looking out of the window" },
         { "name": "Tom", "action": "is sitting under the desk" }
+      ],
+      "audioScript": [
+        "Boy: Can you see Nick?\nWoman: No, which one's he?\nBoy: He's the boy who's painting a picture. He's got brown hair like me.\nWoman: Oh yes, I can see. That's a great picture. Is it a dolphin?\nBoy: Yes, I think it is.",
+        "Woman: Who's the girl who's playing on the computer?\nBoy: Which one do you mean?\nWoman: The one with the longer hair who's wearing a sweater.\nBoy: That's Sally. She's playing a pirate game with the letters of the alphabet.",
+        "Boy: And there's my best friend. He's called Bill.\nWoman: Where's he?\nBoy: He's next to the cupboard and he's reading a book.\nWoman: Oh yes, he's laughing. That book must be very funny.\nBoy: Yes, I read it too. It's about a clown.",
+        "Woman: One person isn't happy.\nBoy: Who do you mean?\nWoman: That boy with brown hair who's looking out of the window.\nBoy: Oh yes, that's Alex. He loves football. He wanted to play football that day. That's why he's sad.",
+        "Woman: Who's that boy who's sitting under the desk?\nBoy: The one who's eating an apple?\nWoman: Yes. Who's he?\nBoy: That's Tom.\nWoman: Why's he under the desk?\nBoy: I don't know!"
       ]
     },
     {
@@ -36,6 +43,13 @@
         { "num": 3, "label": "Comes to sports centre with:", "prefix": "his", "answer": "son" },
         { "num": 4, "label": "Likes sports centre because:", "prefix": "it's", "answer": "clean" },
         { "num": 5, "label": "Name:", "prefix": "Mr", "answer": "Pitt" }
+      ],
+      "audioScript": [
+        "Girl: And what's your favourite sport?\nMan: Oh, that's difficult. I sometimes have a swim.\nGirl: OK, shall I write \"swim\" then?\nMan: No, I like playing tennis more than having a swim. Write \"tennis\".\nGirl: OK.",
+        "Girl: And how do you get here? Do you come by bus?\nMan: No, I don't. I come by car because it's quicker than the bus.\nGirl: OK. Thanks. I'm writing that now.",
+        "Girl: Who do you come to the sports centre with?\nMan: I always come with my son.\nGirl: OK. Is he here today?\nMan: Yes, he's having a shower.\nGirl: OK.",
+        "Girl: Why do you like this sports centre? Is it because it's near your house?\nMan: No, I like this centre because it's clean.\nGirl: Yes, it is.",
+        "Girl: Can you tell me your name, please.\nMan: Yes, it's Mr Pitt.\nGirl: Can you spell that for me, please.\nMan: Yes, it's P-I-double T."
       ]
     },
     {
@@ -56,6 +70,13 @@
         { "person": "Uncle Fred", "answer": "F" },
         { "person": "Grandpa", "answer": "H" },
         { "person": "Clare", "answer": "A" }
+      ],
+      "audioScript": [
+        "Man: What about your dad? What did he do at the weekend?\nGirl: He didn't go out at all because he was reading his new e-book. It was very exciting and he couldn't stop reading it!\nMan: I understand that! I love reading too!",
+        "Man: I saw there was a funfair in town last weekend. Did any of your family go?\nGirl: No, they didn't. But my Aunt Zoe took my cousins to the circus.\nMan: Did they have fun?\nGirl: Yes, they did. Aunt Zoe liked the clowns best because they were very funny.",
+        "Girl: My Uncle Fred sailed his boat on Sunday afternoon.\nMan: Really?\nGirl: Yes, he's got a small boat and he sails it on the river near our house. Sometimes I go with him. It's fantastic!",
+        "Girl: My grandpa had an exciting weekend. He often goes fishing on Sundays, but he didn't go fishing last weekend. He went for a long walk in the countryside. He had a picnic next to a waterfall.\nMan: Oh wow!\nGirl: He showed me some photographs. It was beautiful!",
+        "Man: What did your sister do?\nGirl: My sister Clare went roller skating with her friends in the park. She's very good at roller skating.\nMan: Do you go roller skating?\nGirl: Sometimes, but I like ice skating more than roller skating."
       ]
     },
     {
@@ -77,6 +98,13 @@
         { "num": 3, "question": "What did Fred have for breakfast today?", "options": ["An orange", "Egg and tomato", "A banana and an apple"], "answer": 2 },
         { "num": 4, "question": "What work does Sue's mum do?", "options": ["Doctor", "Teacher", "Farmer"], "answer": 0 },
         { "num": 5, "question": "What present did Kim get yesterday?", "options": ["A puppy", "A radio", "A new bike"], "answer": 0 }
+      ],
+      "audioScript": [
+        "Girl: There's my dad.\nMan: Which one's he, Mary? Is he the one with the blonde curly hair?\nGirl: No, my dad has brown hair like me.\nMan: Does he have a moustache?\nGirl: Yes, he does and he has a beard too. Can you see him now?\nMan: Oh yes, I can see him.",
+        "Boy: What's Jane doing, Mum? Is she playing tennis?\nWoman: No, she played tennis this morning, but now she's watching a DVD about football.\nBoy: Oh, OK. Can I watch it too?\nWoman: Yes, you can.",
+        "Girl: Hmm, I had egg and tomato for breakfast. What did you have, Fred?\nBoy: I wasn't hungry this morning. I had some fruit.\nGirl: What fruit did you eat? Did you have an orange?\nBoy: No, I had a banana and an apple.",
+        "Man: Sue, is your mum a farmer like your dad?\nGirl: No, she works at the hospital. She's a doctor.\nMan: Oh. And what do you want to do when you're a grown-up?\nGirl: Hmm, I want to be a teacher.",
+        "Girl: I got a great present from my aunt yesterday. What do you think it was?\nBoy: Oh, was it a radio?\nGirl: No, it wasn't. Try again.\nBoy: Err, was it a new bike?\nGirl: No! It was a new puppy!\nBoy: Wow! That's great!"
       ]
     },
     {
@@ -109,6 +137,13 @@
         { "num": 3, "item": "Bigger boat", "type": "write", "answer": "wet" },
         { "num": 4, "item": "Smaller boat's sail", "type": "color", "answer": "yellow" },
         { "num": 5, "item": "Bird on the beach (next to fisherman)", "type": "color", "answer": "pink" }
+      ],
+      "audioScript": [
+        "Girl: What shall I colour now?\nMan: Can you see the boy playing in the sand?\nGirl: Which one?\nMan: The older boy who's playing nearer to the sea.\nGirl: Yes, I can see him.\nMan: Colour his T-shirt green.\nGirl: OK.",
+        "Man: There's a blanket on the sand.\nGirl: Yes, two people are sitting on it.\nMan: That's right. Have you got a purple pencil?\nGirl: Yes, I have.\nMan: Then do the blanket that colour.",
+        "Man: Would you like to write something on this?\nGirl: Yes, I love writing.\nMan: Good. Write the word \"wet\" on one of the boats.\nGirl: Shall I write it on the bigger boat?\nMan: Yes, good idea.",
+        "Girl: And can I colour the sail of the smaller boat?\nMan: Yes, OK. You choose the colour.\nGirl: Hmm, I think yellow would be good for that sail.\nMan: Yes, you're right.",
+        "Man: Now, can you colour one of the birds?\nGirl: Yes, OK. Can I colour the one that's flying near the big boat?\nMan: No, colour the one that's sitting on the beach next to the man who's fishing. That bird wants to eat the man's fish, I think.\nGirl: Oh yes, shall I colour him pink?\nMan: Yes, please. That's great. Thanks."
       ]
     }
   ]
