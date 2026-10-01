@@ -8,7 +8,7 @@
       "questions": 5,
       "instructions": "Listen and draw lines. There is one example.",
       "type": "drag-match",
-      "image": "images/collins-movers/test1/part1-classroom.png",
+      "image": "images/collins-movers/test1/part1-classroom.webp",
       "audio": "audio/collins-movers/test1/part1.mp3",
       "names": ["Alex", "Bill", "Nick", "Daisy", "Sally", "Vicky", "Tom"],
       "actions": ["is looking out of the window", "is reading a book", "is painting a picture", "is playing on the computer", "is drawing a house on the board", "is sitting under the desk", "is writing in a notebook"],
@@ -35,6 +35,7 @@
       "instructions": "Listen and write. There is one example.",
       "type": "fill-blank",
       "audio": "audio/collins-movers/test1/part2.mp3",
+      "image": "images/collins-movers/test1/part2-sports-centre.webp",
       "formTitle": "Sports centre homework",
       "example": { "label": "Comes:", "prefix": "every", "answer": "Saturday" },
       "rows": [
