@@ -1900,7 +1900,11 @@
                             <div class="flex flex-col gap-2">`;
             part.wordBank.forEach(w => {
                 const isExample = w === part.example.answer;
-                html += `<div class="px-4 py-2 ${isExample ? 'bg-green-50 border border-green-200 text-green-700 opacity-50' : 'bg-indigo-50 border border-indigo-200 text-indigo-700'} rounded-xl font-medium" style="font-size:20px;">${w}</div>`;
+                const imgSrc = part.wordImages && part.wordImages[w] ? part.wordImages[w] : '';
+                html += `<div class="flex items-center gap-2 px-3 py-2 ${isExample ? 'bg-green-50 border border-green-200 text-green-700 opacity-50' : 'bg-indigo-50 border border-indigo-200 text-indigo-700'} rounded-xl font-medium" style="font-size:20px;">
+                    ${imgSrc ? `<img src="${imgSrc}" class="w-16 h-12 object-contain rounded">` : ''}
+                    <span>${w}</span>
+                </div>`;
             });
             html += `</div></div></div>
                     <div style="width:65%" class="flex flex-col gap-3">`;
@@ -2005,9 +2009,16 @@
                         <div class="bg-white rounded-2xl p-4 shadow-sm border sticky top-0">
                             <h4 class="font-bold text-slate-600 mb-3"><i class="fa-solid fa-list mr-1 text-indigo-500"></i><i class="fa-solid fa-spell-check ml-1 mr-1 text-indigo-500"></i> Word box</h4>
                             <div class="flex flex-col gap-2">
-                                <div class="px-4 py-2 bg-green-50 border border-green-200 rounded-xl font-medium text-green-700 opacity-50" style="font-size:20px;">${part.example.word}</div>`;
+                                <div class="flex items-center gap-2 px-3 py-2 bg-green-50 border border-green-200 rounded-xl font-medium text-green-700 opacity-50" style="font-size:20px;">
+                    ${part.wordImages && part.wordImages[part.example.word] ? `<img src="${part.wordImages[part.example.word]}" class="w-16 h-12 object-contain rounded">` : ''}
+                    <span>${part.example.word}</span>
+                </div>`;
             part.wordBank.forEach(w => {
-                html += `<div class="px-4 py-2 bg-indigo-50 border border-indigo-200 rounded-xl font-medium text-indigo-700" style="font-size:20px;">${w}</div>`;
+                const imgSrc = part.wordImages && part.wordImages[w] ? part.wordImages[w] : '';
+                html += `<div class="flex items-center gap-2 px-3 py-2 bg-indigo-50 border border-indigo-200 rounded-xl font-medium text-indigo-700" style="font-size:20px;">
+                    ${imgSrc ? `<img src="${imgSrc}" class="w-16 h-12 object-contain rounded">` : ''}
+                    <span>${w}</span>
+                </div>`;
             });
             html += `</div></div></div>
                     <div style="width:70%" class="flex flex-col gap-4">`;

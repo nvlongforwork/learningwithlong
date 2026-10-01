@@ -9,6 +9,16 @@
       "instructions": "Look and read. Choose the correct words and write them on the lines. There is one example.",
       "type": "definition-match",
       "wordBank": ["a whale", "a clown", "earache", "a kitten", "a hospital", "a teacher", "football", "a doctor"],
+      "wordImages": {
+        "a whale": "images/collins-movers/test1/words/p1-whale.webp",
+        "a clown": "images/collins-movers/test1/words/p1-clown.webp",
+        "earache": "images/collins-movers/test1/words/p1-earache.webp",
+        "a kitten": "images/collins-movers/test1/words/p1-kitten.webp",
+        "a hospital": "images/collins-movers/test1/words/p1-hospital.webp",
+        "a teacher": "images/collins-movers/test1/words/p1-teacher.webp",
+        "football": "images/collins-movers/test1/words/p1-football.webp",
+        "a doctor": "images/collins-movers/test1/words/p1-doctor.webp"
+      },
       "example": { "definition": "This person is very funny.", "answer": "a clown" },
       "items": [
         { "num": 1, "definition": "You go and see this person when you are not well.", "answer": "a doctor" },
@@ -59,6 +69,17 @@
         "\"Thank you, Mum. I can climb up trees, but I can't climb down again!\""
       ],
       "wordBank": ["cold", "tallest", "trousers", "arms", "shouted", "trees", "ate", "jumped"],
+      "wordImages": {
+        "bikes": "images/collins-movers/test1/words/p3-bikes.webp",
+        "cold": "images/collins-movers/test1/words/p3-cold.webp",
+        "tallest": "images/collins-movers/test1/words/p3-tallest.webp",
+        "trousers": "images/collins-movers/test1/words/p3-trousers.webp",
+        "arms": "images/collins-movers/test1/words/p3-arms.webp",
+        "shouted": "images/collins-movers/test1/words/p3-shouted.webp",
+        "trees": "images/collins-movers/test1/words/p3-trees.webp",
+        "ate": "images/collins-movers/test1/words/p3-ate.webp",
+        "jumped": "images/collins-movers/test1/words/p3-jumped.webp"
+      },
       "example": { "word": "bikes" },
       "items": [
         { "num": 1, "answer": "ate" },
