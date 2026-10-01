@@ -87,7 +87,7 @@
       "instructions": "Listen and tick (✓) the box. There is one example.",
       "type": "multiple-choice-abc",
       "audio": "audio/collins-movers/test1/part4.mp3",
-      "images": ["images/collins-movers/test1/part4-page1.png", "images/collins-movers/test1/part4-page2.webp"],
+      "images": ["images/collins-movers/test1/part4-page1.png", "images/collins-movers/test1/part4-page2.png"],
       "example": {
         "question": "What's the matter with Paul?",
         "options": ["Earache (covering ears)", "Stomach ache (feeling sick)", "Headache (holding head)"],
@@ -115,7 +115,7 @@
       "instructions": "Listen and colour and write. There is one example.",
       "type": "color-write",
       "audio": "audio/collins-movers/test1/part5.mp3",
-      "image": "images/collins-movers/test1/part5-beach.webp",
+      "image": "images/collins-movers/test1/part5-beach.png",
       "colors": ["red", "blue", "purple", "green", "pink", "yellow", "gray", "black", "orange", "brown"],
       "example": { "item": "Fisherman's trousers", "type": "color", "answer": "red" },
       "itemBank": [
