@@ -108,6 +108,7 @@
 
         .resp-row { display: flex; gap: 1rem; }
         .resp-col { min-width: 0; }
+        .swal-result-popup { max-width: 1080px !important; }
 
         @media (max-width: 768px) {
             .resp-row {
@@ -1870,7 +1871,8 @@
                     icon: 'success',
                     showConfirmButton: false,
                     showCloseButton: true,
-                    width: 520,
+                    width: '90%',
+                    customClass: { popup: 'swal-result-popup' },
                     didOpen: () => {
                         document.getElementById('btn-review-result').addEventListener('click', () => {
                             Swal.close();
@@ -1883,8 +1885,8 @@
                         });
                         document.getElementById('btn-save-result').addEventListener('click', async () => {
                             const card = document.getElementById('result-card');
-                            const btns = card.querySelector('div[style*="display:flex"]');
-                            btns.style.display = 'none';
+                            const btns = card.querySelector('div[style*="display:flex;gap:12px;justify-content:center;margin-top"]');
+                            if (btns) btns.style.display = 'none';
                             try {
                                 const canvas = await html2canvas(card, { backgroundColor: '#ffffff', scale: 2 });
                                 const link = document.createElement('a');
@@ -2515,7 +2517,8 @@
                     icon: 'success',
                     showConfirmButton: false,
                     showCloseButton: true,
-                    width: 540,
+                    width: '90%',
+                    customClass: { popup: 'swal-result-popup' },
                     didOpen: () => {
                         document.getElementById('btn-review-reading').addEventListener('click', () => {
                             Swal.close();
@@ -2524,7 +2527,7 @@
                         });
                         document.getElementById('btn-save-reading').addEventListener('click', async () => {
                             const card = document.getElementById('result-card');
-                            const btns = card.querySelector('div[style*="display:flex;gap:8px;justify-content:center;margin-top"]');
+                            const btns = card.querySelector('div[style*="display:flex;gap:12px;justify-content:center;margin-top"]');
                             if (btns) btns.style.display = 'none';
                             try {
                                 const canvas = await html2canvas(card, { backgroundColor: '#ffffff', scale: 2 });
@@ -2563,7 +2566,8 @@
                     icon: 'success',
                     showConfirmButton: false,
                     showCloseButton: true,
-                    width: 540,
+                    width: '90%',
+                    customClass: { popup: 'swal-result-popup' },
                     didOpen: () => {
                         document.getElementById('btn-review-reading').addEventListener('click', () => {
                             Swal.close();
@@ -2572,7 +2576,7 @@
                         });
                         document.getElementById('btn-save-reading').addEventListener('click', async () => {
                             const card = document.getElementById('result-card');
-                            const btns = card.querySelector('div[style*="display:flex;gap:8px;justify-content:center;margin-top"]');
+                            const btns = card.querySelector('div[style*="display:flex;gap:12px;justify-content:center;margin-top"]');
                             if (btns) btns.style.display = 'none';
                             try {
                                 const canvas = await html2canvas(card, { backgroundColor: '#ffffff', scale: 2 });
