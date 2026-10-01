@@ -317,9 +317,9 @@
             { id: 'a1-movers', name: 'A1 Movers', description: 'Bước thứ hai trong hành trình học tiếng Anh.', color: '#A8C63B', folders: [
                 { id: 'i-dictionary', name: 'I Dictionary' },
                 { id: 'collins-for-movers', name: 'Collins for Movers', subfolders: [
-                    { id: 'test-1', name: 'Test 1', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'}] },
-                    { id: 'test-2', name: 'Test 2', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'}] },
-                    { id: 'test-3', name: 'Test 3', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'}] }
+                    { id: 'test-1', name: 'Test 1', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'},{id:'full-test',name:'Full Test'}] },
+                    { id: 'test-2', name: 'Test 2', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'},{id:'full-test',name:'Full Test'}] },
+                    { id: 'test-3', name: 'Test 3', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'},{id:'full-test',name:'Full Test'}] }
                 ]}
             ] },
             { id: 'a2-flyers', name: 'A2 Flyers', description: 'Cấp độ cao nhất trong hệ thống YLE cho trẻ.', color: '#21B6A8', folders: [{ id: 'i-dictionary', name: 'I Dictionary' }] },
@@ -427,7 +427,7 @@
                 subtitleText = 'Chọn kỹ năng';
                 let html = '<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">';
                 subfolder.skills.forEach(s => {
-                    const icon = s.id === 'listening' ? 'fa-headphones' : 'fa-book-open';
+                    const icon = s.id === 'listening' ? 'fa-headphones' : s.id === 'full-test' ? 'fa-clipboard-list' : 'fa-book-open';
                     html += `
                         <a href="#/material/${materialId}/${folderId}/${subfolderId}/${s.id}" class="aspect-square bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover-bounce flex flex-col items-center justify-center text-center cursor-pointer relative overflow-hidden group" style="background-color: var(--theme-bg-color);">
                             <i class="fa-solid ${icon} text-4xl mb-3 opacity-80" style="color: var(--theme-color);"></i>
@@ -654,6 +654,10 @@
         let userAnswers = {};
         let activeQ = 0;
         let quizSubmitted = false;
+        let fullTestMode = false;
+        let fullTestReadingData = null;
+        let fullTestReadingTitle = '';
+        let fullTestListeningScore = null;
 
         const shieldThresholds = {
             'pre-a1-starters': {
@@ -697,6 +701,32 @@
 
             // Xây dựng đường dẫn file JSON tương ứng với bài học
             // Cấu trúc: ./data/[mã_tài_liệu]_[mã_thư_mục].json (nếu có thư mục)
+            // Full Test mode: load both listening and reading
+            if (folderId && folderId.endsWith('/full-test')) {
+                const basePath = `${materialId}_${folderId.replace(/\/full-test$/, '').replace(/\//g, '_')}`;
+                const listeningPath = `./data/${basePath}_listening.json`;
+                const readingPath = `./data/${basePath}_reading.json`;
+
+                try {
+                    Swal.fire({ title: 'Đang tải dữ liệu...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+                    const [lisRes, readRes] = await Promise.all([fetch(listeningPath), fetch(readingPath)]);
+                    if (!lisRes.ok || !readRes.ok) throw new Error('Không tìm thấy dữ liệu bài thi');
+                    const lisData = await lisRes.json();
+                    const readData = await readRes.json();
+                    Swal.close();
+
+                    fullTestMode = true;
+                    fullTestReadingData = readData;
+                    fullTestReadingTitle = title;
+                    fullTestListeningScore = null;
+                    openListeningTest(lisData, title);
+                    return;
+                } catch (err) {
+                    Swal.fire({ title: 'Lỗi', text: err.message, icon: 'error' });
+                    return;
+                }
+            }
+
             let jsonFileName = materialId;
             if (folderId) {
                 jsonFileName += `_${folderId.replace(/\//g, '_')}`;
@@ -704,7 +734,6 @@
             const jsonPath = `./data/${jsonFileName}.json`;
 
             try {
-                // Hiện popup đang tải dữ liệu
                 Swal.fire({
                     title: 'Đang tải dữ liệu...',
                     allowOutsideClick: false,
@@ -713,10 +742,8 @@
                     }
                 });
 
-                // Gọi fetch để lấy file JSON
                 const response = await fetch(jsonPath);
 
-                // Kiểm tra nếu file không tồn tại
                 if (!response.ok) {
                     throw new Error('Nội dung không tồn tại (404)');
                 }
@@ -725,13 +752,14 @@
 
                 if (data && data.type === 'listening-test') {
                     Swal.close();
-                    // askStudentCode(data, title); // DEACTIVATED — reactivate when needed
+                    fullTestMode = false;
                     openListeningTest(data, title);
                     return;
                 }
 
                 if (data && data.type === 'reading-test') {
                     Swal.close();
+                    fullTestMode = false;
                     openReadingTest(data, title);
                     return;
                 }
@@ -1732,6 +1760,23 @@
                 </div>`;
 
                 listeningSubmitted = true;
+
+                if (fullTestMode) {
+                    fullTestListeningScore = { score, totalQuestions, partScores, timeStr, pct };
+                    Swal.fire({
+                        title: 'Hoàn thành phần Listening!',
+                        html: `<p style="font-size:18px">Điểm Listening: <b>${score}/${totalQuestions}</b> (${pct}%)</p><p style="font-size:16px;color:#64748b;margin-top:8px">Bây giờ chuyển sang phần <b>Reading</b>...</p>`,
+                        icon: 'success',
+                        confirmButtonText: 'Bắt đầu Reading',
+                        confirmButtonColor: '#20a1a0',
+                        allowOutsideClick: false
+                    }).then(() => {
+                        doCloseListening();
+                        openReadingTest(fullTestReadingData, fullTestReadingTitle);
+                    });
+                    return;
+                }
+
                 Swal.fire({
                     title: 'Nộp bài thành công!',
                     html: resultHtml,
@@ -1901,8 +1946,8 @@
             part.wordBank.forEach(w => {
                 const isExample = w === part.example.answer;
                 const imgSrc = part.wordImages && part.wordImages[w] ? part.wordImages[w] : '';
-                html += `<div class="flex items-center gap-2 px-3 py-2 ${isExample ? 'bg-green-50 border border-green-200 text-green-700 opacity-50' : 'bg-indigo-50 border border-indigo-200 text-indigo-700'} rounded-xl font-medium" style="font-size:20px;">
-                    ${imgSrc ? `<img src="${imgSrc}" class="w-16 h-12 object-contain rounded">` : ''}
+                html += `<div class="flex items-center gap-3 px-3 py-2 ${isExample ? 'bg-green-50 border border-green-200 text-green-700 opacity-50' : 'bg-indigo-50 border border-indigo-200 text-indigo-700'} rounded-xl font-medium" style="font-size:20px;">
+                    ${imgSrc ? `<img src="${imgSrc}" class="w-32 h-24 object-contain rounded">` : ''}
                     <span>${w}</span>
                 </div>`;
             });
@@ -2009,14 +2054,14 @@
                         <div class="bg-white rounded-2xl p-4 shadow-sm border sticky top-0">
                             <h4 class="font-bold text-slate-600 mb-3"><i class="fa-solid fa-list mr-1 text-indigo-500"></i><i class="fa-solid fa-spell-check ml-1 mr-1 text-indigo-500"></i> Word box</h4>
                             <div class="flex flex-col gap-2">
-                                <div class="flex items-center gap-2 px-3 py-2 bg-green-50 border border-green-200 rounded-xl font-medium text-green-700 opacity-50" style="font-size:20px;">
-                    ${part.wordImages && part.wordImages[part.example.word] ? `<img src="${part.wordImages[part.example.word]}" class="w-16 h-12 object-contain rounded">` : ''}
+                                <div class="flex items-center gap-3 px-3 py-2 bg-green-50 border border-green-200 rounded-xl font-medium text-green-700 opacity-50" style="font-size:20px;">
+                    ${part.wordImages && part.wordImages[part.example.word] ? `<img src="${part.wordImages[part.example.word]}" class="w-32 h-24 object-contain rounded">` : ''}
                     <span>${part.example.word}</span>
                 </div>`;
             part.wordBank.forEach(w => {
                 const imgSrc = part.wordImages && part.wordImages[w] ? part.wordImages[w] : '';
-                html += `<div class="flex items-center gap-2 px-3 py-2 bg-indigo-50 border border-indigo-200 rounded-xl font-medium text-indigo-700" style="font-size:20px;">
-                    ${imgSrc ? `<img src="${imgSrc}" class="w-16 h-12 object-contain rounded">` : ''}
+                html += `<div class="flex items-center gap-3 px-3 py-2 bg-indigo-50 border border-indigo-200 rounded-xl font-medium text-indigo-700" style="font-size:20px;">
+                    ${imgSrc ? `<img src="${imgSrc}" class="w-32 h-24 object-contain rounded">` : ''}
                     <span>${w}</span>
                 </div>`;
             });
@@ -2073,39 +2118,13 @@
         function renderGrammarCloze(part) {
             const content = document.getElementById('reading-content');
             const answers = readingAnswers[activeReadingPart];
-            const letters = ['A', 'B', 'C'];
 
             let html = `<div class="w-full">
-                <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
+                <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
+                <div class="flex gap-4">`;
 
-            // Options reference table
-            html += `<div class="bg-white rounded-2xl shadow-sm border overflow-hidden mb-4">
-                <table class="w-full" style="font-size:20px;">
-                    <thead><tr class="bg-turtle-50">
-                        <th class="p-3 text-left text-turtle-700 font-bold w-16">#</th>
-                        <th class="p-3 text-center text-turtle-700 font-bold">A</th>
-                        <th class="p-3 text-center text-turtle-700 font-bold">B</th>
-                        <th class="p-3 text-center text-turtle-700 font-bold">C</th>
-                    </tr></thead><tbody>
-                    <tr class="bg-green-50">
-                        <td class="p-3 font-bold text-green-600">Ex</td>`;
-            part.example.options.forEach((opt, j) => {
-                const isAnswer = j === part.example.answer;
-                html += `<td class="p-3 text-center font-medium ${isAnswer ? 'text-green-700 font-bold' : 'text-slate-400'}">${opt}</td>`;
-            });
-            html += `</tr>`;
-            part.items.forEach((item) => {
-                html += `<tr class="border-t">
-                    <td class="p-3 font-bold text-slate-500">${item.num}</td>`;
-                item.options.forEach(opt => {
-                    html += `<td class="p-3 text-center font-medium text-slate-600">${opt}</td>`;
-                });
-                html += `</tr>`;
-            });
-            html += `</tbody></table></div>`;
-
-            // Story with inline inputs
-            html += `<div class="bg-white rounded-2xl p-6 shadow-sm border"><div class="prose max-w-none leading-relaxed text-slate-700" style="font-size:20px;">`;
+            // Story with inline inputs LEFT (65%)
+            html += `<div style="width:65%"><div class="bg-white rounded-2xl p-6 shadow-sm border h-full"><div class="prose max-w-none leading-relaxed text-slate-700" style="font-size:20px;">`;
             part.storyParts.forEach(para => {
                 let rendered = para;
                 rendered = rendered.replace('%%example%%', `<span class="font-bold text-green-700 border-b-2 border-green-400 px-1">${part.example.options[part.example.answer]}</span>`);
@@ -2125,6 +2144,34 @@
                 html += `<p class="mb-3">${rendered}</p>`;
             });
             html += `</div></div></div>`;
+
+            // Options reference table RIGHT (35%)
+            html += `<div style="width:35%"><div class="bg-white rounded-2xl shadow-sm border overflow-hidden h-full">
+                <table class="w-full" style="font-size:20px;">
+                    <thead><tr class="bg-turtle-50">
+                        <th class="p-3 text-left text-turtle-700 font-bold w-12">#</th>
+                        <th class="p-3 text-center text-turtle-700 font-bold">A</th>
+                        <th class="p-3 text-center text-turtle-700 font-bold">B</th>
+                        <th class="p-3 text-center text-turtle-700 font-bold">C</th>
+                    </tr></thead><tbody>
+                    <tr class="bg-green-50">
+                        <td class="p-3 font-bold text-green-600">Ex</td>`;
+            part.example.options.forEach((opt, j) => {
+                const isAnswer = j === part.example.answer;
+                html += `<td class="p-3 text-center font-medium ${isAnswer ? 'text-green-700 font-bold' : 'text-slate-400'}">${opt}</td>`;
+            });
+            html += `</tr>`;
+            part.items.forEach((item) => {
+                html += `<tr class="border-t">
+                    <td class="p-3 font-bold text-slate-500">${item.num}</td>`;
+                item.options.forEach(opt => {
+                    html += `<td class="p-3 text-center font-medium text-slate-600">${opt}</td>`;
+                });
+                html += `</tr>`;
+            });
+            html += `</tbody></table></div></div>`;
+
+            html += `</div></div>`;
             content.innerHTML = html;
         }
 
@@ -2333,80 +2380,186 @@
             const totalColor = pct >= 80 ? '#22c55e' : pct >= 50 ? '#eab308' : '#ef4444';
             const readingShields = getShields(currentMaterialId, 'reading', totalCorrect);
 
-            let partRows = partScores.map(ps => {
-                const partPct = Math.round((ps.correct / ps.total) * 100);
-                const color = partPct >= 80 ? '#22c55e' : partPct >= 50 ? '#f59e0b' : '#ef4444';
-                return `<tr>
-                    <td style="padding:8px 12px;text-align:left;font-weight:600">${ps.title}</td>
-                    <td style="padding:8px 12px;text-align:center">${ps.correct} / ${ps.total}</td>
-                    <td style="padding:8px 12px;text-align:center"><span style="background:${color};color:white;padding:2px 10px;border-radius:8px;font-weight:700;font-size:14px">${partPct}%</span></td>
-                </tr>`;
-            }).join('');
-
             const studentName = currentStudent ? currentStudent.name : 'Học sinh';
             const studentEng = currentStudent && currentStudent.englishName ? ` (${currentStudent.englishName})` : '';
             const studentClass = currentStudent ? currentStudent.class : '';
 
-            const resultHtml = `
-            <div id="result-card" style="text-align:left;font-family:Inter,sans-serif">
-                <div style="text-align:center;margin-bottom:16px">
-                    <div style="font-size:14px;color:#64748b;margin-bottom:4px">${readingData.title}</div>
-                    <div style="font-size:20px;font-weight:800;color:#1e293b">${studentName}${studentEng}</div>
-                    <div style="font-size:14px;color:#64748b;margin-top:2px"><i class="fa-solid fa-school" style="margin-right:4px"></i>${studentClass} &nbsp;|&nbsp; <i class="fa-solid fa-clock" style="margin-right:4px"></i>${timeStr}</div>
-                </div>
-                <table style="width:100%;border-collapse:collapse;margin-bottom:12px">
-                    <thead><tr style="background:#f1f5f9">
-                        <th style="padding:8px 12px;text-align:left;color:#475569;font-size:13px">Phần</th>
-                        <th style="padding:8px 12px;text-align:center;color:#475569;font-size:13px">Điểm</th>
-                        <th style="padding:8px 12px;text-align:center;color:#475569;font-size:13px">%</th>
-                    </tr></thead>
-                    <tbody style="font-size:15px">${partRows}
-                        <tr style="background:#f0fdfa;border-top:2px solid #20a1a0">
-                            <td style="padding:10px 12px;font-weight:800;color:#20a1a0;font-size:16px">Tổng</td>
-                            <td style="padding:10px 12px;text-align:center;font-weight:800;font-size:16px;color:#1e293b">${totalCorrect} / ${totalQuestions}</td>
-                            <td style="padding:10px 12px;text-align:center"><span style="background:${totalColor};color:white;padding:4px 14px;border-radius:10px;font-weight:800;font-size:16px">${pct}%</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-                ${shieldThresholds[currentMaterialId] ? `<div style="text-align:center;margin:12px 0;padding:12px;background:#fffbeb;border-radius:12px;border:1px solid #fde68a">
-                    <div style="font-size:13px;color:#92400e;font-weight:600;margin-bottom:6px">🛡️ Số khiên đạt được</div>
-                    <div>${renderShieldIcons(readingShields)}</div>
-                    <div style="font-size:20px;font-weight:800;color:#b45309;margin-top:4px">${readingShields} / 5 khiên</div>
-                </div>` : ''}
-                <div style="display:flex;gap:8px;justify-content:center;margin-top:16px">
-                    <button id="btn-review-reading" style="padding:10px 20px;background:#20a1a0;color:white;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-size:15px"><i class="fa-solid fa-eye" style="margin-right:6px"></i>Xem lại bài làm</button>
-                    <button id="btn-save-reading" style="padding:10px 20px;background:#6366f1;color:white;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-size:15px"><i class="fa-solid fa-download" style="margin-right:6px"></i>Lưu kết quả</button>
-                </div>
-            </div>`;
+            if (fullTestMode && fullTestListeningScore) {
+                const ls = fullTestListeningScore;
+                const listeningShields = getShields(currentMaterialId, 'listening', ls.score);
+                const grandTotal = ls.score + totalCorrect;
+                const grandMax = ls.totalQuestions + totalQuestions;
+                const grandPct = Math.round((grandTotal / grandMax) * 100);
+                const grandColor = grandPct >= 80 ? '#22c55e' : grandPct >= 50 ? '#eab308' : '#ef4444';
 
-            Swal.fire({
-                title: 'Nộp bài thành công!',
-                html: resultHtml,
-                icon: 'success',
-                showConfirmButton: false,
-                showCloseButton: true,
-                width: 520,
-                didOpen: () => {
-                    document.getElementById('btn-review-reading').addEventListener('click', () => {
-                        Swal.close();
-                        renderReadingTabs();
-                        renderReadingPart();
-                    });
-                    document.getElementById('btn-save-reading').addEventListener('click', async () => {
-                        const card = document.getElementById('result-card');
-                        const btns = card.querySelector('div[style*="display:flex"]');
-                        btns.style.display = 'none';
-                        try {
-                            const canvas = await html2canvas(card, { backgroundColor: '#ffffff', scale: 2 });
-                            const link = document.createElement('a');
-                            link.download = `KetQua_Reading_${new Date().toISOString().slice(0,10)}.png`;
-                            link.href = canvas.toDataURL('image/png');
-                            link.click();
-                        } catch(e) { console.error(e); }
-                        btns.style.display = 'flex';
-                    });
-                }
-            });
+                const buildRows = (label, scores) => scores.map(ps => {
+                    const pp = Math.round((ps.correct || ps.score) / ps.total * 100);
+                    const c = pp >= 80 ? '#22c55e' : pp >= 50 ? '#f59e0b' : '#ef4444';
+                    return `<tr><td style="padding:6px 12px;font-weight:600">${ps.title}</td><td style="padding:6px 12px;text-align:center">${ps.correct ?? ps.score} / ${ps.total}</td><td style="padding:6px 12px;text-align:center"><span style="background:${c};color:white;padding:2px 8px;border-radius:8px;font-weight:700;font-size:13px">${pp}%</span></td></tr>`;
+                }).join('');
+
+                const listeningRows = buildRows('Listening', ls.partScores);
+                const readingRows = buildRows('Reading', partScores);
+                const lsPct = ls.pct;
+                const lsColor = lsPct >= 80 ? '#22c55e' : lsPct >= 50 ? '#f59e0b' : '#ef4444';
+
+                const resultHtml = `
+                <div id="result-card" style="text-align:left;font-family:Inter,sans-serif">
+                    <div style="text-align:center;margin-bottom:16px">
+                        <div style="font-size:14px;color:#64748b;margin-bottom:4px">Full Test</div>
+                        <div style="font-size:20px;font-weight:800;color:#1e293b">${studentName}${studentEng}</div>
+                        <div style="font-size:14px;color:#64748b;margin-top:2px"><i class="fa-solid fa-school" style="margin-right:4px"></i>${studentClass}</div>
+                    </div>
+                    <div style="font-weight:700;color:#0891b2;font-size:14px;margin-bottom:4px;padding-left:4px"><i class="fa-solid fa-headphones" style="margin-right:4px"></i>Listening</div>
+                    <table style="width:100%;border-collapse:collapse;margin-bottom:8px;font-size:14px">
+                        <tbody>${listeningRows}
+                            <tr style="background:#f0fdfa;border-top:2px solid #0891b2">
+                                <td style="padding:8px 12px;font-weight:800;color:#0891b2">Tổng Listening</td>
+                                <td style="padding:8px 12px;text-align:center;font-weight:800">${ls.score} / ${ls.totalQuestions}</td>
+                                <td style="padding:8px 12px;text-align:center"><span style="background:${lsColor};color:white;padding:2px 10px;border-radius:8px;font-weight:700">${lsPct}%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    ${shieldThresholds[currentMaterialId] ? `<div style="text-align:center;margin:6px 0 12px;padding:8px;background:#fffbeb;border-radius:10px;border:1px solid #fde68a">
+                        <div style="font-size:12px;color:#92400e;font-weight:600;margin-bottom:4px">Listening Shields</div>
+                        <div>${renderShieldIcons(listeningShields)}</div>
+                        <div style="font-size:16px;font-weight:800;color:#b45309;margin-top:2px">${listeningShields} / 5</div>
+                    </div>` : ''}
+                    <div style="font-weight:700;color:#7c3aed;font-size:14px;margin-bottom:4px;padding-left:4px"><i class="fa-solid fa-book-open" style="margin-right:4px"></i>Reading</div>
+                    <table style="width:100%;border-collapse:collapse;margin-bottom:8px;font-size:14px">
+                        <tbody>${readingRows}
+                            <tr style="background:#faf5ff;border-top:2px solid #7c3aed">
+                                <td style="padding:8px 12px;font-weight:800;color:#7c3aed">Tổng Reading</td>
+                                <td style="padding:8px 12px;text-align:center;font-weight:800">${totalCorrect} / ${totalQuestions}</td>
+                                <td style="padding:8px 12px;text-align:center"><span style="background:${totalColor};color:white;padding:2px 10px;border-radius:8px;font-weight:700">${pct}%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    ${shieldThresholds[currentMaterialId] ? `<div style="text-align:center;margin:6px 0 12px;padding:8px;background:#fffbeb;border-radius:10px;border:1px solid #fde68a">
+                        <div style="font-size:12px;color:#92400e;font-weight:600;margin-bottom:4px">Reading Shields</div>
+                        <div>${renderShieldIcons(readingShields)}</div>
+                        <div style="font-size:16px;font-weight:800;color:#b45309;margin-top:2px">${readingShields} / 5</div>
+                    </div>` : ''}
+                    <table style="width:100%;border-collapse:collapse;margin-bottom:12px">
+                        <tbody>
+                            <tr style="background:#f0fdf4;border-top:3px solid #20a1a0">
+                                <td style="padding:12px;font-weight:800;color:#20a1a0;font-size:18px">TỔNG ĐIỂM</td>
+                                <td style="padding:12px;text-align:center;font-weight:800;font-size:18px">${grandTotal} / ${grandMax}</td>
+                                <td style="padding:12px;text-align:center"><span style="background:${grandColor};color:white;padding:4px 14px;border-radius:10px;font-weight:800;font-size:18px">${grandPct}%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="display:flex;gap:8px;justify-content:center;margin-top:16px">
+                        <button id="btn-review-reading" style="padding:10px 20px;background:#20a1a0;color:white;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-size:15px"><i class="fa-solid fa-eye" style="margin-right:6px"></i>Xem lại Reading</button>
+                        <button id="btn-save-reading" style="padding:10px 20px;background:#6366f1;color:white;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-size:15px"><i class="fa-solid fa-download" style="margin-right:6px"></i>Lưu kết quả</button>
+                    </div>
+                </div>`;
+
+                Swal.fire({
+                    title: 'Hoàn thành Full Test!',
+                    html: resultHtml,
+                    icon: 'success',
+                    showConfirmButton: false,
+                    showCloseButton: true,
+                    width: 560,
+                    didOpen: () => {
+                        document.getElementById('btn-review-reading').addEventListener('click', () => {
+                            Swal.close();
+                            renderReadingTabs();
+                            renderReadingPart();
+                        });
+                        document.getElementById('btn-save-reading').addEventListener('click', async () => {
+                            const card = document.getElementById('result-card');
+                            const btns = card.querySelector('div[style*="display:flex"]');
+                            btns.style.display = 'none';
+                            try {
+                                const canvas = await html2canvas(card, { backgroundColor: '#ffffff', scale: 2 });
+                                const link = document.createElement('a');
+                                const safeName = (currentStudent ? currentStudent.englishName || currentStudent.name : 'result').replace(/\s+/g, '_');
+                                link.download = `KetQua_FullTest_${safeName}_${new Date().toISOString().slice(0,10)}.png`;
+                                link.href = canvas.toDataURL('image/png');
+                                link.click();
+                            } catch(e) { console.error(e); }
+                            btns.style.display = 'flex';
+                        });
+                    }
+                });
+
+                fullTestMode = false;
+                fullTestListeningScore = null;
+                fullTestReadingData = null;
+            } else {
+                let partRows = partScores.map(ps => {
+                    const partPct = Math.round((ps.correct / ps.total) * 100);
+                    const color = partPct >= 80 ? '#22c55e' : partPct >= 50 ? '#f59e0b' : '#ef4444';
+                    return `<tr>
+                        <td style="padding:8px 12px;text-align:left;font-weight:600">${ps.title}</td>
+                        <td style="padding:8px 12px;text-align:center">${ps.correct} / ${ps.total}</td>
+                        <td style="padding:8px 12px;text-align:center"><span style="background:${color};color:white;padding:2px 10px;border-radius:8px;font-weight:700;font-size:14px">${partPct}%</span></td>
+                    </tr>`;
+                }).join('');
+
+                const resultHtml = `
+                <div id="result-card" style="text-align:left;font-family:Inter,sans-serif">
+                    <div style="text-align:center;margin-bottom:16px">
+                        <div style="font-size:14px;color:#64748b;margin-bottom:4px">${readingData.title}</div>
+                        <div style="font-size:20px;font-weight:800;color:#1e293b">${studentName}${studentEng}</div>
+                        <div style="font-size:14px;color:#64748b;margin-top:2px"><i class="fa-solid fa-school" style="margin-right:4px"></i>${studentClass} &nbsp;|&nbsp; <i class="fa-solid fa-clock" style="margin-right:4px"></i>${timeStr}</div>
+                    </div>
+                    <table style="width:100%;border-collapse:collapse;margin-bottom:12px">
+                        <thead><tr style="background:#f1f5f9">
+                            <th style="padding:8px 12px;text-align:left;color:#475569;font-size:13px">Phần</th>
+                            <th style="padding:8px 12px;text-align:center;color:#475569;font-size:13px">Điểm</th>
+                            <th style="padding:8px 12px;text-align:center;color:#475569;font-size:13px">%</th>
+                        </tr></thead>
+                        <tbody style="font-size:15px">${partRows}
+                            <tr style="background:#f0fdfa;border-top:2px solid #20a1a0">
+                                <td style="padding:10px 12px;font-weight:800;color:#20a1a0;font-size:16px">Tổng</td>
+                                <td style="padding:10px 12px;text-align:center;font-weight:800;font-size:16px;color:#1e293b">${totalCorrect} / ${totalQuestions}</td>
+                                <td style="padding:10px 12px;text-align:center"><span style="background:${totalColor};color:white;padding:4px 14px;border-radius:10px;font-weight:800;font-size:16px">${pct}%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    ${shieldThresholds[currentMaterialId] ? `<div style="text-align:center;margin:12px 0;padding:12px;background:#fffbeb;border-radius:12px;border:1px solid #fde68a">
+                        <div style="font-size:13px;color:#92400e;font-weight:600;margin-bottom:6px">🛡️ Số khiên đạt được</div>
+                        <div>${renderShieldIcons(readingShields)}</div>
+                        <div style="font-size:20px;font-weight:800;color:#b45309;margin-top:4px">${readingShields} / 5 khiên</div>
+                    </div>` : ''}
+                    <div style="display:flex;gap:8px;justify-content:center;margin-top:16px">
+                        <button id="btn-review-reading" style="padding:10px 20px;background:#20a1a0;color:white;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-size:15px"><i class="fa-solid fa-eye" style="margin-right:6px"></i>Xem lại bài làm</button>
+                        <button id="btn-save-reading" style="padding:10px 20px;background:#6366f1;color:white;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-size:15px"><i class="fa-solid fa-download" style="margin-right:6px"></i>Lưu kết quả</button>
+                    </div>
+                </div>`;
+
+                Swal.fire({
+                    title: 'Nộp bài thành công!',
+                    html: resultHtml,
+                    icon: 'success',
+                    showConfirmButton: false,
+                    showCloseButton: true,
+                    width: 520,
+                    didOpen: () => {
+                        document.getElementById('btn-review-reading').addEventListener('click', () => {
+                            Swal.close();
+                            renderReadingTabs();
+                            renderReadingPart();
+                        });
+                        document.getElementById('btn-save-reading').addEventListener('click', async () => {
+                            const card = document.getElementById('result-card');
+                            const btns = card.querySelector('div[style*="display:flex"]');
+                            btns.style.display = 'none';
+                            try {
+                                const canvas = await html2canvas(card, { backgroundColor: '#ffffff', scale: 2 });
+                                const link = document.createElement('a');
+                                link.download = `KetQua_Reading_${new Date().toISOString().slice(0,10)}.png`;
+                                link.href = canvas.toDataURL('image/png');
+                                link.click();
+                            } catch(e) { console.error(e); }
+                            btns.style.display = 'flex';
+                        });
+                    }
+                });
+            }
 
             const btn = document.getElementById('btn-submit-reading');
             btn.innerHTML = '<i class="fa-solid fa-door-open mr-2"></i> Quay lại';
