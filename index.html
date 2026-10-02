@@ -2215,7 +2215,10 @@
                 const isActive = activeReadingPart === i;
                 const tab = document.createElement('button');
                 tab.className = `part-tab px-4 py-2 rounded-xl font-bold ${isActive ? 'active shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`;
-                tab.textContent = `Ex ${i + 1} - ${part.title}`;
+                const titleCounts = {};
+                readingData.parts.forEach(p => { titleCounts[p.title] = (titleCounts[p.title] || 0) + 1; });
+                const sameTitle = readingData.parts.filter((p, idx) => idx <= i && p.title === part.title);
+                tab.textContent = titleCounts[part.title] > 1 ? `${part.title} (${sameTitle.length})` : part.title;
                 tab.onclick = () => { activeReadingPart = i; renderReadingTabs(); renderReadingPart(); };
                 tabs.appendChild(tab);
             });

@@ -4,7 +4,7 @@
   "parts": [
     {
       "id": "reading-part1",
-      "title": "Reading & Writing Part 1",
+      "title": "Reading & Writing Part 2",
       "questions": 7,
       "instructions": "Read the three texts about families. For each question, choose the correct answer.",
       "type": "reading-match-persons",
@@ -207,7 +207,7 @@
     },
     {
       "id": "listening-part4",
-      "title": "Listening Part 4",
+      "title": "Listening Part 3",
       "questions": 5,
       "instructions": "For each question, choose the correct answer. You will hear Simon talking to his friend Amanda about his school day.",
       "type": "multiple-choice-abc",

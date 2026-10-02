@@ -1,0 +1,89 @@
+{
+  "type": "reading-test",
+  "title": "Unit 2 - In my free time",
+  "parts": [
+    {
+      "id": "listening-part4",
+      "title": "Listening Part 4",
+      "questions": 5,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "multiple-choice-abc",
+      "audio": "audio/compact-a2-key/unit2/listening-part4.mp3",
+      "script": [
+        { "speaker": "Narrator", "text": "1 You will hear two friends talking about a film they've just seen. What type of film was it?" },
+        { "speaker": "Boy", "text": "I really liked that film." },
+        { "speaker": "Girl", "text": "Me too! Usually I prefer adventure stories, and <u>I've never liked scary films before, but that one was great – really enjoyable</u>." },
+        { "speaker": "Boy", "text": "I know! It's strange, isn't it, <u>that we think it's fun to be frightened</u>." },
+        { "speaker": "Girl", "text": "Yeah, that's funny, isn't it? But we only like it when we know it's not real." },
+        { "speaker": "Narrator", "text": "2 You will hear a boy talking about a camping trip. Who did he go camping with?" },
+        { "speaker": "Boy", "text": "We had a great time camping. The weather was good, so <u>my uncle and I cooked outside every day</u>. His cooking isn't as good as my mum's, but it's OK. Because it was sunny during the day, it was still quite warm at night, too. I'm lucky – I've never been camping when it's rainy. My brother says it's awful!" },
+        { "speaker": "Narrator", "text": "3 You will hear a boy, James, talking to his mother about basketball lessons. What does James ask his mother to do?" },
+        { "speaker": "Mum", "text": "Did you see the information about your basketball lessons, James?" },
+        { "speaker": "James", "text": "Yeah – thanks for booking those, Mum. I read the information so I know when the lessons start." },
+        { "speaker": "Mum", "text": "Yes – next week! Do you need new T-shirts and shorts?" },
+        { "speaker": "James", "text": "Mm. <u>I have some shorts, but they're a bit tight. Can you get me some new ones</u>?" },
+        { "speaker": "Mum", "text": "Yes, I'll do that tomorrow." },
+        { "speaker": "Narrator", "text": "4 You will hear two friends discussing a practice for their dance group. What do they still need to do?" },
+        { "speaker": "Boy", "text": "Is everything ready for dance practice tomorrow?" },
+        { "speaker": "Girl", "text": "Nearly. I've downloaded a video of the dance we chose on my phone." },
+        { "speaker": "Boy", "text": "Great! We picked a good one! Mr. Davies has agreed that we can use the hall, so we have somewhere to dance." },
+        { "speaker": "Girl", "text": "Good. One more thing – <u>I'm not sure if everyone knows what time to come</u>." },
+        { "speaker": "Boy", "text": "OK. I'll send a message." },
+        { "speaker": "Narrator", "text": "5 You will hear a girl talking about horse riding. Why does she like horse riding?" },
+        { "speaker": "Girl", "text": "I started horse riding last year. I didn't really know anything about horses before, but my friend goes riding, and she invited me to go with her. I go regularly now. It's really fun. <u>It's great to be out in the countryside, in the fresh air</u> – much better than being in a sports centre." }
+      ],
+      "items": [
+        {
+          "num": 1,
+          "question": "You will hear two friends talking about a film they've just seen. What type of film was it?",
+          "options": [
+            "a comedy",
+            "a horror film",
+            "an adventure film"
+          ],
+          "answer": 1
+        },
+        {
+          "num": 2,
+          "question": "You will hear a boy talking about a camping trip. Who did he go camping with?",
+          "options": [
+            "his brother",
+            "his mother",
+            "his uncle"
+          ],
+          "answer": 2
+        },
+        {
+          "num": 3,
+          "question": "You will hear a boy, James, talking to his mother about basketball lessons. What does James ask his mother to do?",
+          "options": [
+            "find out when his basketball lessons start",
+            "book some basketball lessons for him",
+            "buy him some basketball clothes"
+          ],
+          "answer": 2
+        },
+        {
+          "num": 4,
+          "question": "You will hear two friends discussing a practice for their dance group. What do they still need to do?",
+          "options": [
+            "tell people when the practice will start",
+            "find a place to practise",
+            "decide on a dance"
+          ],
+          "answer": 0
+        },
+        {
+          "num": 5,
+          "question": "You will hear a girl talking about horse riding. Why does she like horse riding?",
+          "options": [
+            "She is learning something new.",
+            "She can spend time outdoors.",
+            "She has made new friends."
+          ],
+          "answer": 1
+        }
+      ]
+    }
+  ]
+}
