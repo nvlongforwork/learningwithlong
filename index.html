@@ -331,6 +331,8 @@
                 </button>
                 <h2 id="reading-title" class="text-lg font-bold text-slate-800 hidden sm:block"></h2>
             </div>
+            <div id="reading-student-info" class="flex items-center gap-3 text-sm">
+            </div>
         </header>
         <div id="reading-tabs" class="bg-white border-b px-4 py-2 flex gap-2 shrink-0"></div>
         <div id="reading-content" class="flex-1 overflow-y-auto p-2 sm:p-4 custom-scrollbar"></div>
@@ -2066,6 +2068,17 @@
             document.getElementById('view-detail').classList.remove('active');
             document.getElementById('main-nav').classList.add('hidden');
             document.getElementById('view-reading').classList.add('active');
+
+            const readingInfoEl = document.getElementById('reading-student-info');
+            if (currentStudent) {
+                const eng = currentStudent.englishName ? ` (${currentStudent.englishName})` : '';
+                readingInfoEl.innerHTML = `<i class="fa-solid fa-user-check text-turtle-500"></i>
+                    <span class="font-semibold text-slate-700">${currentStudent.name}${eng}</span>
+                    <span class="text-slate-400">|</span>
+                    <span class="text-slate-500">${currentStudent.class}</span>`;
+            } else {
+                readingInfoEl.innerHTML = '';
+            }
 
             renderReadingTabs();
             renderReadingPart();
