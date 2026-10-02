@@ -3365,8 +3365,9 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             const answers = readingAnswers[activeReadingPart];
             const letters = ['A', 'B', 'C'];
             const hasPassage = !!part.passage;
-            const isListeningMCQ = !hasPassage && !part.images;
-            let html = `<div class="${isListeningMCQ ? 'max-w-2xl mx-auto' : 'w-full'}">
+            const isVerticalMCQ = !part.images;
+            const isCentered = !hasPassage && !part.images;
+            let html = `<div class="${isCentered ? 'max-w-2xl mx-auto' : 'w-full'}">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
             if (part.audio) {
                 html += `<div class="mb-4 bg-slate-50 rounded-xl p-3 border">
@@ -3385,10 +3386,10 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 html += `<div class="bg-green-50 rounded-2xl p-4 border border-green-200 mb-4">
                     <div class="flex items-center gap-2 mb-2"><span class="bg-green-500 text-white px-3 py-1 rounded-lg font-bold text-sm">Example</span></div>
                     <p class="font-bold text-slate-800 mb-3">${part.example.question}</p>
-                    <div class="${isListeningMCQ ? 'flex flex-col gap-2' : 'flex gap-2'}">`;
+                    <div class="${isVerticalMCQ ? 'flex flex-col gap-2' : 'flex gap-2'}">`;
                 part.example.options.forEach((opt, j) => {
                     const isAnswer = j === part.example.answer;
-                    html += `<div class="${isListeningMCQ ? '' : 'flex-1'} p-3 rounded-xl ${isListeningMCQ ? 'text-left' : 'text-center'} text-sm font-medium ${isAnswer ? 'bg-green-500 text-white' : 'bg-white border border-slate-200 text-slate-400'}">
+                    html += `<div class="${isVerticalMCQ ? '' : 'flex-1'} p-3 rounded-xl ${isVerticalMCQ ? 'text-left' : 'text-center'} text-sm font-medium ${isAnswer ? 'bg-green-500 text-white' : 'bg-white border border-slate-200 text-slate-400'}">
                         <span class="font-bold">${letters[j]}</span>. ${opt}</div>`;
                 });
                 html += `</div></div>`;
@@ -3396,9 +3397,9 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             part.items.forEach((item, i) => {
                 html += `<div class="bg-white rounded-2xl p-4 border shadow-sm mb-3">
                     <p class="font-bold text-slate-800 mb-3"><span class="text-turtle-600 mr-2">${item.num}.</span>${item.question}</p>
-                    <div class="${isListeningMCQ ? 'flex flex-col gap-2' : 'flex gap-2'}">`;
+                    <div class="${isVerticalMCQ ? 'flex flex-col gap-2' : 'flex gap-2'}">`;
                 item.options.forEach((opt, j) => {
-                    let cls = `${isListeningMCQ ? '' : 'flex-1'} p-3 rounded-xl ${isListeningMCQ ? 'text-left' : 'text-center'} text-sm font-medium cursor-pointer transition-all `;
+                    let cls = `${isVerticalMCQ ? '' : 'flex-1'} p-3 rounded-xl ${isVerticalMCQ ? 'text-left' : 'text-center'} text-sm font-medium cursor-pointer transition-all `;
                     if (readingCanReview) {
                         if (j === item.answer) cls += 'bg-green-500 text-white';
                         else if (answers[i] === j && j !== item.answer) cls += 'bg-red-400 text-white';
