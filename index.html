@@ -2811,14 +2811,16 @@
                         <th class="p-3 text-center text-turtle-700 font-bold">A</th>
                         <th class="p-3 text-center text-turtle-700 font-bold">B</th>
                         <th class="p-3 text-center text-turtle-700 font-bold">C</th>
-                    </tr></thead><tbody>
-                    <tr class="bg-green-50">
+                    </tr></thead><tbody>`;
+            if (part.example) {
+                html += `<tr class="bg-green-50">
                         <td class="p-3 font-bold text-green-600">Ex</td>`;
-            part.example.options.forEach((opt, j) => {
-                const isAnswer = j === part.example.answer;
-                html += `<td class="p-3 text-center font-medium ${isAnswer ? 'text-green-700 font-bold' : 'text-slate-400'}">${opt}</td>`;
-            });
-            html += `</tr>`;
+                part.example.options.forEach((opt, j) => {
+                    const isAnswer = j === part.example.answer;
+                    html += `<td class="p-3 text-center font-medium ${isAnswer ? 'text-green-700 font-bold' : 'text-slate-400'}">${opt}</td>`;
+                });
+                html += `</tr>`;
+            }
             part.items.forEach((item) => {
                 html += `<tr class="border-t">
                     <td class="p-3 font-bold text-slate-500">${item.num}</td>`;
