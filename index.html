@@ -384,7 +384,7 @@
             ] },
             { id: 'a2-flyers', name: 'A2 Flyers', description: 'Cấp độ cao nhất trong hệ thống YLE cho trẻ.', color: '#21B6A8', folders: [{ id: 'i-dictionary', name: 'I Dictionary' }] },
             { id: 'a2-key', name: 'A2 Key', description: 'Chứng chỉ tiếng Anh tổng quát trình độ A2 (KET).', color: '#00AFA9', folders: [
-                { id: 'compact-a2-key', name: 'Compact A2 Key for School', subfolders: [
+                { id: 'compact-a2-key', name: 'Compact A2 Key - Theo Unit', subfolders: [
                     { id: 'unit-1', name: 'My family, my friends & me' },
                     { id: 'unit-2', name: 'In my free time' },
                     { id: 'unit-3', name: 'Eating in, eating out' },
@@ -397,6 +397,15 @@
                     { id: 'unit-10', name: 'Are you an outdoors person?' },
                     { id: 'unit-11', name: 'Healthy body, healthy mind' },
                     { id: 'unit-12', name: 'Technology & me' }
+                ]},
+                { id: 'compact-a2-key-parts', name: 'Compact A2 Key - Theo Part', subfolders: [
+                    { id: 'rw-part-2', name: 'Reading & Writing Part 2', partFilter: 'Reading & Writing Part 2', sourceFolder: 'compact-a2-key' },
+                    { id: 'rw-part-3', name: 'Reading & Writing Part 3', partFilter: 'Reading & Writing Part 3', sourceFolder: 'compact-a2-key' },
+                    { id: 'rw-part-4', name: 'Reading & Writing Part 4', partFilter: 'Reading & Writing Part 4', sourceFolder: 'compact-a2-key' },
+                    { id: 'rw-part-5', name: 'Reading & Writing Part 5', partFilter: 'Reading & Writing Part 5', sourceFolder: 'compact-a2-key' },
+                    { id: 'rw-part-6', name: 'Reading & Writing Part 6', partFilter: 'Reading & Writing Part 6', sourceFolder: 'compact-a2-key' },
+                    { id: 'listening-part-3', name: 'Listening Part 3', partFilter: 'Listening Part 3', sourceFolder: 'compact-a2-key' },
+                    { id: 'listening-part-4', name: 'Listening Part 4', partFilter: 'Listening Part 4', sourceFolder: 'compact-a2-key' }
                 ]}
             ] },
             { id: 'b1-preliminary', name: 'B1 Preliminary', description: 'Nắm vững các kiến thức cơ bản ngôn ngữ (PET).', color: '#009D98' },
@@ -520,16 +529,22 @@
                 subtitleText = 'Bài tập thực hành';
                 isShowingQuiz = true;
                 quizFolderPath = `${folderId}/${subfolderId}`;
+                if (subfolder.partFilter) {
+                    currentPartFilter = { filter: subfolder.partFilter, sourceFolder: subfolder.sourceFolder, materialId: materialId };
+                } else {
+                    currentPartFilter = null;
+                }
             }
             // Level 2: folder with subfolders -> show subfolders
             else if (folderId && folder && folder.subfolders) {
                 titleText = folder.name;
-                subtitleText = 'Chọn bài kiểm tra';
+                subtitleText = folder.subfolders.some(sf => sf.partFilter) ? 'Chọn dạng bài' : 'Chọn bài kiểm tra';
                 let html = '<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">';
                 folder.subfolders.forEach(sf => {
+                    const sfIcon = sf.partFilter ? (sf.partFilter.startsWith('Listening') ? 'fa-headphones' : 'fa-book-open') : 'fa-file-lines';
                     html += `
                         <a href="#/material/${materialId}/${folderId}/${sf.id}" class="aspect-square bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover-bounce flex flex-col items-center justify-center text-center cursor-pointer relative overflow-hidden group" style="background-color: var(--theme-bg-color);">
-                            <i class="fa-solid fa-file-lines text-4xl mb-3 opacity-80" style="color: var(--theme-color);"></i>
+                            <i class="fa-solid ${sfIcon} text-4xl mb-3 opacity-80" style="color: var(--theme-color);"></i>
                             <span class="relative z-10 text-lg sm:text-xl font-bold transition-transform group-hover:scale-105" style="color: var(--theme-color);">${sf.name}</span>
                         </a>
                     `;
@@ -554,9 +569,10 @@
             else {
                 let html = '<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">';
                 material.folders.forEach(f => {
+                    const fIcon = f.id.includes('-parts') ? 'fa-layer-group' : 'fa-folder-open';
                     html += `
                         <a href="#/material/${material.id}/${f.id}" class="aspect-square bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover-bounce flex flex-col items-center justify-center text-center cursor-pointer relative overflow-hidden group" style="background-color: var(--theme-bg-color);">
-                            <i class="fa-solid fa-folder-open text-4xl mb-3 opacity-80" style="color: var(--theme-color);"></i>
+                            <i class="fa-solid ${fIcon} text-4xl mb-3 opacity-80" style="color: var(--theme-color);"></i>
                             <span class="relative z-10 text-lg sm:text-xl font-bold transition-transform group-hover:scale-105" style="color: var(--theme-color);">${f.name}</span>
                         </a>
                     `;
@@ -735,6 +751,7 @@
         // --- LOGIC GIAO DIỆN LÀM BÀI FULL SCREEN (QUIZ) ---
         let currentQuizTheme = '#20a1a0';
         let currentMaterialId = '';
+        let currentPartFilter = null;
         let quizData = [];
         let userAnswers = {};
         let activeQ = 0;
@@ -885,6 +902,47 @@
                     return;
                 } catch (err) {
                     Swal.fire({ title: 'Lỗi', text: err.message, icon: 'error' });
+                    return;
+                }
+            }
+
+            if (currentPartFilter) {
+                try {
+                    Swal.fire({ title: 'Đang tải dữ liệu...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+                    const sourceMaterial = materialsData.find(m => m.id === currentPartFilter.materialId);
+                    const sourceFolder = sourceMaterial.folders.find(f => f.id === currentPartFilter.sourceFolder);
+                    const units = sourceFolder.subfolders || [];
+                    const results = await Promise.allSettled(
+                        units.map(unit =>
+                            fetch(`./data/${currentPartFilter.materialId}_${currentPartFilter.sourceFolder}_${unit.id}.json`)
+                                .then(r => r.ok ? r.json() : null)
+                        )
+                    );
+                    const combinedParts = [];
+                    results.forEach((result, idx) => {
+                        if (result.status === 'fulfilled' && result.value) {
+                            const data = result.value;
+                            data.parts.forEach(part => {
+                                if (part.title === currentPartFilter.filter) {
+                                    combinedParts.push({ ...part, title: `Unit ${units[idx].id.replace('unit-', '')} - ${units[idx].name}` });
+                                }
+                            });
+                        }
+                    });
+                    if (combinedParts.length === 0) {
+                        Swal.fire({ title: 'Thông báo', text: 'Chưa có bài tập cho phần này.', icon: 'info' });
+                        currentPartFilter = null;
+                        return;
+                    }
+                    const combinedData = { type: 'reading-test', title: title, parts: combinedParts };
+                    Swal.close();
+                    fullTestMode = false;
+                    currentPartFilter = null;
+                    askStudentCode(combinedData, title, 'reading');
+                    return;
+                } catch (err) {
+                    Swal.fire({ title: 'Lỗi', text: err.message, icon: 'error' });
+                    currentPartFilter = null;
                     return;
                 }
             }
