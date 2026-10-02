@@ -1273,6 +1273,8 @@
                 else openListeningTest(data, title);
                 return;
             }
+            isTeacherMode = false;
+            sessionStorage.removeItem('elm_teacher_mode');
             const student = findStudent(code.trim());
             const engName = student.englishName ? `<div style="font-size:20px;font-weight:700;color:${matColor};margin-top:2px">${student.englishName}</div>` : '';
             const initials = (student.englishName || student.name).charAt(0).toUpperCase();
@@ -1439,7 +1441,7 @@
         }
 
         function renderAudioScripts(part) {
-            if (!listeningSubmitted || !part.audioScript || part.audioScript.length === 0) return '';
+            if (!listeningCanReview || !part.audioScript || part.audioScript.length === 0) return '';
             let html = `<div class="mt-4 bg-amber-50 border border-amber-200 rounded-2xl p-4">
                 <h4 class="font-bold text-amber-700 mb-3"><i class="fa-solid fa-headphones mr-1"></i> Audio Script</h4>
                 <div class="space-y-3">`;
@@ -1485,7 +1487,7 @@
                 const nameClass = answers[i].name ? 'filled' : '';
                 const actionClass = answers[i].action ? 'filled' : '';
                 let nameExtra = '', actionExtra = '';
-                if (listeningSubmitted) {
+                if (listeningCanReview) {
                     const correctName = part.answers[i].name;
                     const correctAction = part.answers[i].action;
                     nameExtra = answers[i].name === correctName ? 'border-green-500 bg-green-50 text-green-700' : (answers[i].name ? 'border-red-400 bg-red-50 text-red-700' : 'border-red-400 bg-red-50');
@@ -1500,7 +1502,7 @@
 
             html += `</tbody></table></div>`;
 
-            if (listeningSubmitted) {
+            if (listeningCanReview) {
                 html += `<div class="bg-blue-50 border border-blue-200 rounded-2xl p-4">
                     <h4 class="font-bold text-blue-700 mb-2"><i class="fa-solid fa-lightbulb text-yellow-500 mr-1"></i> Đáp án đúng</h4>
                     <ul class="text-blue-800 text-sm space-y-1">`;
@@ -1546,14 +1548,14 @@
 
             part.rows.forEach((row, i) => {
                 let inputHtml;
-                if (listeningSubmitted) {
+                if (listeningCanReview) {
                     const isCorrect = answers[i].toLowerCase().trim() === row.answer.toLowerCase().trim();
                     inputHtml = `<input type="text" value="${answers[i]}" readonly class="flex-1 px-3 py-2 border-2 rounded-xl font-bold ${isCorrect ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700'}">`;
                     if (!isCorrect && row.answer) {
                         inputHtml += `<span class="text-green-600 font-bold text-sm ml-2 shrink-0"><i class="fa-solid fa-arrow-right mr-1"></i>${row.answer}</span>`;
                     }
                 } else {
-                    inputHtml = `<input type="text" value="${answers[i]}" placeholder="..." oninput="listeningAnswers[${activePart}][${i}]=this.value" class="flex-1 px-3 py-2 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-turtle-400 font-medium">`;
+                    inputHtml = `<input type="text" value="${answers[i]}" ${listeningSubmitted ? 'readonly' : ''} placeholder="..." ${listeningSubmitted ? '' : `oninput="listeningAnswers[${activePart}][${i}]=this.value"`} class="flex-1 px-3 py-2 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-turtle-400 font-medium">`;
                 }
 
                 formHtml += `
@@ -1614,7 +1616,7 @@
 
             part.answers.forEach((row, i) => {
                 let slotHtml;
-                if (listeningSubmitted) {
+                if (listeningCanReview) {
                     const isCorrect = answers[i] === row.answer;
                     if (answers[i]) {
                         slotHtml = `<span class="inline-flex items-center justify-center w-10 h-10 font-bold rounded-xl text-lg ${isCorrect ? 'bg-green-500 text-white' : 'bg-red-400 text-white'}">${answers[i]}</span>`;
@@ -1635,7 +1637,7 @@
 
             html += `</tbody></table></div>`;
 
-            if (!listeningSubmitted) {
+            if (!listeningSubmitted && !listeningCanReview) {
                 html += `<div class="bg-white rounded-2xl p-4 shadow-sm border">
                     <h4 class="font-bold text-slate-600 mb-3"><i class="fa-solid fa-font mr-1 text-purple-500"></i> Letters</h4>
                     <div class="flex flex-wrap gap-2 justify-center">`;
@@ -1696,7 +1698,7 @@
                     <div class="flex gap-2">`;
                 item.options.forEach((opt, j) => {
                     let btnClass = 'flex-1 p-3 rounded-xl text-center text-base font-medium cursor-pointer transition-all ';
-                    if (listeningSubmitted) {
+                    if (listeningCanReview) {
                         if (j === item.answer) btnClass += 'bg-green-500 text-white';
                         else if (answers[i] === j && j !== item.answer) btnClass += 'bg-red-400 text-white';
                         else btnClass += 'bg-slate-50 border border-slate-200 text-slate-400';
@@ -1789,7 +1791,7 @@
             part.items.forEach((item, i) => {
                 // Item cell
                 let itemCell;
-                if (listeningSubmitted) {
+                if (listeningCanReview) {
                     const itemCorrect = answers[i].item === item.item;
                     itemCell = answers[i].item
                         ? `<span class="font-medium ${itemCorrect ? 'text-green-700' : 'text-red-500 line-through'}">${answers[i].item}</span>`
@@ -1806,7 +1808,7 @@
                 // Answer cell
                 let answerCell;
                 if (item.type === 'color') {
-                    if (listeningSubmitted) {
+                    if (listeningCanReview) {
                         const isCorrect = answers[i].answer === item.answer;
                         const ansHex = colorHex[answers[i].answer] || '#ccc';
                         answerCell = answers[i].answer
@@ -1821,12 +1823,12 @@
                         }
                     }
                 } else {
-                    if (listeningSubmitted) {
+                    if (listeningCanReview) {
                         const isCorrect = answers[i].answer.toLowerCase().trim() === item.answer.toLowerCase().trim();
                         answerCell = `<input type="text" value="${answers[i].answer}" readonly class="w-full px-2 py-1 border-2 rounded-lg font-bold text-center text-base ${isCorrect ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700'}">`;
                         if (!isCorrect && item.answer) answerCell += `<div class="text-green-600 font-bold text-sm mt-1">${item.answer}</div>`;
                     } else {
-                        answerCell = `<input type="text" value="${answers[i].answer}" placeholder="Write..." oninput="listeningAnswers[${activePart}][${i}].answer=this.value" class="w-full px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium text-center text-base">`;
+                        answerCell = `<input type="text" value="${answers[i].answer}" ${listeningSubmitted ? 'readonly' : ''} placeholder="Write..." ${listeningSubmitted ? '' : `oninput="listeningAnswers[${activePart}][${i}].answer=this.value"`} class="w-full px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium text-center text-base">`;
                     }
                 }
 
@@ -2283,12 +2285,12 @@
             // Questions
             part.items.forEach((item, i) => {
                 let answerHtml;
-                if (readingSubmitted) {
+                if (readingCanReview) {
                     const isCorrect = answers[i].toLowerCase().trim() === item.answer.toLowerCase().trim();
                     answerHtml = `<input type="text" value="${answers[i]}" readonly class="w-full px-3 py-2 border-2 rounded-xl font-bold ${isCorrect ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700'}" style="font-size:20px;">`;
                     if (!isCorrect && item.answer) answerHtml += `<span class="text-green-600 font-bold text-sm mt-1 block"><i class="fa-solid fa-arrow-right mr-1"></i>${item.answer}</span>`;
                 } else {
-                    answerHtml = `<input type="text" value="${answers[i]}" placeholder="Type your answer..." oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" class="w-full px-3 py-2 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
+                    answerHtml = `<input type="text" value="${answers[i]}" ${readingSubmitted ? 'readonly' : ''} placeholder="Type your answer..." ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}][${i}]=this.value"`} class="w-full px-3 py-2 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
                 }
                 html += `<div class="bg-white rounded-2xl p-4 border shadow-sm">
                     <p class="text-slate-700 mb-2" style="font-size:20px;"><span class="font-bold text-turtle-600 mr-2">${item.num}.</span>${item.definition}</p>
@@ -2337,7 +2339,7 @@
                     <div class="space-y-2">`;
                 item.options.forEach((opt, j) => {
                     let btnClass = 'p-3 rounded-xl font-medium transition-all ';
-                    if (readingSubmitted) {
+                    if (readingCanReview) {
                         if (j === item.answer) btnClass += 'bg-green-500 text-white';
                         else if (answers[i] === j && j !== item.answer) btnClass += 'bg-red-400 text-white';
                         else btnClass += 'bg-slate-50 border border-slate-200 text-slate-400';
@@ -2395,12 +2397,12 @@
                 for (let i = 0; i < part.items.length; i++) {
                     const item = part.items[i];
                     let blankHtml;
-                    if (readingSubmitted) {
+                    if (readingCanReview) {
                         const isCorrect = answers.blanks[i].toLowerCase().trim() === item.answer.toLowerCase().trim();
                         blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers.blanks[i] || '—'}</span>`;
                         if (!isCorrect) blankHtml += `<span class="text-green-600 font-bold text-sm ml-1">${item.answer}</span>`;
                     } else {
-                        blankHtml = `<input type="text" value="${answers.blanks[i]}" placeholder="..." oninput="readingAnswers[${activeReadingPart}].blanks[${i}]=this.value" class="inline-block w-32 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium text-center" style="font-size:20px;">`;
+                        blankHtml = `<input type="text" value="${answers.blanks[i]}" ${readingSubmitted ? 'readonly' : ''} placeholder="..." ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}].blanks[${i}]=this.value"`} class="inline-block w-32 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium text-center" style="font-size:20px;">`;
                     }
                     rendered = rendered.replace('%%blank%%', blankHtml);
                 }
@@ -2416,7 +2418,7 @@
                     <div class="space-y-2">`;
                 tq.options.forEach((opt, j) => {
                     let btnClass = 'p-3 rounded-xl font-medium transition-all ';
-                    if (readingSubmitted) {
+                    if (readingCanReview) {
                         if (j === tq.answer) btnClass += 'bg-green-500 text-white';
                         else if (answers.title === j && j !== tq.answer) btnClass += 'bg-red-400 text-white';
                         else btnClass += 'bg-slate-50 border border-slate-200 text-slate-400';
@@ -2450,13 +2452,13 @@
                 for (let i = 0; i < part.items.length; i++) {
                     const item = part.items[i];
                     let blankHtml;
-                    if (readingSubmitted) {
+                    if (readingCanReview) {
                         const correctWord = item.options[item.answer];
                         const isCorrect = answers[i].toLowerCase().trim() === correctWord.toLowerCase().trim();
                         blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">(${item.num}) ${answers[i] || '—'}</span>`;
                         if (!isCorrect) blankHtml += `<span class="text-green-600 font-bold text-sm ml-1">${correctWord}</span>`;
                     } else {
-                        blankHtml = `<span class="text-turtle-600 font-bold">(${item.num})</span> <input type="text" value="${answers[i]}" placeholder="..." oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" class="inline-block w-32 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-bold text-center" style="font-size:20px;">`;
+                        blankHtml = `<span class="text-turtle-600 font-bold">(${item.num})</span> <input type="text" value="${answers[i]}" ${readingSubmitted ? 'readonly' : ''} placeholder="..." ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}][${i}]=this.value"`} class="inline-block w-32 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-bold text-center" style="font-size:20px;">`;
                     }
                     rendered = rendered.replace('%%blank%%', blankHtml);
                 }
@@ -2533,13 +2535,13 @@
                         const aIdx = qCounter;
                         const parts = q.sentence.split('%%blank%%');
                         let questionHtml;
-                        if (readingSubmitted) {
+                        if (readingCanReview) {
                             const userAns = answers[aIdx] || '';
                             const isCorrect = userAns.toLowerCase().trim() === q.answer.toLowerCase().trim();
                             const blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${userAns || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${q.answer}</span>` : ''}`;
                             questionHtml = parts[0] + blankHtml + (parts[1] || '');
                         } else {
-                            const blankHtml = `<input type="text" value="${answers[aIdx]}" placeholder="..." oninput="readingAnswers[${activeReadingPart}][${aIdx}]=this.value" class="inline-block w-40 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
+                            const blankHtml = `<input type="text" value="${answers[aIdx]}" ${readingSubmitted ? 'readonly' : ''} placeholder="..." ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}][${aIdx}]=this.value"`} class="inline-block w-40 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
                             questionHtml = parts[0] + blankHtml + (parts[1] || '');
                         }
                         html += `<div class="bg-white rounded-xl p-3 border shadow-sm">
@@ -2587,20 +2589,20 @@
             part.items.forEach((item, i) => {
                 let questionHtml;
                 if (item.type === 'complete') {
-                    if (readingSubmitted) {
+                    if (readingCanReview) {
                         const isCorrect = answers[i].toLowerCase().trim() === item.answer.toLowerCase().trim();
                         const blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${item.answer}</span>` : ''}`;
                         questionHtml = item.sentence.replace('%%blank%%', blankHtml);
                     } else {
-                        const blankHtml = `<input type="text" value="${answers[i]}" placeholder="..." oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" class="inline-block w-40 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
+                        const blankHtml = `<input type="text" value="${answers[i]}" ${readingSubmitted ? 'readonly' : ''} placeholder="..." ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}][${i}]=this.value"`} class="inline-block w-40 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
                         questionHtml = item.sentence.replace('%%blank%%', blankHtml);
                     }
                 } else if (item.type === 'answer') {
-                    if (readingSubmitted) {
+                    if (readingCanReview) {
                         const isCorrect = answers[i].toLowerCase().trim() === item.answer.toLowerCase().trim();
                         questionHtml = `${item.question}<br><span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${item.answer}</span>` : ''}`;
                     } else {
-                        questionHtml = `${item.question}<br><input type="text" value="${answers[i]}" placeholder="..." oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" class="mt-2 w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
+                        questionHtml = `${item.question}<br><input type="text" value="${answers[i]}" ${readingSubmitted ? 'readonly' : ''} placeholder="..." ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}][${i}]=this.value"`} class="mt-2 w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
                     }
                 } else if (item.type === 'free') {
                     if (item.instruction) {
@@ -2643,12 +2645,12 @@
             });
             part.items.forEach((item, i) => {
                 let ansHtml;
-                if (readingSubmitted) {
+                if (readingCanReview) {
                     const allAnswers = [item.answer, ...(item.altAnswers || [])];
                     const isCorrect = allAnswers.some(a => answers[i].toLowerCase().trim() === a.toLowerCase().trim());
                     ansHtml = `<div class="mt-2 px-3 py-2 rounded-lg font-medium ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</div>${!isCorrect ? `<div class="text-green-600 font-bold text-sm mt-1">${item.answer}</div>` : ''}`;
                 } else {
-                    ansHtml = `<input type="text" value="${answers[i]}" oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" placeholder="Write the sentence..." class="mt-2 px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;width:100%;max-width:420px;">`;
+                    ansHtml = `<input type="text" value="${answers[i]}" ${readingSubmitted ? 'readonly' : ''} ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}][${i}]=this.value"`} placeholder="Write the sentence..." class="mt-2 px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;width:100%;max-width:420px;">`;
                 }
                 html += `<div class="bg-white rounded-xl p-4 border shadow-sm mb-3" style="font-size:20px;">
                     <span class="font-bold text-turtle-600 mr-2">${item.num}.</span>
@@ -2675,12 +2677,12 @@
             }
             part.items.forEach((item, i) => {
                 let ansHtml;
-                if (readingSubmitted) {
+                if (readingCanReview) {
                     const allAnswers = [item.answer, ...(item.altAnswers || [])];
                     const isCorrect = allAnswers.some(a => answers[i].toLowerCase().trim() === a.toLowerCase().trim());
                     ansHtml = `<div class="mt-2 px-3 py-2 rounded-lg font-medium ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</div>${!isCorrect ? `<div class="text-green-600 font-bold text-sm mt-1">${item.answer}</div>` : ''}`;
                 } else {
-                    ansHtml = `<input type="text" value="${answers[i]}" oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" placeholder="Correct the sentence..." class="mt-2 px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;width:100%;max-width:420px;">`;
+                    ansHtml = `<input type="text" value="${answers[i]}" ${readingSubmitted ? 'readonly' : ''} ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}][${i}]=this.value"`} placeholder="Correct the sentence..." class="mt-2 px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;width:100%;max-width:420px;">`;
                 }
                 html += `<div class="bg-white rounded-xl p-4 border shadow-sm mb-3" style="font-size:20px;">
                     <span class="font-bold text-turtle-600 mr-2">${item.num}.</span>
@@ -2728,7 +2730,7 @@
                 let blankIdx = 0;
                 sentenceHtml = sentenceHtml.replace(/\.\.\.\.\.\.\.\.\.\./g, () => {
                     const bi = blankIdx++;
-                    if (readingSubmitted) {
+                    if (readingCanReview) {
                         const userVal = isMultiBlank ? (answers[i][bi] || '') : (answers[i] || '');
                         const correctVal = itemAnswers[bi] || '';
                         const isCorrect = userVal.toLowerCase().trim() === correctVal.toLowerCase().trim();
@@ -2775,11 +2777,11 @@
             }
             part.items.forEach((item, i) => {
                 let sentenceHtml = item.sentence;
-                if (readingSubmitted) {
+                if (readingCanReview) {
                     const isCorrect = answers[i].toLowerCase().trim() === item.answer.toLowerCase().trim();
                     sentenceHtml = sentenceHtml.replace('..........', `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${item.answer}</span>` : ''}`);
                 } else {
-                    sentenceHtml = sentenceHtml.replace('..........', `<input type="text" value="${answers[i]}" oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" placeholder="..." class="inline-block w-40 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`);
+                    sentenceHtml = sentenceHtml.replace('..........', `<input type="text" value="${answers[i]}" ${readingSubmitted ? 'readonly' : ''} ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}][${i}]=this.value"`} placeholder="..." class="inline-block w-40 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`);
                 }
                 html += `<div class="bg-white rounded-xl p-4 border shadow-sm mb-3" style="font-size:20px;">
                     <span class="font-bold text-turtle-600 mr-2">${item.num}.</span>
@@ -2811,7 +2813,7 @@
             html += `</div></div>
                     <div style="width:45%" class="resp-col flex flex-col gap-3">`;
             part.items.forEach((item, i) => {
-                if (readingSubmitted) {
+                if (readingCanReview) {
                     const isCorrect = answers[i].toUpperCase().trim() === item.answer.toUpperCase().trim();
                     html += `<div class="bg-white rounded-xl p-4 border shadow-sm" style="font-size:20px;">
                         <span class="font-bold text-turtle-600 mr-2">${item.num}.</span>
@@ -2973,7 +2975,7 @@
                     <div class="flex gap-2">`;
                 item.options.forEach((opt, j) => {
                     let cls = 'flex-1 p-3 rounded-xl text-center text-sm font-medium cursor-pointer transition-all ';
-                    if (readingSubmitted) {
+                    if (readingCanReview) {
                         if (j === item.answer) cls += 'bg-green-500 text-white';
                         else if (answers[i] === j && j !== item.answer) cls += 'bg-red-400 text-white';
                         else cls += 'bg-slate-50 border border-slate-200 text-slate-400';
@@ -2985,7 +2987,7 @@
                 });
                 html += `</div></div>`;
             });
-            if (readingSubmitted && part.script && part.script.length > 0) {
+            if (readingCanReview && part.script && part.script.length > 0) {
                 html += `<div class="mt-4 bg-amber-50 border border-amber-200 rounded-2xl p-4">
                     <h4 class="font-bold text-amber-700 mb-3" style="font-size:20px"><i class="fa-solid fa-scroll mr-1"></i> Audio Script</h4>
                     <div class="space-y-1">`;
