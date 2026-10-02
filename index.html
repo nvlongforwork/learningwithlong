@@ -1039,9 +1039,10 @@
                 html += `
                     <div class="bg-white rounded-2xl p-5 border-2 shadow-sm hover-bounce cursor-pointer group relative overflow-hidden part-exercise-card transition-all" style="background-color: var(--theme-bg-color); border-color: var(--theme-bg-color);"
                          data-part-idx="${idx}" onclick="togglePartExercise(${idx}, event)">
+                        <div class="absolute top-2 left-2 w-6 h-6 rounded-full bg-slate-200 text-slate-500 text-xs font-bold flex items-center justify-center" style="font-size:12px !important;">${idx+1}</div>
                         <div class="absolute top-3 right-3 w-7 h-7 rounded-md border-2 border-slate-300 flex items-center justify-center bg-white part-checkbox transition-all" id="part-cb-${idx}">
                         </div>
-                        <div class="flex items-start gap-3 pr-8">
+                        <div class="flex items-start gap-3 pr-8 pl-4">
                             <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style="background-color: var(--theme-color); opacity: 0.15;">
                                 <i class="fa-solid ${icon} text-xl" style="color: var(--theme-color);"></i>
                             </div>
