@@ -202,7 +202,7 @@
             "goes to sleep very late.",
             "wakes up early."
           ],
-          "answer": 2
+          "answer": 1
         },
         {
           "num": 2,
@@ -212,7 +212,7 @@
             "7.00",
             "7.30"
           ],
-          "answer": 1
+          "answer": 2
         },
         {
           "num": 3,
