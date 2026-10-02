@@ -98,7 +98,7 @@
         .bank-chip:hover { transform: scale(1.05); }
         .bank-chip.selected { outline: 3px solid #20a1a0; outline-offset: 2px; transform: scale(1.08); box-shadow: 0 4px 12px rgba(32, 161, 160, 0.3); }
         .bank-chip.used { opacity: 0.3; pointer-events: none; }
-        .part-tab { transition: all 0.2s; }
+        .part-tab { transition: all 0.2s; font-size: 18px !important; }
         .part-tab.active { background-color: #20a1a0; color: white; }
         .listening-table th, .listening-table td { border: 1px solid #e2e8f0; }
         .color-chip.selected { outline: 3px solid #1e293b; outline-offset: 2px; transform: scale(1.15); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
@@ -122,7 +122,7 @@
                 width: 100% !important;
             }
             .part-tab {
-                font-size: 20px;
+                font-size: 18px !important;
                 padding: 6px 10px;
             }
             #listening-tabs, #reading-tabs {
@@ -2077,7 +2077,7 @@
             readingData.parts.forEach((part, i) => {
                 const isActive = activeReadingPart === i;
                 const tab = document.createElement('button');
-                tab.className = `px-4 py-2 rounded-xl text-sm font-bold transition-all ${isActive ? 'bg-turtle-500 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`;
+                tab.className = `part-tab px-4 py-2 rounded-xl font-bold ${isActive ? 'active shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`;
                 tab.textContent = `Ex ${i + 1} - ${part.title}`;
                 tab.onclick = () => { activeReadingPart = i; renderReadingTabs(); renderReadingPart(); };
                 tabs.appendChild(tab);
