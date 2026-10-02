@@ -463,7 +463,7 @@
             if (skillId && subfolder) {
                 const skill = subfolder.skills ? subfolder.skills.find(s => s.id === skillId) : null;
                 if (skill) {
-                    titleText = `${folder.name} / ${subfolder.name} / ${skill.name}`;
+                    titleText = `${subfolder.name} / ${skill.name}`;
                     subtitleText = 'Bài tập thực hành';
                     isShowingQuiz = true;
                     quizFolderPath = `${folderId}/${subfolderId}/${skillId}`;
@@ -471,7 +471,7 @@
             }
             // Level 3: subfolder with skills -> show skills list
             else if (subfolderId && subfolder && subfolder.skills) {
-                titleText = `${folder.name} / ${subfolder.name}`;
+                titleText = subfolder.name;
                 subtitleText = 'Chọn kỹ năng';
                 let html = '<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">';
                 subfolder.skills.forEach(s => {
@@ -488,14 +488,14 @@
             }
             // Level 3: subfolder without skills -> show quiz directly
             else if (subfolderId && subfolder) {
-                titleText = `${folder.name} / ${subfolder.name}`;
+                titleText = subfolder.name;
                 subtitleText = 'Bài tập thực hành';
                 isShowingQuiz = true;
                 quizFolderPath = `${folderId}/${subfolderId}`;
             }
             // Level 2: folder with subfolders -> show subfolders
             else if (folderId && folder && folder.subfolders) {
-                titleText = `${material.name} / ${folder.name}`;
+                titleText = folder.name;
                 subtitleText = 'Chọn bài kiểm tra';
                 let html = '<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">';
                 folder.subfolders.forEach(sf => {
@@ -511,7 +511,7 @@
             }
             // Level 2: folder without subfolders -> show quiz directly
             else if (folderId && folder) {
-                titleText = `${material.name} / ${folder.name}`;
+                titleText = folder.name;
                 subtitleText = 'Bài tập thực hành';
                 isShowingQuiz = true;
                 quizFolderPath = folderId;

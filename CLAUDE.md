@@ -17,6 +17,11 @@
 - Teacher code: `123`, session storage key: `elm_teacher_logged_in`
 - Student code input: NO placeholder text (empty input field)
 
+## Student UI Rules
+- Do NOT show material/book name (e.g., "Collins for Movers", "Compact A2 Key") in student-facing UI
+- Only show test number, unit number, or topic name (e.g., "Test 1", "Unit 1 - My family, my friends & me")
+- Always show student info (name, class) in the test header during exercises
+
 ## Listening Test Layout (Collins for Movers format — apply to ALL future tests)
 
 ### Part 1 (drag-match: "Listen and draw lines")
