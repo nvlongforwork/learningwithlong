@@ -206,6 +206,86 @@
           "answer": 1
         }
       ]
+    },
+    {
+      "id": "listening-part4b",
+      "title": "Listening Part 4",
+      "questions": 5,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "multiple-choice-abc",
+      "audio": "audio/compact-a2-key/unit2/listening-part4b.mp3",
+      "script": [
+        { "speaker": "Narrator", "text": "1 You will hear two friends talking about going to art club. What do they say about going to the countryside to paint?" },
+        { "speaker": "Boy", "text": "It's Art Club today. Are you coming?" },
+        { "speaker": "Girl", "text": "Yes – we're going outside to paint. I'm glad we are – it's fun doing that." },
+        { "speaker": "Boy", "text": "Absolutely. <u>I really enjoyed it when we went to the city centre and painted outdoors in the town square</u>." },
+        { "speaker": "Girl", "text": "Me too. And <u>it will be interesting to paint the fields and the lake</u>." },
+        { "speaker": "Boy", "text": "Yes, it will." },
+        { "speaker": "Narrator", "text": "2 You will hear a girl talking about a competition. What type of competition was it?" },
+        { "speaker": "Girl", "text": "I enjoyed the competition. I didn't win, but I played well and I didn't get too tired. But <u>I missed a lot of balls</u>. I wish I'd practised more – I need to <u>hit the ball harder</u>. A lot of the people I played were better than me, but they were older, too. I'll win more games when I'm older." },
+        { "speaker": "Narrator", "text": "3 You will hear a boy talking about joining a dance club. Why does he want to join the club?" },
+        { "speaker": "Boy", "text": "I'm joining the dance club this month. I always do loads of exercise, like playing basketball and swimming, but <u>I'd like to do an activity I've never done before</u>. At the club, they do dances from around the world, so I'll learn about all kinds of music too. I asked my friends to come along, but they're not interested." },
+        { "speaker": "Narrator", "text": "4 You will hear a girl, Kate, talking to a friend about films. What type of films does she like?" },
+        { "speaker": "Boy", "text": "What kind of films do you like, Kate?" },
+        { "speaker": "Girl", "text": "Er… I like a few types… though not adventure films. They're a bit boring. Comedy films are too, I think, because nothing exciting happens. And often, they're not even amusing. But <u>you're never bored when you watch a horror film</u>. They're great." },
+        { "speaker": "Narrator", "text": "5 You will hear two friends talking about a concert they went to. What did they think of the concert?" },
+        { "speaker": "Girl", "text": "Well, what did you think of the concert?" },
+        { "speaker": "Boy", "text": "Not bad! Definitely better than the last concert we went to in that theatre." },
+        { "speaker": "Girl", "text": "Yes, that's true. That was awful. But it's always nice to go there – the sound quality is amazing. But they didn't play many songs, did they?" },
+        { "speaker": "Boy", "text": "No. <u>They only played for about an hour and a half which wasn't enough</u>." }
+      ],
+      "items": [
+        {
+          "num": 1,
+          "question": "You will hear two friends talking about going to art club. What do they say about going to the countryside to paint?",
+          "options": [
+            "They prefer painting inside.",
+            "They haven't tried painting outside before.",
+            "They feel happy about painting outside."
+          ],
+          "answer": 2
+        },
+        {
+          "num": 2,
+          "question": "You will hear a girl talking about a competition. What type of competition was it?",
+          "options": [
+            "a football competition",
+            "a music competition",
+            "a tennis competition"
+          ],
+          "answer": 2
+        },
+        {
+          "num": 3,
+          "question": "You will hear a boy talking about joining a dance club. Why does he want to join the club?",
+          "options": [
+            "His friends go to the club.",
+            "He wants to do something new.",
+            "It's a good way to exercise."
+          ],
+          "answer": 1
+        },
+        {
+          "num": 4,
+          "question": "You will hear a girl, Kate, talking to a friend about films. What type of films does she like?",
+          "options": [
+            "comedy films",
+            "horror films",
+            "adventure films"
+          ],
+          "answer": 1
+        },
+        {
+          "num": 5,
+          "question": "You will hear two friends talking about a concert they went to. What did they think of the concert?",
+          "options": [
+            "It was too short.",
+            "It was worse than the last one.",
+            "It was in a terrible place."
+          ],
+          "answer": 0
+        }
+      ]
     }
   ]
 }
