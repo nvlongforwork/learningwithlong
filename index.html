@@ -1450,10 +1450,7 @@
             const content = document.getElementById('listening-content');
             const answers = listeningAnswers[activePart];
 
-            let html = `
-            <div class="max-w-2xl mx-auto">
-                <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
-                ${part.image ? `<div class="mb-4 text-center"><img src="${part.image}" alt="" class="rounded-2xl shadow-sm border max-w-full mx-auto" style="max-height:240px;object-fit:contain"></div>` : ''}
+            let formHtml = `
                 <div class="bg-white rounded-2xl shadow-sm border p-6 sm:p-8">
                     <h3 class="text-2xl font-bold text-slate-800 text-center mb-6 pb-4 border-b">${part.formTitle}</h3>
                     <div class="space-y-5">
@@ -1485,7 +1482,20 @@
                         </div>`;
             });
 
-            html += `</div></div>`;
+            formHtml += `</div></div>`;
+
+            let html = `<div class="mx-auto" style="max-width:1100px">
+                <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
+            if (part.image) {
+                html += `<div class="resp-row">
+                    <div class="resp-col" style="width:40%">
+                        <img src="${part.image}" alt="" class="rounded-2xl shadow-sm border w-full sticky top-4" style="object-fit:contain">
+                    </div>
+                    <div class="resp-col" style="width:60%">${formHtml}</div>
+                </div>`;
+            } else {
+                html += formHtml;
+            }
             html += renderAudioScripts(part);
             html += `</div>`;
             content.innerHTML = html;
