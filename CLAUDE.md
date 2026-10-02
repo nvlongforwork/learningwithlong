@@ -80,6 +80,28 @@
 - Full Test loads both listening + reading JSON files
 
 ## Image Files
-- Path: `images/collins-movers/test{N}/`
+- Path: `images/collins-movers/test{N}/`, `images/compact-a2-key/unit{N}/`
 - Word bank images in `words/` subfolder
 - Prefer .webp format for smaller file size
+- Crop images cleanly — never cut off content, text, or visual elements
+
+## Compact Series (A2 Key, B1 Preliminary, etc.) — Workbook Format
+- Listening is part of Workbook (single JSON file), NOT a separate skill
+- Skills for Compact units: `[{id:'workbook',name:'Workbook'}]` only
+- JSON type: `"reading-test"` (workbook uses reading test flow for all parts including listening)
+- Listening parts use `"type": "multiple-choice-abc"` with `"audio"` field inside the workbook JSON
+- Audio path: `audio/compact-a2-key/unit{N}/`
+
+## Side-by-side Layout Rules (apply to ALL exercises with images)
+- Images on LEFT, exercises on RIGHT
+- Use `resp-row`/`resp-col` classes
+- Image column: 35-40% width, `sticky top-4`
+- Exercise column: 60-65% width
+- Writing exercises: show live word count while typing
+- Apply to: sentence-transform, fill-blank-reading, word-box-fill, picture-story-write
+
+## Writing Exercises
+- Show live word count during writing
+- After submission: show student's writing, word count check, self-check checklist (band descriptors), sample answer
+- Checklist uses bands 1/3/5 for Content, Organisation, Language
+- Score out of 15 (3 criteria × band 5 max)

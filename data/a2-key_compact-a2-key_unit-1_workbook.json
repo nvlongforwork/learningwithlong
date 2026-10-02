@@ -202,6 +202,21 @@
         { "category": "Organisation", "band5": "Text is connected and coherent, using basic linking words and a limited number of cohesive devices.", "band3": "Text is connected using basic, high-frequency linking words.", "band1": "Production unlikely to be connected, though punctuation and simple connectors (i.e. 'and') may on occasion be used." },
         { "category": "Language", "band5": "Uses everyday vocabulary generally appropriately, while occasionally overusing certain lexis. Uses simple grammatical forms with a good degree of control. While errors are noticeable, meaning can still be determined.", "band3": "Uses basic vocabulary reasonably appropriately. Uses simple grammatical forms with some degree of control. Errors may impede meaning at times.", "band1": "Produces basic vocabulary of isolated words and phrases. Produces few simple grammatical forms with only limited control." }
       ]
+    },
+    {
+      "id": "listening-part3",
+      "title": "Listening Part 3",
+      "questions": 5,
+      "instructions": "For each question, choose the correct answer. You will hear Kelly talking to her mum about her singing lessons.",
+      "type": "multiple-choice-abc",
+      "audio": "audio/compact-a2-key/unit1/listening-part3.mp3",
+      "items": [
+        { "num": 1, "question": "When is Kelly's next singing lesson?", "options": ["8th August", "15th August", "22nd August"], "answer": 1 },
+        { "num": 2, "question": "Where will they get the music book from?", "options": ["the bookshop", "the library", "the music shop"], "answer": 0 },
+        { "num": 3, "question": "Which day will they get the book?", "options": ["Tuesday", "Wednesday", "Thursday"], "answer": 2 },
+        { "num": 4, "question": "Kelly's mum will meet Kelly at", "options": ["3.45 p.m.", "4.00 p.m.", "4.15 p.m."], "answer": 1 },
+        { "num": 5, "question": "What kind of food does Kelly want to eat afterwards?", "options": ["pizza", "fish", "burgers"], "answer": 0 }
+      ]
     }
   ]
 }
