@@ -406,9 +406,10 @@
 
         // Mật khẩu giáo viên cố định theo yêu cầu
         const TEACHER_CODE = '123';
+        const TEACHER_BYPASS_CODE = '968903';
 
-        // Kiểm tra xem giáo viên đã đăng nhập từ trước chưa (Lưu session)
         let isLoggedIn = sessionStorage.getItem('elm_teacher_logged_in') === 'true';
+        let isTeacherMode = sessionStorage.getItem('elm_teacher_mode') === 'true';
 
         // Tham chiếu các phần tử DOM
         const viewLogin = document.getElementById('view-login');
@@ -639,9 +640,13 @@
             e.preventDefault();
             const codeInput = document.getElementById('teacher-code').value;
 
-            if (codeInput === TEACHER_CODE) {
+            if (codeInput === TEACHER_CODE || codeInput === TEACHER_BYPASS_CODE) {
                 isLoggedIn = true;
                 sessionStorage.setItem('elm_teacher_logged_in', 'true');
+                if (codeInput === TEACHER_BYPASS_CODE) {
+                    isTeacherMode = true;
+                    sessionStorage.setItem('elm_teacher_mode', 'true');
+                }
                 document.getElementById('teacher-code').value = '';
 
                 Swal.fire({
@@ -678,7 +683,9 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     isLoggedIn = false;
+                    isTeacherMode = false;
                     sessionStorage.removeItem('elm_teacher_logged_in');
+                    sessionStorage.removeItem('elm_teacher_mode');
                     window.location.hash = '#/';
                 }
             });
@@ -845,8 +852,9 @@
                         </table>
                     </div>
                 </div>
+                ${(!isTeacherMode && pct < 80) ? `<div style="text-align:center;margin-top:12px;padding:12px 20px;background:#fef2f2;border:1px solid #fecaca;border-radius:12px;color:#dc2626;font-size:20px;font-weight:600"><i class="fa-solid fa-lock" style="margin-right:6px"></i>Đạt từ 80% trở lên để xem đáp án</div>` : ''}
                 <div style="display:flex;gap:12px;justify-content:center;margin-top:16px">
-                    <button id="${reviewBtnId}" style="padding:14px 28px;background:linear-gradient(135deg,${matColor},${matColor}cc);color:white;border:none;border-radius:14px;font-weight:700;cursor:pointer;font-size:20px;box-shadow:0 4px 12px ${matColor}40"><i class="fa-solid fa-eye" style="margin-right:8px"></i>Xem lại bài làm</button>
+                    <button id="${reviewBtnId}" ${(!isTeacherMode && pct < 80) ? 'disabled' : ''} style="padding:14px 28px;background:${(!isTeacherMode && pct < 80) ? '#94a3b8' : `linear-gradient(135deg,${matColor},${matColor}cc)`};color:white;border:none;border-radius:14px;font-weight:700;cursor:${(!isTeacherMode && pct < 80) ? 'not-allowed' : 'pointer'};font-size:20px;box-shadow:0 4px 12px ${(!isTeacherMode && pct < 80) ? 'rgba(0,0,0,0.1)' : `${matColor}40`};opacity:${(!isTeacherMode && pct < 80) ? '0.6' : '1'}"><i class="fa-solid fa-${(!isTeacherMode && pct < 80) ? 'lock' : 'eye'}" style="margin-right:8px"></i>Xem lại bài làm</button>
                     <button id="${saveBtnId}" style="padding:14px 28px;background:linear-gradient(135deg,#6366f1,#818cf8);color:white;border:none;border-radius:14px;font-weight:700;cursor:pointer;font-size:20px;box-shadow:0 4px 12px rgba(99,102,241,0.3)"><i class="fa-solid fa-download" style="margin-right:8px"></i>Lưu kết quả</button>
                 </div>
             </div>`;
@@ -1211,6 +1219,7 @@
         let listeningAnswers = {};
         let activePart = 0;
         let listeningSubmitted = false;
+        let listeningCanReview = false;
         let selectedBank = null;
         let currentStudent = null;
         let studentsData = null;
@@ -1303,6 +1312,7 @@
             listeningAnswers = {};
             activePart = 0;
             listeningSubmitted = false;
+            listeningCanReview = false;
             selectedBank = null;
 
             data.parts.forEach((part, i) => {
@@ -1963,6 +1973,8 @@
                     return;
                 }
 
+                listeningCanReview = isTeacherMode || pct >= 80;
+                let listeningReviewClicked = false;
                 Swal.fire({
                     title: 'Nộp bài thành công!',
                     html: resultHtml,
@@ -1972,15 +1984,19 @@
                     width: '90%',
                     customClass: { popup: 'swal-result-popup' },
                     didOpen: () => {
-                        document.getElementById('btn-review-result').addEventListener('click', () => {
-                            Swal.close();
-                            const btn = document.getElementById('btn-submit-listening');
-                            btn.innerHTML = '<i class="fa-solid fa-door-open mr-2"></i> Quay lại';
-                            btn.className = btn.className.replace('bg-turtle-500', 'bg-slate-600').replace('hover:bg-turtle-600', 'hover:bg-slate-700');
-                            activePart = 0;
-                            renderListeningTabs();
-                            renderListeningPart();
-                        });
+                        const reviewBtn = document.getElementById('btn-review-result');
+                        if (!reviewBtn.disabled) {
+                            reviewBtn.addEventListener('click', () => {
+                                listeningReviewClicked = true;
+                                Swal.close();
+                                const btn = document.getElementById('btn-submit-listening');
+                                btn.innerHTML = '<i class="fa-solid fa-door-open mr-2"></i> Quay lại';
+                                btn.className = btn.className.replace('bg-turtle-500', 'bg-slate-600').replace('hover:bg-turtle-600', 'hover:bg-slate-700');
+                                activePart = 0;
+                                renderListeningTabs();
+                                renderListeningPart();
+                            });
+                        }
                         document.getElementById('btn-save-result').addEventListener('click', async () => {
                             const card = document.getElementById('result-card');
                             const btns = card.querySelector('div[style*="display:flex;gap:12px;justify-content:center;margin-top"]');
@@ -1995,6 +2011,9 @@
                             } catch(e) { console.error(e); }
                             btns.style.display = 'flex';
                         });
+                    },
+                    didClose: () => {
+                        if (!listeningReviewClicked && !listeningCanReview) doCloseListening();
                     }
                 });
             };
@@ -2115,11 +2134,13 @@
         let readingAnswers = {};
         let activeReadingPart = 0;
         let readingSubmitted = false;
+        let readingCanReview = false;
         let readingStartTime = null;
 
         function openReadingTest(data, title) {
             readingData = data;
             readingSubmitted = false;
+            readingCanReview = false;
             readingStartTime = Date.now();
             readingAnswers = {};
             window._writingScores = null;
@@ -3109,6 +3130,8 @@
                         </div>
                     </div>` : ''}`);
 
+                readingCanReview = isTeacherMode || grandPct >= 80;
+                let fullTestReviewClicked = false;
                 Swal.fire({
                     title: 'Hoàn thành Full Test!',
                     html: resultHtml,
@@ -3118,11 +3141,15 @@
                     width: '90%',
                     customClass: { popup: 'swal-result-popup' },
                     didOpen: () => {
-                        document.getElementById('btn-review-reading').addEventListener('click', () => {
-                            Swal.close();
-                            renderReadingTabs();
-                            renderReadingPart();
-                        });
+                        const reviewBtn = document.getElementById('btn-review-reading');
+                        if (!reviewBtn.disabled) {
+                            reviewBtn.addEventListener('click', () => {
+                                fullTestReviewClicked = true;
+                                Swal.close();
+                                renderReadingTabs();
+                                renderReadingPart();
+                            });
+                        }
                         document.getElementById('btn-save-reading').addEventListener('click', async () => {
                             const card = document.getElementById('result-card');
                             const btns = card.querySelector('div[style*="display:flex;gap:12px;justify-content:center;margin-top"]');
@@ -3137,6 +3164,9 @@
                             } catch(e) { console.error(e); }
                             if (btns) btns.style.display = 'flex';
                         });
+                    },
+                    didClose: () => {
+                        if (!fullTestReviewClicked && !readingCanReview) doCloseReading();
                     }
                 });
 
@@ -3158,6 +3188,8 @@
                     saveBtnId: 'btn-save-reading'
                 });
 
+                readingCanReview = isTeacherMode || pct >= 80;
+                let readingReviewClicked = false;
                 Swal.fire({
                     title: 'Nộp bài thành công!',
                     html: resultHtml,
@@ -3167,11 +3199,15 @@
                     width: '90%',
                     customClass: { popup: 'swal-result-popup' },
                     didOpen: () => {
-                        document.getElementById('btn-review-reading').addEventListener('click', () => {
-                            Swal.close();
-                            renderReadingTabs();
-                            renderReadingPart();
-                        });
+                        const reviewBtn = document.getElementById('btn-review-reading');
+                        if (!reviewBtn.disabled) {
+                            reviewBtn.addEventListener('click', () => {
+                                readingReviewClicked = true;
+                                Swal.close();
+                                renderReadingTabs();
+                                renderReadingPart();
+                            });
+                        }
                         document.getElementById('btn-save-reading').addEventListener('click', async () => {
                             const card = document.getElementById('result-card');
                             const btns = card.querySelector('div[style*="display:flex;gap:12px;justify-content:center;margin-top"]');
@@ -3186,6 +3222,9 @@
                             } catch(e) { console.error(e); }
                             if (btns) btns.style.display = 'flex';
                         });
+                    },
+                    didClose: () => {
+                        if (!readingReviewClicked && !readingCanReview) doCloseReading();
                     }
                 });
             }

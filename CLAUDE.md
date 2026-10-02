@@ -15,7 +15,14 @@
 ## Student Code Verification
 - ACTIVATED — students must enter code before any test
 - Teacher code: `123`, session storage key: `elm_teacher_logged_in`
+- Teacher bypass code: `968903` — sets `isTeacherMode = true`, no restrictions (can always view answers)
 - Student code input: NO placeholder text (empty input field)
+
+## Answer Review Restriction
+- Students must score >= 80% to view answers ("Xem lại bài làm")
+- If score < 80%, the review button is disabled and a lock message is shown
+- If score < 80% and student closes the result popup, the test closes entirely (no answer viewing)
+- Teacher mode (code `968903`) bypasses this restriction entirely
 
 ## Student UI Rules
 - Do NOT show material/book name (e.g., "Collins for Movers", "Compact A2 Key") in student-facing UI
