@@ -3251,12 +3251,12 @@
                 html += `</div>`;
             } else if (part.prompt) {
                 const promptHtml = part.prompt.replace(/\n\n/g, '</p><p class="mb-2">').replace(/\n/g, '<br>');
-                html += `<div class="bg-blue-50 rounded-2xl p-5 border border-blue-200" style="font-size:20px;">
+                html += `<div class="max-w-2xl mx-auto bg-blue-50 rounded-2xl p-5 border border-blue-200" style="font-size:20px;">
                     <div class="flex items-center gap-2 mb-3"><i class="fa-solid fa-envelope text-blue-500"></i><span class="font-bold text-blue-700">Email</span></div>
                     <div class="text-slate-700 leading-relaxed"><p class="mb-2">${promptHtml}</p></div>
                 </div>`;
             }
-            html += `</div><div class="w-full">`;
+            html += `</div><div class="${part.prompt ? 'max-w-2xl mx-auto w-full' : 'w-full'}">`;
             if (readingSubmitted) {
                 html += `<div class="bg-white rounded-xl p-4 border shadow-sm mb-4" style="font-size:20px;">
                     <h4 class="font-bold text-turtle-600 mb-2"><i class="fa-solid fa-pen-fancy mr-1"></i> Bài viết của bạn:</h4>
