@@ -1191,7 +1191,7 @@
                     <div style="font-size:13px;color:#94a3b8">Nhập mã để bắt đầu làm bài</div>
                 </div>`,
                 input: 'text',
-                inputPlaceholder: 'Ví dụ: 4601',
+                inputPlaceholder: '',
                 inputAttributes: { autocomplete: 'off', style: 'text-align:center;font-size:1.5rem;font-weight:800;letter-spacing:0.15em;padding:14px;border:2px solid #e2e8f0;border-radius:14px' },
                 showCancelButton: true,
                 cancelButtonText: 'Huỷ',
@@ -1473,7 +1473,7 @@
                     inputHtml = `<input type="text" value="${answers[i]}" placeholder="..." oninput="listeningAnswers[${activePart}][${i}]=this.value" class="flex-1 px-3 py-2 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-turtle-400 font-medium">`;
                 }
 
-                html += `
+                formHtml += `
                         <div class="flex flex-wrap items-center gap-3 p-4 rounded-xl border ${listeningSubmitted ? '' : 'hover:bg-slate-50'}">
                             <span class="font-bold text-turtle-600 w-8 shrink-0">${row.num}</span>
                             <span class="text-slate-700 font-medium w-48 shrink-0">${row.label}</span>
