@@ -1,0 +1,101 @@
+{
+  "type": "reading-test",
+  "title": "Unit 3 - Eating in, eating out",
+  "parts": [
+    {
+      "id": "reading-part4a",
+      "title": "Reading & Writing Part 4",
+      "questions": 6,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "grammar-cloze",
+      "passage": "Where I live\n\nMoussa is 13 years old and he lives on a small (1) .......... in Mali, West Africa. There are only two rooms in his house; one for his parents and the other for Moussa and his little brother, Sekou.\n\nMoussa gets up early and looks (2) .......... Sekou while their mother makes breakfast. The family has breakfast together. They usually have bread with milk and (3) .......... a little sugar to it.\n\nMoussa walks to school with his friends. It (4) .......... them about ten minutes. When they get to school, they have to clean the classroom.\n\nAt noon, Moussa goes home for lunch. For lunch the family often has vegetables which they have (5) .......... themselves.\n\nWhen lunch is finished, Moussa (6) .......... to school for afternoon lessons, and then goes home again for dinner in the evening.",
+      "items": [
+        {
+          "num": 1,
+          "options": ["forest", "farm", "village"],
+          "answer": 1
+        },
+        {
+          "num": 2,
+          "options": ["after", "up", "around"],
+          "answer": 0
+        },
+        {
+          "num": 3,
+          "options": ["include", "join", "add"],
+          "answer": 2
+        },
+        {
+          "num": 4,
+          "options": ["takes", "needs", "keeps"],
+          "answer": 0
+        },
+        {
+          "num": 5,
+          "options": ["brought", "grown", "left"],
+          "answer": 1
+        },
+        {
+          "num": 6,
+          "options": ["enters", "arrives", "returns"],
+          "answer": 2
+        }
+      ]
+    },
+    {
+      "id": "listening-part2a",
+      "title": "Listening Part 2",
+      "questions": 5,
+      "instructions": "For each question, write the correct answer in the gap. Write one word or a number or a date or a time.",
+      "type": "fill-blank",
+      "audio": "audio/compact-a2-key/unit3/listening-part2.mp3",
+      "formTitle": "School trip",
+      "example": { "label": "Date:", "prefix": "", "answer": "16th February" },
+      "rows": [
+        { "num": 1, "label": "Name of school of cooking:", "prefix": "", "answer": "Stice" },
+        { "num": 2, "label": "How we'll get there:", "prefix": "by", "answer": "bus" },
+        { "num": 3, "label": "Time to meet:", "prefix": "", "answer": "8.15", "altAnswers": ["eight fifteen"] },
+        { "num": 4, "label": "What we'll make:", "prefix": "", "answer": "cakes" },
+        { "num": 5, "label": "Total price:", "prefix": "£", "answer": "9.50", "altAnswers": ["nine fifty"] }
+      ],
+      "script": [
+        { "speaker": "Teacher", "text": "Right everyone, I want to tell you about the trip to the school of cooking next week – on the 16th of February." },
+        { "speaker": "Teacher", "text": "Some of you have asked me which school of cooking we're going to – well, <u>it's called Stice – you spell that S-T-I-C-E</u>. Some of you may know it – it's in town, near the train station." },
+        { "speaker": "Teacher", "text": "We won't be going by train, but <u>by bus</u>. It's easier to keep everyone together that way." },
+        { "speaker": "Teacher", "text": "Now, on the day of the trip, you'll have to get to school earlier than usual, as our trip starts at nine o'clock. <u>Please be here at 8.15</u>. Don't be late!" },
+        { "speaker": "Teacher", "text": "It's a school of cooking, so we'll be making something. The group I took last year made pizzas, which were fantastic, and I'm sure <u>the cakes we make this time</u> will be just as good." },
+        { "speaker": "Teacher", "text": "<u>Tell your parents that they'll need to pay nine pounds fifty</u> for the day – that includes five pounds for the food that we're going to make." }
+      ]
+    },
+    {
+      "id": "writing-part7a",
+      "title": "Writing Part 7",
+      "questions": 1,
+      "instructions": "Look at the three pictures. Write the story shown in the pictures. Write 35 words or more.",
+      "type": "picture-story-write",
+      "storyImage": "images/compact-a2-key/unit3/writing-part7.webp",
+      "minWords": 35,
+      "checklist": [
+        {
+          "category": "Content",
+          "band5": "All the content is relevant to the task. The candidate has described all three pictures clearly.",
+          "band3": "Some content is relevant but may miss one picture or include irrelevant details.",
+          "band1": "Content is mostly irrelevant or too short to assess."
+        },
+        {
+          "category": "Organisation",
+          "band5": "The story is well-organised with clear sequencing and connecting words (first, then, after that).",
+          "band3": "Some attempt at organisation but the story may be hard to follow in places.",
+          "band1": "Very little organisation. Ideas are not connected."
+        },
+        {
+          "category": "Language",
+          "band5": "Uses a range of everyday vocabulary and grammar accurately. Spelling is mostly correct.",
+          "band3": "Uses simple vocabulary and grammar with some errors that don't prevent understanding.",
+          "band1": "Very limited vocabulary. Frequent errors make the text difficult to understand."
+        }
+      ],
+      "sampleAnswer": "Last Saturday, my dad had a barbecue party in the garden. He was cooking meat for our friends. Suddenly, it started raining heavily. Dad tried to carry the food inside with an umbrella. Finally, he decided to cook the food in the oven in the kitchen instead."
+    }
+  ]
+}
