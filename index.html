@@ -308,7 +308,11 @@
                 </button>
                 <h2 id="listening-title" class="text-lg font-bold text-slate-800 hidden sm:block"></h2>
             </div>
-            <div id="listening-student-info" class="flex items-center gap-3 text-sm">
+            <div class="flex items-center gap-3">
+                <div id="listening-student-info" class="flex items-center gap-3 text-sm"></div>
+                <button id="btn-submit-listening" onclick="submitListeningTest()" class="py-1.5 px-4 bg-turtle-500 text-white font-semibold rounded-xl hover:bg-turtle-600 transition-all shadow hover-bounce" style="font-size:14px">
+                    <i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài
+                </button>
             </div>
         </header>
         <div id="listening-tabs" class="bg-white border-b px-4 py-2 flex gap-2 shrink-0"></div>
@@ -316,9 +320,12 @@
             <audio id="listening-audio-player" controls class="w-full max-w-xl h-10"></audio>
         </div>
         <div id="listening-content" class="flex-1 overflow-y-auto p-2 sm:p-4 custom-scrollbar"></div>
-        <footer class="bg-white border-t p-3 sm:p-5 shrink-0 flex items-center justify-end gap-4 z-10">
-            <button id="btn-submit-listening" onclick="submitListeningTest()" class="py-1.5 px-4 bg-turtle-500 text-white font-semibold text-sm rounded-xl hover:bg-turtle-600 transition-all shadow hover-bounce">
-                <i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài
+        <footer class="bg-white border-t p-3 sm:p-5 shrink-0 flex items-center justify-between z-10">
+            <button id="btn-back-listening" onclick="navListeningPart(-1)" class="py-2 px-5 bg-slate-200 text-slate-700 font-semibold rounded-xl hover:bg-slate-300 transition-all">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Back
+            </button>
+            <button id="btn-next-listening" onclick="navListeningPart(1)" class="py-2 px-5 bg-turtle-500 text-white font-semibold rounded-xl hover:bg-turtle-600 transition-all shadow">
+                Next <i class="fa-solid fa-arrow-right ml-2"></i>
             </button>
         </footer>
     </section>
@@ -331,14 +338,21 @@
                 </button>
                 <h2 id="reading-title" class="text-lg font-bold text-slate-800 hidden sm:block"></h2>
             </div>
-            <div id="reading-student-info" class="flex items-center gap-3 text-sm">
+            <div class="flex items-center gap-3">
+                <div id="reading-student-info" class="flex items-center gap-3 text-sm"></div>
+                <button id="btn-submit-reading" onclick="submitReadingTest()" class="py-1.5 px-4 bg-turtle-500 text-white font-semibold rounded-xl hover:bg-turtle-600 transition-all shadow hover-bounce" style="font-size:14px">
+                    <i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài
+                </button>
             </div>
         </header>
         <div id="reading-tabs" class="bg-white border-b px-4 py-2 flex gap-2 shrink-0"></div>
         <div id="reading-content" class="flex-1 overflow-y-auto p-2 sm:p-4 custom-scrollbar"></div>
-        <footer class="bg-white border-t p-3 sm:p-5 shrink-0 flex items-center justify-end gap-4 z-10">
-            <button id="btn-submit-reading" onclick="submitReadingTest()" class="py-1.5 px-4 bg-turtle-500 text-white font-semibold text-sm rounded-xl hover:bg-turtle-600 transition-all shadow hover-bounce">
-                <i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài
+        <footer class="bg-white border-t p-3 sm:p-5 shrink-0 flex items-center justify-between z-10">
+            <button id="btn-back-reading" onclick="navReadingPart(-1)" class="py-2 px-5 bg-slate-200 text-slate-700 font-semibold rounded-xl hover:bg-slate-300 transition-all">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Back
+            </button>
+            <button id="btn-next-reading" onclick="navReadingPart(1)" class="py-2 px-5 bg-turtle-500 text-white font-semibold rounded-xl hover:bg-turtle-600 transition-all shadow">
+                Next <i class="fa-solid fa-arrow-right ml-2"></i>
             </button>
         </footer>
     </section>
@@ -1324,6 +1338,19 @@
                 btn.onclick = () => { activePart = i; selectedBank = null; renderListeningTabs(); renderListeningPart(); };
                 tabs.appendChild(btn);
             });
+            updateListeningNav();
+        }
+        function updateListeningNav() {
+            const backBtn = document.getElementById('btn-back-listening');
+            const nextBtn = document.getElementById('btn-next-listening');
+            if (backBtn) backBtn.style.visibility = activePart === 0 ? 'hidden' : 'visible';
+            if (nextBtn) nextBtn.style.visibility = activePart >= listeningData.parts.length - 1 ? 'hidden' : 'visible';
+        }
+        function navListeningPart(dir) {
+            const newIdx = activePart + dir;
+            if (newIdx >= 0 && newIdx < listeningData.parts.length) {
+                activePart = newIdx; selectedBank = null; renderListeningTabs(); renderListeningPart();
+            }
         }
 
         function renderListeningPart() {
@@ -2095,6 +2122,19 @@
                 tab.onclick = () => { activeReadingPart = i; renderReadingTabs(); renderReadingPart(); };
                 tabs.appendChild(tab);
             });
+            updateReadingNav();
+        }
+        function updateReadingNav() {
+            const backBtn = document.getElementById('btn-back-reading');
+            const nextBtn = document.getElementById('btn-next-reading');
+            if (backBtn) backBtn.style.visibility = activeReadingPart === 0 ? 'hidden' : 'visible';
+            if (nextBtn) nextBtn.style.visibility = activeReadingPart >= readingData.parts.length - 1 ? 'hidden' : 'visible';
+        }
+        function navReadingPart(dir) {
+            const newIdx = activeReadingPart + dir;
+            if (newIdx >= 0 && newIdx < readingData.parts.length) {
+                activeReadingPart = newIdx; renderReadingTabs(); renderReadingPart();
+            }
         }
 
         function renderReadingPart() {
