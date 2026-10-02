@@ -48,7 +48,6 @@
       "questions": 5,
       "instructions": "Read the information about Laura and complete the sentences.",
       "type": "fill-blank-reading",
-      "image": "images/compact-a2-key/unit1/grammar-ex3-timetable.webp",
       "tableData": {
         "headers": ["", "On school days", "In the holidays"],
         "rows": [

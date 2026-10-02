@@ -87,7 +87,8 @@
 
 ## Compact Series (A2 Key, B1 Preliminary, etc.) — Workbook Format
 - Listening is part of Workbook (single JSON file), NOT a separate skill
-- Skills for Compact units: `[{id:'workbook',name:'Workbook'}]` only
+- No intermediate skill selection — clicking a Unit goes directly to exercises
+- Tab labels show exercise numbers: "Ex 1 - Grammar - have got"
 - JSON type: `"reading-test"` (workbook uses reading test flow for all parts including listening)
 - Listening parts use `"type": "multiple-choice-abc"` with `"audio"` field inside the workbook JSON
 - Audio path: `audio/compact-a2-key/unit{N}/`
@@ -99,6 +100,10 @@
 - Exercise column: 60-65% width
 - Writing exercises: show live word count while typing
 - Apply to: sentence-transform, fill-blank-reading, word-box-fill, picture-story-write
+
+## Grading Rules
+- Exercises without answers (free-writing, picture-story-write) should NOT be graded right/wrong
+- Only exercises with definite answers get scored
 
 ## Writing Exercises
 - Show live word count during writing

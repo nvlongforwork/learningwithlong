@@ -352,7 +352,7 @@
             { id: 'a2-flyers', name: 'A2 Flyers', description: 'Cấp độ cao nhất trong hệ thống YLE cho trẻ.', color: '#21B6A8', folders: [{ id: 'i-dictionary', name: 'I Dictionary' }] },
             { id: 'a2-key', name: 'A2 Key', description: 'Chứng chỉ tiếng Anh tổng quát trình độ A2 (KET).', color: '#00AFA9', folders: [
                 { id: 'compact-a2-key', name: 'Compact A2 Key for School', subfolders: [
-                    { id: 'unit-1', name: 'My family, my friends & me', skills: [{id:'workbook',name:'Workbook'}] },
+                    { id: 'unit-1', name: 'My family, my friends & me' },
                     { id: 'unit-2', name: 'In my free time' },
                     { id: 'unit-3', name: 'Eating in, eating out' },
                     { id: 'unit-4', name: 'What are you doing now?' },
@@ -479,6 +479,13 @@
                 });
                 html += '</div>';
                 container.innerHTML = html;
+            }
+            // Level 3: subfolder without skills -> show quiz directly
+            else if (subfolderId && subfolder) {
+                titleText = `${folder.name} / ${subfolder.name}`;
+                subtitleText = 'Bài tập thực hành';
+                isShowingQuiz = true;
+                quizFolderPath = `${folderId}/${subfolderId}`;
             }
             // Level 2: folder with subfolders -> show subfolders
             else if (folderId && folder && folder.subfolders) {
@@ -2067,7 +2074,7 @@
                 const isActive = activeReadingPart === i;
                 const tab = document.createElement('button');
                 tab.className = `px-4 py-2 rounded-xl text-sm font-bold transition-all ${isActive ? 'bg-turtle-500 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`;
-                tab.textContent = part.title;
+                tab.textContent = `Ex ${i + 1} - ${part.title}`;
                 tab.onclick = () => { activeReadingPart = i; renderReadingTabs(); renderReadingPart(); };
                 tabs.appendChild(tab);
             });
