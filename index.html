@@ -577,13 +577,14 @@
                 html += '<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">';
                 unitSubs.forEach(sf => {
                     html += `
-                        <a href="#/material/${materialId}/${folderId}/${sf.id}" class="aspect-square bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover-bounce flex flex-col items-center justify-center text-center cursor-pointer relative overflow-hidden group" style="background-color: var(--theme-bg-color);">
-                            <i class="fa-solid fa-file-lines text-4xl mb-3 opacity-80" style="color: var(--theme-color);"></i>
-                            <span class="relative z-10 text-lg sm:text-xl font-bold transition-transform group-hover:scale-105" style="color: var(--theme-color);">${sf.name}</span>
+                        <a href="#/material/${materialId}/${folderId}/${sf.id}" data-unit-id="${sf.id}" class="unit-card aspect-square rounded-3xl p-6 border shadow-sm hover-bounce flex flex-col items-center justify-center text-center cursor-pointer relative overflow-hidden group border-slate-200 bg-slate-50" style="opacity:0.5;">
+                            <i class="fa-solid fa-file-lines text-4xl mb-3 opacity-60 unit-card-icon" style="color:#94a3b8;"></i>
+                            <span class="relative z-10 text-lg sm:text-xl font-bold transition-transform group-hover:scale-105 unit-card-text" style="color:#94a3b8;">${sf.name}</span>
                         </a>
                     `;
                 });
                 html += '</div>';
+                checkUnitContent(materialId, folderId, unitSubs);
                 if (partSubs.length > 0) {
                     if (hasBothSections) {
                         html += `<h3 class="text-xl font-bold text-slate-700 mt-8 mb-4 flex items-center gap-2"><i class="fa-solid fa-layer-group" style="color: var(--theme-color);"></i> Theo Part</h3>`;
@@ -993,6 +994,30 @@
                 });
             });
             return Promise.all(fetches);
+        }
+
+        async function checkUnitContent(materialId, folderId, unitSubs) {
+            const themeColor = document.getElementById('view-detail').style.getPropertyValue('--theme-color') || '#20a1a0';
+            const themeBg = document.getElementById('view-detail').style.getPropertyValue('--theme-bg-color') || '#e6f7f7';
+            await Promise.all(unitSubs.map(async sf => {
+                const base = `./data/${materialId}_${folderId}_${sf.id}`;
+                const paths = sf.skills
+                    ? [`${base}_listening.json`, `${base}_reading.json`]
+                    : [`${base}.json`];
+                try {
+                    const results = await Promise.all(paths.map(p => fetch(p, { method: 'HEAD' })));
+                    const hasContent = results.some(r => r.ok);
+                    const card = document.querySelector(`[data-unit-id="${sf.id}"]`);
+                    if (!card) return;
+                    if (hasContent) {
+                        card.style.opacity = '1';
+                        card.style.backgroundColor = themeBg;
+                        card.style.borderColor = themeColor + '33';
+                        card.querySelector('.unit-card-icon').style.color = themeColor;
+                        card.querySelector('.unit-card-text').style.color = themeColor;
+                    }
+                } catch(e) {}
+            }));
         }
 
         async function loadPartCounts(materialId, folderId, folder) {
