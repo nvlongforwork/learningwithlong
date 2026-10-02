@@ -379,7 +379,18 @@
                 { id: 'collins-for-movers', name: 'Collins for Movers', subfolders: [
                     { id: 'test-1', name: 'Test 1', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'},{id:'full-test',name:'Full Test'}] },
                     { id: 'test-2', name: 'Test 2', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'},{id:'full-test',name:'Full Test'}] },
-                    { id: 'test-3', name: 'Test 3', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'},{id:'full-test',name:'Full Test'}] }
+                    { id: 'test-3', name: 'Test 3', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'},{id:'full-test',name:'Full Test'}] },
+                    { id: 'listening-part-1', name: 'Listening Part 1', partFilter: 'Part 1', partSkill: 'listening' },
+                    { id: 'listening-part-2', name: 'Listening Part 2', partFilter: 'Part 2', partSkill: 'listening' },
+                    { id: 'listening-part-3', name: 'Listening Part 3', partFilter: 'Part 3', partSkill: 'listening' },
+                    { id: 'listening-part-4', name: 'Listening Part 4', partFilter: 'Part 4', partSkill: 'listening' },
+                    { id: 'listening-part-5', name: 'Listening Part 5', partFilter: 'Part 5', partSkill: 'listening' },
+                    { id: 'reading-part-1', name: 'Reading Part 1', partFilter: 'Part 1', partSkill: 'reading' },
+                    { id: 'reading-part-2', name: 'Reading Part 2', partFilter: 'Part 2', partSkill: 'reading' },
+                    { id: 'reading-part-3', name: 'Reading Part 3', partFilter: 'Part 3', partSkill: 'reading' },
+                    { id: 'reading-part-4', name: 'Reading Part 4', partFilter: 'Part 4', partSkill: 'reading' },
+                    { id: 'reading-part-5', name: 'Reading Part 5', partFilter: 'Part 5', partSkill: 'reading' },
+                    { id: 'reading-part-6', name: 'Reading Part 6', partFilter: 'Part 6', partSkill: 'reading' }
                 ]}
             ] },
             { id: 'a2-flyers', name: 'A2 Flyers', description: 'Cấp độ cao nhất trong hệ thống YLE cho trẻ.', color: '#21B6A8', folders: [{ id: 'i-dictionary', name: 'I Dictionary' }] },
@@ -522,16 +533,19 @@
                 container.innerHTML = html;
             }
             // Level 3: subfolder without skills -> show quiz directly
+            else if (subfolderId && subfolder && subfolder.partFilter) {
+                titleText = subfolder.name;
+                subtitleText = 'Chọn bài tập';
+                container.innerHTML = `<div class="text-center py-8"><i class="fa-solid fa-spinner fa-spin text-3xl" style="color: var(--theme-color);"></i><p class="mt-3 text-slate-500">Đang tải danh sách bài...</p></div>`;
+                loadPartExerciseList(materialId, folderId, folder, subfolder, container);
+            }
+            // Level 3: subfolder without skills -> show quiz directly
             else if (subfolderId && subfolder) {
                 titleText = subfolder.name;
                 subtitleText = 'Bài tập thực hành';
                 isShowingQuiz = true;
                 quizFolderPath = `${folderId}/${subfolderId}`;
-                if (subfolder.partFilter) {
-                    currentPartFilter = { filter: subfolder.partFilter, folderId: folderId, materialId: materialId };
-                } else {
-                    currentPartFilter = null;
-                }
+                currentPartFilter = null;
             }
             // Level 2: folder with subfolders -> show subfolders
             else if (folderId && folder && folder.subfolders) {
@@ -565,7 +579,7 @@
                             <a href="#/material/${materialId}/${folderId}/${sf.id}" class="aspect-square bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover-bounce flex flex-col items-center justify-center text-center cursor-pointer relative overflow-hidden group" style="background-color: var(--theme-bg-color);">
                                 <i class="fa-solid ${sfIcon} text-4xl mb-3 opacity-80" style="color: var(--theme-color);"></i>
                                 <span class="relative z-10 text-lg sm:text-xl font-bold transition-transform group-hover:scale-105" style="color: var(--theme-color);">${sf.name}</span>
-                                <span class="part-count-badge text-sm text-slate-400 mt-1" data-part-filter="${sf.partFilter}"><i class="fa-solid fa-spinner fa-spin"></i></span>
+                                <span class="part-count-badge text-sm text-slate-400 mt-1" data-part-id="${sf.id}"><i class="fa-solid fa-spinner fa-spin"></i></span>
                             </a>
                         `;
                     });
@@ -904,42 +918,142 @@
                 let name = aboutMatch[1].trim();
                 return name.charAt(0).toUpperCase() + name.slice(1);
             }
-            if (part.persons && part.persons.length > 0) {
-                return part.persons.map(p => p.name).join(', ');
-            }
+            if (part.formTitle) return part.formTitle;
+            if (part.storyTitle) return part.storyTitle;
+            if (part.persons && part.persons.length > 0) return part.persons.map(p => p.name).join(', ');
+            if (part.names && part.names.length > 0) return part.names.slice(0, 4).join(', ');
+            if (part.people && part.people.length > 0) return part.people.map(p => p.name || p).slice(0, 4).join(', ');
+            if (part.wordBank && part.wordBank.length > 0) return part.wordBank.slice(0, 4).join(', ') + '...';
             if (part.script && part.script.length > 0) {
                 const speakers = [...new Set(part.script.filter(s => s.speaker !== 'Narrator').map(s => s.speaker))];
                 if (speakers.length > 0 && speakers.length <= 3) return speakers.join(' & ');
+            }
+            if (part.storySegments && part.storySegments.length > 0) {
+                if (part.storySegments[0].title) return part.storySegments[0].title;
+                const firstSeg = part.storySegments[0].text || part.storySegments[0];
+                const clean = (typeof firstSeg === 'string' ? firstSeg : '').replace(/<[^>]+>/g, '').trim();
+                return clean.length > 50 ? clean.substring(0, 47) + '...' : clean;
+            }
+            if (part.storyParts && part.storyParts.length > 0) {
+                const firstPart = part.storyParts[0].text || part.storyParts[0];
+                const clean = (typeof firstPart === 'string' ? firstPart : '').replace(/<[^>]+>/g, '').trim();
+                return clean.length > 50 ? clean.substring(0, 47) + '...' : clean;
+            }
+            if (part.image) {
+                const imgMatch = part.image.match(/\/([^\/]+)\.\w+$/);
+                if (imgMatch) {
+                    let imgName = imgMatch[1].replace(/^part\d+-?/i, '').replace(/[-_]/g, ' ').trim();
+                    if (imgName) return imgName.charAt(0).toUpperCase() + imgName.slice(1);
+                }
             }
             if (part.items && part.items.length > 0) {
                 const q = part.items[0].question || '';
                 const cleanQ = q.replace(/^You will hear\s*/i, '').replace(/[\.\?]$/, '');
                 return cleanQ.length > 50 ? cleanQ.substring(0, 47) + '...' : cleanQ;
             }
-            return part.id;
+            return part.type || part.id;
+        }
+
+        function getJsonPathsForUnit(materialId, folderId, unit) {
+            if (unit.skills) {
+                return [
+                    { path: `./data/${materialId}_${folderId}_${unit.id}_listening.json`, skill: 'listening' },
+                    { path: `./data/${materialId}_${folderId}_${unit.id}_reading.json`, skill: 'reading' }
+                ];
+            }
+            return [{ path: `./data/${materialId}_${folderId}_${unit.id}.json`, skill: null }];
+        }
+
+        async function scanAllParts(materialId, folderId, folder) {
+            const units = folder.subfolders.filter(sf => !sf.partFilter);
+            const fetches = [];
+            units.forEach(unit => {
+                getJsonPathsForUnit(materialId, folderId, unit).forEach(entry => {
+                    fetches.push(
+                        fetch(entry.path).then(r => r.ok ? r.json() : null)
+                            .then(data => ({ data, unit, skill: entry.skill }))
+                            .catch(() => ({ data: null, unit, skill: entry.skill }))
+                    );
+                });
+            });
+            return Promise.all(fetches);
         }
 
         async function loadPartCounts(materialId, folderId, folder) {
-            const units = folder.subfolders.filter(sf => !sf.partFilter);
-            const results = await Promise.allSettled(
-                units.map(unit =>
-                    fetch(`./data/${materialId}_${folderId}_${unit.id}.json`)
-                        .then(r => r.ok ? r.json() : null)
-                )
-            );
+            const results = await scanAllParts(materialId, folderId, folder);
             const countMap = {};
-            results.forEach(result => {
-                if (result.status === 'fulfilled' && result.value) {
-                    result.value.parts.forEach(part => {
-                        countMap[part.title] = (countMap[part.title] || 0) + 1;
+            results.forEach(({ data, skill }) => {
+                if (!data) return;
+                data.parts.forEach(part => {
+                    const partSubs = folder.subfolders.filter(sf => sf.partFilter);
+                    partSubs.forEach(ps => {
+                        if (part.title === ps.partFilter && (!ps.partSkill || ps.partSkill === skill)) {
+                            countMap[ps.id] = (countMap[ps.id] || 0) + 1;
+                        }
                     });
-                }
+                });
             });
             document.querySelectorAll('.part-count-badge').forEach(badge => {
-                const filter = badge.getAttribute('data-part-filter');
-                const count = countMap[filter] || 0;
+                const sfId = badge.getAttribute('data-part-id');
+                const count = countMap[sfId] || 0;
                 badge.innerHTML = count > 0 ? `${count} bài` : '<span class="text-slate-300">Chưa có bài</span>';
             });
+        }
+
+        async function loadPartExerciseList(materialId, folderId, folder, subfolder, container) {
+            const results = await scanAllParts(materialId, folderId, folder);
+            const exercises = [];
+            results.forEach(({ data, unit, skill }) => {
+                if (!data) return;
+                data.parts.forEach((part, partIdx) => {
+                    if (part.title === subfolder.partFilter && (!subfolder.partSkill || subfolder.partSkill === skill)) {
+                        const contentName = getPartContentName(part);
+                        const unitLabel = unit.name;
+                        exercises.push({ part, partIdx, unit, skill, contentName, unitLabel, dataType: data.type });
+                    }
+                });
+            });
+            if (exercises.length === 0) {
+                container.innerHTML = `<div class="text-center py-12 bg-slate-50 rounded-3xl border border-slate-100">
+                    <i class="fa-solid fa-inbox text-5xl text-slate-300 mb-4"></i>
+                    <p class="text-slate-500 text-xl">Chưa có bài tập cho phần này.</p>
+                </div>`;
+                return;
+            }
+            let html = `<p class="text-slate-500 mb-4">${exercises.length} bài tập</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">`;
+            exercises.forEach((ex, idx) => {
+                const icon = (ex.skill === 'listening' || subfolder.partSkill === 'listening' || (ex.part.audio)) ? 'fa-headphones' : 'fa-book-open';
+                html += `
+                    <div class="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm hover-bounce cursor-pointer group relative overflow-hidden" style="background-color: var(--theme-bg-color);"
+                         onclick="openSinglePartExercise(${idx})">
+                        <div class="flex items-start gap-3">
+                            <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style="background-color: var(--theme-color); opacity: 0.15;">
+                                <i class="fa-solid ${icon} text-xl" style="color: var(--theme-color);"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-800 text-lg group-hover:text-turtle-600 transition-colors">${ex.contentName}</p>
+                                <p class="text-slate-400 text-sm mt-1"><i class="fa-solid fa-folder-open mr-1"></i>${ex.unitLabel}</p>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+            html += '</div>';
+            container.innerHTML = html;
+            window._partExercises = exercises;
+            window._partExerciseMeta = { materialId, folderId, subfolder };
+        }
+
+        function openSinglePartExercise(idx) {
+            const ex = window._partExercises[idx];
+            const meta = window._partExerciseMeta;
+            const singleData = { type: ex.dataType, title: meta.subfolder.name, parts: [ex.part] };
+            const quizType = ex.dataType === 'listening-test' ? 'listening' : 'reading';
+            currentMaterialId = meta.materialId;
+            currentQuizTheme = document.getElementById('view-detail').style.getPropertyValue('--theme-color') || '#20a1a0';
+            fullTestMode = false;
+            currentPartFilter = null;
+            askStudentCode(singleData, `${meta.subfolder.name} - ${ex.contentName}`, quizType);
         }
 
         async function openFullscreenQuiz(title, materialId, folderId) {
@@ -971,48 +1085,6 @@
                     return;
                 } catch (err) {
                     Swal.fire({ title: 'Lỗi', text: err.message, icon: 'error' });
-                    return;
-                }
-            }
-
-            if (currentPartFilter) {
-                try {
-                    Swal.fire({ title: 'Đang tải dữ liệu...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
-                    const sourceMaterial = materialsData.find(m => m.id === currentPartFilter.materialId);
-                    const sourceFolder = sourceMaterial.folders.find(f => f.id === currentPartFilter.folderId);
-                    const units = (sourceFolder.subfolders || []).filter(sf => !sf.partFilter);
-                    const results = await Promise.allSettled(
-                        units.map(unit =>
-                            fetch(`./data/${currentPartFilter.materialId}_${currentPartFilter.folderId}_${unit.id}.json`)
-                                .then(r => r.ok ? r.json() : null)
-                        )
-                    );
-                    const combinedParts = [];
-                    results.forEach((result, idx) => {
-                        if (result.status === 'fulfilled' && result.value) {
-                            const data = result.value;
-                            data.parts.forEach(part => {
-                                if (part.title === currentPartFilter.filter) {
-                                    const contentName = getPartContentName(part);
-                                    combinedParts.push({ ...part, title: `Unit ${units[idx].id.replace('unit-', '')} - ${contentName}` });
-                                }
-                            });
-                        }
-                    });
-                    if (combinedParts.length === 0) {
-                        Swal.fire({ title: 'Thông báo', text: 'Chưa có bài tập cho phần này.', icon: 'info' });
-                        currentPartFilter = null;
-                        return;
-                    }
-                    const combinedData = { type: 'reading-test', title: title, parts: combinedParts };
-                    Swal.close();
-                    fullTestMode = false;
-                    currentPartFilter = null;
-                    askStudentCode(combinedData, title, 'reading');
-                    return;
-                } catch (err) {
-                    Swal.fire({ title: 'Lỗi', text: err.message, icon: 'error' });
-                    currentPartFilter = null;
                     return;
                 }
             }
