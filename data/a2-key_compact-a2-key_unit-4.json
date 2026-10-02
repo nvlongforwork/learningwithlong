@@ -1,0 +1,54 @@
+{
+  "type": "reading-test",
+  "title": "Unit 4 - What are you doing now?",
+  "parts": [
+    {
+      "id": "listening-part1a",
+      "title": "Listening Part 1",
+      "questions": 4,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "multiple-choice-abc",
+      "audio": "audio/compact-a2-key/unit4/listening-part1.mp3",
+      "items": [
+        {
+          "num": 2,
+          "question": "How much was Jenny's new tennis racket?",
+          "options": ["£35", "£40", "£45"],
+          "image": "images/compact-a2-key/unit4/listening-part1-q2.png",
+          "answer": 0
+        },
+        {
+          "num": 3,
+          "question": "What time does the hockey match start?",
+          "options": ["4:10", "4:20", "4:30"],
+          "image": "images/compact-a2-key/unit4/listening-part1-q3.webp",
+          "answer": 2
+        },
+        {
+          "num": 4,
+          "question": "What is the boy drinking?",
+          "options": ["A can of lemonade", "A juice box", "A hot drink in a mug"],
+          "image": "images/compact-a2-key/unit4/listening-part1-q4.webp",
+          "answer": 1
+        },
+        {
+          "num": 5,
+          "question": "Who is the girl's table tennis coach?",
+          "options": ["Blonde hair with glasses", "Dark hair without glasses", "Dark hair with glasses"],
+          "image": "images/compact-a2-key/unit4/listening-part1-q5.webp",
+          "answer": 2
+        }
+      ],
+      "script": [
+        { "speaker": "Man", "text": "How much was Jenny's new tennis racket?" },
+        { "speaker": "Woman", "text": "Well, she wanted one that cost forty-five pounds, but she found <u>one for thirty-five pounds</u> that was just as good." },
+        { "speaker": "Man", "text": "What time does the hockey match start?" },
+        { "speaker": "Woman", "text": "It was going to start at four twenty, but they've changed it. <u>It now starts at four thirty</u>." },
+        { "speaker": "Woman", "text": "What is the boy drinking?" },
+        { "speaker": "Boy", "text": "I was going to have some lemonade, but then I saw <u>the orange juice</u>. I'll have the hot chocolate later." },
+        { "speaker": "Man", "text": "Who is the girl's table tennis coach?" },
+        { "speaker": "Girl", "text": "My coach hasn't got blonde hair, and <u>he wears glasses</u>. He's really good!" }
+      ]
+    }
+  ]
+}

@@ -413,6 +413,7 @@
                     { id: 'rw-part-4', name: 'Reading & Writing Part 4', partFilter: 'Reading & Writing Part 4' },
                     { id: 'rw-part-5', name: 'Reading & Writing Part 5', partFilter: 'Reading & Writing Part 5' },
                     { id: 'rw-part-6', name: 'Reading & Writing Part 6', partFilter: 'Reading & Writing Part 6' },
+                    { id: 'listening-part-1', name: 'Listening Part 1', partFilter: 'Listening Part 1', partSkill: 'listening' },
                     { id: 'listening-part-2', name: 'Listening Part 2', partFilter: 'Listening Part 2', partSkill: 'listening' },
                     { id: 'listening-part-3', name: 'Listening Part 3', partFilter: 'Listening Part 3' },
                     { id: 'listening-part-4', name: 'Listening Part 4', partFilter: 'Listening Part 4' },
@@ -3451,11 +3452,14 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 } else {
                     questionHtml = `<p class="font-bold text-slate-800 mb-3"><span class="text-turtle-600 mr-2">${item.num}.</span>${item.question}</p>`;
                 }
+                const hasItemImage = !!item.image;
+                const itemFlexCls = hasItemImage ? 'flex gap-2' : (isVerticalMCQ ? 'flex flex-col gap-2' : 'flex gap-2');
                 html += `<div class="bg-white rounded-2xl p-4 border shadow-sm mb-3" style="font-size:20px;">
-                    ${questionHtml}
-                    <div class="${isVerticalMCQ ? 'flex flex-col gap-2' : 'flex gap-2'}">`;
+                    ${questionHtml}`;
+                if (hasItemImage) html += `<img src="${item.image}" alt="Question ${item.num}" class="w-full rounded-xl mb-3">`;
+                html += `<div class="${itemFlexCls}">`;
                 item.options.forEach((opt, j) => {
-                    let cls = `${isVerticalMCQ ? '' : 'flex-1'} p-3 rounded-xl ${isVerticalMCQ ? 'text-left' : 'text-center'} font-medium cursor-pointer transition-all `;
+                    let cls = `${isVerticalMCQ && !hasItemImage ? '' : 'flex-1'} p-3 rounded-xl ${isVerticalMCQ && !hasItemImage ? 'text-left' : 'text-center'} font-medium cursor-pointer transition-all `;
                     if (readingCanReview) {
                         if (j === item.answer) cls += 'bg-green-500 text-white';
                         else if (answers[i] === j && j !== item.answer) cls += 'bg-red-400 text-white';
