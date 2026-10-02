@@ -2968,8 +2968,8 @@
                 html += `<div class="resp-row"><div class="resp-col shrink-0" style="width:45%"><div class="sticky top-4 space-y-3">`;
                 if (part.passage) {
                     const passageHtml = part.passage.replace(/___([^_]+)___/g, '<strong class="underline">$1</strong>').replace(/\.\.\.\.\.\.\.\.\.\./g, '..........').replace(/\n\n/g, '</p><p class="mb-2">').replace(/\n/g, '<br>');
-                    html += `<div class="bg-white rounded-2xl p-5 shadow-sm border overflow-y-auto" style="max-height:80vh">
-                        <p class="mb-2" style="font-size:20px; line-height:1.7">${passageHtml}</p>
+                    html += `<div class="bg-white rounded-2xl p-5 shadow-sm border overflow-y-auto" style="max-height:80vh; font-size:20px; line-height:1.7">
+                        <p class="mb-2">${passageHtml}</p>
                     </div>`;
                 } else if (part.image) html += `<img src="${part.image}" alt="" class="w-full rounded-2xl shadow-md border">`;
                 if (part.tableData) {
@@ -3304,8 +3304,8 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             if (hasPassage) {
                 const passageHtml = part.passage.replace(/\n\n/g, '</p><p class="mb-3">').replace(/\n/g, '<br>');
                 html += `<div class="resp-row"><div class="resp-col shrink-0" style="width:50%">
-                    <div class="bg-white rounded-2xl p-5 shadow-sm border sticky top-4 overflow-y-auto" style="max-height:80vh">
-                        <p class="mb-3" style="font-size:20px; line-height:1.7">${passageHtml}</p>
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border sticky top-4 overflow-y-auto" style="max-height:80vh; font-size:20px; line-height:1.7">
+                        <p class="mb-3">${passageHtml}</p>
                     </div>
                 </div><div class="resp-col" style="width:50%">`;
             }
