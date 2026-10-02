@@ -66,6 +66,12 @@
 - Buttons: "Xem lại bài làm" + "Lưu kết quả" (gradient styled)
 - Full Test mode: combined listening+reading scores, dual shield cards
 
+## Font Size
+- Minimum font size across the entire app: **20px**
+- No text element should be smaller than 20px
+- CSS overrides: `.text-xs, .text-sm, .text-base, .text-lg { font-size: 20px !important; }`
+- All inline `font-size` values must be >= 20px
+
 ## Responsive Design
 - `.resp-row` / `.resp-col` classes for all side-by-side layouts
 - `@media (max-width: 768px)` converts to vertical stacking
