@@ -291,7 +291,8 @@
       "questions": 6,
       "instructions": "For each question, write the correct answer. Write one word for each gap.",
       "type": "fill-blank-reading",
-      "image": "images/compact-a2-key/unit2/reading-part5-hasan.png",
+      "formTitle": "Email từ Hasan",
+      "passage": "From: Hasan\n\nMy name (0) ___is___ Hasan Sadik but my friends call me Zan. I'm 13 and I live in Adana, Turkey. I (1) .......... got two older sisters. (2) .......... names are Ayla and Zeynep.\n\nIn my free time, I love listening (3) .......... music. I also play the drums in the school band. I go to the cinema with my friends once (4) .......... week. After the film, (5) .......... sometimes have dinner in a pizza restaurant together. I usually have mushroom pizza – my favourite.\n\nPlease write soon and tell me (6) .......... your family, friends and hobbies.\n\nBest wishes\nHasan",
       "example": {
         "sentence": "My name (0) ..........<strong>is</strong>.......... Hasan Sadik but my friends call me Zan."
       },
@@ -334,7 +335,8 @@
       "questions": 6,
       "instructions": "For each question, write the correct answer. Write one word for each gap.",
       "type": "fill-blank-reading",
-      "image": "images/compact-a2-key/unit2/reading-part5-aga.png",
+      "formTitle": "Email từ Aga",
+      "passage": "From: Aga\nTo: Jo\n\nHi\n\nMy name's Agnieszka, but everyone calls (0) ___me___ Aga. When I have free time, I enjoy playing all kinds (1) .......... sport. Table tennis is my favourite game at the moment.\n\nI enjoy table tennis because it's an indoor sport that I can play (2) .......... it's raining or snowing outside. I get (3) .......... play it a lot where I live.\n\nBoth my sisters love the game too, so I usually play against one of (4) .......... It really doesn't matter (5) .......... wins because the most important thing is having fun!\n\n(6) .......... do you like doing in your free time? Please write and tell me!\n\nBest wishes,\nAga",
       "example": {
         "sentence": "My name's Agnieszka, but everyone calls (0) ..........<strong>me</strong>.......... Aga."
       },

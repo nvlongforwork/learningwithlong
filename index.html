@@ -2961,12 +2961,17 @@
         function renderFillBlankReading(part) {
             const content = document.getElementById('reading-content');
             const answers = readingAnswers[activeReadingPart];
-            const hasLeft = part.image || part.tableData;
+            const hasLeft = part.passage || part.image || part.tableData;
             let html = `<div class="w-full">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
             if (hasLeft) {
-                html += `<div class="resp-row"><div class="resp-col shrink-0" style="width:40%"><div class="sticky top-4 space-y-3">`;
-                if (part.image) html += `<img src="${part.image}" alt="" class="w-full rounded-2xl shadow-md border">`;
+                html += `<div class="resp-row"><div class="resp-col shrink-0" style="width:45%"><div class="sticky top-4 space-y-3">`;
+                if (part.passage) {
+                    const passageHtml = part.passage.replace(/___([^_]+)___/g, '<strong class="underline">$1</strong>').replace(/\.\.\.\.\.\.\.\.\.\./g, '..........').replace(/\n\n/g, '</p><p class="mb-2">').replace(/\n/g, '<br>');
+                    html += `<div class="bg-white rounded-2xl p-5 shadow-sm border overflow-y-auto" style="max-height:80vh">
+                        <p class="mb-2" style="font-size:20px; line-height:1.7">${passageHtml}</p>
+                    </div>`;
+                } else if (part.image) html += `<img src="${part.image}" alt="" class="w-full rounded-2xl shadow-md border">`;
                 if (part.tableData) {
                     html += `<div class="overflow-x-auto"><table class="w-full border-collapse bg-white rounded-xl overflow-hidden shadow-sm border"><thead><tr>`;
                     part.tableData.headers.forEach(h => { html += `<th class="px-3 py-2 bg-slate-100 text-left font-bold text-sm border-b">${h}</th>`; });
@@ -2978,7 +2983,7 @@
                     });
                     html += `</tbody></table></div>`;
                 }
-                html += `</div></div><div class="resp-col" style="width:60%">`;
+                html += `</div></div><div class="resp-col" style="width:55%">`;
             }
             if (part.example) {
                 html += `<div class="bg-green-50 rounded-xl p-4 border border-green-200 mb-4" style="font-size:20px;">
