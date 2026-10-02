@@ -286,6 +286,92 @@
           "answer": 0
         }
       ]
+    },
+    {
+      "id": "reading-part5a",
+      "title": "Reading & Writing Part 5",
+      "questions": 6,
+      "instructions": "For each question, write the correct answer. Write one word for each gap.",
+      "type": "fill-blank-reading",
+      "image": "images/compact-a2-key/unit2/reading-part5-hasan.png",
+      "example": {
+        "sentence": "My name (0) ..........<strong>is</strong>.......... Hasan Sadik but my friends call me Zan."
+      },
+      "items": [
+        {
+          "num": 1,
+          "sentence": "I'm 13 and I live in Adana, Turkey. I (1) .......... got two older sisters.",
+          "answer": "have/'ve"
+        },
+        {
+          "num": 2,
+          "sentence": "(2) .......... names are Ayla and Zeynep.",
+          "answer": "Their"
+        },
+        {
+          "num": 3,
+          "sentence": "In my free time, I love listening (3) .......... music.",
+          "answer": "to"
+        },
+        {
+          "num": 4,
+          "sentence": "I also play the drums in the school band. I go to the cinema with my friends once (4) .......... week.",
+          "answer": "a"
+        },
+        {
+          "num": 5,
+          "sentence": "After the film, (5) .......... sometimes have dinner in a pizza restaurant together.",
+          "answer": "we"
+        },
+        {
+          "num": 6,
+          "sentence": "Please write soon and tell me (6) .......... your family, friends and hobbies.",
+          "answer": "about"
+        }
+      ]
+    },
+    {
+      "id": "reading-part5b",
+      "title": "Reading & Writing Part 5",
+      "questions": 6,
+      "instructions": "For each question, write the correct answer. Write one word for each gap.",
+      "type": "fill-blank-reading",
+      "image": "images/compact-a2-key/unit2/reading-part5-aga.png",
+      "example": {
+        "sentence": "My name's Agnieszka, but everyone calls (0) ..........<strong>me</strong>.......... Aga."
+      },
+      "items": [
+        {
+          "num": 1,
+          "sentence": "When I have free time, I enjoy playing all kinds (1) .......... sport.",
+          "answer": "of"
+        },
+        {
+          "num": 2,
+          "sentence": "I enjoy table tennis because it's an indoor sport that I can play (2) .......... it's raining or snowing outside.",
+          "answer": "when/if"
+        },
+        {
+          "num": 3,
+          "sentence": "I get (3) .......... play it a lot where I live.",
+          "answer": "to"
+        },
+        {
+          "num": 4,
+          "sentence": "Both my sisters love the game too, so I usually play against one of (4) ..........",
+          "answer": "them"
+        },
+        {
+          "num": 5,
+          "sentence": "It really doesn't matter (5) .......... wins because the most important thing is having fun!",
+          "answer": "who"
+        },
+        {
+          "num": 6,
+          "sentence": "(6) .......... do you like doing in your free time? Please write and tell me!",
+          "answer": "What"
+        }
+      ]
     }
   ]
 }

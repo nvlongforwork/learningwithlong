@@ -2936,7 +2936,8 @@
                     if (readingCanReview) {
                         const userVal = isMultiBlank ? (answers[i][bi] || '') : (answers[i] || '');
                         const correctVal = itemAnswers[bi] || '';
-                        const isCorrect = userVal.toLowerCase().trim() === correctVal.toLowerCase().trim();
+                        const correctAlts = correctVal.split('/').map(a => a.toLowerCase().trim());
+                        const isCorrect = correctAlts.includes(userVal.toLowerCase().trim());
                         return `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${userVal || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${correctVal}</span>` : ''}`;
                     } else {
                         const val = isMultiBlank ? answers[i][bi] : answers[i];
@@ -3352,10 +3353,12 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                         const itemAnswers = item.answers || [item.answer];
                         if (Array.isArray(ans[j])) {
                             ans[j].forEach((val, bi) => {
-                                if (val.toLowerCase().trim() === (itemAnswers[bi] || '').toLowerCase().trim()) correct++;
+                                const cv = (itemAnswers[bi] || '');
+                                const alts = cv.split('/').map(a => a.toLowerCase().trim());
+                                if (alts.includes(val.toLowerCase().trim())) correct++;
                             });
                         } else {
-                            if (itemAnswers.some(a => ans[j].toLowerCase().trim() === a.toLowerCase().trim())) correct++;
+                            if (itemAnswers.some(a => a.split('/').map(x=>x.toLowerCase().trim()).includes(ans[j].toLowerCase().trim()))) correct++;
                         }
                     });
                 } else if (part.type === 'word-box-fill') {
