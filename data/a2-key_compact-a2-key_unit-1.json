@@ -3,6 +3,68 @@
   "title": "Unit 1 - My family, my friends & me",
   "parts": [
     {
+      "id": "reading-part1",
+      "title": "Reading & Writing Part 1",
+      "questions": 7,
+      "instructions": "Read the three texts about families. For each question, choose the correct answer.",
+      "type": "reading-match-persons",
+      "image": "images/compact-a2-key/unit1/reading-part1-texts.png",
+      "persons": [
+        {
+          "name": "Leo",
+          "letter": "A",
+          "text": "There are a lot of us in my family, and I love it. Our house is crowded, so I'm never alone or bored. I've got a brother and three sisters. My brother and I have one bedroom, and my sisters have another. Mum and Dad work a lot, and my grandparents live near us, so they often look after us when my parents are working. My grandfather is from France, and he sometimes helps me with my French homework."
+        },
+        {
+          "name": "Bastian",
+          "letter": "B",
+          "text": "I live with my mum, dad and brother. My brother and I have our own bedrooms. He's only a year older than me, so we do lots of things together, which is fun. We've got an aunt and uncle who live in the same street as us, together with their daughter – our cousin – and our grandparents. Dad works in an office, and Mum is a teacher. She was born in Italy, but she came to live here in the USA a long time ago."
+        },
+        {
+          "name": "Callum",
+          "letter": "C",
+          "text": "My family is big, but we don't all live in the same place. I have cousins in Germany and Australia, so I don't see them very often. My parents, my sister and I share a house with my grandma, but my sister and I have our own bedrooms. Mum and Dad go out to work, and they don't have much free time, so sometimes I tidy up the house. Mum likes it when I do that."
+        }
+      ],
+      "items": [
+        {
+          "num": 1,
+          "question": "Which person has got family members in different countries?",
+          "answer": "C"
+        },
+        {
+          "num": 2,
+          "question": "Which person shares a bedroom with another member of his family?",
+          "answer": "A"
+        },
+        {
+          "num": 3,
+          "question": "Which person has got a cousin who lives near him?",
+          "answer": "B"
+        },
+        {
+          "num": 4,
+          "question": "Which person helps someone in his family?",
+          "answer": "C"
+        },
+        {
+          "num": 5,
+          "question": "Which person lives with a grandparent?",
+          "answer": "C"
+        },
+        {
+          "num": 6,
+          "question": "Which person enjoys spending time with one member of his family?",
+          "answer": "B"
+        },
+        {
+          "num": 7,
+          "question": "Which person thinks it is good to have a big family?",
+          "answer": "A"
+        }
+      ]
+    },
+    {
       "id": "reading-part2",
       "title": "Reading & Writing Part 2",
       "questions": 7,
@@ -121,6 +183,66 @@
             "burgers"
           ],
           "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "listening-part4",
+      "title": "Listening Part 4",
+      "questions": 5,
+      "instructions": "For each question, choose the correct answer. You will hear Simon talking to his friend Amanda about his school day.",
+      "type": "multiple-choice-abc",
+      "audio": "audio/compact-a2-key/unit1/listening-part4.mp3",
+      "items": [
+        {
+          "num": 1,
+          "question": "Amanda's tired because she",
+          "options": [
+            "watches TV in bed.",
+            "goes to sleep very late.",
+            "wakes up early."
+          ],
+          "answer": 2
+        },
+        {
+          "num": 2,
+          "question": "What time does the boat to Simon's school leave?",
+          "options": [
+            "6.15",
+            "7.00",
+            "7.30"
+          ],
+          "answer": 1
+        },
+        {
+          "num": 3,
+          "question": "How old is Simon?",
+          "options": [
+            "11",
+            "12",
+            "14"
+          ],
+          "answer": 1
+        },
+        {
+          "num": 4,
+          "question": "Simon eats his dinner",
+          "options": [
+            "at his aunt's house.",
+            "at home.",
+            "at school."
+          ],
+          "answer": 0
+        },
+        {
+          "num": 5,
+          "question": "Amanda thinks Simon's day is",
+          "options": [
+            "exciting.",
+            "fun.",
+            "unusual."
+          ],
+          "answer": 2
         }
       ]
     }
