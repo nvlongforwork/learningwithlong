@@ -3238,7 +3238,7 @@
             const wordCount = (answers[0] || '').split(/\s+/).filter(w => w).length;
             let html = `<div class="w-full">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
-                <div class="resp-row"><div class="resp-col shrink-0" style="width:60%"><div class="sticky top-4">`;
+                <div class="flex flex-col gap-4"><div class="w-full">`;
             if (part.storyImage) {
                 html += `<img src="${part.storyImage}" alt="Story pictures" class="w-full rounded-2xl shadow-md border">`;
             } else if (part.images) {
@@ -3248,7 +3248,7 @@
                 });
                 html += `</div>`;
             }
-            html += `</div></div><div class="resp-col" style="width:40%">`;
+            html += `</div><div class="w-full">`;
             if (readingSubmitted) {
                 html += `<div class="bg-white rounded-xl p-4 border shadow-sm mb-4" style="font-size:20px;">
                     <h4 class="font-bold text-turtle-600 mb-2"><i class="fa-solid fa-pen-fancy mr-1"></i> Bài viết của bạn:</h4>
