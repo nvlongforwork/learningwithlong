@@ -2622,7 +2622,7 @@
                     const isCorrect = allAnswers.some(a => answers[i].toLowerCase().trim() === a.toLowerCase().trim());
                     ansHtml = `<div class="mt-2 px-3 py-2 rounded-lg font-medium ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</div>${!isCorrect ? `<div class="text-green-600 font-bold text-sm mt-1">${item.answer}</div>` : ''}`;
                 } else {
-                    ansHtml = `<input type="text" value="${answers[i]}" oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" placeholder="Write the sentence..." class="mt-2 w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
+                    ansHtml = `<input type="text" value="${answers[i]}" oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" placeholder="Write the sentence..." class="mt-2 px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;width:100%;max-width:420px;">`;
                 }
                 html += `<div class="bg-white rounded-xl p-4 border shadow-sm mb-3" style="font-size:20px;">
                     <span class="font-bold text-turtle-600 mr-2">${item.num}.</span>
@@ -2654,7 +2654,7 @@
                     const isCorrect = allAnswers.some(a => answers[i].toLowerCase().trim() === a.toLowerCase().trim());
                     ansHtml = `<div class="mt-2 px-3 py-2 rounded-lg font-medium ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</div>${!isCorrect ? `<div class="text-green-600 font-bold text-sm mt-1">${item.answer}</div>` : ''}`;
                 } else {
-                    ansHtml = `<input type="text" value="${answers[i]}" oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" placeholder="Correct the sentence..." class="mt-2 w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
+                    ansHtml = `<input type="text" value="${answers[i]}" oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" placeholder="Correct the sentence..." class="mt-2 px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;width:100%;max-width:420px;">`;
                 }
                 html += `<div class="bg-white rounded-xl p-4 border shadow-sm mb-3" style="font-size:20px;">
                     <span class="font-bold text-turtle-600 mr-2">${item.num}.</span>
@@ -2910,7 +2910,7 @@
                     html += `<div class="bg-white rounded-xl p-4 border shadow-sm mb-3" style="font-size:20px;">
                         <span class="font-bold text-turtle-600 mr-2">${item.num}.</span>
                         <span class="text-slate-700">${item.question}</span>
-                        <input type="text" value="${answers[i] || ''}" oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" placeholder="Write your answer..." class="mt-2 w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">
+                        <input type="text" value="${answers[i] || ''}" oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" placeholder="Write your answer..." class="mt-2 px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;width:100%;max-width:420px;">
                     </div>`;
                 }
             });
