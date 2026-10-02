@@ -3,152 +3,6 @@
   "title": "Unit 1 - My family, my friends & me",
   "parts": [
     {
-      "id": "grammar1",
-      "title": "Grammar - have got",
-      "questions": 6,
-      "instructions": "Write sentences or questions and short answers with the correct form of have got.",
-      "type": "sentence-transform",
-      "image": "images/compact-a2-key/unit1/grammar-ex1-boys.webp",
-      "examples": [
-        { "prompt": "John and Joe / black hair", "answer": "John and Joe have got black hair." },
-        { "prompt": "Mohammed / blue eyes? / Yes", "answer": "Has Mohammed got blue eyes? Yes, he has." }
-      ],
-      "items": [
-        { "num": 3, "prompt": "We / six cousins", "answer": "We have got six cousins.", "altAnswers": ["We've got six cousins."] },
-        { "num": 4, "prompt": "she / older sister? / Yes", "answer": "Has she got an older sister? Yes, she has." },
-        { "num": 5, "prompt": "I / not / a younger brother", "answer": "I haven't got a younger brother.", "altAnswers": ["I have not got a younger brother."] },
-        { "num": 6, "prompt": "Harry / very short fair hair", "answer": "Harry has got very short fair hair.", "altAnswers": ["Harry's got very short fair hair."] },
-        { "num": 7, "prompt": "your friends / nicknames? / No", "answer": "Have your friends got nicknames? No, they haven't." },
-        { "num": 8, "prompt": "They / not / their trainers with them", "answer": "They haven't got their trainers with them.", "altAnswers": ["They have not got their trainers with them."] }
-      ]
-    },
-    {
-      "id": "grammar2",
-      "title": "Grammar - have got (error correction)",
-      "questions": 7,
-      "instructions": "Exam candidates often make mistakes with have got. Correct the mistakes in these sentences.",
-      "type": "error-correction",
-      "example": {
-        "sentence": "I got a free day at the weekend.",
-        "answer": "I have got a free day at the weekend."
-      },
-      "items": [
-        { "num": 2, "sentence": "I get a new job near home.", "answer": "I've got a new job near home.", "altAnswers": ["I have got a new job near home."] },
-        { "num": 3, "sentence": "I got flu and am lying in bed now.", "answer": "I've got flu and am lying in bed now.", "altAnswers": ["I have got flu and am lying in bed now."] },
-        { "num": 4, "sentence": "I get a new room.", "answer": "I've got a new room.", "altAnswers": ["I have got a new room."] },
-        { "num": 5, "sentence": "I bought strange shoes because everyone got them.", "answer": "I bought strange shoes because everyone's got them.", "altAnswers": ["I bought strange shoes because everyone has got them."] },
-        { "num": 6, "sentence": "We've to bring a pencil and a rubber.", "answer": "We've got to bring a pencil and a rubber.", "altAnswers": ["We have got to bring a pencil and a rubber."] },
-        { "num": 7, "sentence": "It haven't got a radio.", "answer": "It hasn't got a radio.", "altAnswers": ["It has not got a radio."] },
-        { "num": 8, "sentence": "I've terrific news. There's going to be a concert in Rillieux.", "answer": "I've got terrific news. There's going to be a concert in Rillieux.", "altAnswers": ["I have got terrific news. There's going to be a concert in Rillieux."] }
-      ]
-    },
-    {
-      "id": "grammar3",
-      "title": "Grammar - Present simple",
-      "questions": 5,
-      "instructions": "Read the information about Laura and complete the sentences.",
-      "type": "fill-blank-reading",
-      "tableData": {
-        "headers": ["", "On school days", "In the holidays"],
-        "rows": [
-          ["wake up", "6.50", "9.45"],
-          ["walk to school", "8.25", "–"],
-          ["have lunch", "12.20", "1.00"],
-          ["do homework", "6.30", "–"],
-          ["watch TV", "7.00", "10.00, 2.00, 8.00"],
-          ["go to bed", "9.15", "10.30"]
-        ]
-      },
-      "example": {
-        "sentence": "Laura _wakes up_ at ten to seven on school days.",
-        "answer": "wakes up"
-      },
-      "items": [
-        { "num": 2, "sentence": "She .......... at twenty-five past eight on school days, but she .......... in the holidays.", "answers": ["walks to school", "doesn't walk to school"], "displayAnswer": "walks to school, doesn't walk to school" },
-        { "num": 3, "sentence": "She .......... at one o'clock in the holidays.", "answers": ["has lunch"], "displayAnswer": "has lunch" },
-        { "num": 4, "sentence": "She .......... her homework at 6.30 on school days, but she .......... any homework in the holidays.", "answers": ["does", "doesn't do"], "displayAnswer": "does, doesn't do" },
-        { "num": 5, "sentence": "She .......... TV a lot in the holidays.", "answers": ["watches"], "displayAnswer": "watches" },
-        { "num": 6, "sentence": "She .......... at quarter past nine on school days.", "answers": ["goes to bed"], "displayAnswer": "goes to bed" }
-      ]
-    },
-    {
-      "id": "grammar4",
-      "title": "Grammar - Question words",
-      "questions": 5,
-      "instructions": "Complete the questions with the words in the box.",
-      "type": "word-box-fill",
-      "wordBank": ["How", "What", "What time", "When", "Where", "Who"],
-      "example": {
-        "sentence": "_What time_ do you get up on school days?",
-        "answer": "What time"
-      },
-      "items": [
-        { "num": 2, "sentence": ".......... do you travel to school?", "answer": "How" },
-        { "num": 3, "sentence": ".......... do you have for breakfast?", "answer": "What" },
-        { "num": 4, "sentence": ".......... is your school?", "answer": "Where" },
-        { "num": 5, "sentence": ".......... is your best friend?", "answer": "Who" },
-        { "num": 6, "sentence": ".......... does your next school holiday start?", "answer": "When" }
-      ]
-    },
-    {
-      "id": "grammar5",
-      "title": "Grammar - Answer the questions",
-      "questions": 5,
-      "instructions": "Answer the questions in Exercise 4 for you. Write complete sentences.",
-      "type": "free-writing",
-      "sampleAnswers": [
-        { "num": 2, "question": "How do you travel to school?", "sample": "I walk to school. / I go to school by bus. / I cycle to school." },
-        { "num": 3, "question": "What do you have for breakfast?", "sample": "I have toast and cereal. / I have cheese and ham." },
-        { "num": 4, "question": "Where is your school?", "sample": "My school is near my house." },
-        { "num": 5, "question": "Who is your best friend?", "sample": "My best friend is Sophia." },
-        { "num": 6, "question": "When does your next school holiday start?", "sample": "My next school holiday starts in July." }
-      ]
-    },
-    {
-      "id": "vocab1",
-      "title": "Vocabulary - Family",
-      "questions": 9,
-      "instructions": "Use the family tree to complete Joanna's sentences with the words in the box. There are some words you do not need.",
-      "type": "word-box-fill",
-      "image": "images/compact-a2-key/unit1/vocab-ex1-family-tree.webp",
-      "wordBank": ["sister", "wife", "cousins", "nephew", "daughter", "grandmother", "children", "niece", "husband", "sisters", "Uncle", "father", "son"],
-      "example": {
-        "sentence": "My name's Joanna. I've got one brother, but I haven't got any _sisters_.",
-        "answer": "sisters"
-      },
-      "items": [
-        { "num": "2a", "sentence": "I am my parents' only .......... .", "answer": "daughter" },
-        { "num": "2b", "sentence": "My brother, Oliver, is their only .......... .", "answer": "son" },
-        { "num": "3a", "sentence": "My Aunt Diana is married to my .......... Jacob.", "answer": "Uncle" },
-        { "num": "3b", "sentence": "Diana is Jacob's .......... .", "answer": "wife" },
-        { "num": "4a", "sentence": "Diana and Jacob have got two .......... – Ben and Joe.", "answer": "children" },
-        { "num": "4b", "sentence": "Ben and Joe are my .......... .", "answer": "cousins" },
-        { "num": 5, "sentence": "My aunt Veronica hasn't got a .......... – she doesn't want to get married yet.", "answer": "husband" },
-        { "num": 6, "sentence": "The two people with white hair are my mum's mother and .......... .", "answer": "father" },
-        { "num": 7, "sentence": "My grandfather Jorge is one month younger than my .......... .", "answer": "grandmother" }
-      ]
-    },
-    {
-      "id": "vocab2",
-      "title": "Vocabulary - Daily routines",
-      "questions": 6,
-      "instructions": "Complete the sentences with the phrases in the box.",
-      "type": "word-box-fill",
-      "wordBank": ["do homework", "get home", "go to bed", "start school", "wake up", "walk to school", "watch TV"],
-      "example": {
-        "sentence": "I _start school_ at 9.00 every morning.",
-        "answer": "start school"
-      },
-      "items": [
-        { "num": 2, "sentence": "In the morning, I .......... at 7.00. Then I get out of bed.", "answer": "wake up" },
-        { "num": 3, "sentence": "I ride my bike to school, but my friend can .......... because he lives very near.", "answer": "walk to school" },
-        { "num": 4, "sentence": "I leave school on my bike at 3.00 p.m. and .......... at 3.15 p.m. My mum is always there.", "answer": "get home" },
-        { "num": 5, "sentence": "I'm a good student because I .......... every day.", "answer": "do homework" },
-        { "num": 6, "sentence": "I like to .......... with my family in the evening.", "answer": "watch TV" },
-        { "num": 7, "sentence": "At night, I .......... early because I need a lot of sleep.", "answer": "go to bed" }
-      ]
-    },
-    {
       "id": "reading-part2",
       "title": "Reading & Writing Part 2",
       "questions": 7,
@@ -173,33 +27,41 @@
         }
       ],
       "items": [
-        { "num": 1, "question": "Which person can't visit some of her grandparents?", "answer": "C" },
-        { "num": 2, "question": "Which person is learning something from one of her grandparents?", "answer": "B" },
-        { "num": 3, "question": "Which person says one of her grandparents still has a job?", "answer": "C" },
-        { "num": 4, "question": "Which person lives near all four of her grandparents?", "answer": "A" },
-        { "num": 5, "question": "Which person lives with one grandparent?", "answer": "B" },
-        { "num": 6, "question": "Which person finds one thing difficult when she visits her grandparents?", "answer": "A" },
-        { "num": 7, "question": "Which person eats with her grandmother once a week?", "answer": "C" }
-      ]
-    },
-    {
-      "id": "writing-part7",
-      "title": "Reading & Writing Part 7",
-      "questions": 1,
-      "instructions": "Look at the three pictures. Write the story shown in the pictures. Write 35 words or more.",
-      "type": "picture-story-write",
-      "images": [
-        "images/compact-a2-key/unit1/writing-story-pic1.webp",
-        "images/compact-a2-key/unit1/writing-story-pic2.webp",
-        "images/compact-a2-key/unit1/writing-story-pic3.webp"
-      ],
-      "storyImage": "images/compact-a2-key/unit1/writing-story-pictures.webp",
-      "minWords": 35,
-      "sampleAnswer": "One day, a boy was walking to school and it started to rain. He looked at the sky and saw a big, black cloud. He ran as fast as he could to school. He got to school, went to his classroom and looked out of the window. It was raining a lot. He was glad he was inside.",
-      "checklist": [
-        { "category": "Content", "band5": "All content is relevant to the task. Target reader is fully informed.", "band3": "Minor irrelevances and/or omissions may be present. Target reader is on the whole informed.", "band1": "Irrelevances and misinterpretation of task may be present. Target reader is minimally informed." },
-        { "category": "Organisation", "band5": "Text is connected and coherent, using basic linking words and a limited number of cohesive devices.", "band3": "Text is connected using basic, high-frequency linking words.", "band1": "Production unlikely to be connected, though punctuation and simple connectors (i.e. 'and') may on occasion be used." },
-        { "category": "Language", "band5": "Uses everyday vocabulary generally appropriately, while occasionally overusing certain lexis. Uses simple grammatical forms with a good degree of control. While errors are noticeable, meaning can still be determined.", "band3": "Uses basic vocabulary reasonably appropriately. Uses simple grammatical forms with some degree of control. Errors may impede meaning at times.", "band1": "Produces basic vocabulary of isolated words and phrases. Produces few simple grammatical forms with only limited control." }
+        {
+          "num": 1,
+          "question": "Which person can't visit some of her grandparents?",
+          "answer": "C"
+        },
+        {
+          "num": 2,
+          "question": "Which person is learning something from one of her grandparents?",
+          "answer": "B"
+        },
+        {
+          "num": 3,
+          "question": "Which person says one of her grandparents still has a job?",
+          "answer": "C"
+        },
+        {
+          "num": 4,
+          "question": "Which person lives near all four of her grandparents?",
+          "answer": "A"
+        },
+        {
+          "num": 5,
+          "question": "Which person lives with one grandparent?",
+          "answer": "B"
+        },
+        {
+          "num": 6,
+          "question": "Which person finds one thing difficult when she visits her grandparents?",
+          "answer": "A"
+        },
+        {
+          "num": 7,
+          "question": "Which person eats with her grandmother once a week?",
+          "answer": "C"
+        }
       ]
     },
     {
@@ -210,11 +72,56 @@
       "type": "multiple-choice-abc",
       "audio": "audio/compact-a2-key/unit1/listening-part3.mp3",
       "items": [
-        { "num": 1, "question": "When is Kelly's next singing lesson?", "options": ["8th August", "15th August", "22nd August"], "answer": 1 },
-        { "num": 2, "question": "Where will they get the music book from?", "options": ["the bookshop", "the library", "the music shop"], "answer": 0 },
-        { "num": 3, "question": "Which day will they get the book?", "options": ["Tuesday", "Wednesday", "Thursday"], "answer": 2 },
-        { "num": 4, "question": "Kelly's mum will meet Kelly at", "options": ["3.45 p.m.", "4.00 p.m.", "4.15 p.m."], "answer": 1 },
-        { "num": 5, "question": "What kind of food does Kelly want to eat afterwards?", "options": ["pizza", "fish", "burgers"], "answer": 0 }
+        {
+          "num": 1,
+          "question": "When is Kelly's next singing lesson?",
+          "options": [
+            "8th August",
+            "15th August",
+            "22nd August"
+          ],
+          "answer": 1
+        },
+        {
+          "num": 2,
+          "question": "Where will they get the music book from?",
+          "options": [
+            "the bookshop",
+            "the library",
+            "the music shop"
+          ],
+          "answer": 0
+        },
+        {
+          "num": 3,
+          "question": "Which day will they get the book?",
+          "options": [
+            "Tuesday",
+            "Wednesday",
+            "Thursday"
+          ],
+          "answer": 2
+        },
+        {
+          "num": 4,
+          "question": "Kelly's mum will meet Kelly at",
+          "options": [
+            "3.45 p.m.",
+            "4.00 p.m.",
+            "4.15 p.m."
+          ],
+          "answer": 1
+        },
+        {
+          "num": 5,
+          "question": "What kind of food does Kelly want to eat afterwards?",
+          "options": [
+            "pizza",
+            "fish",
+            "burgers"
+          ],
+          "answer": 0
+        }
       ]
     }
   ]
