@@ -3535,7 +3535,8 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                         </div>`;
             });
             formHtml += `</div></div>`;
-            let html = `<div class="max-w-2xl mx-auto">
+            const wrapClass = part.optionsLegend ? 'max-w-4xl mx-auto' : 'max-w-2xl mx-auto';
+            let html = `<div class="${wrapClass}">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
             if (part.audio) {
                 html += `<div class="mb-4 bg-slate-50 rounded-xl p-3 border">
@@ -3543,25 +3544,40 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 </div>`;
             }
             if (part.optionsLegend) {
-                html += `<div class="bg-indigo-50 rounded-2xl p-4 border border-indigo-200 mb-4">
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">`;
+                html += `<div class="resp-row" style="gap:1.5rem">
+                    <div class="resp-col" style="flex:1;min-width:0">`;
+                html += formHtml;
+                if (readingCanReview && part.script && part.script.length > 0) {
+                    html += `<div class="mt-4 bg-amber-50 border border-amber-200 rounded-2xl p-4">
+                        <h4 class="font-bold text-amber-700 mb-3" style="font-size:20px"><i class="fa-solid fa-scroll mr-1"></i> Audio Script</h4>
+                        <div class="space-y-1">`;
+                    part.script.forEach(line => {
+                        html += `<div style="font-size:20px"><span class="font-bold text-slate-800">${line.speaker}:</span> <span class="text-slate-700">${line.text}</span></div>`;
+                    });
+                    html += `</div></div>`;
+                }
+                html += `</div>
+                    <div class="resp-col shrink-0" style="width:220px">
+                        <div class="sticky top-4 bg-indigo-50 rounded-2xl p-4 border border-indigo-200">
+                            <div class="flex flex-col gap-2">`;
                 part.optionsLegend.forEach(opt => {
                     html += `<div class="flex items-center gap-2 bg-white rounded-lg px-3 py-2 border" style="font-size:20px;">
                         <span class="bg-indigo-500 text-white w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm shrink-0">${opt.letter}</span>
                         <span class="text-slate-700 font-medium">${opt.text}</span>
                     </div>`;
                 });
-                html += `</div></div>`;
-            }
-            html += formHtml;
-            if (readingCanReview && part.script && part.script.length > 0) {
-                html += `<div class="mt-4 bg-amber-50 border border-amber-200 rounded-2xl p-4">
-                    <h4 class="font-bold text-amber-700 mb-3" style="font-size:20px"><i class="fa-solid fa-scroll mr-1"></i> Audio Script</h4>
-                    <div class="space-y-1">`;
-                part.script.forEach(line => {
-                    html += `<div style="font-size:20px"><span class="font-bold text-slate-800">${line.speaker}:</span> <span class="text-slate-700">${line.text}</span></div>`;
-                });
-                html += `</div></div>`;
+                html += `</div></div></div></div>`;
+            } else {
+                html += formHtml;
+                if (readingCanReview && part.script && part.script.length > 0) {
+                    html += `<div class="mt-4 bg-amber-50 border border-amber-200 rounded-2xl p-4">
+                        <h4 class="font-bold text-amber-700 mb-3" style="font-size:20px"><i class="fa-solid fa-scroll mr-1"></i> Audio Script</h4>
+                        <div class="space-y-1">`;
+                    part.script.forEach(line => {
+                        html += `<div style="font-size:20px"><span class="font-bold text-slate-800">${line.speaker}:</span> <span class="text-slate-700">${line.text}</span></div>`;
+                    });
+                    html += `</div></div>`;
+                }
             }
             html += `</div>`;
             content.innerHTML = html;
