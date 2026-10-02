@@ -133,6 +133,25 @@
       "instructions": "For each question, choose the correct answer. You will hear Kelly talking to her mum about her singing lessons.",
       "type": "multiple-choice-abc",
       "audio": "audio/compact-a2-key/unit1/listening-part3.mp3",
+      "script": [
+        { "speaker": "Mum", "text": "Kelly, I spoke to your singing teacher last night. You haven't got a lesson this week." },
+        { "speaker": "Kelly", "text": "OK, so when's my next lesson?" },
+        { "speaker": "Mum", "text": "It'll be on the <u>15th of August</u> – you're missing this week, which is the 8th of August, and on the 22nd of August, your teacher's away again." },
+        { "speaker": "Kelly", "text": "Right." },
+        { "speaker": "Mum", "text": "She said you need a new music book, too." },
+        { "speaker": "Kelly", "text": "Oh, OK. Where can we get that?" },
+        { "speaker": "Mum", "text": "Well, they haven't got any music at the library, I've looked before. <u>The bookshop</u>'s cheaper than the music shop, so we'll get it there." },
+        { "speaker": "Kelly", "text": "OK." },
+        { "speaker": "Mum", "text": "Which day shall we go?" },
+        { "speaker": "Kelly", "text": "How about <u>Thursday</u>? You work late on Tuesdays and I've got dance club on Wednesday." },
+        { "speaker": "Mum", "text": "Fine." },
+        { "speaker": "Kelly", "text": "Will you pick me up after school?" },
+        { "speaker": "Mum", "text": "No, I only finish work at quarter to four, so go home first. I'll see you there at <u>four o'clock</u>. Then we'll get to the shop about quarter past four." },
+        { "speaker": "Kelly", "text": "Right." },
+        { "speaker": "Mum", "text": "Would you like dinner in a restaurant afterwards?" },
+        { "speaker": "Kelly", "text": "Yeah! I heard the burger restaurant's closed, but I'd like to go and have a <u>pizza</u>. The fish restaurant's a bit too far from the shops." },
+        { "speaker": "Mum", "text": "Great!" }
+      ],
       "items": [
         {
           "num": 1,
@@ -193,6 +212,22 @@
       "instructions": "For each question, choose the correct answer. You will hear Simon talking to his friend Amanda about his school day.",
       "type": "multiple-choice-abc",
       "audio": "audio/compact-a2-key/unit1/listening-part4.mp3",
+      "script": [
+        { "speaker": "Amanda", "text": "Hi, Simon! How are you?" },
+        { "speaker": "Simon", "text": "Oh hi, Amanda! I'm tired!" },
+        { "speaker": "Amanda", "text": "Me too! (1) I <u>go to sleep really late</u> because my brother watches TV in his room, and I can hear it." },
+        { "speaker": "Simon", "text": "Oh, that's a shame! But you don't have to get up really early, like I do!" },
+        { "speaker": "Amanda", "text": "Get up really early? Why's that?" },
+        { "speaker": "Simon", "text": "I take the boat to school now. (2) It goes at <u>half past seven</u>, so Mum wakes us up at a quarter past six. We have breakfast and leave home at seven." },
+        { "speaker": "Amanda", "text": "So you've changed schools?" },
+        { "speaker": "Simon", "text": "Yes. The school on our island is for six to eleven year olds. (3) Now <u>I'm twelve</u>, I go to school on another island with my sister Tanya. She's fourteen now." },
+        { "speaker": "Amanda", "text": "Oh. What about getting home?" },
+        { "speaker": "Simon", "text": "The boat goes two hours after school finishes. (4) <u>Mum's sister lives near the school</u> so we have dinner there." },
+        { "speaker": "Amanda", "text": "So that's your school day! (5) <u>It's not like mine – much more interesting</u> – and longer!" },
+        { "speaker": "Simon", "text": "It's what everyone my age on the island does." },
+        { "speaker": "Amanda", "text": "Some people probably think it's fun, or even exciting, but I don't like boats." },
+        { "speaker": "Simon", "text": "Well, it's the only way!" }
+      ],
       "items": [
         {
           "num": 1,
