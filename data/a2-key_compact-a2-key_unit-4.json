@@ -3,6 +3,45 @@
   "title": "Unit 4 - What are you doing now?",
   "parts": [
     {
+      "id": "rw-part1a",
+      "title": "Reading & Writing Part 1",
+      "questions": 5,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "multiple-choice-abc",
+      "items": [
+        {
+          "num": 1,
+          "question": "Hi, Sandra. Are you going to hockey practice this evening? My brother's taking me, on his way to cricket. Shall we pick you up?\nStefanie",
+          "options": ["Stefanie is offering Sandra a lift to hockey practice.", "Stefanie is trying to find out if there is hockey practice today.", "Stefanie is asking Sandra if she wants to do cricket instead of hockey."],
+          "answer": 0
+        },
+        {
+          "num": 2,
+          "question": "The pool temperature is lower this week, as we are repairing the heating.",
+          "options": ["The problem with the pool heating is now fixed.", "The swimming pool is not open this week.", "The water will not be as warm as usual."],
+          "answer": 2
+        },
+        {
+          "num": 3,
+          "question": "Dad, Sam called to ask me to play tennis. I've borrowed your racket – I don't know where mine is. Can you look for it?\nKatia",
+          "options": ["Katia wants her dad to play tennis with her.", "Katia wants her dad to find her tennis racket.", "Katia wants her dad to lend her his tennis racket."],
+          "answer": 1
+        },
+        {
+          "num": 4,
+          "question": "Sale starts next Monday.\nLarge discounts on sports clothes, including 50% off all swimming costumes.",
+          "options": ["You will spend less if you buy sports clothes now.", "Some sports clothes will be half the usual price.", "Sports clothes in larger sizes will be cheaper."],
+          "answer": 1
+        },
+        {
+          "num": 5,
+          "question": "Football team: as the weather's good, come to the sports field for practice, this evening only. 8 p.m. as usual. Don't forget your kit!",
+          "options": ["The team should go to a different place today.", "The practice will be at a different time today.", "The team have to wear a different kit today."],
+          "answer": 0
+        }
+      ]
+    },
+    {
       "id": "listening-part1a",
       "title": "Listening Part 1",
       "questions": 4,
@@ -15,7 +54,7 @@
           "question": "How much was Jenny's new tennis racket?",
           "options": ["£35", "£40", "£45"],
           "image": "images/compact-a2-key/unit4/listening-part1-q2.png",
-          "answer": 0
+          "answer": 1
         },
         {
           "num": 3,
@@ -29,26 +68,64 @@
           "question": "What is the boy drinking?",
           "options": ["A can of lemonade", "A juice box", "A hot drink in a mug"],
           "image": "images/compact-a2-key/unit4/listening-part1-q4.webp",
-          "answer": 1
+          "answer": 0
         },
         {
           "num": 5,
           "question": "Who is the girl's table tennis coach?",
           "options": ["Blonde hair with glasses", "Dark hair without glasses", "Dark hair with glasses"],
           "image": "images/compact-a2-key/unit4/listening-part1-q5.webp",
-          "answer": 2
+          "answer": 1
         }
       ],
       "script": [
-        { "speaker": "Man", "text": "How much was Jenny's new tennis racket?" },
-        { "speaker": "Woman", "text": "Well, she wanted one that cost forty-five pounds, but she found <u>one for thirty-five pounds</u> that was just as good." },
-        { "speaker": "Man", "text": "What time does the hockey match start?" },
-        { "speaker": "Woman", "text": "It was going to start at four twenty, but they've changed it. <u>It now starts at four thirty</u>." },
-        { "speaker": "Woman", "text": "What is the boy drinking?" },
-        { "speaker": "Boy", "text": "I was going to have some lemonade, but then I saw <u>the orange juice</u>. I'll have the hot chocolate later." },
-        { "speaker": "Man", "text": "Who is the girl's table tennis coach?" },
-        { "speaker": "Girl", "text": "My coach hasn't got blonde hair, and <u>he wears glasses</u>. He's really good!" }
+        { "speaker": "Boy", "text": "I love your new tennis shoes, Jenny. Were they expensive?" },
+        { "speaker": "Girl", "text": "No, they weren't. They were £35. My racket was more expensive." },
+        { "speaker": "Boy", "text": "Oh really? How much was that?" },
+        { "speaker": "Girl", "text": "I bought it online for <u>£40</u>. My sister paid £45 for hers." },
+        { "speaker": "Girl", "text": "Excuse me. What time does the hockey match start?" },
+        { "speaker": "Man", "text": "It starts at <u>half past four</u>." },
+        { "speaker": "Girl", "text": "What time is it now? Am I late?" },
+        { "speaker": "Man", "text": "No, it's only ten past four. Go for a walk and come back at twenty past four." },
+        { "speaker": "Girl", "text": "I'm thirsty after that race." },
+        { "speaker": "Simon", "text": "This <u>lemonade</u> is really good. I bought it over there in the café." },
+        { "speaker": "Girl", "text": "Is there any juice?" },
+        { "speaker": "Simon", "text": "I don't think so, but they've got hot chocolate if you prefer that." },
+        { "speaker": "Maisie", "text": "That's my table tennis coach." },
+        { "speaker": "Boy", "text": "Who? Is he that blond man over there with glasses?" },
+        { "speaker": "Maisie", "text": "No, he's got <u>dark hair and he doesn't wear glasses</u>." },
+        { "speaker": "Boy", "text": "Oh, I can see him now. He's standing over there next to Brendan." }
       ]
+    },
+    {
+      "id": "writing-task-a",
+      "title": "Writing Task",
+      "questions": 1,
+      "instructions": "Read the email from your English friend, Ed. Write an email to Ed and answer the questions. Write 25 words or more.",
+      "type": "picture-story-write",
+      "prompt": "From: Ed\n\nWe have to wear a school uniform at school and I don't like it. What do you usually wear for school? What are your favourite kinds of clothes? How often do you go clothes shopping?",
+      "minWords": 25,
+      "checklist": [
+        {
+          "category": "Content",
+          "band5": "All three questions are answered clearly and with relevant detail.",
+          "band3": "Two questions answered, or answers lack detail.",
+          "band1": "Only one question answered or content is mostly irrelevant."
+        },
+        {
+          "category": "Organisation",
+          "band5": "The email is well-organised with a greeting, clear answers and a sign-off.",
+          "band3": "Some organisation but may lack greeting/sign-off or answers are not clearly separated.",
+          "band1": "Very little organisation. Hard to follow."
+        },
+        {
+          "category": "Language",
+          "band5": "Uses a range of everyday vocabulary and grammar accurately. Spelling is mostly correct.",
+          "band3": "Uses simple vocabulary and grammar with some errors that don't prevent understanding.",
+          "band1": "Very limited vocabulary. Frequent errors make the text difficult to understand."
+        }
+      ],
+      "sampleAnswer": "Hi Ed,\nWe can wear what we like for school. My favourite clothes are jeans, jumpers and T-shirts. I go clothes shopping about six times a year.\nSee you soon,\nMichele"
     }
   ]
 }
