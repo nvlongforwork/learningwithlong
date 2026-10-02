@@ -2998,7 +2998,10 @@
                     <h4 class="font-bold text-turtle-600 mb-2"><i class="fa-solid fa-pen-fancy mr-1"></i> Bài viết của bạn:</h4>
                     <p class="text-slate-700 whitespace-pre-wrap">${answers[0] || '<span class="text-slate-400 italic">Không trả lời</span>'}</p>
                     <p class="text-sm mt-2 ${wordCount >= part.minWords ? 'text-green-600' : 'text-red-500'}">Word count: ${wordCount} / ${part.minWords}+</p>
-                </div>`;
+                </div>
+                <button onclick="downloadWritingDoc(readingData.parts[${activeReadingPart}], readingAnswers[${activeReadingPart}])" class="mb-4 w-full py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold rounded-xl hover:opacity-90 transition-all shadow-md flex items-center justify-center gap-2" style="font-size:20px;">
+                    <i class="fa-solid fa-file-word"></i> Tải bài viết (Word)
+                </button>`;
                 if (part.checklist) {
                     html += `<div class="bg-amber-50 rounded-xl p-4 border border-amber-200 mb-4">
                         <h4 class="font-bold text-amber-700 mb-3"><i class="fa-solid fa-clipboard-check mr-1"></i> Self-check: Tự đánh giá bài viết</h4>
@@ -3046,6 +3049,71 @@
             content.innerHTML = html;
         }
 
+        function downloadWritingDoc(part, answers) {
+            const studentName = currentStudent ? currentStudent.name : 'Unknown';
+            const studentClass = currentStudent ? currentStudent.class : '';
+            const engName = currentStudent && currentStudent.englishName ? ` (${currentStudent.englishName})` : '';
+            const dateStr = new Date().toLocaleDateString('vi-VN');
+
+            let questionsHtml = '';
+            let studentAnswersHtml = '';
+
+            if (part.type === 'picture-story-write') {
+                questionsHtml = `<p><b>Instructions:</b> ${part.instructions}</p>`;
+                if (part.storyImage) questionsHtml += `<p><i>(See attached image: ${part.storyImage})</i></p>`;
+                studentAnswersHtml = `<p>${(answers[0] || '').replace(/\n/g, '<br>')}</p>`;
+                const wc = (answers[0] || '').split(/\s+/).filter(w => w).length;
+                studentAnswersHtml += `<p><i>Word count: ${wc}</i></p>`;
+            } else if (part.type === 'free-writing') {
+                questionsHtml = `<p><b>Instructions:</b> ${part.instructions}</p>`;
+                const items = part.sampleAnswers || [];
+                items.forEach((item, i) => {
+                    questionsHtml += `<p><b>${item.num}.</b> ${item.question}</p>`;
+                    studentAnswersHtml += `<p><b>${item.num}.</b> ${answers[i] || '<i>(No answer)</i>'}</p>`;
+                });
+            }
+
+            const docContent = `
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+<head><meta charset="utf-8"><style>
+body { font-family: 'Times New Roman', serif; font-size: 13pt; margin: 2cm; }
+h1 { font-size: 16pt; color: #333; border-bottom: 2px solid #00AFA9; padding-bottom: 8px; }
+h2 { font-size: 14pt; color: #555; margin-top: 20px; }
+.info { background: #f5f5f5; padding: 10px 15px; border-radius: 5px; margin-bottom: 15px; }
+.info p { margin: 3px 0; }
+.section { margin-top: 15px; padding: 12px 15px; border: 1px solid #ddd; border-radius: 5px; }
+.answer-section { background: #f0faf9; border-color: #00AFA9; }
+</style></head>
+<body>
+<h1>${part.title || 'Writing Exercise'}</h1>
+<div class="info">
+    <p><b>Student:</b> ${studentName}${engName}</p>
+    <p><b>Class:</b> ${studentClass}</p>
+    <p><b>Date:</b> ${dateStr}</p>
+</div>
+<h2>Question</h2>
+<div class="section">${questionsHtml}</div>
+<h2>Student's Answer</h2>
+<div class="section answer-section">${studentAnswersHtml}</div>
+<br><br>
+<p><b>Teacher's Comments:</b></p>
+<p>_______________________________________________</p>
+<p>_______________________________________________</p>
+<p>_______________________________________________</p>
+<br>
+<p><b>Score:</b> _______ / _______</p>
+</body></html>`;
+
+            const blob = new Blob([docContent], { type: 'application/msword' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            const safeName = studentName.replace(/\s+/g, '_');
+            a.href = url;
+            a.download = `Writing_${safeName}_${dateStr.replace(/\//g, '-')}.doc`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
         function selectWritingBand(criteriaIdx, band, el) {
             if (!window._writingScores) window._writingScores = [-1, -1, -1];
             window._writingScores[criteriaIdx] = band;
@@ -3073,6 +3141,11 @@
                     </div>`;
                 }
             });
+            if (readingSubmitted) {
+                html += `<button onclick="downloadWritingDoc(readingData.parts[${activeReadingPart}], readingAnswers[${activeReadingPart}])" class="mt-4 w-full py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold rounded-xl hover:opacity-90 transition-all shadow-md flex items-center justify-center gap-2" style="font-size:20px;">
+                    <i class="fa-solid fa-file-word"></i> Tải bài viết (Word)
+                </button>`;
+            }
             html += `</div>`;
             content.innerHTML = html;
         }
