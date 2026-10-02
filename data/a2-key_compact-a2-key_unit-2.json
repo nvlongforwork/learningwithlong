@@ -35,7 +35,7 @@
       "items": [
         {
           "num": 1,
-          "question": "You will hear two friends talking about a film they've just seen. What type of film was it?",
+          "question": "You will hear two friends talking about a film they've just seen.\nWhat type of film was it?",
           "options": [
             "a comedy",
             "a horror film",
@@ -45,7 +45,7 @@
         },
         {
           "num": 2,
-          "question": "You will hear a boy talking about a camping trip. Who did he go camping with?",
+          "question": "You will hear a boy talking about a camping trip.\nWho did he go camping with?",
           "options": [
             "his brother",
             "his mother",
@@ -55,7 +55,7 @@
         },
         {
           "num": 3,
-          "question": "You will hear a boy, James, talking to his mother about basketball lessons. What does James ask his mother to do?",
+          "question": "You will hear a boy, James, talking to his mother about basketball lessons.\nWhat does James ask his mother to do?",
           "options": [
             "find out when his basketball lessons start",
             "book some basketball lessons for him",
@@ -65,7 +65,7 @@
         },
         {
           "num": 4,
-          "question": "You will hear two friends discussing a practice for their dance group. What do they still need to do?",
+          "question": "You will hear two friends discussing a practice for their dance group.\nWhat do they still need to do?",
           "options": [
             "tell people when the practice will start",
             "find a place to practise",
@@ -75,7 +75,7 @@
         },
         {
           "num": 5,
-          "question": "You will hear a girl talking about horse riding. Why does she like horse riding?",
+          "question": "You will hear a girl talking about horse riding.\nWhy does she like horse riding?",
           "options": [
             "She is learning something new.",
             "She can spend time outdoors.",
@@ -235,7 +235,7 @@
       "items": [
         {
           "num": 1,
-          "question": "You will hear two friends talking about going to art club. What do they say about going to the countryside to paint?",
+          "question": "You will hear two friends talking about going to art club.\nWhat do they say about going to the countryside to paint?",
           "options": [
             "They prefer painting inside.",
             "They haven't tried painting outside before.",
@@ -245,7 +245,7 @@
         },
         {
           "num": 2,
-          "question": "You will hear a girl talking about a competition. What type of competition was it?",
+          "question": "You will hear a girl talking about a competition.\nWhat type of competition was it?",
           "options": [
             "a football competition",
             "a music competition",
@@ -255,7 +255,7 @@
         },
         {
           "num": 3,
-          "question": "You will hear a boy talking about joining a dance club. Why does he want to join the club?",
+          "question": "You will hear a boy talking about joining a dance club.\nWhy does he want to join the club?",
           "options": [
             "His friends go to the club.",
             "He wants to do something new.",
@@ -265,7 +265,7 @@
         },
         {
           "num": 4,
-          "question": "You will hear a girl, Kate, talking to a friend about films. What type of films does she like?",
+          "question": "You will hear a girl, Kate, talking to a friend about films.\nWhat type of films does she like?",
           "options": [
             "comedy films",
             "horror films",
@@ -275,7 +275,7 @@
         },
         {
           "num": 5,
-          "question": "You will hear two friends talking about a concert they went to. What did they think of the concert?",
+          "question": "You will hear two friends talking about a concert they went to.\nWhat did they think of the concert?",
           "options": [
             "It was too short.",
             "It was worse than the last one.",

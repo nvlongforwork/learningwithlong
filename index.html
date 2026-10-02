@@ -3395,8 +3395,18 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 html += `</div></div>`;
             }
             part.items.forEach((item, i) => {
+                const qLines = item.question.split('\n');
+                let questionHtml = '';
+                if (qLines.length > 1) {
+                    const context = qLines.slice(0, -1).join('<br>');
+                    const mainQ = qLines[qLines.length - 1];
+                    questionHtml = `<p class="text-slate-500 italic mb-1"><span class="text-turtle-600 font-bold not-italic mr-2">${item.num}.</span>${context}</p>
+                        <p class="font-bold text-slate-800 mb-3 pl-6">${mainQ}</p>`;
+                } else {
+                    questionHtml = `<p class="font-bold text-slate-800 mb-3"><span class="text-turtle-600 mr-2">${item.num}.</span>${item.question}</p>`;
+                }
                 html += `<div class="bg-white rounded-2xl p-4 border shadow-sm mb-3" style="font-size:20px;">
-                    <p class="font-bold text-slate-800 mb-3"><span class="text-turtle-600 mr-2">${item.num}.</span>${item.question}</p>
+                    ${questionHtml}
                     <div class="${isVerticalMCQ ? 'flex flex-col gap-2' : 'flex gap-2'}">`;
                 item.options.forEach((opt, j) => {
                     let cls = `${isVerticalMCQ ? '' : 'flex-1'} p-3 rounded-xl ${isVerticalMCQ ? 'text-left' : 'text-center'} font-medium cursor-pointer transition-all `;
