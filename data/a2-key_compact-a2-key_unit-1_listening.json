@@ -1,0 +1,21 @@
+{
+  "type": "listening-test",
+  "title": "Unit 1 - Listening Part 3",
+  "parts": [
+    {
+      "id": "part3",
+      "title": "Listening Part 3",
+      "questions": 5,
+      "instructions": "For each question, choose the correct answer. You will hear Kelly talking to her mum about her singing lessons.",
+      "type": "multiple-choice-abc",
+      "audio": "audio/compact-a2-key/unit1/listening-part3.mp3",
+      "items": [
+        { "num": 1, "question": "When is Kelly's next singing lesson?", "options": ["8th August", "15th August", "22nd August"], "answer": 1 },
+        { "num": 2, "question": "Where will they get the music book from?", "options": ["the bookshop", "the library", "the music shop"], "answer": 0 },
+        { "num": 3, "question": "Which day will they get the book?", "options": ["Tuesday", "Wednesday", "Thursday"], "answer": 2 },
+        { "num": 4, "question": "Kelly's mum will meet Kelly at", "options": ["3.45 p.m.", "4.00 p.m.", "4.15 p.m."], "answer": 2 },
+        { "num": 5, "question": "What kind of food does Kelly want to eat afterwards?", "options": ["pizza", "fish", "burgers"], "answer": 0 }
+      ]
+    }
+  ]
+}
