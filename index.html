@@ -765,7 +765,7 @@
             const circumference = 2 * Math.PI * 54;
             const offset = circumference - (ringPct / 100) * circumference;
 
-            let partRows = partScores.map(ps => {
+            let partRows = partScores.filter(ps => ps.total > 0).map(ps => {
                 const pp = Math.round(((ps.correct ?? ps.score) / ps.total) * 100);
                 const c = pp >= 80 ? '#22c55e' : pp >= 50 ? '#f59e0b' : '#ef4444';
                 return `<tr style="border-bottom:1px solid #f1f5f9">
@@ -1879,7 +1879,7 @@
                 const studentEng = currentStudent && currentStudent.englishName ? ` (${currentStudent.englishName})` : '';
                 const studentClass = currentStudent ? currentStudent.class : '';
 
-                let partRows = partScores.map(p => {
+                let partRows = partScores.filter(p => p.total > 0).map(p => {
                     const ppct = Math.round((p.score / p.total) * 100);
                     const color = ppct >= 80 ? '#22c55e' : ppct >= 50 ? '#f59e0b' : '#ef4444';
                     return `<tr>
@@ -2940,7 +2940,7 @@
 
             const totalCorrect = partScores.reduce((s, p) => s + p.correct, 0);
             const totalQuestions = partScores.reduce((s, p) => s + p.total, 0);
-            const pct = Math.round((totalCorrect / totalQuestions) * 100);
+            const pct = totalQuestions > 0 ? Math.round((totalCorrect / totalQuestions) * 100) : 0;
 
             const totalColor = pct >= 80 ? '#22c55e' : pct >= 50 ? '#eab308' : '#ef4444';
             const readingShields = getShields(currentMaterialId, 'reading', totalCorrect);
