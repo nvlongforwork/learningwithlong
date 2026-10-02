@@ -34,6 +34,40 @@
         { "code": "4628", "name": "Phạm Lê Quang Huy", "englishName": "Ken" },
         { "code": "4629", "name": "Vũ Ngô Quang Đông", "englishName": "Ben" }
       ]
+    },
+    {
+      "id": "6-2",
+      "name": "Lớp 6/2",
+      "students": [
+        { "code": "6201", "name": "Ôn Trấn Khải" },
+        { "code": "6202", "name": "Võ Nguyệt Cát" },
+        { "code": "6203", "name": "Nguyễn Minh Ngọc Ngân" },
+        { "code": "6204", "name": "Phạm Trần Nguyên Khang" },
+        { "code": "6205", "name": "Huỳnh Thanh Sơn" },
+        { "code": "6206", "name": "Trần Quỳnh Ngân" },
+        { "code": "6207", "name": "Nguyễn Quan Thắng" },
+        { "code": "6208", "name": "Đỗ Gia Tuệ" },
+        { "code": "6209", "name": "Bùi Đăng Dung" },
+        { "code": "6210", "name": "Trương Cát Minh" },
+        { "code": "6211", "name": "Thi Tôn Quân" },
+        { "code": "6212", "name": "Trần Gia Ân" },
+        { "code": "6213", "name": "Đào Ngọc Bảo Anh" },
+        { "code": "6214", "name": "Mai Bảo An" },
+        { "code": "6215", "name": "Nguyễn Ngọc Thuận" },
+        { "code": "6216", "name": "Võ Xuân Nhi" },
+        { "code": "6217", "name": "Bùi Nguyên Mẫn Hiếu" },
+        { "code": "6218", "name": "Cao Huy Quốc Anh" },
+        { "code": "6219", "name": "Phạm Hoàng Nam" },
+        { "code": "6220", "name": "Lê Thị Thuỷ Tiên" },
+        { "code": "6221", "name": "Nguyễn Dương Lâm" },
+        { "code": "6222", "name": "Thái Doãn An Minh" },
+        { "code": "6223", "name": "Trần Ngọc Thạch" },
+        { "code": "6224", "name": "Nguyễn Ngọc Kim Anh" },
+        { "code": "6225", "name": "Hồ Tấn Dũng" },
+        { "code": "6226", "name": "Bùi Thanh Tâm" },
+        { "code": "6227", "name": "Nguyễn Đắc Thành" },
+        { "code": "6228", "name": "Hình Tăng Gia Hưng" }
+      ]
     }
   ]
 }

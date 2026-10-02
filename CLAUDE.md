@@ -91,6 +91,10 @@
 
 ## Audio Scripts
 - Only show parts containing answer choices (not full transcripts)
+- ALWAYS include audio script in JSON for ALL listening exercises
+- Script format: `"script": [{ "speaker": "Name", "text": "dialogue" }, ...]`
+- Use `<u>` tags to highlight answer portions in the script
+- Scripts are shown when reviewing answers after submission
 
 ## JSON Data Files
 - Path format: `./data/${materialId}_${folderId.replace(/\//g, '_')}.json`
