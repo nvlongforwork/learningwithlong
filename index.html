@@ -102,6 +102,9 @@
         .part-tab.active { background-color: #20a1a0; color: white; }
         .listening-table th, .listening-table td { border: 1px solid #e2e8f0; }
         .color-chip.selected { outline: 3px solid #1e293b; outline-offset: 2px; transform: scale(1.15); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .hl-btn.hl-active { border-color: #1e293b !important; transform: scale(1.15); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        mark.hl-yellow { background: #fef08a; padding: 0 2px; border-radius: 3px; }
+        mark.hl-green { background: #bbf7d0; padding: 0 2px; border-radius: 3px; }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
@@ -307,6 +310,11 @@
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
                 <h2 id="listening-title" class="text-lg font-bold text-slate-800 hidden sm:block"></h2>
+                <div class="flex items-center gap-1 ml-2">
+                    <button onclick="toggleHighlight('yellow')" id="hl-yellow-listening" class="hl-btn w-8 h-8 rounded-full border-2 border-transparent hover:border-slate-400 transition-all flex items-center justify-center" style="background:#fef08a" title="Highlight vàng"><i class="fa-solid fa-highlighter" style="font-size:12px;color:#a16207"></i></button>
+                    <button onclick="toggleHighlight('green')" id="hl-green-listening" class="hl-btn w-8 h-8 rounded-full border-2 border-transparent hover:border-slate-400 transition-all flex items-center justify-center" style="background:#bbf7d0" title="Highlight xanh"><i class="fa-solid fa-highlighter" style="font-size:12px;color:#15803d"></i></button>
+                    <button onclick="removeHighlight()" class="w-8 h-8 rounded-full border-2 border-transparent hover:border-slate-400 transition-all flex items-center justify-center bg-slate-100" title="Xoá highlight"><i class="fa-solid fa-eraser" style="font-size:12px;color:#64748b"></i></button>
+                </div>
             </div>
             <div class="flex items-center gap-3">
                 <div id="listening-student-info" class="flex items-center gap-3 text-sm"></div>
@@ -337,6 +345,11 @@
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
                 <h2 id="reading-title" class="text-lg font-bold text-slate-800 hidden sm:block"></h2>
+                <div class="flex items-center gap-1 ml-2">
+                    <button onclick="toggleHighlight('yellow')" id="hl-yellow-reading" class="hl-btn w-8 h-8 rounded-full border-2 border-transparent hover:border-slate-400 transition-all flex items-center justify-center" style="background:#fef08a" title="Highlight vàng"><i class="fa-solid fa-highlighter" style="font-size:12px;color:#a16207"></i></button>
+                    <button onclick="toggleHighlight('green')" id="hl-green-reading" class="hl-btn w-8 h-8 rounded-full border-2 border-transparent hover:border-slate-400 transition-all flex items-center justify-center" style="background:#bbf7d0" title="Highlight xanh"><i class="fa-solid fa-highlighter" style="font-size:12px;color:#15803d"></i></button>
+                    <button onclick="removeHighlight()" class="w-8 h-8 rounded-full border-2 border-transparent hover:border-slate-400 transition-all flex items-center justify-center bg-slate-100" title="Xoá highlight"><i class="fa-solid fa-eraser" style="font-size:12px;color:#64748b"></i></button>
+                </div>
             </div>
             <div class="flex items-center gap-3">
                 <div id="reading-student-info" class="flex items-center gap-3 text-sm"></div>
@@ -2010,6 +2023,62 @@
                 }).then(r => { if (r.isConfirmed) doSubmit(); });
             }
         }
+
+        let activeHighlightColor = null;
+
+        function toggleHighlight(color) {
+            if (activeHighlightColor === color) {
+                activeHighlightColor = null;
+            } else {
+                activeHighlightColor = color;
+            }
+            document.querySelectorAll('.hl-btn').forEach(btn => btn.classList.remove('hl-active'));
+            if (activeHighlightColor) {
+                document.querySelectorAll(`[id^="hl-${activeHighlightColor}"]`).forEach(btn => btn.classList.add('hl-active'));
+            }
+        }
+
+        function applyHighlight() {
+            if (!activeHighlightColor) return;
+            const sel = window.getSelection();
+            if (!sel || sel.isCollapsed || !sel.rangeCount) return;
+            const range = sel.getRangeAt(0);
+            const container = range.commonAncestorContainer;
+            const contentEl = document.getElementById('listening-content') || document.getElementById('reading-content');
+            const inListening = document.getElementById('listening-content')?.contains(container);
+            const inReading = document.getElementById('reading-content')?.contains(container);
+            if (!inListening && !inReading) return;
+            if (container.closest && (container.closest('input') || container.closest('textarea'))) return;
+            const mark = document.createElement('mark');
+            mark.className = `hl-${activeHighlightColor}`;
+            try { range.surroundContents(mark); } catch(e) {}
+            sel.removeAllRanges();
+        }
+
+        function removeHighlight() {
+            activeHighlightColor = null;
+            document.querySelectorAll('.hl-btn').forEach(btn => btn.classList.remove('hl-active'));
+            const sel = window.getSelection();
+            if (!sel || sel.isCollapsed || !sel.rangeCount) return;
+            const range = sel.getRangeAt(0);
+            const fragment = range.cloneContents();
+            const marks = fragment.querySelectorAll('mark.hl-yellow, mark.hl-green');
+            if (marks.length === 0) {
+                const parent = range.startContainer.parentElement;
+                if (parent && parent.tagName === 'MARK' && (parent.classList.contains('hl-yellow') || parent.classList.contains('hl-green'))) {
+                    parent.replaceWith(...parent.childNodes);
+                }
+            } else {
+                const container = range.commonAncestorContainer.nodeType === 3 ? range.commonAncestorContainer.parentElement : range.commonAncestorContainer;
+                container.querySelectorAll('mark.hl-yellow, mark.hl-green').forEach(m => {
+                    if (sel.containsNode(m, true)) m.replaceWith(...m.childNodes);
+                });
+            }
+            sel.removeAllRanges();
+        }
+
+        document.addEventListener('mouseup', () => { setTimeout(applyHighlight, 10); });
+        document.addEventListener('touchend', () => { setTimeout(applyHighlight, 10); });
 
         function closeListening() {
             if (!listeningSubmitted) {
