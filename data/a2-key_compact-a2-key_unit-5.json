@@ -106,6 +106,93 @@
         }
       ],
       "sampleAnswer": "Hi Zoe,\nYesterday I went shopping with my mum. We went to a clothes shop and I bought a new T-shirt and some jeans. After shopping, we had lunch at a café near the park.\nSee you soon!"
+    },
+    {
+      "id": "reading-part2b",
+      "title": "Reading & Writing Part 2",
+      "questions": 7,
+      "instructions": "Read the three texts about a tour of the Morgan car factory. For each question, choose the correct answer.",
+      "type": "reading-match-persons",
+      "persons": [
+        {
+          "name": "Narith",
+          "letter": "A",
+          "text": "Last Saturday, I had my first visit to the Morgan car factory. I don't know why I didn't think of going before, because our town is not far from Malvern, where the factory is. I'm so glad my parents gave me and my friend factory tour tickets as a present. What a brilliant two-hour tour! The morning we went was nice and sunny, which was lucky because we had to walk outside a lot. I want to come back in the future and drive one of the cars."
+        },
+        {
+          "name": "Toby",
+          "letter": "B",
+          "text": "I love cars, especially old cars, so I was really excited about going to see where Morgans are made. It's quite a long way from my home, and I can't drive, so my cousin Leo gave me a lift and I bought both our tickets. He isn't interested in cars. But even Leo thought the tour was amazing, so you don't have to like cars to enjoy the tour. They use both old and modern ways of working, which taught me a lot about machines and engineering."
+        },
+        {
+          "name": "Marlon",
+          "letter": "C",
+          "text": "The tour started with a very good ten-minute information film, and then we walked around the factory. We had a tour with a guide for two hours, but couldn't see some of the outside parts of the factory because there was a thunderstorm. We watched people building the cars, and when I stopped and asked them questions, they didn't mind. I'm going to get a really good job when I'm older, so I can get a Morgan sports car."
+        }
+      ],
+      "items": [
+        { "num": 1, "question": "Which person says he learned many things from his visit?", "answer": "B" },
+        { "num": 2, "question": "Which person would like to buy a Morgan car in the future?", "answer": "C" },
+        { "num": 3, "question": "Which person visited the factory with someone that does not like cars?", "answer": "B" },
+        { "num": 4, "question": "Which person had good weather during their visit to the factory?", "answer": "A" },
+        { "num": 5, "question": "Which person spoke to the people that make the cars?", "answer": "C" },
+        { "num": 6, "question": "Which person did not have to buy tickets for the tour himself?", "answer": "A" },
+        { "num": 7, "question": "Which person lives quite near the factory?", "answer": "A" }
+      ]
+    },
+    {
+      "id": "listening-part2b",
+      "title": "Listening Part 2",
+      "questions": 5,
+      "instructions": "For each question, write the correct answer in the gap. Write one word or a number or a date or a time.",
+      "type": "fill-blank",
+      "audio": "audio/compact-a2-key/unit5/listening-part2.mp3",
+      "formTitle": "Branton Museum of Pop Music",
+      "example": { "label": "Address:", "prefix": "", "answer": "Victoria Square, Branton" },
+      "rows": [
+        { "num": 1, "label": "Name of this month's exhibition:", "prefix": "", "answer": "Scoresound" },
+        { "num": 2, "label": "Date exhibition ends:", "prefix": "", "answer": "25th November", "altAnswers": ["November 25th", "25/11"] },
+        { "num": 3, "label": "New room at museum:", "prefix": "shows pop stars'", "answer": "clothes" },
+        { "num": 4, "label": "Entrance ticket includes:", "prefix": "a (free)", "answer": "poster" },
+        { "num": 5, "label": "Price for teenagers:", "prefix": "£", "answer": "5.75", "altAnswers": ["five pounds seventy-five"] }
+      ],
+      "script": [
+        { "speaker": "Woman", "text": "The Branton Museum of Pop Music is the city's most popular museum for visitors aged 12 to 18. Its new location in Victoria Square is much more central than its old Green Street address." },
+        { "speaker": "Woman", "text": "This month, it has a new exhibition called <u>'Scoresound', that's spelled S-C-O-R-E-S-O-U-N-D</u>, and it explores film music, with hundreds of pictures, recordings and videos. It's open from the 31st of October until <u>the 25th of November</u>." },
+        { "speaker": "Woman", "text": "The museum's also just opened a new fashion room. Here, you can see <u>the clothes worn by some of the most famous pop stars</u> of the last 50 years." },
+        { "speaker": "Woman", "text": "You can travel to the museum by car or bus, and you get <u>a free poster</u> with your entrance ticket." },
+        { "speaker": "Woman", "text": "Museum tickets for adults cost eight pounds fifty, but for schoolchildren up to the age of 19 it's just <u>five pounds seventy-five</u>. However, children under five go free." }
+      ]
+    },
+    {
+      "id": "writing-task-b",
+      "title": "Reading & Writing Part 6",
+      "questions": 1,
+      "instructions": "Yesterday you went shopping in a department store. Write an email to your English friend Sam. Say:\n- why you went there\n- how big the store was\n- what you liked about the store.\nWrite 25 words or more.",
+      "type": "picture-story-write",
+      "prompt": "From: Sam\n\nYesterday you went shopping in a department store. Write an email to me!\n\nSay:\n- why you went there\n- how big the store was\n- what you liked about the store",
+      "minWords": 25,
+      "checklist": [
+        {
+          "category": "Content",
+          "band5": "All three questions are answered clearly and with relevant detail.",
+          "band3": "Two questions answered, or answers lack detail.",
+          "band1": "Only one question answered or content is mostly irrelevant."
+        },
+        {
+          "category": "Organisation",
+          "band5": "The email is well-organised with a greeting, clear answers and a sign-off.",
+          "band3": "Some organisation but may lack greeting/sign-off or answers are not clearly separated.",
+          "band1": "Very little organisation. Hard to follow."
+        },
+        {
+          "category": "Language",
+          "band5": "Uses a range of everyday vocabulary and grammar accurately. Spelling is mostly correct.",
+          "band3": "Uses simple vocabulary and grammar with some errors that don't prevent understanding.",
+          "band1": "Very limited vocabulary. Frequent errors make the text difficult to understand."
+        }
+      ],
+      "sampleAnswer": "Hi, Sam\nI went to Marley's department store yesterday. I went there because I wanted to buy a notebook and some pens. It is really big. It has three floors of clothes, and furniture and other things for the home on two more floors. It's a nice place. I really liked the café on the first floor.\nBye!\nFred"
     }
   ]
 }
