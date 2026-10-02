@@ -96,6 +96,101 @@
         }
       ],
       "sampleAnswer": "Last Saturday, my dad had a barbecue party in the garden. He was cooking meat for our friends. Suddenly, it started raining heavily. Dad tried to carry the food inside with an umbrella. Finally, he decided to cook the food in the oven in the kitchen instead."
+    },
+    {
+      "id": "reading-part4b",
+      "title": "Reading & Writing Part 4",
+      "questions": 6,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "grammar-cloze",
+      "passage": "THE DAILY LIFE OF A JAPANESE TEENAGER\n\nAkiyoshi is a 13-year-old girl. She lives in Osaka, a Japanese city, with her family.\n\nEvery morning, she (1) .......... breakfast at a low table which is called a 'kotatsu'. After breakfast, she (2) .......... to school. This only takes five minutes because her school is so (3) .......... to her house.\n\nShe goes to school Monday to Friday and sometimes Saturday mornings, too. Akiyoshi's school subjects (4) .......... art, music, maths and Japanese. Her class eats lunch in the classroom, then they have to clean the classroom.\n\nWhen she (5) .......... home, first, she takes off her shoes. The family's evening (6) .......... is usually fish or chicken with soup and rice. After eating, she watches TV, does her homework and goes to bed.",
+      "items": [
+        {
+          "num": 1,
+          "options": ["comes", "has", "keeps"],
+          "answer": 1
+        },
+        {
+          "num": 2,
+          "options": ["walks", "brings", "joins"],
+          "answer": 0
+        },
+        {
+          "num": 3,
+          "options": ["short", "quick", "close"],
+          "answer": 2
+        },
+        {
+          "num": 4,
+          "options": ["add", "include", "mix"],
+          "answer": 1
+        },
+        {
+          "num": 5,
+          "options": ["travels", "starts", "returns"],
+          "answer": 2
+        },
+        {
+          "num": 6,
+          "options": ["meal", "course", "plate"],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "listening-part2b",
+      "title": "Listening Part 2",
+      "questions": 5,
+      "instructions": "For each question, write the correct answer in the gap. Write one word or a number or a date or a time.",
+      "type": "fill-blank",
+      "audio": "audio/compact-a2-key/unit3/listening-part2b.mp3",
+      "formTitle": "New TV show",
+      "example": { "label": "Name:", "prefix": "", "answer": "Chefs" },
+      "rows": [
+        { "num": 1, "label": "First programme about:", "prefix": "", "answer": "vegetables" },
+        { "num": 2, "label": "Programmes made at:", "prefix": "", "answer": "Whiteside", "altAnswers": ["Whiteside School"] },
+        { "num": 3, "label": "Number to call with ideas:", "prefix": "", "answer": "0996 548013" },
+        { "num": 4, "label": "Day:", "prefix": "", "answer": "Monday", "altAnswers": ["Mondays"] },
+        { "num": 5, "label": "Start time:", "prefix": "", "answer": "5.15", "altAnswers": ["five fifteen", "a quarter past five", "quarter past five"] }
+      ],
+      "script": [
+        { "speaker": "Woman", "text": "Now, here's something interesting for all of you teenagers who are interested in TV programmes about food. A new show called Chefs is coming to your screens soon. It will include cooking and information about all kinds of subjects, such as healthy food and national dishes." },
+        { "speaker": "Woman", "text": "In the first programme, young cooks tell us all about <u>vegetables</u>. They'll show us how to grow and cook them." },
+        { "speaker": "Woman", "text": "But this won't be like a normal TV show: the programmes are not filmed in the TV centre. We're making the programmes at a school! It's called <u>Whiteside School, that's spelt W-H-I-T-E-S-I-D-E</u>." },
+        { "speaker": "Woman", "text": "And we'd like you to call us with your ideas – we'll choose the best ones and then you can come and film with us! So phone us on <u>0996 548013</u>." },
+        { "speaker": "Woman", "text": "Now check your diary. This amazing new programme will be on <u>Mondays</u>. And on Tuesday evenings, you'll be able to chat to people from the show online." },
+        { "speaker": "Woman", "text": "The first show's on 28th November, from <u>five fifteen</u> until five forty-five – write it down now!" }
+      ]
+    },
+    {
+      "id": "writing-part7b",
+      "title": "Writing Part 7",
+      "questions": 1,
+      "instructions": "Look at the three pictures. Write the story shown in the pictures. Write 35 words or more.",
+      "type": "picture-story-write",
+      "storyImage": "images/compact-a2-key/unit3/writing-part7b.webp",
+      "minWords": 35,
+      "checklist": [
+        {
+          "category": "Content",
+          "band5": "All the content is relevant to the task. The candidate has described all three pictures clearly.",
+          "band3": "Some content is relevant but may miss one picture or include irrelevant details.",
+          "band1": "Content is mostly irrelevant or too short to assess."
+        },
+        {
+          "category": "Organisation",
+          "band5": "The story is well-organised with clear sequencing and connecting words (first, then, after that).",
+          "band3": "Some attempt at organisation but the story may be hard to follow in places.",
+          "band1": "Very little organisation. Ideas are not connected."
+        },
+        {
+          "category": "Language",
+          "band5": "Uses a range of everyday vocabulary and grammar accurately. Spelling is mostly correct.",
+          "band3": "Uses simple vocabulary and grammar with some errors that don't prevent understanding.",
+          "band1": "Very limited vocabulary. Frequent errors make the text difficult to understand."
+        }
+      ],
+      "sampleAnswer": "Tom was hungry, so he looked in the fridge for something to eat. He found some chicken and bread, and he made some sandwiches. Then he put the sandwiches in his bag and went to the park to have a picnic with his friends."
     }
   ]
 }
