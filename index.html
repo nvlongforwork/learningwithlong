@@ -1020,14 +1020,19 @@
                 </div>`;
                 return;
             }
-            let html = `<p class="text-slate-500 mb-4">${exercises.length} bài tập</p>
+            let html = `<div class="flex items-center justify-between mb-4">
+                <p class="text-slate-500">${exercises.length} bài tập — chọn bài để giao</p>
+                <button onclick="toggleSelectAllParts()" class="px-3 py-1.5 rounded-lg text-sm font-medium border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 transition-colors" id="btn-select-all-parts">Chọn tất cả</button>
+            </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">`;
             exercises.forEach((ex, idx) => {
                 const icon = (ex.skill === 'listening' || subfolder.partSkill === 'listening' || (ex.part.audio)) ? 'fa-headphones' : 'fa-book-open';
                 html += `
-                    <div class="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm hover-bounce cursor-pointer group relative overflow-hidden" style="background-color: var(--theme-bg-color);"
-                         onclick="openSinglePartExercise(${idx})">
-                        <div class="flex items-start gap-3">
+                    <div class="bg-white rounded-2xl p-5 border-2 shadow-sm hover-bounce cursor-pointer group relative overflow-hidden part-exercise-card transition-all" style="background-color: var(--theme-bg-color); border-color: var(--theme-bg-color);"
+                         data-part-idx="${idx}" onclick="togglePartExercise(${idx}, event)">
+                        <div class="absolute top-3 right-3 w-7 h-7 rounded-md border-2 border-slate-300 flex items-center justify-center bg-white part-checkbox transition-all" id="part-cb-${idx}">
+                        </div>
+                        <div class="flex items-start gap-3 pr-8">
                             <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style="background-color: var(--theme-color); opacity: 0.15;">
                                 <i class="fa-solid ${icon} text-xl" style="color: var(--theme-color);"></i>
                             </div>
@@ -1038,22 +1043,78 @@
                         </div>
                     </div>`;
             });
-            html += '</div>';
+            html += `</div>
+            <div id="part-start-bar" class="fixed bottom-0 left-0 right-0 bg-white border-t-2 shadow-2xl p-4 flex items-center justify-center gap-4 z-50 transition-transform" style="transform: translateY(100%); border-color: var(--theme-color);">
+                <span class="text-slate-600 font-medium" id="part-selected-count">0 bài đã chọn</span>
+                <button onclick="openSelectedPartExercises()" class="px-6 py-3 rounded-xl text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all" style="background: var(--theme-color);">
+                    <i class="fa-solid fa-play mr-2"></i>Bắt đầu làm bài
+                </button>
+            </div>`;
             container.innerHTML = html;
             window._partExercises = exercises;
             window._partExerciseMeta = { materialId, folderId, subfolder };
+            window._selectedPartIdxs = new Set();
         }
 
-        function openSinglePartExercise(idx) {
-            const ex = window._partExercises[idx];
+        function togglePartExercise(idx, event) {
+            const sel = window._selectedPartIdxs;
+            if (sel.has(idx)) sel.delete(idx); else sel.add(idx);
+            const card = document.querySelector(`[data-part-idx="${idx}"]`);
+            const cb = document.getElementById(`part-cb-${idx}`);
+            const themeColor = document.getElementById('view-detail').style.getPropertyValue('--theme-color') || '#20a1a0';
+            if (sel.has(idx)) {
+                card.style.borderColor = themeColor;
+                cb.style.background = themeColor;
+                cb.style.borderColor = themeColor;
+                cb.innerHTML = '<i class="fa-solid fa-check text-white text-sm"></i>';
+            } else {
+                card.style.borderColor = 'var(--theme-bg-color)';
+                cb.style.background = '#fff';
+                cb.style.borderColor = '#cbd5e1';
+                cb.innerHTML = '';
+            }
+            updatePartStartBar();
+        }
+
+        function toggleSelectAllParts() {
+            const sel = window._selectedPartIdxs;
+            const all = window._partExercises.length;
+            const selectAll = sel.size < all;
+            for (let i = 0; i < all; i++) {
+                if (selectAll && !sel.has(i)) togglePartExercise(i);
+                else if (!selectAll && sel.has(i)) togglePartExercise(i);
+            }
+            const btn = document.getElementById('btn-select-all-parts');
+            if (btn) btn.textContent = selectAll ? 'Bỏ chọn tất cả' : 'Chọn tất cả';
+        }
+
+        function updatePartStartBar() {
+            const count = window._selectedPartIdxs.size;
+            const bar = document.getElementById('part-start-bar');
+            const label = document.getElementById('part-selected-count');
+            const btn = document.getElementById('btn-select-all-parts');
+            if (bar) bar.style.transform = count > 0 ? 'translateY(0)' : 'translateY(100%)';
+            if (label) label.textContent = `${count} bài đã chọn`;
+            if (btn) btn.textContent = count === window._partExercises.length ? 'Bỏ chọn tất cả' : 'Chọn tất cả';
+        }
+
+        function openSelectedPartExercises() {
+            const sel = window._selectedPartIdxs;
+            if (sel.size === 0) return;
             const meta = window._partExerciseMeta;
-            const singleData = { type: ex.dataType, title: meta.subfolder.name, parts: [ex.part] };
-            const quizType = ex.dataType === 'listening-test' ? 'listening' : 'reading';
+            const sorted = [...sel].sort((a, b) => a - b);
+            const parts = sorted.map(i => window._partExercises[i].part);
+            const firstEx = window._partExercises[sorted[0]];
+            const combinedData = { type: firstEx.dataType, title: meta.subfolder.name, parts };
+            const quizType = firstEx.dataType === 'listening-test' ? 'listening' : 'reading';
             currentMaterialId = meta.materialId;
             currentQuizTheme = document.getElementById('view-detail').style.getPropertyValue('--theme-color') || '#20a1a0';
             fullTestMode = false;
             currentPartFilter = null;
-            askStudentCode(singleData, `${meta.subfolder.name} - ${ex.contentName}`, quizType);
+            const label = sel.size === 1
+                ? `${meta.subfolder.name} - ${firstEx.contentName}`
+                : `${meta.subfolder.name} (${sel.size} bài)`;
+            askStudentCode(combinedData, label, quizType);
         }
 
         async function openFullscreenQuiz(title, materialId, folderId) {
