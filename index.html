@@ -640,13 +640,9 @@
             e.preventDefault();
             const codeInput = document.getElementById('teacher-code').value;
 
-            if (codeInput === TEACHER_CODE || codeInput === TEACHER_BYPASS_CODE) {
+            if (codeInput === TEACHER_CODE) {
                 isLoggedIn = true;
                 sessionStorage.setItem('elm_teacher_logged_in', 'true');
-                if (codeInput === TEACHER_BYPASS_CODE) {
-                    isTeacherMode = true;
-                    sessionStorage.setItem('elm_teacher_mode', 'true');
-                }
                 document.getElementById('teacher-code').value = '';
 
                 Swal.fire({
@@ -1263,11 +1259,20 @@
                 confirmButtonColor: matColor,
                 inputValidator: (val) => {
                     if (!val) return 'Vui lòng nhập mã học sinh';
+                    if (val.trim() === TEACHER_BYPASS_CODE) return null;
                     const student = findStudent(val.trim());
                     if (!student) return 'Mã học sinh không tồn tại';
                 }
             });
             if (!code) return;
+            if (code.trim() === TEACHER_BYPASS_CODE) {
+                isTeacherMode = true;
+                sessionStorage.setItem('elm_teacher_mode', 'true');
+                currentStudent = { name: 'Giáo viên', englishName: '', class: '', code: TEACHER_BYPASS_CODE };
+                if (testType === 'reading') openReadingTest(data, title);
+                else openListeningTest(data, title);
+                return;
+            }
             const student = findStudent(code.trim());
             const engName = student.englishName ? `<div style="font-size:20px;font-weight:700;color:${matColor};margin-top:2px">${student.englishName}</div>` : '';
             const initials = (student.englishName || student.name).charAt(0).toUpperCase();
