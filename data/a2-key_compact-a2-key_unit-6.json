@@ -1,0 +1,202 @@
+{
+  "type": "reading-test",
+  "title": "Unit 6 - Getting there",
+  "parts": [
+    {
+      "id": "listening-part3a",
+      "title": "Listening Part 3",
+      "questions": 5,
+      "instructions": "You will hear Ethan and his mum talking about his birthday party. How will each person travel to the party? For each question, write a letter (A–H).",
+      "type": "fill-blank",
+      "audio": "audio/compact-a2-key/unit6/listening-part3.mp3",
+      "formTitle": "Ethan's birthday party",
+      "optionsLegend": [
+        { "letter": "A", "text": "bike" },
+        { "letter": "B", "text": "bus" },
+        { "letter": "C", "text": "car" },
+        { "letter": "D", "text": "motorbike" },
+        { "letter": "E", "text": "taxi" },
+        { "letter": "F", "text": "tram" },
+        { "letter": "G", "text": "train" },
+        { "letter": "H", "text": "underground" }
+      ],
+      "example": { "label": "Sister:", "prefix": "", "answer": "B" },
+      "rows": [
+        { "num": 1, "label": "Grandma:", "prefix": "", "answer": "C" },
+        { "num": 2, "label": "Granddad:", "prefix": "", "answer": "H" },
+        { "num": 3, "label": "Uncle Tom:", "prefix": "", "answer": "E" },
+        { "num": 4, "label": "Cousin Ursula:", "prefix": "", "answer": "A" },
+        { "num": 5, "label": "Aunt May:", "prefix": "", "answer": "F" }
+      ],
+      "script": [
+        { "speaker": "Ethan", "text": "I'm home!" },
+        { "speaker": "Mum", "text": "Hi, Ethan! I'm in the kitchen. Happy Birthday!" },
+        { "speaker": "Ethan", "text": "Thanks, Mum! But where is everybody? Why are they so late for my party?" },
+        { "speaker": "Mum", "text": "Well, your sister has football practice until 6.00 p.m. Then <u>she's coming home by bus</u>." },
+        { "speaker": "Ethan", "text": "Why doesn't she take the tram? It's faster. And where's Dad?" },
+        { "speaker": "Mum", "text": "He phoned to say Grandma missed the half past five bus so <u>he's going to drive her</u>." },
+        { "speaker": "Ethan", "text": "Is Granddad coming in Dad's car, too?" },
+        { "speaker": "Mum", "text": "He had to work this afternoon so <u>he's going to take the underground</u>. It's quicker than the car, anyway." },
+        { "speaker": "Ethan", "text": "I can hear a motorbike. Is that Uncle Tom?" },
+        { "speaker": "Mum", "text": "I spoke to him this morning. <u>He's going to take a taxi</u> after his meeting." },
+        { "speaker": "Ethan", "text": "Is Ursula coming with him? Or is she taking the underground?" },
+        { "speaker": "Mum", "text": "<u>Your cousin Ursula's cycling here</u> right now. She'll be here in ten minutes." },
+        { "speaker": "Ethan", "text": "Great! Who else is coming?" },
+        { "speaker": "Mum", "text": "Your Aunt May!" },
+        { "speaker": "Ethan", "text": "Oh. She'll come by train, won't she?" },
+        { "speaker": "Mum", "text": "Actually, <u>there's a tram where she lives now, so she's getting that</u>. It's nearer than the train." }
+      ]
+    },
+    {
+      "id": "reading-part3a",
+      "title": "Reading & Writing Part 3",
+      "questions": 5,
+      "instructions": "Read the text about a new type of transport. For each question, choose the correct answer.",
+      "type": "multiple-choice-abc",
+      "passage": "A new type of transport\n\nAlexis Lewis is a teenager from the USA. She likes to invent – to think of new ideas for things that no one has made before, and then make them.\n\nAlexis often enters competitions for young inventors. When she was younger she spent time with her grandfather, who made transport for people to go to space. One day Alexis' mother told her about a newspaper article which explained how difficult it was to get sick people through the countryside to hospital in Africa. Alexis wanted to help.\n\nAlexis knew that in North America, before there were cars, horses pulled heavy things on a travois (a type of sledge), made of wood. Alexis thought people could do the same, but she added wheels. To make her travois light, she used bamboo, a plant which grows in Africa, not wood.\n\nTo pull Alexis' travois, you wear a belt, which means you can carry or hold other things. Alexis thinks her travois might be useful for carrying food home from the market, as well as taking people to hospital. Now it's finished, she's writing instructions for building one so people in Africa can make it themselves.\n\nWith help from US companies, Alexis plans to give ten travois free to hospitals in Africa. She doesn't want money for them because they are for poor people.\n\nAlexis doesn't know if she wants to be an inventor when she's older, because she also likes music and writing, but she thinks it's important for children to learn about inventing at school.",
+      "items": [
+        {
+          "num": 1,
+          "question": "Why did Alexis decide to invent a new type of transport?",
+          "options": ["She wanted to win a competition.", "Her mother told her about a problem.", "Her grandfather worked on spaceships."],
+          "answer": 1
+        },
+        {
+          "num": 2,
+          "question": "How is Alexis' travois different from those pulled by horses?",
+          "options": ["It is heavier.", "It is made of wood.", "It has wheels."],
+          "answer": 2
+        },
+        {
+          "num": 3,
+          "question": "What does the writer say about using Alexis' travois?",
+          "options": ["People will need instructions to use it.", "People should not use it to carry shopping.", "People can pull it without using their hands."],
+          "answer": 2
+        },
+        {
+          "num": 4,
+          "question": "What does the writer say about Alexis' future?",
+          "options": ["She might do something different from inventing.", "She would like to teach children how to invent.", "She hopes she can start to sell her inventions."],
+          "answer": 0
+        },
+        {
+          "num": 5,
+          "question": "What is the writer doing in this text?",
+          "options": ["advertising a new way to travel", "telling the story of someone's idea", "asking for help with a problem"],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "reading-part5a",
+      "title": "Reading & Writing Part 5",
+      "questions": 6,
+      "instructions": "For each question, write the correct answer. Write one word for each gap.",
+      "type": "fill-blank-reading",
+      "passage": "From: Zeynep\n\nHi Erol,\n\nI'm in San Francisco (0) ___with___ my family right now and we (1) ..........\nhaving an amazing time. The flight here was good. We went to the airport\n(2) .......... taxi so my mum or dad didn't have (3) .......... drive.\n\nSan Francisco is wonderful. I think it is the (4) ..........\nbeautiful city in the world. We took a tram to the top of a hill two days\n(5) .......... . We could see a lot of places from there. Then yesterday,\nwe sailed under the Golden Gate Bridge. It is much bigger (6) ..........\nthe bridge in my city.\n\nWrite back soon!\nZeynep",
+      "items": [
+        { "num": 1, "answer": "are" },
+        { "num": 2, "answer": "by" },
+        { "num": 3, "answer": "to" },
+        { "num": 4, "answer": "most" },
+        { "num": 5, "answer": "ago" },
+        { "num": 6, "answer": "than" }
+      ]
+    },
+    {
+      "id": "reading-part3b",
+      "title": "Reading & Writing Part 3",
+      "questions": 5,
+      "instructions": "Read the text about a lorry driver. For each question, choose the correct answer.",
+      "type": "multiple-choice-abc",
+      "passage": "The lorry driver\n\nMy aunt Naomi is a lorry driver. When she left school she didn't know what she wanted to do, so she went to work in a supermarket. One day, she was talking to one of the lorry drivers at the supermarket, and she decided she wanted to drive a lorry herself. She went home and told her parents (my grandparents!), and they thought it was a good idea.\n\nNaomi's journeys are different every day, and she goes to every part of the country. She enjoys the driving, but she says that one day, she would like to get a job with a different company so she can drive to other countries. Lots of other drivers do this.\n\nNaomi says she likes being out on the road, seeing new towns all the time, but the best thing about driving lorries for her is chatting to everyone she sees during her working day. She also says the lorries are really comfortable, so she doesn't mind sleeping in them. For her, they are her home on wheels!\n\nI asked my grandparents what they thought about Naomi's job. They are happy that Naomi's happy, so they don't want her to change jobs. But they worry about her because it's sometimes a dangerous job and she spends a lot of time away from home.",
+      "items": [
+        {
+          "num": 1,
+          "question": "Where did Naomi get the idea to be a lorry driver?",
+          "options": ["at school", "at work", "at home"],
+          "answer": 1
+        },
+        {
+          "num": 2,
+          "question": "What does the second paragraph tell us about Naomi's job?",
+          "options": ["She drives all around the world.", "She often drives to the same places.", "She hopes to work for another company in the future."],
+          "answer": 2
+        },
+        {
+          "num": 3,
+          "question": "What does Naomi like most about her job?",
+          "options": ["the travelling", "the people", "the lorries"],
+          "answer": 1
+        },
+        {
+          "num": 4,
+          "question": "What do Naomi's parents think about her job?",
+          "options": ["They would like Naomi to do a different job.", "They are glad it's such an exciting job.", "They believe the job has some problems."],
+          "answer": 2
+        },
+        {
+          "num": 5,
+          "question": "What is the writer doing in the text?",
+          "options": ["explaining how to get one type of work", "describing someone's work", "giving advice about doing difficult work"],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "listening-part5a",
+      "title": "Listening Part 5",
+      "questions": 5,
+      "instructions": "You will hear Marcia talking to her friend Josh about taking the school bus. Where does each person catch the school bus? For each question, write a letter (A–H).",
+      "type": "fill-blank",
+      "audio": "audio/compact-a2-key/unit6/listening-part5.mp3",
+      "formTitle": "Taking the school bus",
+      "optionsLegend": [
+        { "letter": "A", "text": "bridge" },
+        { "letter": "B", "text": "car park" },
+        { "letter": "C", "text": "cinema" },
+        { "letter": "D", "text": "crossing" },
+        { "letter": "E", "text": "motorbike shop" },
+        { "letter": "F", "text": "roundabout" },
+        { "letter": "G", "text": "traffic lights" },
+        { "letter": "H", "text": "tram stop" }
+      ],
+      "example": { "label": "Josh:", "prefix": "", "answer": "F" },
+      "rows": [
+        { "num": 1, "label": "Max:", "prefix": "", "answer": "B" },
+        { "num": 2, "label": "Oliver:", "prefix": "", "answer": "A" },
+        { "num": 3, "label": "Emily:", "prefix": "", "answer": "C" },
+        { "num": 4, "label": "Katy:", "prefix": "", "answer": "G" },
+        { "num": 5, "label": "Tom:", "prefix": "", "answer": "D" }
+      ],
+      "script": [
+        { "speaker": "Marcia", "text": "I'm going to start taking the school bus next week, Josh. Where should I catch it?" },
+        { "speaker": "Josh", "text": "Well, I catch it from Hill Street. After the railway bridge, there's a <u>roundabout</u>, and my bus stop's there." },
+        { "speaker": "Marcia", "text": "OK. Does Max catch it there? He lives near you." },
+        { "speaker": "Josh", "text": "No. His mum drives him into town because she works at the motorbike shop. She leaves her car in the <u>car park</u> in George Street. Max catches the bus there." },
+        { "speaker": "Josh", "text": "Oliver gets on at the bus stop in New Street, by the <u>bridge</u> – not the one near the cinema, the other one." },
+        { "speaker": "Marcia", "text": "Oh yes. I can catch it there, too. Who else goes on the bus?" },
+        { "speaker": "Josh", "text": "Emily. She lives opposite the <u>cinema</u>, so she catches the bus there, not far from the tram stop." },
+        { "speaker": "Marcia", "text": "What about Katy, Emily's neighbour?" },
+        { "speaker": "Josh", "text": "She doesn't like crossing the busy road, so she gets on the school bus next to the <u>traffic lights</u> behind the station." },
+        { "speaker": "Josh", "text": "Tom gets the bus too, at the <u>crossing</u>, near the supermarket." }
+      ]
+    },
+    {
+      "id": "reading-part5b",
+      "title": "Reading & Writing Part 5",
+      "questions": 6,
+      "instructions": "For each question, write the correct answer. Write one word for each gap.",
+      "type": "fill-blank-reading",
+      "passage": "From: Jonah\nTo: Jamie\n\nHi, Jamie\n\nI (0) ___am___ glad you can come to the match on Saturday. It starts at 3.00 p.m.,\nso come to my house about 2 o'clock, and (1) ..........\ncan go to the stadium together.\n\nMy new address is 34 Mill Street. (2) .......... you know Mill Street?\nIt's nearer your house (3) .......... my old house.\nOur house is opposite an old factory – it's (4) ..........\noldest building in the street.\n\nI usually go to the stadium (5) .......... bus because it's too far\nto go (6) .......... foot. How about going for a pizza afterwards?\n\nJonah",
+      "items": [
+        { "num": 1, "answer": "we" },
+        { "num": 2, "answer": "Do" },
+        { "num": 3, "answer": "than" },
+        { "num": 4, "answer": "the" },
+        { "num": 5, "answer": "by" },
+        { "num": 6, "answer": "on" }
+      ]
+    }
+  ]
+}
