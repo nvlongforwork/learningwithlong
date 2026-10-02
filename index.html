@@ -430,6 +430,8 @@
         // Mật khẩu giáo viên cố định theo yêu cầu
         const TEACHER_CODE = '123';
         const TEACHER_BYPASS_CODE = '968903';
+        const TEACHER_BYPASS_CODES = ['968903', '123'];
+        function isBypassCode(code) { return TEACHER_BYPASS_CODES.includes(code.trim()); }
 
         let isLoggedIn = sessionStorage.getItem('elm_teacher_logged_in') === 'true';
         let isTeacherMode = sessionStorage.getItem('elm_teacher_mode') === 'true';
@@ -1574,13 +1576,13 @@
                 confirmButtonColor: matColor,
                 inputValidator: (val) => {
                     if (!val) return 'Vui lòng nhập mã học sinh';
-                    if (val.trim() === TEACHER_BYPASS_CODE) return null;
+                    if (isBypassCode(val)) return null;
                     const student = findStudent(val.trim());
                     if (!student) return 'Mã học sinh không tồn tại';
                 }
             });
             if (!code) return;
-            if (code.trim() === TEACHER_BYPASS_CODE) {
+            if (isBypassCode(code)) {
                 isTeacherMode = true;
                 sessionStorage.setItem('elm_teacher_mode', 'true');
                 currentStudent = { name: 'Giáo viên', englishName: '', class: '', code: TEACHER_BYPASS_CODE };
