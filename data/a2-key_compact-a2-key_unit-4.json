@@ -42,6 +42,51 @@
       ]
     },
     {
+      "id": "rw-part1b",
+      "title": "Reading & Writing Part 1",
+      "questions": 6,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "multiple-choice-abc",
+      "items": [
+        {
+          "num": 1,
+          "question": "From: Hockey club staff\nTo: All members\nPlease remember that to park free at the sports centre, you must leave your member's card in your car window.\n\nWhat do club members have to do?",
+          "options": ["Ask staff at the club about where to park.", "Show their member's card to get free parking.", "Contact the sports centre about getting a new card."],
+          "answer": 1
+        },
+        {
+          "num": 2,
+          "question": "LANG RIVER FISHING CLUB\nIf you catch more than two large fish (over 25 cm) in one day, you must put them back in the river.",
+          "options": ["You cannot keep more than two big fish each day.", "You cannot catch more than two big fish each day.", "You can never keep fish that are smaller than 25 cm."],
+          "answer": 0
+        },
+        {
+          "num": 3,
+          "question": "Handow Beach\nNever surf between red and yellow signs – this area is for swimmers only.\n\nThis notice tells people",
+          "options": ["why surfing is dangerous at the beach.", "where they cannot go surfing.", "who must not use the beach."],
+          "answer": 1
+        },
+        {
+          "num": 4,
+          "question": "From: Freya\nTo: Alicia\nI enjoyed being in the school fashion show. Thanks for lending me your pretty red shoes – they were really comfortable.",
+          "options": ["Freya wants some shoes like Alicia's.", "Freya is deciding what shoes to wear for a show.", "Freya borrowed a pair of shoes from Alicia."],
+          "answer": 2
+        },
+        {
+          "num": 5,
+          "question": "Summer cycling kit – all half price\nHURRY! Last day of sale Friday 23rd August",
+          "options": ["Get cycling kit cheaper for one day only in August.", "Cycling kit prices are low until 23rd August.", "On 23rd August, you pay normal prices again for cycling kit."],
+          "answer": 1
+        },
+        {
+          "num": 6,
+          "question": "From: Freddie\nTo: Sam\nMy brother's driving me to Mandron skateboard park this afternoon. We can pick you up on the way if you want to come.\n\nWhat is Freddie doing in this message?",
+          "options": ["Offering Sam a lift later today.", "Giving Sam advice about activities.", "Asking Sam for help with transport."],
+          "answer": 0
+        }
+      ]
+    },
+    {
       "id": "listening-part1a",
       "title": "Listening Part 1",
       "questions": 4,
@@ -98,6 +143,68 @@
       ]
     },
     {
+      "id": "listening-part1b",
+      "title": "Listening Part 1",
+      "questions": 5,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "multiple-choice-abc",
+      "audio": "audio/compact-a2-key/unit4/listening-part1b.mp3",
+      "items": [
+        {
+          "num": 1,
+          "question": "Where is Jessie playing table tennis?",
+          "options": ["At a house", "At a school", "At a sports centre"],
+          "answer": 0
+        },
+        {
+          "num": 2,
+          "question": "What does the girls' football team wear?",
+          "options": ["Black shirts, black shorts and white socks", "Black shirts, white shorts and black socks", "Black shirts, white shorts and white socks"],
+          "answer": 2
+        },
+        {
+          "num": 3,
+          "question": "What time is Henry's skiing lesson?",
+          "options": ["8:45", "9:15", "9:30"],
+          "answer": 1
+        },
+        {
+          "num": 4,
+          "question": "What is the mother's gym teacher doing this evening?",
+          "options": ["Teaching a gym class", "Flying somewhere", "Staying in bed"],
+          "answer": 1
+        },
+        {
+          "num": 5,
+          "question": "Where did Lily put the advertisement for her football ticket?",
+          "options": ["Online", "On the radio", "At her football club"],
+          "answer": 2
+        }
+      ],
+      "script": [
+        { "speaker": "Girl", "text": "Where's Jessie, Robert? At the sports centre?" },
+        { "speaker": "Boy", "text": "Well, she's playing table tennis with her friend, Kate, but not at the centre. They went to <u>Kate's place</u> after school." },
+        { "speaker": "Girl", "text": "To Kate's house, you mean?" },
+        { "speaker": "Boy", "text": "That's right, and they're going to the sports centre to play volleyball after that." },
+        { "speaker": "Boy", "text": "Does your team wear black shirts, like ours?" },
+        { "speaker": "Girl", "text": "With white numbers, yes. Our team wears nearly the same as yours, but our <u>socks are white</u>, not black." },
+        { "speaker": "Boy", "text": "Oh. So you wear white shorts, too?" },
+        { "speaker": "Girl", "text": "We do, with a black number at the sides." },
+        { "speaker": "Man", "text": "Is your skiing lesson before or after mine this morning, Henry?" },
+        { "speaker": "Boy", "text": "What time's yours, Dad? I can't remember." },
+        { "speaker": "Man", "text": "It's at 8.45." },
+        { "speaker": "Boy", "text": "Oh, well, mine starts half an hour later, at <u>quarter past nine</u>. You'll have to get up before me!" },
+        { "speaker": "Boy", "text": "Why aren't you at your gym class this evening, Mum?" },
+        { "speaker": "Woman", "text": "Our teacher can't do the class this week." },
+        { "speaker": "Boy", "text": "Is she ill again?" },
+        { "speaker": "Woman", "text": "No, she's fine now. She's <u>flying to Paris</u> tonight because she's going to visit a friend there tomorrow." },
+        { "speaker": "Boy", "text": "Lily, hi. Did you sell that football match ticket that you don't want? I just heard someone on the radio asking for tickets." },
+        { "speaker": "Girl", "text": "Oh, I've sold mine. I put <u>a poster up at my football club</u> and someone there wanted it." },
+        { "speaker": "Boy", "text": "That's good." },
+        { "speaker": "Girl", "text": "Yes, Dad put an advertisement online first, but no one called us about that." }
+      ]
+    },
+    {
       "id": "writing-task-a",
       "title": "Writing Task",
       "questions": 1,
@@ -126,6 +233,36 @@
         }
       ],
       "sampleAnswer": "Hi Ed,\nWe can wear what we like for school. My favourite clothes are jeans, jumpers and T-shirts. I go clothes shopping about six times a year.\nSee you soon,\nMichele"
+    },
+    {
+      "id": "writing-task-b",
+      "title": "Writing Task",
+      "questions": 1,
+      "instructions": "Read the email from your English friend, Ali. Write an email to Ali and answer the questions. Write 25 words or more.",
+      "type": "picture-story-write",
+      "prompt": "From: Ali\n\nWe've got a new sports centre in our town and I play volleyball there. Where's your nearest sports centre? What can you do there? How often do you go there?",
+      "minWords": 25,
+      "checklist": [
+        {
+          "category": "Content",
+          "band5": "All three questions are answered clearly and with relevant detail.",
+          "band3": "Two questions answered, or answers lack detail.",
+          "band1": "Only one question answered or content is mostly irrelevant."
+        },
+        {
+          "category": "Organisation",
+          "band5": "The email is well-organised with a greeting, clear answers and a sign-off.",
+          "band3": "Some organisation but may lack greeting/sign-off or answers are not clearly separated.",
+          "band1": "Very little organisation. Hard to follow."
+        },
+        {
+          "category": "Language",
+          "band5": "Uses a range of everyday vocabulary and grammar accurately. Spelling is mostly correct.",
+          "band3": "Uses simple vocabulary and grammar with some errors that don't prevent understanding.",
+          "band1": "Very limited vocabulary. Frequent errors make the text difficult to understand."
+        }
+      ],
+      "sampleAnswer": "Hi, Ali\nMy nearest sports centre is in my village, next to the park. You can play badminton, squash and volleyball there and it's got a swimming pool. I never go because I don't like sports!\nBye,"
     }
   ]
 }
