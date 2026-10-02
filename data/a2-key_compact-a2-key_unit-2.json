@@ -84,6 +84,128 @@
           "answer": 1
         }
       ]
+    },
+    {
+      "id": "reading-part3a",
+      "title": "Reading & Writing Part 3",
+      "questions": 5,
+      "instructions": "Read the text about Kris Davies and his paintings. For each question, choose the correct answer.",
+      "type": "multiple-choice-abc",
+      "image": "images/compact-a2-key/unit2/reading-part3-kris.webp",
+      "passage": "Kris Davies started painting when he was 12. He's now 15, and has a website of his own paintings. Our journalist Tamara Yafai went to meet him.\n\nHow did you become interested in painting, Kris?\nIt's strange. My mother's a painter – you can see her best paintings on her website – but I've never been interested in the type of paintings she does. Then, a few years ago, my sister asked me to paint a card for a friend's birthday. Her friend loved it, and I haven't stopped painting ever since.\n\nAbout a year later, I decided to enter a painting competition. I wanted to use my mum's brushes, but she was using them all the time. So my uncle bought me some, which were fantastic. I came first in that competition!\n\nWhere do your ideas come from?\nSeeing different places is really interesting. They help me think of new things to paint. Often I use my phone to film places I see, to help me remember them. People have given me beautiful books of paintings, but they don't help me get new ideas.\n\nWhat type of painting are you interested in?\nWell, all my favourite artists paint people. But I love animals and being in the countryside, so I hope to be a painter of nature. I've tried painting buildings. That was too hard for me.\n\nDo you have any advice for other young painters?\nThe best painters never stop painting. That's how they become so good, and it's how you will get better. Also, remember to ask other people what they think of your paintings – even if you don't like what they say.",
+      "items": [
+        {
+          "num": 1,
+          "question": "How did Kris first become interested in painting?",
+          "options": [
+            "He saw some interesting paintings online.",
+            "A member of his family is a painter.",
+            "He painted something for a friend."
+          ],
+          "answer": 2
+        },
+        {
+          "num": 2,
+          "question": "How did Kris get his first brushes?",
+          "options": [
+            "He won them.",
+            "They were a present.",
+            "They belonged to his mother."
+          ],
+          "answer": 1
+        },
+        {
+          "num": 3,
+          "question": "Kris gets his ideas from",
+          "options": [
+            "films.",
+            "places he visits.",
+            "books about paintings."
+          ],
+          "answer": 1
+        },
+        {
+          "num": 4,
+          "question": "Kris wants to paint",
+          "options": [
+            "people.",
+            "buildings.",
+            "nature."
+          ],
+          "answer": 2
+        },
+        {
+          "num": 5,
+          "question": "Kris says that other young painters should",
+          "options": [
+            "do lots of painting.",
+            "look at the paintings that the best artists paint.",
+            "not worry about other people's opinions of their paintings."
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "reading-part3b",
+      "title": "Reading & Writing Part 3",
+      "questions": 5,
+      "instructions": "Read the text about Helen and camping. For each question, choose the correct answer.",
+      "type": "multiple-choice-abc",
+      "image": "images/compact-a2-key/unit2/reading-part3-camping.webp",
+      "passage": "WHY I LOVE CAMPING\nby Helen Menzies\n\nI first went camping when I was ten. I went to France for two weeks with my family and I hated the first week. It was really sunny so our tent was too hot and there were insects in it. But in the second week, I started to like it, and now I love it.\n\nThere are lots of good things about camping. We never go to the same place, so there are always new things to see, and it's great to be outside so much. But even better than those things is spending time with my mum, dad and sisters.\n\nWhen we go camping, I always make new friends. I met Nadia on my first camping trip. I send her an email once a month, but she writes more than me – usually twice a month. I don't have time to write more because I email other friends from camping every week.\n\nWe live in a city, so we never camp near cities. My parents love trees and watching nature, so we most often go camping in forests. I like being at the beach, so we sometimes go to the sea, too. Once, we went camping in the mountains, but it was too cold in our tents.\n\nCamping is a great activity for people of all ages. It's never boring because you always have adventures. Once, a horse tried to walk into our tent! Another time, there was a storm and we had to sleep in our car. You never know what will happen.",
+      "items": [
+        {
+          "num": 1,
+          "question": "What does Helen say about her first camping holiday?",
+          "options": [
+            "She didn't like the type of tent she had.",
+            "She only enjoyed one week of it.",
+            "She felt afraid all the time."
+          ],
+          "answer": 1
+        },
+        {
+          "num": 2,
+          "question": "What does Helen like most about camping?",
+          "options": [
+            "staying in new places",
+            "doing lots of things outside",
+            "being with her family a lot"
+          ],
+          "answer": 2
+        },
+        {
+          "num": 3,
+          "question": "How often does Helen write to Nadia?",
+          "options": [
+            "every week",
+            "twice a month",
+            "once a month"
+          ],
+          "answer": 2
+        },
+        {
+          "num": 4,
+          "question": "Where does Helen's family usually go camping?",
+          "options": [
+            "in forests",
+            "in the mountains",
+            "by the sea"
+          ],
+          "answer": 0
+        },
+        {
+          "num": 5,
+          "question": "In the last paragraph, Helen says that camping is",
+          "options": [
+            "the best activity for people her age.",
+            "a very exciting activity.",
+            "an activity that teaches you a lot."
+          ],
+          "answer": 1
+        }
+      ]
     }
   ]
 }
