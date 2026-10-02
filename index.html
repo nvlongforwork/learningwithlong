@@ -2486,10 +2486,14 @@
                 } else if (part.type === 'sentence-transform' || part.type === 'error-correction') {
                     readingAnswers[i] = part.items.map(() => '');
                 } else if (part.type === 'fill-blank-reading') {
-                    readingAnswers[i] = part.items.map(item => {
-                        const blankCount = (item.sentence.match(/\.\.\.\.\.\.\.\.\.\./g) || []).length;
-                        return blankCount > 1 ? Array(blankCount).fill('') : '';
-                    });
+                    if (part.passage) {
+                        readingAnswers[i] = part.items.map(() => '');
+                    } else {
+                        readingAnswers[i] = part.items.map(item => {
+                            const blankCount = (item.sentence.match(/\.\.\.\.\.\.\.\.\.\./g) || []).length;
+                            return blankCount > 1 ? Array(blankCount).fill('') : '';
+                        });
+                    }
                 } else if (part.type === 'word-box-fill') {
                     readingAnswers[i] = part.items.map(() => '');
                 } else if (part.type === 'reading-match-persons') {
@@ -3664,7 +3668,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                         if (allCorrect.includes((ans[j] || '').toLowerCase().trim())) correct++;
                     });
                 }
-                const nonFreeQ = part.type === 'picture-write' ? part.items.filter(it => it.type !== 'free').reduce((s, it) => s + (it.points || 1), 0) : (part.type === 'picture-story-write' || part.type === 'free-writing') ? 0 : part.type === 'fill-blank-reading' ? part.items.reduce((s, item) => { const bc = (item.sentence.match(/\.\.\.\.\.\.\.\.\.\./g) || []).length; return s + (bc > 1 ? bc : 1); }, 0) : part.questions;
+                const nonFreeQ = part.type === 'picture-write' ? part.items.filter(it => it.type !== 'free').reduce((s, it) => s + (it.points || 1), 0) : (part.type === 'picture-story-write' || part.type === 'free-writing') ? 0 : part.type === 'fill-blank-reading' ? (part.passage ? part.items.length : part.items.reduce((s, item) => { const bc = (item.sentence.match(/\.\.\.\.\.\.\.\.\.\./g) || []).length; return s + (bc > 1 ? bc : 1); }, 0)) : part.questions;
                 partScores.push({ title: part.title, correct, total: nonFreeQ });
             });
 
