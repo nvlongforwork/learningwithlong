@@ -1,0 +1,111 @@
+{
+  "type": "reading-test",
+  "title": "Unit 5 - Great places to visit",
+  "parts": [
+    {
+      "id": "reading-part2a",
+      "title": "Reading & Writing Part 2",
+      "questions": 5,
+      "instructions": "Read the three texts about a trip to a castle. For each question, choose the correct answer.",
+      "type": "reading-match-persons",
+      "persons": [
+        {
+          "name": "Ella",
+          "letter": "A",
+          "text": "We had a picnic outside in the castle garden, and then we went on a tour of the inside. That was my favourite part of the day. We had to do some schoolwork too, of course! We wrote down information and took photos for a project. We didn't really have enough time at the castle, so I think I'll ask my parents to take me again."
+        },
+        {
+          "name": "Carole",
+          "letter": "B",
+          "text": "The teacher asked us to sit in the garden of the castle and draw a picture of it when we arrived. My friends all said that was really boring, and I agreed. After that, we had a tour of the inside. I didn't think anyone lived in castles any more, but there's still a family living in this one. That's amazing!"
+        },
+        {
+          "name": "Tina",
+          "letter": "C",
+          "text": "Before our visit we wrote down some questions about the castle, and had to find the answers while we were there. It made the day more interesting. We walked around some of the rooms in the castle, but I had more fun in the garden, taking pictures with my new camera. They look really brilliant on my bedroom wall."
+        }
+      ],
+      "items": [
+        {
+          "num": 1,
+          "question": "Who is happy with the photos she took at the castle?",
+          "answer": "C"
+        },
+        {
+          "num": 2,
+          "question": "Who found out something which surprised her?",
+          "answer": "B"
+        },
+        {
+          "num": 3,
+          "question": "Who wants to return to the castle?",
+          "answer": "A"
+        },
+        {
+          "num": 4,
+          "question": "Who didn't like the school work she had to do?",
+          "answer": "B"
+        },
+        {
+          "num": 5,
+          "question": "Who preferred seeing the outside of the castle to the inside?",
+          "answer": "C"
+        }
+      ]
+    },
+    {
+      "id": "listening-part2a",
+      "title": "Listening Part 2",
+      "questions": 5,
+      "instructions": "For each question, write the correct answer in the gap. Write one word or a number or a date or a time.",
+      "type": "fill-blank",
+      "audio": "audio/compact-a2-key/unit5/listening-part2.mp3",
+      "formTitle": "Hollywood tour for young people",
+      "example": { "label": "Name of tour:", "prefix": "I", "answer": "Hollywood" },
+      "rows": [
+        { "num": 1, "label": "Date:", "prefix": "", "answer": "23rd July", "altAnswers": ["July 23rd"] },
+        { "num": 2, "label": "Place to meet:", "prefix": "(office at)", "answer": "6000", "altAnswers": ["6000 Hollywood Boulevard"] },
+        { "num": 3, "label": "Type of food for lunch:", "prefix": "", "answer": "burgers" },
+        { "num": 4, "label": "Stadium tour includes:", "prefix": "a", "answer": "basketball", "altAnswers": ["basketball game"] },
+        { "num": 5, "label": "Cost for children:", "prefix": "$", "answer": "27" }
+      ],
+      "script": [
+        { "speaker": "Woman", "text": "Our Hollywood tour for young people is called Hollywood Living. Join us for an exciting day <u>on July 23rd</u>. We also have an adult tour on July 25th." },
+        { "speaker": "Woman", "text": "To join the tour, please <u>be at our office at 6000 Hollywood Boulevard</u>, ten minutes before the start. Hollywood Boulevard is home to some famous Hollywood cinemas – what we in America call movie theaters. We'll visit the Dolby Theater at 6801 Hollywood Boulevard and the Chinese Theater next to it." },
+        { "speaker": "Woman", "text": "After that it will be time for lunch and <u>we'll go to Lucky Devil's Restaurant for burgers</u>. We might see somebody famous there, but most of the stars prefer to eat salads and other healthy food in Beverly Hills." },
+        { "speaker": "Woman", "text": "In the afternoon, <u>we'll take a tour of the stadium where California's best basketball team plays</u>, and you'll watch one of their games. Sorry, we don't have tickets for baseball or football games." },
+        { "speaker": "Woman", "text": "This young person's tour costs <u>$27 for under 16s</u>, and $37 dollars for any adults that come along too. Book your place now!" }
+      ]
+    },
+    {
+      "id": "writing-task-a",
+      "title": "Reading & Writing Part 6",
+      "questions": 1,
+      "instructions": "Yesterday, you went shopping in your town. Write an email to your English friend, Zoe. Say:\n- who you went with\n- what you bought\n- what you did after shopping.\nWrite 25 words or more.",
+      "type": "picture-story-write",
+      "prompt": "From: Zoe\n\nYesterday, you went shopping in your town. Write an email to me!\n\nSay:\n- who you went with\n- what you bought\n- what you did after shopping",
+      "minWords": 25,
+      "checklist": [
+        {
+          "category": "Content",
+          "band5": "All three questions are answered clearly and with relevant detail.",
+          "band3": "Two questions answered, or answers lack detail.",
+          "band1": "Only one question answered or content is mostly irrelevant."
+        },
+        {
+          "category": "Organisation",
+          "band5": "The email is well-organised with a greeting, clear answers and a sign-off.",
+          "band3": "Some organisation but may lack greeting/sign-off or answers are not clearly separated.",
+          "band1": "Very little organisation. Hard to follow."
+        },
+        {
+          "category": "Language",
+          "band5": "Uses a range of everyday vocabulary and grammar accurately. Spelling is mostly correct.",
+          "band3": "Uses simple vocabulary and grammar with some errors that don't prevent understanding.",
+          "band1": "Very limited vocabulary. Frequent errors make the text difficult to understand."
+        }
+      ],
+      "sampleAnswer": "Hi Zoe,\nYesterday I went shopping with my mum. We went to a clothes shop and I bought a new T-shirt and some jeans. After shopping, we had lunch at a café near the park.\nSee you soon!"
+    }
+  ]
+}
