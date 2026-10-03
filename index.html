@@ -3465,8 +3465,9 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             const letters = ['A', 'B', 'C'];
             const hasPassage = !!part.passage;
             const isVerticalMCQ = !part.images;
-            const isCentered = !hasPassage && !part.images;
-            let html = `<div class="${isCentered ? 'max-w-2xl mx-auto' : 'w-full'}">
+            const isNoticePartOne = !hasPassage && !part.images && !part.audio && /Part 1\b/.test(part.title);
+            const isCentered = !hasPassage && !part.images && !isNoticePartOne;
+            let html = `<div class="${isNoticePartOne ? 'max-w-5xl mx-auto' : isCentered ? 'max-w-2xl mx-auto' : 'w-full'}">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
             if (part.audio) {
                 html += `<div class="mb-4 bg-slate-50 rounded-xl p-3 border">
@@ -3493,17 +3494,22 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 });
                 html += `</div></div>`;
             }
-            const isNoticeFormat = isVerticalMCQ && !hasPassage && !part.images && !part.audio && part.items.every(it => it.question.includes('\n') || it.question.length > 80);
             part.items.forEach((item, i) => {
                 const qLines = item.question.split('\n');
                 const hasItemImage = !!item.image;
-                const useNoticeLayout = isNoticeFormat && qLines.length > 1 && !hasItemImage;
+                const useNoticeLayout = isNoticePartOne && !hasItemImage;
                 if (useNoticeLayout) {
-                    const lastLine = qLines[qLines.length - 1];
-                    const isLastLineQuestion = lastLine.endsWith('?') || lastLine.startsWith('The notice') || lastLine.endsWith(' to') || lastLine.endsWith(' that');
-                    const contextLines = isLastLineQuestion ? qLines.slice(0, -1) : qLines;
-                    const mainQ = isLastLineQuestion ? lastLine : '';
-                    const noticeText = contextLines.join('<br>');
+                    let noticeText, mainQ;
+                    if (qLines.length > 1) {
+                        const lastLine = qLines[qLines.length - 1];
+                        const isLastLineQuestion = lastLine.endsWith('?') || lastLine.startsWith('The notice') || lastLine.endsWith(' to') || lastLine.endsWith(' that');
+                        const contextLines = isLastLineQuestion ? qLines.slice(0, -1) : qLines;
+                        mainQ = isLastLineQuestion ? lastLine : '';
+                        noticeText = contextLines.join('<br>');
+                    } else {
+                        noticeText = item.question;
+                        mainQ = '';
+                    }
                     let optionsHtml = '';
                     item.options.forEach((opt, j) => {
                         let cls = 'p-3 rounded-xl text-left font-medium cursor-pointer transition-all ';
