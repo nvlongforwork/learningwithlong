@@ -146,6 +146,154 @@
           "answer": "when/if"
         }
       ]
+    },
+    {
+      "id": "listening-part4b",
+      "title": "Listening Part 4",
+      "questions": 5,
+      "instructions": "For each question, choose the correct answer. You will hear Alice talking to her mum about the things people in her family want to find on the internet. What thing does each person want to find?",
+      "type": "drag-match-letters",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/compact-a2-key/unit12/listening-part4b.mp3",
+      "example": { "person": "Dad", "answer": "C" },
+      "options": ["A", "B", "C", "D", "E", "F", "G", "H"],
+      "things": [
+        { "letter": "A", "name": "camera" },
+        { "letter": "B", "name": "clock" },
+        { "letter": "C", "name": "film" },
+        { "letter": "D", "name": "holiday" },
+        { "letter": "E", "name": "musical instrument" },
+        { "letter": "F", "name": "printer" },
+        { "letter": "G", "name": "tablet" },
+        { "letter": "H", "name": "TV" }
+      ],
+      "answers": [
+        { "person": "Brother", "answer": "E" },
+        { "person": "Sister", "answer": "F" },
+        { "person": "Cousin", "answer": "A" },
+        { "person": "Aunt", "answer": "G" },
+        { "person": "Grandmother", "answer": "B" }
+      ],
+      "script": [
+        { "speaker": "Woman", "text": "It's very quiet, Alice." },
+        { "speaker": "Girl", "text": "I know, Mum! Everyone's looking for something on the internet." },
+        { "speaker": "Woman", "text": "Even Dad?" },
+        { "speaker": "Girl", "text": "Yes, he wants to download a <u>movie</u> – that one about the piano player." },
+        { "speaker": "Woman", "text": "Your brother wants to see that. What's he looking for?" },
+        { "speaker": "Girl", "text": "He's looking for an <u>electric guitar</u> – he wants to start learning before our holiday." },
+        { "speaker": "Woman", "text": "I'll ask your sister to help him. What's she trying to find?" },
+        { "speaker": "Girl", "text": "She's looking for a <u>printer</u> that'll work with her new tablet. … You know our cousin's here?" },
+        { "speaker": "Woman", "text": "Really?" },
+        { "speaker": "Girl", "text": "She was looking for a better tablet, but couldn't find one she wanted. Now she's searching for a <u>digital camera</u> to take on holiday." },
+        { "speaker": "Woman", "text": "Aunt Jane will be pleased." },
+        { "speaker": "Girl", "text": "Yes, she phoned earlier. She's looking on the internet because she wants a <u>tablet</u> that she saw on TV. That's for their holiday, too, so she can download pictures from her camera." },
+        { "speaker": "Woman", "text": "Can't you take pictures with a tablet? By the way, you know Grandma's going with them?" },
+        { "speaker": "Girl", "text": "Yes. She says she needs a <u>clock</u> to travel with, so she's looking at a website now, then she's going to watch TV." },
+        { "speaker": "Woman", "text": "Right!" }
+      ]
+    },
+    {
+      "id": "reading-part5b",
+      "title": "Reading & Writing Part 5",
+      "questions": 6,
+      "instructions": "For each question, write the correct answer. Write one word for each gap.",
+      "type": "fill-blank-reading",
+      "passage": "From: Pippa\nTo: Tracey\n\nHi, Tracey\n\nCan I come and use your printer this afternoon (0) ___or___ this evening? Dad bought one online last week, but it (1) .......... not arrived yet. I want to print about six photos. They (2) .......... taken by Mum when I went snowboarding – such a brilliant holiday!\n\nPippa x\n\nFrom: Tracey\nTo: Pippa\n\nHi, Pippa\n\nOf course you can use my printer. It's (3) .......... bit slow, but it prints good pictures. (4) .......... don't you come at 6.00 this evening? You can have dinner (5) .......... me and my family before we print the photos. When (6) .......... your dad think your printer will arrive?\n\nTracey x",
+      "example": {
+        "sentence": "Can I come and use your printer this afternoon (0) ..........<strong>or</strong>.......... this evening?"
+      },
+      "items": [
+        {
+          "num": 1,
+          "sentence": "Dad bought one online last week, but it (1) .......... not arrived yet.",
+          "answer": "has"
+        },
+        {
+          "num": 2,
+          "sentence": "They (2) .......... taken by Mum when I went snowboarding.",
+          "answer": "were"
+        },
+        {
+          "num": 3,
+          "sentence": "It's (3) .......... bit slow, but it prints good pictures.",
+          "answer": "a"
+        },
+        {
+          "num": 4,
+          "sentence": "(4) .......... don't you come at 6.00 this evening?",
+          "answer": "Why"
+        },
+        {
+          "num": 5,
+          "sentence": "You can have dinner (5) .......... me and my family before we print the photos.",
+          "answer": "with"
+        },
+        {
+          "num": 6,
+          "sentence": "When (6) .......... your dad think your printer will arrive?",
+          "answer": "does"
+        }
+      ]
+    },
+    {
+      "id": "reading-part2b",
+      "title": "Reading & Writing Part 2",
+      "questions": 7,
+      "instructions": "Read the three texts about the computer game competition. For each question, choose the correct answer.",
+      "type": "reading-match-persons",
+      "persons": [
+        {
+          "name": "Charlotte",
+          "letter": "A",
+          "text": "I learned to make games at school in IT and art lessons when I was ten. We made video cartoons. I also worked on the game for this competition at school. Last year, my brother and I made a different game for a school competition, and we won a trip to a computer games company with one of the teachers. When I leave school, I'd love to work there, but I don't think I'll earn a lot."
+        },
+        {
+          "name": "Abigail",
+          "letter": "B",
+          "text": "I made the game for fun for my brother. I planned to make a different one for the games competition. However, when I showed it to my IT teacher at school, he thought it was brilliant and said I should enter it! Everyone just loves playing it. I'm really excited about the competition, but don't think I'm going to win. In the future, I want to start my own technology company."
+        },
+        {
+          "name": "Françoise",
+          "letter": "C",
+          "text": "When I was 11, I played video games all the time. So I began to check new video games for a computer games company. We had to play them and find any problems and I earned money for doing it. I also started to get ideas and I began to make the game I'm entering for the competition. I've always worked hard and I usually pass all my art, IT, business and maths exams at school easily. I hope to do a course in computer art at college next year."
+        }
+      ],
+      "items": [
+        {
+          "num": 1,
+          "question": "Which person has already received a prize in a competition?",
+          "answer": "A"
+        },
+        {
+          "num": 2,
+          "question": "Which person is good at several subjects at school?",
+          "answer": "C"
+        },
+        {
+          "num": 3,
+          "question": "Which person wants to get a job with a computer games company?",
+          "answer": "A"
+        },
+        {
+          "num": 4,
+          "question": "Which person was given advice about the competition by someone at school?",
+          "answer": "B"
+        },
+        {
+          "num": 5,
+          "question": "Which person has made films during school time?",
+          "answer": "A"
+        },
+        {
+          "num": 6,
+          "question": "Which person was paid to check new computer games when she was younger?",
+          "answer": "C"
+        },
+        {
+          "num": 7,
+          "question": "Which person made a game for a member of her family?",
+          "answer": "B"
+        }
+      ]
     }
   ]
 }
