@@ -10,14 +10,14 @@
       "type": "definition-match",
       "wordBank": ["a whale", "a clown", "earache", "a kitten", "a hospital", "a teacher", "football", "a doctor"],
       "wordImages": {
-        "a whale": "images/collins-movers/test1/words/p1-whale.webp",
-        "a clown": "images/collins-movers/test1/words/p1-clown.webp",
-        "earache": "images/collins-movers/test1/words/p1-earache.webp",
-        "a kitten": "images/collins-movers/test1/words/p1-kitten.webp",
-        "a hospital": "images/collins-movers/test1/words/p1-hospital.webp",
-        "a teacher": "images/collins-movers/test1/words/p1-teacher.webp",
-        "football": "images/collins-movers/test1/words/p1-football.webp",
-        "a doctor": "images/collins-movers/test1/words/p1-doctor.webp"
+        "a whale": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test1/words/p1-whale.webp",
+        "a clown": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test1/words/p1-clown.webp",
+        "earache": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test1/words/p1-earache.webp",
+        "a kitten": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test1/words/p1-kitten.webp",
+        "a hospital": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test1/words/p1-hospital.webp",
+        "a teacher": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test1/words/p1-teacher.webp",
+        "football": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test1/words/p1-football.webp",
+        "a doctor": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test1/words/p1-doctor.webp"
       },
       "example": { "definition": "This person is very funny.", "answer": "a clown" },
       "items": [
@@ -70,15 +70,15 @@
       ],
       "wordBank": ["cold", "tallest", "trousers", "arms", "shouted", "trees", "ate", "jumped"],
       "wordImages": {
-        "bikes": "images/collins-movers/test1/words/p3-bikes.webp",
-        "cold": "images/collins-movers/test1/words/p3-cold.webp",
-        "tallest": "images/collins-movers/test1/words/p3-tallest.webp",
-        "trousers": "images/collins-movers/test1/words/p3-trousers.webp",
-        "arms": "images/collins-movers/test1/words/p3-arms.webp",
-        "shouted": "images/collins-movers/test1/words/p3-shouted.webp",
-        "trees": "images/collins-movers/test1/words/p3-trees.webp",
-        "ate": "images/collins-movers/test1/words/p3-ate.webp",
-        "jumped": "images/collins-movers/test1/words/p3-jumped.webp"
+        "bikes": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test1/words/p3-bikes.webp",
+        "cold": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test1/words/p3-cold.webp",
+        "tallest": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test1/words/p3-tallest.webp",
+        "trousers": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test1/words/p3-trousers.webp",
+        "arms": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test1/words/p3-arms.webp",
+        "shouted": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test1/words/p3-shouted.webp",
+        "trees": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test1/words/p3-trees.webp",
+        "ate": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test1/words/p3-ate.webp",
+        "jumped": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test1/words/p3-jumped.webp"
       },
       "example": { "word": "bikes" },
       "items": [
@@ -162,7 +162,7 @@
       "questions": 6,
       "instructions": "Look and read and write.",
       "type": "picture-write",
-      "image": "images/collins-movers/test1/part6-park.webp",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test1/part6-park.webp",
       "examples": [
         { "type": "complete", "sentence": "There are %%answer%% children in the park.", "answer": "four" },
         { "type": "answer", "question": "How many dogs are there?", "answer": "two" }

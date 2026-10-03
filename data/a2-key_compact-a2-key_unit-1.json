@@ -8,7 +8,7 @@
       "questions": 7,
       "instructions": "Read the three texts about families. For each question, choose the correct answer.",
       "type": "reading-match-persons",
-      "image": "images/compact-a2-key/unit1/reading-part1-texts.png",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/compact-a2-key/unit1/reading-part1-texts.png",
       "persons": [
         {
           "name": "Leo",
@@ -70,7 +70,7 @@
       "questions": 7,
       "instructions": "For each question, choose the correct answer.",
       "type": "reading-match-persons",
-      "image": "images/compact-a2-key/unit1/reading-part2-texts.webp",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/compact-a2-key/unit1/reading-part2-texts.webp",
       "persons": [
         {
           "name": "Shaziye",
@@ -132,7 +132,7 @@
       "questions": 5,
       "instructions": "For each question, choose the correct answer. You will hear Kelly talking to her mum about her singing lessons.",
       "type": "multiple-choice-abc",
-      "audio": "audio/compact-a2-key/unit1/listening-part3.mp3",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/compact-a2-key/unit1/listening-part3.mp3",
       "script": [
         { "speaker": "Mum", "text": "Kelly, I spoke to your singing teacher last night. You haven't got a lesson this week." },
         { "speaker": "Kelly", "text": "OK, so when's my next lesson?" },
@@ -211,7 +211,7 @@
       "questions": 5,
       "instructions": "For each question, choose the correct answer. You will hear Simon talking to his friend Amanda about his school day.",
       "type": "multiple-choice-abc",
-      "audio": "audio/compact-a2-key/unit1/listening-part4.mp3",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/compact-a2-key/unit1/listening-part4.mp3",
       "script": [
         { "speaker": "Amanda", "text": "Hi, Simon! How are you?" },
         { "speaker": "Simon", "text": "Oh hi, Amanda! I'm tired!" },

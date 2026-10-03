@@ -48,7 +48,7 @@
       "questions": 5,
       "instructions": "For each question, write the correct answer in the gap. Write one word or a number or a date or a time.",
       "type": "fill-blank",
-      "audio": "audio/compact-a2-key/unit3/listening-part2.mp3",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/compact-a2-key/unit3/listening-part2.mp3",
       "formTitle": "School trip",
       "example": { "label": "Date:", "prefix": "", "answer": "16th February" },
       "rows": [
@@ -73,7 +73,7 @@
       "questions": 1,
       "instructions": "Look at the three pictures. Write the story shown in the pictures. Write 35 words or more.",
       "type": "picture-story-write",
-      "storyImage": "images/compact-a2-key/unit3/writing-part7.webp",
+      "storyImage": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/compact-a2-key/unit3/writing-part7.webp",
       "minWords": 35,
       "checklist": [
         {
@@ -143,7 +143,7 @@
       "questions": 5,
       "instructions": "For each question, write the correct answer in the gap. Write one word or a number or a date or a time.",
       "type": "fill-blank",
-      "audio": "audio/compact-a2-key/unit3/listening-part2b.mp3",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/compact-a2-key/unit3/listening-part2b.mp3",
       "formTitle": "New TV show",
       "example": { "label": "Name:", "prefix": "", "answer": "Chefs" },
       "rows": [
@@ -168,7 +168,7 @@
       "questions": 1,
       "instructions": "Look at the three pictures. Write the story shown in the pictures. Write 35 words or more.",
       "type": "picture-story-write",
-      "storyImage": "images/compact-a2-key/unit3/writing-part7b.webp",
+      "storyImage": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/compact-a2-key/unit3/writing-part7b.webp",
       "minWords": 35,
       "checklist": [
         {

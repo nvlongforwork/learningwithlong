@@ -92,34 +92,34 @@
       "questions": 4,
       "instructions": "For each question, choose the correct answer.",
       "type": "multiple-choice-abc",
-      "audio": "audio/compact-a2-key/unit4/listening-part1.mp3",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/compact-a2-key/unit4/listening-part1.mp3",
       "items": [
         {
           "num": 2,
           "question": "How much was Jenny's new tennis racket?",
           "options": ["£35", "£40", "£45"],
-          "image": "images/compact-a2-key/unit4/listening-part1-q2.png",
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/compact-a2-key/unit4/listening-part1-q2.png",
           "answer": 1
         },
         {
           "num": 3,
           "question": "What time does the hockey match start?",
           "options": ["4:10", "4:20", "4:30"],
-          "image": "images/compact-a2-key/unit4/listening-part1-q3.webp",
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/compact-a2-key/unit4/listening-part1-q3.webp",
           "answer": 2
         },
         {
           "num": 4,
           "question": "What is the boy drinking?",
           "options": ["A can of lemonade", "A juice box", "A hot drink in a mug"],
-          "image": "images/compact-a2-key/unit4/listening-part1-q4.webp",
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/compact-a2-key/unit4/listening-part1-q4.webp",
           "answer": 0
         },
         {
           "num": 5,
           "question": "Who is the girl's table tennis coach?",
           "options": ["Blonde hair with glasses", "Dark hair without glasses", "Dark hair with glasses"],
-          "image": "images/compact-a2-key/unit4/listening-part1-q5.webp",
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/compact-a2-key/unit4/listening-part1-q5.webp",
           "answer": 1
         }
       ],
@@ -148,13 +148,13 @@
       "questions": 5,
       "instructions": "For each question, choose the correct answer.",
       "type": "multiple-choice-abc",
-      "audio": "audio/compact-a2-key/unit4/listening-part1b.mp3",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/compact-a2-key/unit4/listening-part1b.mp3",
       "images": [
-        "images/compact-a2-key/unit4/listening-part1b-q1.webp",
-        "images/compact-a2-key/unit4/listening-part1b-q2.webp",
-        "images/compact-a2-key/unit4/listening-part1b-q3.webp",
-        "images/compact-a2-key/unit4/listening-part1b-q4.webp",
-        "images/compact-a2-key/unit4/listening-part1b-q5.webp"
+        "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/compact-a2-key/unit4/listening-part1b-q1.webp",
+        "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/compact-a2-key/unit4/listening-part1b-q2.webp",
+        "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/compact-a2-key/unit4/listening-part1b-q3.webp",
+        "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/compact-a2-key/unit4/listening-part1b-q4.webp",
+        "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/compact-a2-key/unit4/listening-part1b-q5.webp"
       ],
       "items": [
         {

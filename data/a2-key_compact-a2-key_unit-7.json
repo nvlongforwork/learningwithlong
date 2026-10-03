@@ -77,7 +77,7 @@
       "questions": 5,
       "instructions": "For each question, write the correct answer in the gap. Write one word or a number or a date or a time.",
       "type": "fill-blank",
-      "audio": "audio/compact-a2-key/unit7/listening-part2.mp3",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/compact-a2-key/unit7/listening-part2.mp3",
       "formTitle": "Leonardo Da Vinci School of Art and Drama",
       "example": { "label": "Nationality of teacher:", "prefix": "", "answer": "British" },
       "rows": [
@@ -205,7 +205,7 @@
       "questions": 5,
       "instructions": "For each question, write the correct answer in the gap. Write one word or a number or a date or a time.",
       "type": "fill-blank",
-      "audio": "audio/compact-a2-key/unit7/listening-part2b.mp3",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/compact-a2-key/unit7/listening-part2b.mp3",
       "formTitle": "After-school music lessons",
       "example": { "label": "Name of teacher:", "prefix": "Mrs", "answer": "Clarke" },
       "rows": [

@@ -59,7 +59,7 @@
       "questions": 5,
       "instructions": "For each question, write the correct answer in the gap. Write one word or a number or a date or a time.",
       "type": "fill-blank",
-      "audio": "audio/compact-a2-key/unit5/listening-part2.mp3",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/compact-a2-key/unit5/listening-part2.mp3",
       "formTitle": "Hollywood tour for young people",
       "example": { "label": "Name of tour:", "prefix": "I", "answer": "Hollywood" },
       "rows": [
@@ -146,7 +146,7 @@
       "questions": 5,
       "instructions": "For each question, write the correct answer in the gap. Write one word or a number or a date or a time.",
       "type": "fill-blank",
-      "audio": "audio/compact-a2-key/unit5/listening-part2.mp3",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/compact-a2-key/unit5/listening-part2.mp3",
       "formTitle": "Branton Museum of Pop Music",
       "example": { "label": "Address:", "prefix": "", "answer": "Victoria Square, Branton" },
       "rows": [

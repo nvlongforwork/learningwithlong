@@ -8,7 +8,7 @@
       "questions": 5,
       "instructions": "You will hear Ethan and his mum talking about his birthday party. How will each person travel to the party? For each question, write a letter (A–H).",
       "type": "fill-blank",
-      "audio": "audio/compact-a2-key/unit6/listening-part5a.mp3",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/compact-a2-key/unit6/listening-part5a.mp3",
       "formTitle": "Ethan's birthday party",
       "optionsLegend": [
         { "letter": "A", "text": "bike" },
@@ -149,7 +149,7 @@
       "questions": 5,
       "instructions": "You will hear Marcia talking to her friend Josh about taking the school bus. Where does each person catch the school bus? For each question, write a letter (A–H).",
       "type": "fill-blank",
-      "audio": "audio/compact-a2-key/unit6/listening-part5b.mp3",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/compact-a2-key/unit6/listening-part5b.mp3",
       "formTitle": "Taking the school bus",
       "optionsLegend": [
         { "letter": "A", "text": "bridge" },

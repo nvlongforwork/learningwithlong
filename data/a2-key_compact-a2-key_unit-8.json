@@ -8,7 +8,7 @@
       "questions": 5,
       "instructions": "You will hear Victoria talking to her dad about where her friends stayed on holiday. Where did each person stay? For each question, write a letter (A–H).",
       "type": "fill-blank",
-      "audio": "audio/compact-a2-key/unit8/listening-part5.mp3",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/compact-a2-key/unit8/listening-part5.mp3",
       "formTitle": "Holiday places",
       "optionsLegend": [
         { "letter": "A", "text": "apartment" },
@@ -98,7 +98,7 @@
       "questions": 1,
       "instructions": "Look at the three pictures. Write the story shown in the pictures. Write 35 words or more.",
       "type": "picture-story-write",
-      "storyImage": "images/compact-a2-key/unit8/rw-part7-story.webp",
+      "storyImage": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/compact-a2-key/unit8/rw-part7-story.webp",
       "minWords": 35,
       "checklist": [
         {
@@ -128,7 +128,7 @@
       "questions": 5,
       "instructions": "You will hear Matthew talking to Alice about courses their friends took while they were on holiday. Which course did each friend take? For each question, write a letter (A–H).",
       "type": "fill-blank",
-      "audio": "audio/compact-a2-key/unit8/listening-part5b.mp3",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/compact-a2-key/unit8/listening-part5b.mp3",
       "formTitle": "Holiday courses",
       "optionsLegend": [
         { "letter": "A", "text": "cooking" },
@@ -211,7 +211,7 @@
       "questions": 1,
       "instructions": "Look at the three pictures. Write the story shown in the pictures. Write 35 words or more.",
       "type": "picture-story-write",
-      "storyImage": "images/compact-a2-key/unit8/rw-part7b-story.webp",
+      "storyImage": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/compact-a2-key/unit8/rw-part7b-story.webp",
       "minWords": 35,
       "checklist": [
         {

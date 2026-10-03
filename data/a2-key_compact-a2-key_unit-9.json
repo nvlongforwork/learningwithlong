@@ -48,7 +48,7 @@
       "questions": 5,
       "instructions": "For each question, choose the correct answer.",
       "type": "multiple-choice-abc",
-      "audio": "audio/compact-a2-key/unit9/listening-part4a.mp3",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/compact-a2-key/unit9/listening-part4a.mp3",
       "items": [
         {
           "num": 1,
@@ -180,7 +180,7 @@
       "questions": 5,
       "instructions": "For each question, choose the correct answer.",
       "type": "multiple-choice-abc",
-      "audio": "audio/compact-a2-key/unit9/listening-part4b.mp3",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/compact-a2-key/unit9/listening-part4b.mp3",
       "items": [
         {
           "num": 1,

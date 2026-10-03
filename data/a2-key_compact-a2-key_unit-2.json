@@ -8,7 +8,7 @@
       "questions": 5,
       "instructions": "For each question, choose the correct answer.",
       "type": "multiple-choice-abc",
-      "audio": "audio/compact-a2-key/unit2/listening-part4.mp3",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/compact-a2-key/unit2/listening-part4.mp3",
       "script": [
         { "speaker": "Narrator", "text": "1 You will hear two friends talking about a film they've just seen. What type of film was it?" },
         { "speaker": "Boy", "text": "I really liked that film." },
@@ -211,7 +211,7 @@
       "questions": 5,
       "instructions": "For each question, choose the correct answer.",
       "type": "multiple-choice-abc",
-      "audio": "audio/compact-a2-key/unit2/listening-part4b.mp3",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/compact-a2-key/unit2/listening-part4b.mp3",
       "script": [
         { "speaker": "Narrator", "text": "1 You will hear two friends talking about going to art club. What do they say about going to the countryside to paint?" },
         { "speaker": "Boy", "text": "It's Art Club today. Are you coming?" },
