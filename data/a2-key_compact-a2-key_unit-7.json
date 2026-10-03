@@ -129,6 +129,131 @@
         }
       ],
       "sampleAnswer": "Hi Lucy,\nMy school is very large and modern, with computers in most classrooms. My favourite subjects are maths and science. I think my maths teacher is amazing.\nBye for now."
+    },
+    {
+      "id": "reading-part1b",
+      "title": "Reading & Writing Part 1",
+      "questions": 6,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "multiple-choice-abc",
+      "items": [
+        {
+          "num": 1,
+          "question": "Passengers should stay in their seats until the bus stops.\nDriver may stop suddenly.",
+          "options": [
+            "Passengers should never ask the driver to stop.",
+            "Passengers should not stand up before the bus stops.",
+            "Passengers should stand up when their bus stop is near."
+          ],
+          "answer": 1
+        },
+        {
+          "num": 2,
+          "question": "MUSIC MAKERS\nPlease check your change carefully before you leave the shop.",
+          "options": [
+            "If customers buy the wrong thing, they can bring it back.",
+            "Customers should look at the money they get back after paying.",
+            "Customers need to be careful while they are in the shop."
+          ],
+          "answer": 1
+        },
+        {
+          "num": 3,
+          "question": "Want guitar lessons but don't have a guitar?\nTwo available to borrow – see Mr Titchmarsh\nGo and speak to Mr Titchmarsh if you want to",
+          "options": [
+            "use a guitar.",
+            "book a guitar teacher.",
+            "learn about different guitars."
+          ],
+          "answer": 0
+        },
+        {
+          "num": 4,
+          "question": "From: Lars\nHans, I think we'll need to leave for the airport 30 minutes earlier than we agreed – my mum says the traffic's terrible on Fridays.\nWhat is Lars telling Hans?",
+          "options": [
+            "His mother will take them to the airport.",
+            "They should use a different type of transport.",
+            "Getting to the airport will take longer than they thought."
+          ],
+          "answer": 2
+        },
+        {
+          "num": 5,
+          "question": "Students' room\nUse the sitting area for chatting,\nnot the study area.",
+          "options": [
+            "You must not use the sitting area for studying.",
+            "You must leave the students' room to talk.",
+            "You must be quiet in the study area."
+          ],
+          "answer": 2
+        },
+        {
+          "num": 6,
+          "question": "To: Class 8\nFrom: Ms Tucker\nSubject: Castle trip\nYou don't need to wear uniform, but there'll be a long walk, so shoes must be comfortable.\nMs Tucker wants the students to",
+          "options": [
+            "decide if they want to go walking.",
+            "wear shoes that are good for walking.",
+            "take uniforms to put on after a walk."
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "listening-part2b",
+      "title": "Listening Part 2",
+      "questions": 5,
+      "instructions": "For each question, write the correct answer in the gap. Write one word or a number or a date or a time.",
+      "type": "fill-blank",
+      "audio": "audio/compact-a2-key/unit7/listening-part2b.mp3",
+      "formTitle": "After-school music lessons",
+      "example": { "label": "Name of teacher:", "prefix": "Mrs", "answer": "Clarke" },
+      "rows": [
+        { "num": 1, "label": "Instrument she teaches:", "prefix": "", "answer": "guitar" },
+        { "num": 2, "label": "Day of lesson:", "prefix": "", "answer": "Wednesday", "altAnswers": ["Wednesdays"] },
+        { "num": 3, "label": "Room number:", "prefix": "", "answer": "58" },
+        { "num": 4, "label": "Name of book to buy:", "prefix": "", "answer": "Improve" },
+        { "num": 5, "label": "Price per month:", "prefix": "£", "answer": "23.20" }
+      ],
+      "script": [
+        { "speaker": "Teacher", "text": "OK, listen everyone. I want to tell you about some after-school music lessons." },
+        { "speaker": "Teacher", "text": "The teacher is <u>Mrs Clarke</u>. She's been teaching music here for five years." },
+        { "speaker": "Teacher", "text": "She teaches <u>guitar</u>. She can also play the piano and violin, but she only teaches guitar." },
+        { "speaker": "Teacher", "text": "The lessons are on <u>Wednesdays</u>, after school. They used to be on Thursdays, but Mrs Clarke changed the day." },
+        { "speaker": "Teacher", "text": "They're in <u>room 58</u>. That's the music room on the second floor, not room 68 which is on the third floor." },
+        { "speaker": "Teacher", "text": "You'll need to buy a book called <u>Improve</u>. You can get it from any music shop or online." },
+        { "speaker": "Teacher", "text": "The lessons cost <u>twenty-three pounds twenty</u> per month. That's very good for weekly lessons." }
+      ]
+    },
+    {
+      "id": "writing-task-b",
+      "title": "Reading & Writing Part 6",
+      "questions": 1,
+      "instructions": "Read the email from your English friend, Nicky. Write an email to Nicky and answer the questions.\nWrite 25 words or more.",
+      "type": "picture-story-write",
+      "prompt": "From: Nicky\n\nI love singing at school. We sing every morning. What music do you play or listen to at school? What instrument would you like to learn at school? Where do you listen to or play music when you are not at school?\n\nWrite an email to Nicky and answer the questions.",
+      "minWords": 25,
+      "checklist": [
+        {
+          "category": "Content",
+          "band5": "All three questions are answered clearly and with relevant detail.",
+          "band3": "Two questions answered, or answers lack detail.",
+          "band1": "Only one question answered or content is mostly irrelevant."
+        },
+        {
+          "category": "Organisation",
+          "band5": "The email is well-organised with a greeting, clear answers and a sign-off.",
+          "band3": "Some organisation but may lack greeting/sign-off or answers are not clearly separated.",
+          "band1": "Very little organisation. Hard to follow."
+        },
+        {
+          "category": "Language",
+          "band5": "Uses a range of everyday vocabulary and grammar accurately. Spelling is mostly correct.",
+          "band3": "Uses simple vocabulary and grammar with some errors that don't prevent understanding.",
+          "band1": "Very limited vocabulary. Frequent errors make the text difficult to understand."
+        }
+      ],
+      "sampleAnswer": "Hi Nicky,\nAt school we listen to pop music in our music lessons. I would like to learn the guitar because I love rock music. At home, I usually listen to music on my phone in my bedroom.\nSee you soon!"
     }
   ]
 }
