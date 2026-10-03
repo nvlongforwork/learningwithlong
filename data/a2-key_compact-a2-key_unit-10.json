@@ -151,6 +151,7 @@
       "questions": 1,
       "instructions": "Look at the three pictures. Write the story shown in the pictures. Write 35 words or more.",
       "type": "picture-story-write",
+      "storyImage": "images/compact-a2-key/unit10/rw-part7-story.webp",
       "minWords": 35,
       "checklist": [
         {
