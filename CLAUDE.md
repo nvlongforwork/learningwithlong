@@ -101,11 +101,16 @@
 - Two types: `"type": "listening-test"` and `"type": "reading-test"`
 - Full Test loads both listening + reading JSON files
 
-## Image Files
-- Path: `images/collins-movers/test{N}/`, `images/compact-a2-key/unit{N}/`
+## Media Hosting (Audio & Images)
+- All media files are hosted in a separate public repo: `nvlongforwork/learningwithlong-media`
+- Base URL: `https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/`
+- Audio path: `{base}/audio/compact-a2-key/unit{N}/`, `{base}/audio/collins-movers/test{N}/`
+- Image path: `{base}/images/compact-a2-key/unit{N}/`, `{base}/images/collins-movers/test{N}/`
 - Word bank images in `words/` subfolder
 - Prefer .webp format for smaller file size
 - Crop images cleanly — never cut off content, text, or visual elements
+- New media uploads go to the `learningwithlong-media` repo, NOT the main app repo
+- JSON data files must use full `raw.githubusercontent.com` URLs for all audio/image references
 
 ## Compact Series (A2 Key, B1 Preliminary, etc.) — Workbook Format
 - Listening is part of Workbook (single JSON file), NOT a separate skill
@@ -113,7 +118,7 @@
 - Tab labels show exercise numbers: "Ex 1 - Grammar - have got"
 - JSON type: `"reading-test"` (workbook uses reading test flow for all parts including listening)
 - Listening parts use `"type": "multiple-choice-abc"` with `"audio"` field inside the workbook JSON
-- Audio path: `audio/compact-a2-key/unit{N}/`
+- Audio path: use full `raw.githubusercontent.com` URL (see Media Hosting section)
 
 ## Side-by-side Layout Rules (apply to ALL exercises with images)
 - Images on LEFT, exercises on RIGHT
