@@ -212,6 +212,13 @@
       "instructions": "For each question, choose the correct answer.",
       "type": "multiple-choice-abc",
       "audio": "audio/compact-a2-key/unit10/listening-part4b.mp3",
+      "images": [
+        "images/compact-a2-key/unit10/listening-part4b-q1.webp",
+        "images/compact-a2-key/unit10/listening-part4b-q2.webp",
+        "images/compact-a2-key/unit10/listening-part4b-q3.webp",
+        "images/compact-a2-key/unit10/listening-part4b-q4.webp",
+        "images/compact-a2-key/unit10/listening-part4b-q5.webp"
+      ],
       "items": [
         {
           "num": 1,
