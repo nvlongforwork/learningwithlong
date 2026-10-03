@@ -1,0 +1,138 @@
+{
+  "type": "reading-test",
+  "title": "Unit 9 - What's on?",
+  "parts": [
+    {
+      "id": "reading-part3a",
+      "title": "Reading & Writing Part 3",
+      "questions": 5,
+      "instructions": "Read the text about Hayley Moore. For each question, choose the correct answer.",
+      "type": "multiple-choice-abc",
+      "passage": "Thirteen-year-old Hayley Moore has lived in five different countries. 'It's because of my mum's job,' she explains. 'So I don't go to school; I study online. My computer's in my bedroom, so that's my classroom! I have to do all the same subjects as other students, but there's no timetable. That's the best thing. I can do my classes at any time.'\n\nHayley studies alone, but she often goes out with friends. 'Most people my age have hobbies like dancing or sports,' says Hayley. 'I've done those things too, but I thought they were boring. So when Mum told me about the circus club, I was really excited. It takes a long time to get there, but I love it.'\n\nHayley's favourite activity at the club is riding the unicycle – a bicycle with only one wheel. 'You sit on a seat just above the wheel, and there's nowhere to hold on! When I started, I fell off all the time, but that's the same for everyone. You just have to keep practising – which is what I do when I don't have homework!'\n\nNext summer, when there are no lessons, Hayley is going to go to a circus summer camp. 'It's a camp for teenagers who are interested in the circus. I'm not going to see my family for a few weeks, but that's OK. I love the unicycle, but people from a real circus are going to teach us what they do in their shows, and I can't wait!'",
+      "items": [
+        {
+          "num": 1,
+          "question": "Hayley likes studying online because she can choose",
+          "options": ["where to study.", "when to study.", "what to study."],
+          "answer": 1
+        },
+        {
+          "num": 2,
+          "question": "Why did Hayley decide to try circus classes?",
+          "options": ["She didn't enjoy the other activities she tried.", "The circus club isn't far from her home.", "She didn't know many people her age."],
+          "answer": 0
+        },
+        {
+          "num": 3,
+          "question": "What does Hayley say about riding the unicycle?",
+          "options": ["It was easier for her than for other people.", "She needs to practise it more.", "It was difficult at first."],
+          "answer": 2
+        },
+        {
+          "num": 4,
+          "question": "Hayley is excited about the circus summer camp because",
+          "options": ["she is going to meet other teenagers who like circuses.", "she is going to learn something new.", "she is going to be in a show."],
+          "answer": 1
+        },
+        {
+          "num": 5,
+          "question": "What is the best title for this text?",
+          "options": ["A new school for Hayley.", "What Hayley does every summer.", "Hayley's unusual life."],
+          "answer": 2
+        }
+      ]
+    },
+    {
+      "id": "listening-part1a",
+      "title": "Listening Part 1",
+      "questions": 5,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "multiple-choice-abc",
+      "audio": "audio/compact-a2-key/unit9/listening-part1.mp3",
+      "items": [
+        {
+          "num": 1,
+          "question": "You will hear two friends talking about their plans for the weekend. What do they decide to do?",
+          "options": ["go to a concert", "go to the cinema", "go to an exhibition"],
+          "answer": 2
+        },
+        {
+          "num": 2,
+          "question": "You will hear a boy asking his friend Andres about yesterday evening. What was Andres doing?",
+          "options": ["playing a computer game", "looking at an online video", "watching a television programme"],
+          "answer": 1
+        },
+        {
+          "num": 3,
+          "question": "You will hear a girl leaving a message about a competition. What does the girl want to do in the competition?",
+          "options": ["sing", "dance", "play an instrument"],
+          "answer": 2
+        },
+        {
+          "num": 4,
+          "question": "You will hear two friends talking about going to a museum. How are they going to travel?",
+          "options": ["by car", "by bus", "by train"],
+          "answer": 0
+        },
+        {
+          "num": 5,
+          "question": "You will hear a boy talking about a concert. Why is he going to the concert?",
+          "options": ["The tickets are free.", "His sister likes the group.", "His friend is going to sing."],
+          "answer": 1
+        }
+      ],
+      "script": [
+        { "speaker": "Narrator", "text": "1. You will hear two friends talking about their plans for the weekend. What do they decide to do?" },
+        { "speaker": "Girl 1", "text": "What shall we do this weekend? Are there any good films on?" },
+        { "speaker": "Girl 2", "text": "I'm going to the cinema this evening – I don't want to go twice. What about that photography exhibition you mentioned that you want to see?" },
+        { "speaker": "Girl 1", "text": "But you don't like photography. How about a concert?" },
+        { "speaker": "Girl 2", "text": "There's nothing on that I fancy seeing. It's OK. <u>Let's go and see the photos</u>." },
+        { "speaker": "Narrator", "text": "2. You will hear a boy asking his friend Andres about yesterday evening. What was Andres doing?" },
+        { "speaker": "Boy", "text": "What were you doing when I called you yesterday, Andres? It sounded fun!" },
+        { "speaker": "Andres", "text": "<u>My sister was showing me a video that her friend has posted on a website</u>. It's of him playing a computer game." },
+        { "speaker": "Boy", "text": "Oh, that actually sounds rather boring!" },
+        { "speaker": "Andres", "text": "Not at all! It's really fun! He's so good at it. He's going to be on TV soon." },
+        { "speaker": "Narrator", "text": "3. You will hear a girl leaving a message about a competition. What does the girl want to do in the competition?" },
+        { "speaker": "Girl", "text": "Hi, Marco. I'm calling about the competition. I know you want us to dance together, but I think lots of people will dance, so I want to do something different. <u>I'm fairly good at the piano now, and I've got a good song to play</u>. It's one you know. Why don't you sing it and I'll accompany you? Call me!" },
+        { "speaker": "Narrator", "text": "4. You will hear two friends talking about going to a museum. How are they going to travel?" },
+        { "speaker": "Girl", "text": "I looked online to see where the museum is. There's a train station pretty near it." },
+        { "speaker": "Boy", "text": "Oh, I forgot to say – <u>my brother's happy to drive us there</u>. It's on his way to work." },
+        { "speaker": "Girl", "text": "Doesn't your brother go to work by bus?" },
+        { "speaker": "Boy", "text": "He's just passed his driving test, so no more buses for him!" },
+        { "speaker": "Girl", "text": "Or for us! That's great. Thanks." },
+        { "speaker": "Narrator", "text": "5. You will hear a boy talking about a concert. Why is he going to the concert?" },
+        { "speaker": "Boy", "text": "I'm really sorry, but I can't go out with you tomorrow. I forgot that I'm going to a concert. The Kingpins are playing. I don't really like them but <u>they're my sister's favourite – she's mad about them</u>. Why don't you come? There are still tickets for sale. And I know your friend Emin will be there. He's always singing Kingpins songs!" }
+      ]
+    },
+    {
+      "id": "writing-task-a",
+      "title": "Reading & Writing Part 6",
+      "questions": 1,
+      "instructions": "You want to ask your friend Sunita to go with you to a show.\nWrite a message to Sunita.\n\n• ask Sunita to go to a show with you\n• say when you would like to go\n• tell Sunita how to get there\n\nWrite 25 words or more.",
+      "type": "picture-story-write",
+      "prompt": "You want to ask your friend Sunita to go with you to a show.\nWrite a message to Sunita.\n\n• ask Sunita to go to a show with you\n• say when you would like to go\n• tell Sunita how to get there\n\nWrite 25 words or more.",
+      "minWords": 25,
+      "checklist": [
+        {
+          "category": "Content",
+          "band5": "All three bullet points are addressed clearly and with relevant detail.",
+          "band3": "Two bullet points addressed, or answers lack detail.",
+          "band1": "Only one bullet point addressed or content is mostly irrelevant."
+        },
+        {
+          "category": "Organisation",
+          "band5": "The message is well-organised with a greeting, clear information and a sign-off.",
+          "band3": "Some organisation but may lack greeting/sign-off or information is not clearly separated.",
+          "band1": "Very little organisation. Hard to follow."
+        },
+        {
+          "category": "Language",
+          "band5": "Uses a range of everyday vocabulary and grammar accurately. Spelling is mostly correct.",
+          "band3": "Uses simple vocabulary and grammar with some errors that don't prevent understanding.",
+          "band1": "Very limited vocabulary. Frequent errors make the text difficult to understand."
+        }
+      ],
+      "sampleAnswer": "Hi Sunita,\nI am going to see the Beijing circus next week in Central Park. Would you like to come with me? You'll love it because you love clowns.\nIt starts at 3 p.m. but I think we should meet earlier. What about 2:30 outside the ticket office? You can get the number 13 bus there or you can cycle – it's not far.\nSpeak soon,"
+    }
+  ]
+}
