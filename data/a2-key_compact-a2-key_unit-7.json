@@ -1,0 +1,134 @@
+{
+  "type": "reading-test",
+  "title": "Unit 7 - School rules!",
+  "parts": [
+    {
+      "id": "reading-part1a",
+      "title": "Reading & Writing Part 1",
+      "questions": 6,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "multiple-choice-abc",
+      "items": [
+        {
+          "num": 1,
+          "question": "Library. Please help staff by returning all books, films, etc. to the correct shelf.",
+          "options": [
+            "You need to give everything you have borrowed back to the library now.",
+            "You must ask the staff if you are not sure where to find something.",
+            "You should put things back in the right place when you finish."
+          ],
+          "answer": 2
+        },
+        {
+          "num": 2,
+          "question": "Marta – Why weren't you at school today? Mrs Ross talked about the trip. I offered to take your letter, but she'll send it. Diana",
+          "options": [
+            "Marta must tell the teacher if she wants to go on the trip.",
+            "Marta will get a letter about the trip in the post.",
+            "Diana has got a letter for Marta about the trip."
+          ],
+          "answer": 1
+        },
+        {
+          "num": 3,
+          "question": "SCHOOL SHOP. Don't miss our end of year sale. 50% discount on all books.",
+          "options": [
+            "Books are cheaper now.",
+            "The sale is nearly finished.",
+            "The shop is going to close."
+          ],
+          "answer": 0
+        },
+        {
+          "num": 4,
+          "question": "ART CLUB starts at 4 p.m. on Monday.\nTry a different art activity each week until the end of term. Interested? Tell Mr Thomas before Friday.\nThe notice tells students",
+          "options": [
+            "what to do if they want to join the club.",
+            "what type of art they will be doing at the club.",
+            "what time the club finishes each week."
+          ],
+          "answer": 0
+        },
+        {
+          "num": 5,
+          "question": "Lucia – I've just found your dictionary in my bag. I forgot to give it back to you after I borrowed it today. Sorry! Carlos\nCarlos is telling Lucia that",
+          "options": [
+            "he forgot to lend her something.",
+            "he has something which belongs to her.",
+            "he has lost something which she gave him."
+          ],
+          "answer": 1
+        },
+        {
+          "num": 6,
+          "question": "SCHOOL CONCERT\nFriday at 8 p.m. Hurry – there are a few tickets left. £2 each.\nThe notice tells students that",
+          "options": [
+            "the tickets are cheaper now.",
+            "they mustn't be late for the concert.",
+            "tickets for the concert are still available."
+          ],
+          "answer": 2
+        }
+      ]
+    },
+    {
+      "id": "listening-part2a",
+      "title": "Listening Part 2",
+      "questions": 5,
+      "instructions": "For each question, write the correct answer in the gap. Write one word or a number or a date or a time.",
+      "type": "fill-blank",
+      "audio": "audio/compact-a2-key/unit7/listening-part2.mp3",
+      "formTitle": "Leonardo Da Vinci School of Art and Drama",
+      "example": { "label": "Nationality of teacher:", "prefix": "", "answer": "British" },
+      "rows": [
+        { "num": 1, "label": "Lessons start at:", "prefix": "", "answer": "9.15", "altAnswers": ["9:15", "nine fifteen", "quarter past nine", "9.15 a.m."] },
+        { "num": 2, "label": "Teacher's phone number:", "prefix": "", "answer": "7885421" },
+        { "num": 3, "label": "Everybody studies:", "prefix": "English, science and", "answer": "maths" },
+        { "num": 4, "label": "Type of shoes for afternoon classes:", "prefix": "", "answer": "trainers" },
+        { "num": 5, "label": "Discount price of sweater:", "prefix": "£", "answer": "9.75" }
+      ],
+      "script": [
+        { "speaker": "Teacher", "text": "Welcome to your first day at the Leonardo Da Vinci School of Art and Drama." },
+        { "speaker": "Teacher", "text": "I'm Maria Muzzio – your teacher this year. However, despite my name, I am not Italian. I am actually <u>British</u>." },
+        { "speaker": "Teacher", "text": "Please listen carefully to this information. You must all be in your classroom at nine o'clock every morning. I'll check your names and then <u>the first class begins at quarter past nine</u>." },
+        { "speaker": "Teacher", "text": "If you can't come to school because you're ill, for example, your parents should call me as soon as they can <u>on seven-double eight-five-four-two-one</u>." },
+        { "speaker": "Teacher", "text": "When you come back to school you'll have to do any work you missed." },
+        { "speaker": "Teacher", "text": "In the mornings, you'll all be together for <u>English, maths and science</u>." },
+        { "speaker": "Teacher", "text": "In the afternoon, students on the Art programme will do art and music, while those on the Theatre programme have dance and drama." },
+        { "speaker": "Teacher", "text": "<u>For afternoon classes, make sure you wear trainers</u>. You can't dance in boots, or paint in sandals!" },
+        { "speaker": "Teacher", "text": "And finally, we have school sweaters for sale. The normal price is twelve pounds fifty but <u>they're only nine pounds seventy-five</u> for first year students." },
+        { "speaker": "Teacher", "text": "Any questions?" }
+      ]
+    },
+    {
+      "id": "writing-task-a",
+      "title": "Reading & Writing Part 6",
+      "questions": 1,
+      "instructions": "Read the email from your English friend, Lucy. Write an email to Lucy and answer the questions.\nWrite 25 words or more.",
+      "type": "picture-story-write",
+      "prompt": "From: Lucy\n\nI'm so happy. I finished all my exams yesterday. What is your school like? What subjects do you like best? Who is your favourite teacher?\n\nWrite an email to Lucy and answer the questions.",
+      "minWords": 25,
+      "checklist": [
+        {
+          "category": "Content",
+          "band5": "All three questions are answered clearly and with relevant detail.",
+          "band3": "Two questions answered, or answers lack detail.",
+          "band1": "Only one question answered or content is mostly irrelevant."
+        },
+        {
+          "category": "Organisation",
+          "band5": "The email is well-organised with a greeting, clear answers and a sign-off.",
+          "band3": "Some organisation but may lack greeting/sign-off or answers are not clearly separated.",
+          "band1": "Very little organisation. Hard to follow."
+        },
+        {
+          "category": "Language",
+          "band5": "Uses a range of everyday vocabulary and grammar accurately. Spelling is mostly correct.",
+          "band3": "Uses simple vocabulary and grammar with some errors that don't prevent understanding.",
+          "band1": "Very limited vocabulary. Frequent errors make the text difficult to understand."
+        }
+      ],
+      "sampleAnswer": "Hi Lucy,\nMy school is very large and modern, with computers in most classrooms. My favourite subjects are maths and science. I think my maths teacher is amazing.\nBye for now."
+    }
+  ]
+}
