@@ -3547,13 +3547,15 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                     } else {
                         questionHtml = `<p class="font-bold text-slate-800 mb-3"><span class="text-turtle-600 mr-2">${item.num}.</span>${item.question}</p>`;
                     }
-                    const itemFlexCls = hasItemImage ? 'flex gap-2' : (isVerticalMCQ ? 'flex flex-col gap-2' : 'flex gap-2');
+                    const hasPartImage = part.images && part.images[i];
+                    const itemFlexCls = hasItemImage || hasPartImage ? 'flex gap-2' : (isVerticalMCQ ? 'flex flex-col gap-2' : 'flex gap-2');
                     html += `<div class="bg-white rounded-2xl p-4 border shadow-sm mb-3" style="font-size:20px;">
                         ${questionHtml}`;
                     if (hasItemImage) html += `<img src="${item.image}" alt="Question ${item.num}" class="w-full rounded-xl mb-3">`;
+                    if (hasPartImage) html += `<img src="${part.images[i]}" alt="Question ${item.num}" class="w-full rounded-xl mb-3">`;
                     html += `<div class="${itemFlexCls}">`;
                     item.options.forEach((opt, j) => {
-                        let cls = `${isVerticalMCQ && !hasItemImage ? '' : 'flex-1'} p-3 rounded-xl ${isVerticalMCQ && !hasItemImage ? 'text-left' : 'text-center'} font-medium cursor-pointer transition-all `;
+                        let cls = `${isVerticalMCQ && !hasItemImage && !hasPartImage ? '' : 'flex-1'} p-3 rounded-xl ${isVerticalMCQ && !hasItemImage && !hasPartImage ? 'text-left' : 'text-center'} font-medium cursor-pointer transition-all `;
                         if (readingCanReview) {
                             if (j === item.answer) cls += 'bg-green-500 text-white';
                             else if (answers[i] === j && j !== item.answer) cls += 'bg-red-400 text-white';
