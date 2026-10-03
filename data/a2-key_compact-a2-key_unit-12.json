@@ -22,13 +22,26 @@
         { "letter": "H", "name": "TV" }
       ],
       "answers": [
-        { "person": "Mum", "answer": "TODO" },
-        { "person": "Sister", "answer": "TODO" },
-        { "person": "Brother", "answer": "TODO" },
-        { "person": "Grandmother", "answer": "TODO" },
-        { "person": "Grandfather", "answer": "TODO" }
+        { "person": "Mum", "answer": "B" },
+        { "person": "Sister", "answer": "H" },
+        { "person": "Brother", "answer": "E" },
+        { "person": "Grandmother", "answer": "D" },
+        { "person": "Grandfather", "answer": "F" }
       ],
-      "script": []
+      "script": [
+        { "speaker": "Boy", "text": "Hi, Tasha. What's the matter?" },
+        { "speaker": "Tasha", "text": "I've broken my dad's CD player and it's his favourite thing." },
+        { "speaker": "Boy", "text": "Wow! I didn't know people still used CD players!" },
+        { "speaker": "Tasha", "text": "Dad does! My family is so old-fashioned. Mum has only just bought a <u>digital camera</u>. And now she likes it more than anything else. She uses my laptop to look at the photos!" },
+        { "speaker": "Boy", "text": "But your sister has a laptop too! I suppose that's her favourite thing." },
+        { "speaker": "Tasha", "text": "Well, she plays games on it but I think she prefers the <u>TV</u>. She spends hours watching it." },
+        { "speaker": "Boy", "text": "Is your brother's tablet still his favourite thing?" },
+        { "speaker": "Tasha", "text": "Now it's the <u>mobile</u> he got for his birthday." },
+        { "speaker": "Boy", "text": "What did he do with the tablet?" },
+        { "speaker": "Tasha", "text": "He gave it to our grandma so she could use the internet. Then she was given a <u>laptop</u>. She says that's her favourite thing because it's bigger. She speaks to my cousins in Australia on it." },
+        { "speaker": "Boy", "text": "Does your grandfather still borrow DVDs from the library?" },
+        { "speaker": "Tasha", "text": "He doesn't need to. We taught him how to download films onto the <u>PC</u> that he never used before and now he says it's the best thing in the world!" }
+      ]
     },
     {
       "id": "reading-part2a",
@@ -130,7 +143,7 @@
         {
           "num": 6,
           "sentence": "Then I can bring it (6) .......... we see each other tomorrow.",
-          "answer": "when"
+          "answer": "when/if"
         }
       ]
     }
