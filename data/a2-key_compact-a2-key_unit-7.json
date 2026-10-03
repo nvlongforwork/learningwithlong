@@ -216,13 +216,12 @@
         { "num": 5, "label": "Price per month:", "prefix": "£", "answer": "23.20" }
       ],
       "script": [
-        { "speaker": "Teacher", "text": "OK, listen everyone. I want to tell you about some after-school music lessons." },
-        { "speaker": "Teacher", "text": "The teacher is <u>Mrs Clarke</u>. She's been teaching music here for five years." },
-        { "speaker": "Teacher", "text": "She teaches <u>guitar</u>. She can also play the piano and violin, but she only teaches guitar." },
-        { "speaker": "Teacher", "text": "The lessons are on <u>Wednesdays</u>, after school. They used to be on Thursdays, but Mrs Clarke changed the day." },
-        { "speaker": "Teacher", "text": "They're in <u>room 58</u>. That's the music room on the second floor, not room 68 which is on the third floor." },
-        { "speaker": "Teacher", "text": "You'll need to buy a book called <u>Improve</u>. You can get it from any music shop or online." },
-        { "speaker": "Teacher", "text": "The lessons cost <u>twenty-three pounds twenty</u> per month. That's very good for weekly lessons." }
+        { "speaker": "Woman", "text": "I'm here to tell you about my after-school music lessons here at Hilltop School. I'm <u>Mrs Clarke</u>." },
+        { "speaker": "Woman", "text": "I know some of you can already play the violin because you learn it in music lessons at school. But if you'd like to try something else, <u>you can learn to play the guitar</u> with me." },
+        { "speaker": "Woman", "text": "I have a class of ten students, and we have lots of fun! You have school band practice on Mondays, and then a free afternoon on Tuesdays. <u>My lessons are on Wednesdays</u>, starting at four o'clock and finishing at five thirty." },
+        { "speaker": "Woman", "text": "We meet in the big room opposite Art Room 7 – <u>it's Room 58</u>." },
+        { "speaker": "Woman", "text": "If you come, you must buy the book I use so you can practise at home. It's called <u>Improve</u> and you can buy it at Records, the music shop in the town centre." },
+        { "speaker": "Woman", "text": "My lessons aren't expensive, because you learn in a group of ten. Each student pays just <u>£23.20</u> a month, so it's about £5.80 a week. OK? Any questions?" }
       ]
     },
     {
