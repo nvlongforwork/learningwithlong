@@ -9,6 +9,13 @@
       "instructions": "For each question, choose the correct answer.",
       "type": "multiple-choice-abc",
       "audio": "audio/compact-a2-key/unit10/listening-part4a.mp3",
+      "images": [
+        "images/compact-a2-key/unit10/listening-part4-q1.webp",
+        "images/compact-a2-key/unit10/listening-part4-q2.webp",
+        "images/compact-a2-key/unit10/listening-part4-q3.webp",
+        "images/compact-a2-key/unit10/listening-part4-q4.webp",
+        "images/compact-a2-key/unit10/listening-part4-q5.webp"
+      ],
       "items": [
         {
           "num": 1,
