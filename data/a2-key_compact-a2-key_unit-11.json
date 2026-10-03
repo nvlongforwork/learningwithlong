@@ -187,6 +187,166 @@
           "answer": 2
         }
       ]
+    },
+    {
+      "id": "reading-part4b",
+      "title": "Reading & Writing Part 4",
+      "questions": 6,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "grammar-cloze",
+      "passage": "Medicine for my headache\n\nI have just returned from a holiday in the mountains of Peru. I (1) .......... walking with my family. My parents have (2) .......... me on other holidays in mountain areas, but the mountains in Peru are the highest I've (3) .......... seen.\n\nOne day, we walked through a beautiful old village. I had a headache because we were so high up in the mountains. I started to talk to a woman who lived there, and told her about my headache. She went to a plant that was (4) .......... near us, picked a few flowers from it and made some tea with them in her kitchen. She gave me the tea and it made me feel (5) .......... . Soon, my head stopped (6) .......... . I was so glad I talked to that woman!",
+      "items": [
+        {
+          "num": 1,
+          "options": ["did", "went", "got"],
+          "answer": 1
+        },
+        {
+          "num": 2,
+          "options": ["gone", "put", "taken"],
+          "answer": 2
+        },
+        {
+          "num": 3,
+          "options": ["ever", "never", "before"],
+          "answer": 0
+        },
+        {
+          "num": 4,
+          "options": ["standing", "growing", "looking"],
+          "answer": 1
+        },
+        {
+          "num": 5,
+          "options": ["better", "best", "favourite"],
+          "answer": 0
+        },
+        {
+          "num": 6,
+          "options": ["hitting", "hiding", "hurting"],
+          "answer": 2
+        }
+      ]
+    },
+    {
+      "id": "listening-part3b",
+      "title": "Listening Part 3",
+      "questions": 5,
+      "instructions": "For each question, choose the correct answer. You will hear Christina talking to her friend Leo about a health problem.",
+      "type": "multiple-choice-abc",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/compact-a2-key/unit11/listening-part3b.mp3",
+      "script": [
+        { "speaker": "Christina", "text": "Hello, Leo." },
+        { "speaker": "Leo", "text": "What's the matter, Christina?" },
+        { "speaker": "Christina", "text": "I've hurt my back, Leo." },
+        { "speaker": "Leo", "text": "Oh no! Have you seen the doctor?" },
+        { "speaker": "Christina", "text": "Not yet. But I'm going to." },
+        { "speaker": "Leo", "text": "This morning?" },
+        { "speaker": "Christina", "text": "No, I couldn't get an appointment – <u>I'm going tomorrow afternoon</u>. So I won't be at school until Thursday." },
+        { "speaker": "Leo", "text": "How did you do it?" },
+        { "speaker": "Christina", "text": "Well, I walked home after basketball practice yesterday, and then it happened <u>when I was going upstairs</u> to the flat." },
+        { "speaker": "Leo", "text": "Really? So where are you now?" },
+        { "speaker": "Christina", "text": "At home, lying down. Not on my bed, <u>in the living room, on the sofa</u>. Mum's here, making lunch in the kitchen." },
+        { "speaker": "Leo", "text": "So what activities can you do? You can't come skateboarding this evening, can you?" },
+        { "speaker": "Christina", "text": "Mum says no, <u>which I'm not pleased about</u>. But swimming's OK – it may help. I'm not having my guitar lesson this evening, but that's fine!" },
+        { "speaker": "Leo", "text": "Would you like something to read? I've got some good books about famous people." },
+        { "speaker": "Christina", "text": "OK – but I don't want to read about film actors. Maybe something about a pop star?" },
+        { "speaker": "Leo", "text": "I've got nothing like that. There's one about <u>a footballer</u> – what about that?" },
+        { "speaker": "Christina", "text": "Brilliant. Thanks, Leo." }
+      ],
+      "items": [
+        {
+          "num": 1,
+          "question": "When is Christina going to see the doctor?",
+          "options": ["today", "tomorrow", "on Thursday"],
+          "answer": 1
+        },
+        {
+          "num": 2,
+          "question": "Christina hurt herself when she was",
+          "options": ["going up some stairs.", "practising basketball.", "walking to school."],
+          "answer": 0
+        },
+        {
+          "num": 3,
+          "question": "Where is Christina now?",
+          "options": ["in her bedroom", "in the living room", "in the kitchen"],
+          "answer": 1
+        },
+        {
+          "num": 4,
+          "question": "Christina is unhappy because she cannot",
+          "options": ["play her guitar.", "skateboard.", "go swimming."],
+          "answer": 1
+        },
+        {
+          "num": 5,
+          "question": "Christina is going to read Leo's book about",
+          "options": ["a film star.", "a pop star.", "a sports star."],
+          "answer": 2
+        }
+      ]
+    },
+    {
+      "id": "reading-part2b",
+      "title": "Reading & Writing Part 2",
+      "questions": 7,
+      "instructions": "Read the three texts about health and the body projects. For each question, choose the correct answer.",
+      "type": "reading-match-persons",
+      "persons": [
+        {
+          "name": "Kemal",
+          "letter": "A",
+          "text": "For my project, I had to find out about our teeth, mouth and stomach. I had to find pictures of them and explain what happens to food, from the moment we put it in our mouths to when it goes into our stomachs. Then I gave a talk about it all to my class. Writing the project was interesting and I learned a lot about the body, but I didn't like giving the talk – I felt really worried before I did that."
+        },
+        {
+          "name": "Dan",
+          "letter": "B",
+          "text": "I did a project about why and how we get some health problems, such as colds, having a temperature, toothache and pain. With all the information I found, I had to make a web page for teenagers to use. I enjoyed doing the project, especially the talk to my class at the end. After the talk, I gave them a quiz and they answered everything really well. Perhaps I should be a teacher in the future!"
+        },
+        {
+          "name": "Jerzy",
+          "letter": "C",
+          "text": "My project was about what you should do when people get ill suddenly or hurt themselves, so it was really useful. For example, I now know how to help a friend who has cut himself badly, or a family member who has broken an arm or a leg. I had to write a ten-page document for teenagers. I found most of the information I needed online. One thing the project taught me is that I certainly don't want to be a doctor or a nurse when I'm older!"
+        }
+      ],
+      "items": [
+        {
+          "num": 1,
+          "question": "Which person has decided something about his future because of the project?",
+          "answer": "C"
+        },
+        {
+          "num": 2,
+          "question": "Which person had to find out about some things that make us sick?",
+          "answer": "B"
+        },
+        {
+          "num": 3,
+          "question": "Which person was unhappy about explaining his project to his classmates?",
+          "answer": "A"
+        },
+        {
+          "num": 4,
+          "question": "Which person did a project which only included work that was written?",
+          "answer": "C"
+        },
+        {
+          "num": 5,
+          "question": "Which person thinks he can actually use what he learned?",
+          "answer": "C"
+        },
+        {
+          "num": 6,
+          "question": "Which person planned something to put on the internet?",
+          "answer": "B"
+        },
+        {
+          "num": 7,
+          "question": "Which person had to describe how some parts of the body work?",
+          "answer": "A"
+        }
+      ]
     }
   ]
 }
