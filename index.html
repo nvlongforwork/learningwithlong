@@ -548,10 +548,10 @@
                 container.innerHTML = `<div class="text-center py-8"><i class="fa-solid fa-spinner fa-spin text-3xl" style="color: var(--theme-color);"></i><p class="mt-3 text-slate-500">Đang tải bài tập...</p></div>`;
                 loadAssignedExercises(materialId, folderId, folder, subfolder, urlParams.get('assign'), container);
             }
-            // Level 3: subfolder with partFilter -> show exercise list for teacher
+            // Level 3: subfolder with partFilter -> show exercise list
             else if (subfolderId && subfolder && subfolder.partFilter) {
                 titleText = subfolder.name;
-                subtitleText = 'Chọn bài tập để giao';
+                subtitleText = 'Chọn bài tập';
                 container.innerHTML = `<div class="text-center py-8"><i class="fa-solid fa-spinner fa-spin text-3xl" style="color: var(--theme-color);"></i><p class="mt-3 text-slate-500">Đang tải danh sách bài...</p></div>`;
                 loadPartExerciseList(materialId, folderId, folder, subfolder, container);
             }
@@ -1062,7 +1062,7 @@
                 return;
             }
             let html = `<div class="flex items-center justify-between mb-4">
-                <p class="text-slate-500">${exercises.length} bài tập — chọn bài để giao</p>
+                <p class="text-slate-500">${exercises.length} bài tập — chọn bài để làm hoặc giao</p>
                 <button onclick="toggleSelectAllParts()" class="px-3 py-1.5 rounded-lg text-sm font-medium border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 transition-colors" id="btn-select-all-parts">Chọn tất cả</button>
             </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">`;
@@ -1088,6 +1088,9 @@
             html += `</div>
             <div id="part-start-bar" class="fixed bottom-0 left-0 right-0 bg-white border-t-2 shadow-2xl p-4 flex items-center justify-center gap-4 z-50 transition-transform" style="transform: translateY(100%); border-color: var(--theme-color);">
                 <span class="text-slate-600 font-medium" id="part-selected-count">0 bài đã chọn</span>
+                <button onclick="startPartPractice()" class="px-6 py-3 rounded-xl text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all bg-green-500 hover:bg-green-600">
+                    <i class="fa-solid fa-play mr-2"></i>Làm bài
+                </button>
                 <button onclick="generateAssignmentLink()" class="px-6 py-3 rounded-xl text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all" style="background: var(--theme-color);">
                     <i class="fa-solid fa-share-from-square mr-2"></i>Giao bài
                 </button>
@@ -1148,16 +1151,17 @@
             const names = sorted.map(i => window._partExercises[i].contentName);
             const assignParam = sorted.join(',');
             const link = `${window.location.origin}${window.location.pathname}#/material/${meta.materialId}/${meta.folderId}/${meta.subfolder.id}?assign=${assignParam}`;
+            navigator.clipboard.writeText(link).catch(() => {});
             const nameList = names.map((n, i) => `<div class="flex items-center gap-2 py-1"><span class="bg-slate-100 text-slate-600 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">${i+1}</span><span>${n}</span></div>`).join('');
             Swal.fire({
                 title: '<i class="fa-solid fa-share-from-square mr-2"></i> Giao bài',
                 html: `<div class="text-left">
                     <p class="text-slate-500 mb-2 text-sm">${meta.subfolder.name} — ${sel.size} bài:</p>
                     <div class="bg-slate-50 rounded-xl p-3 mb-4 border max-h-40 overflow-y-auto" style="font-size:20px">${nameList}</div>
-                    <p class="text-slate-500 mb-2 text-sm">Link giao bài:</p>
+                    <div class="flex items-center gap-2 mb-2"><p class="text-slate-500 text-sm">Link giao bài:</p><span class="text-green-500 text-sm font-medium" id="assign-copy-status"><i class="fa-solid fa-check mr-1"></i>Đã copy</span></div>
                     <div class="flex gap-2">
-                        <input type="text" value="${link}" readonly class="flex-1 px-3 py-2 border rounded-lg text-sm bg-white" id="assign-link-input" style="font-size:16px">
-                        <button onclick="navigator.clipboard.writeText(document.getElementById('assign-link-input').value);this.innerHTML='<i class=\\'fa-solid fa-check\\'></i>';this.classList.add('bg-green-500');setTimeout(()=>{this.innerHTML='<i class=\\'fa-solid fa-copy\\'></i>';this.classList.remove('bg-green-500')},1500)" class="px-4 py-2 rounded-lg text-white font-bold transition-all" style="background:var(--theme-color)"><i class="fa-solid fa-copy"></i></button>
+                        <input type="text" value="${link}" readonly class="flex-1 px-3 py-2 border rounded-lg text-sm bg-white" id="assign-link-input" style="font-size:16px" onclick="this.select();navigator.clipboard.writeText(this.value);document.getElementById('assign-copy-status').innerHTML='<i class=\\'fa-solid fa-check mr-1\\'></i>Đã copy'">
+                        <button onclick="navigator.clipboard.writeText(document.getElementById('assign-link-input').value);document.getElementById('assign-copy-status').innerHTML='<i class=\\'fa-solid fa-check mr-1\\'></i>Đã copy'" class="px-4 py-2 rounded-lg text-white font-bold transition-all" style="background:var(--theme-color)"><i class="fa-solid fa-copy"></i></button>
                     </div>
                 </div>`,
                 showConfirmButton: false,
@@ -1165,6 +1169,15 @@
                 width: '90%',
                 customClass: { popup: 'rounded-3xl' }
             });
+        }
+
+        function startPartPractice() {
+            const sel = window._selectedPartIdxs;
+            if (sel.size === 0) return;
+            const meta = window._partExerciseMeta;
+            const sorted = [...sel].sort((a, b) => a - b);
+            const assignParam = sorted.join(',');
+            window.location.hash = `/material/${meta.materialId}/${meta.folderId}/${meta.subfolder.id}?assign=${assignParam}`;
         }
 
         async function loadAssignedExercises(materialId, folderId, folder, subfolder, assignStr, container) {
@@ -3480,36 +3493,73 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 });
                 html += `</div></div>`;
             }
+            const isNoticeFormat = isVerticalMCQ && !hasPassage && !part.images && !part.audio && part.items.every(it => it.question.includes('\n') || it.question.length > 80);
             part.items.forEach((item, i) => {
                 const qLines = item.question.split('\n');
-                let questionHtml = '';
-                if (qLines.length > 1) {
-                    const context = qLines.slice(0, -1).join('<br>');
-                    const mainQ = qLines[qLines.length - 1];
-                    questionHtml = `<p class="text-slate-500 italic mb-1"><span class="text-turtle-600 font-bold not-italic mr-2">${item.num}.</span>${context}</p>
-                        <p class="font-bold text-slate-800 mb-3 pl-6">${mainQ}</p>`;
-                } else {
-                    questionHtml = `<p class="font-bold text-slate-800 mb-3"><span class="text-turtle-600 mr-2">${item.num}.</span>${item.question}</p>`;
-                }
                 const hasItemImage = !!item.image;
-                const itemFlexCls = hasItemImage ? 'flex gap-2' : (isVerticalMCQ ? 'flex flex-col gap-2' : 'flex gap-2');
-                html += `<div class="bg-white rounded-2xl p-4 border shadow-sm mb-3" style="font-size:20px;">
-                    ${questionHtml}`;
-                if (hasItemImage) html += `<img src="${item.image}" alt="Question ${item.num}" class="w-full rounded-xl mb-3">`;
-                html += `<div class="${itemFlexCls}">`;
-                item.options.forEach((opt, j) => {
-                    let cls = `${isVerticalMCQ && !hasItemImage ? '' : 'flex-1'} p-3 rounded-xl ${isVerticalMCQ && !hasItemImage ? 'text-left' : 'text-center'} font-medium cursor-pointer transition-all `;
-                    if (readingCanReview) {
-                        if (j === item.answer) cls += 'bg-green-500 text-white';
-                        else if (answers[i] === j && j !== item.answer) cls += 'bg-red-400 text-white';
-                        else cls += 'bg-slate-50 border border-slate-200 text-slate-400';
+                const useNoticeLayout = isNoticeFormat && qLines.length > 1 && !hasItemImage;
+                if (useNoticeLayout) {
+                    const lastLine = qLines[qLines.length - 1];
+                    const isLastLineQuestion = lastLine.endsWith('?') || lastLine.startsWith('The notice') || lastLine.endsWith(' to') || lastLine.endsWith(' that');
+                    const contextLines = isLastLineQuestion ? qLines.slice(0, -1) : qLines;
+                    const mainQ = isLastLineQuestion ? lastLine : '';
+                    const noticeText = contextLines.join('<br>');
+                    let optionsHtml = '';
+                    item.options.forEach((opt, j) => {
+                        let cls = 'p-3 rounded-xl text-left font-medium cursor-pointer transition-all ';
+                        if (readingCanReview) {
+                            if (j === item.answer) cls += 'bg-green-500 text-white';
+                            else if (answers[i] === j && j !== item.answer) cls += 'bg-red-400 text-white';
+                            else cls += 'bg-slate-50 border border-slate-200 text-slate-400';
+                        } else {
+                            if (answers[i] === j) cls += 'bg-turtle-500 text-white shadow-md';
+                            else cls += 'bg-slate-50 border border-slate-200 text-slate-600 hover:border-turtle-300 hover:bg-turtle-50';
+                        }
+                        optionsHtml += `<div class="${cls}" onclick="if(!readingSubmitted){readingAnswers[${activeReadingPart}][${i}]=${j};renderReadingPart()}"><span class="font-bold">${letters[j]}</span>. ${opt}</div>`;
+                    });
+                    html += `<div class="bg-white rounded-2xl p-4 border shadow-sm mb-3" style="font-size:20px;">
+                        <div class="resp-row" style="gap:1rem;align-items:stretch">
+                            <div class="resp-col" style="flex:1;min-width:0">
+                                <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 h-full flex flex-col justify-center">
+                                    <span class="text-turtle-600 font-bold mr-2">${item.num}.</span>
+                                    <p class="text-slate-700 mt-1">${noticeText}</p>
+                                </div>
+                            </div>
+                            <div class="resp-col" style="flex:1;min-width:0">
+                                ${mainQ ? `<p class="font-bold text-slate-800 mb-2">${mainQ}</p>` : ''}
+                                <div class="flex flex-col gap-2">${optionsHtml}</div>
+                            </div>
+                        </div>
+                    </div>`;
+                } else {
+                    let questionHtml = '';
+                    if (qLines.length > 1) {
+                        const context = qLines.slice(0, -1).join('<br>');
+                        const mainQ = qLines[qLines.length - 1];
+                        questionHtml = `<p class="text-slate-500 italic mb-1"><span class="text-turtle-600 font-bold not-italic mr-2">${item.num}.</span>${context}</p>
+                            <p class="font-bold text-slate-800 mb-3 pl-6">${mainQ}</p>`;
                     } else {
-                        if (answers[i] === j) cls += 'bg-turtle-500 text-white shadow-md';
-                        else cls += 'bg-slate-50 border border-slate-200 text-slate-600 hover:border-turtle-300 hover:bg-turtle-50';
+                        questionHtml = `<p class="font-bold text-slate-800 mb-3"><span class="text-turtle-600 mr-2">${item.num}.</span>${item.question}</p>`;
                     }
-                    html += `<div class="${cls}" onclick="if(!readingSubmitted){readingAnswers[${activeReadingPart}][${i}]=${j};renderReadingPart()}"><span class="font-bold">${letters[j]}</span>. ${opt}</div>`;
-                });
-                html += `</div></div>`;
+                    const itemFlexCls = hasItemImage ? 'flex gap-2' : (isVerticalMCQ ? 'flex flex-col gap-2' : 'flex gap-2');
+                    html += `<div class="bg-white rounded-2xl p-4 border shadow-sm mb-3" style="font-size:20px;">
+                        ${questionHtml}`;
+                    if (hasItemImage) html += `<img src="${item.image}" alt="Question ${item.num}" class="w-full rounded-xl mb-3">`;
+                    html += `<div class="${itemFlexCls}">`;
+                    item.options.forEach((opt, j) => {
+                        let cls = `${isVerticalMCQ && !hasItemImage ? '' : 'flex-1'} p-3 rounded-xl ${isVerticalMCQ && !hasItemImage ? 'text-left' : 'text-center'} font-medium cursor-pointer transition-all `;
+                        if (readingCanReview) {
+                            if (j === item.answer) cls += 'bg-green-500 text-white';
+                            else if (answers[i] === j && j !== item.answer) cls += 'bg-red-400 text-white';
+                            else cls += 'bg-slate-50 border border-slate-200 text-slate-400';
+                        } else {
+                            if (answers[i] === j) cls += 'bg-turtle-500 text-white shadow-md';
+                            else cls += 'bg-slate-50 border border-slate-200 text-slate-600 hover:border-turtle-300 hover:bg-turtle-50';
+                        }
+                        html += `<div class="${cls}" onclick="if(!readingSubmitted){readingAnswers[${activeReadingPart}][${i}]=${j};renderReadingPart()}"><span class="font-bold">${letters[j]}</span>. ${opt}</div>`;
+                    });
+                    html += `</div></div>`;
+                }
             });
             if (readingCanReview && part.script && part.script.length > 0) {
                 html += `<div class="mt-4 bg-amber-50 border border-amber-200 rounded-2xl p-4">
