@@ -8,20 +8,20 @@
       "instruction": "Write the words.",
       "wordBank": ["gave", "played", "hopped", "jumped", "danced", "laughed", "bought", "ran", "read", "threw", "drank", "walked", "climbed"],
       "items": [
-        { "id": "1a", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-01.png", "answer": "ate",     "given": true  },
-        { "id": "1b", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-02.png", "answer": "bought",  "given": false },
-        { "id": "1c", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-03.png", "answer": "jumped",  "given": false },
-        { "id": "1d", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-04.png", "answer": "played",  "given": false },
-        { "id": "1e", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-05.png", "answer": "drank",   "given": false },
-        { "id": "1f", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-06.png", "answer": "gave",    "given": false },
-        { "id": "1g", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-07.png", "answer": "danced",  "given": false },
-        { "id": "1h", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-08.png", "answer": "ran",     "given": false },
-        { "id": "1i", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-09.png", "answer": "laughed", "given": false },
-        { "id": "1j", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-10.png", "answer": "threw",   "given": false },
-        { "id": "1k", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-11.png", "answer": "hopped",  "given": false },
-        { "id": "1l", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-12.png", "answer": "read",    "given": false },
-        { "id": "1m", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-13.png", "answer": "climbed", "given": false },
-        { "id": "1n", "img": "data/a1-movers/i-dictionary/past-verbs-images/pic-14.png", "answer": "walked",  "given": false }
+        { "id": "1a", "img": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a1-movers/i-dictionary/past-verbs-images/pic-01.png", "answer": "ate",     "given": true  },
+        { "id": "1b", "img": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a1-movers/i-dictionary/past-verbs-images/pic-02.png", "answer": "bought",  "given": false },
+        { "id": "1c", "img": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a1-movers/i-dictionary/past-verbs-images/pic-03.png", "answer": "jumped",  "given": false },
+        { "id": "1d", "img": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a1-movers/i-dictionary/past-verbs-images/pic-04.png", "answer": "played",  "given": false },
+        { "id": "1e", "img": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a1-movers/i-dictionary/past-verbs-images/pic-05.png", "answer": "drank",   "given": false },
+        { "id": "1f", "img": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a1-movers/i-dictionary/past-verbs-images/pic-06.png", "answer": "gave",    "given": false },
+        { "id": "1g", "img": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a1-movers/i-dictionary/past-verbs-images/pic-07.png", "answer": "danced",  "given": false },
+        { "id": "1h", "img": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a1-movers/i-dictionary/past-verbs-images/pic-08.png", "answer": "ran",     "given": false },
+        { "id": "1i", "img": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a1-movers/i-dictionary/past-verbs-images/pic-09.png", "answer": "laughed", "given": false },
+        { "id": "1j", "img": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a1-movers/i-dictionary/past-verbs-images/pic-10.png", "answer": "threw",   "given": false },
+        { "id": "1k", "img": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a1-movers/i-dictionary/past-verbs-images/pic-11.png", "answer": "hopped",  "given": false },
+        { "id": "1l", "img": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a1-movers/i-dictionary/past-verbs-images/pic-12.png", "answer": "read",    "given": false },
+        { "id": "1m", "img": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a1-movers/i-dictionary/past-verbs-images/pic-13.png", "answer": "climbed", "given": false },
+        { "id": "1n", "img": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a1-movers/i-dictionary/past-verbs-images/pic-14.png", "answer": "walked",  "given": false }
       ]
     },
     {
@@ -90,12 +90,12 @@
       "title": "Exercise 4",
       "instruction": "Write the words from exercise 3 by the pictures.",
       "items": [
-        { "id": "4a", "img": "data/a1-movers/i-dictionary/past-verbs-images/ex4-01.jpg", "present": "buy",   "past": "bought",  "given": true  },
-        { "id": "4b", "img": "data/a1-movers/i-dictionary/past-verbs-images/ex4-02.jpg", "present": "give",  "past": "gave",    "given": false },
-        { "id": "4c", "img": "data/a1-movers/i-dictionary/past-verbs-images/ex4-03.jpg", "present": "run",   "past": "ran",     "given": false },
-        { "id": "4d", "img": "data/a1-movers/i-dictionary/past-verbs-images/ex4-04.jpg", "present": "laugh", "past": "laughed", "given": false },
-        { "id": "4e", "img": "data/a1-movers/i-dictionary/past-verbs-images/ex4-05.jpg", "present": "throw", "past": "threw",   "given": false },
-        { "id": "4f", "img": "data/a1-movers/i-dictionary/past-verbs-images/ex4-06.jpg", "present": "jump",  "past": "jumped",  "given": false }
+        { "id": "4a", "img": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a1-movers/i-dictionary/past-verbs-images/ex4-01.jpg", "present": "buy",   "past": "bought",  "given": true  },
+        { "id": "4b", "img": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a1-movers/i-dictionary/past-verbs-images/ex4-02.jpg", "present": "give",  "past": "gave",    "given": false },
+        { "id": "4c", "img": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a1-movers/i-dictionary/past-verbs-images/ex4-03.jpg", "present": "run",   "past": "ran",     "given": false },
+        { "id": "4d", "img": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a1-movers/i-dictionary/past-verbs-images/ex4-04.jpg", "present": "laugh", "past": "laughed", "given": false },
+        { "id": "4e", "img": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a1-movers/i-dictionary/past-verbs-images/ex4-05.jpg", "present": "throw", "past": "threw",   "given": false },
+        { "id": "4f", "img": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a1-movers/i-dictionary/past-verbs-images/ex4-06.jpg", "present": "jump",  "past": "jumped",  "given": false }
       ]
     },
     {
