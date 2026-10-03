@@ -3464,10 +3464,11 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             const answers = readingAnswers[activeReadingPart];
             const letters = ['A', 'B', 'C'];
             const hasPassage = !!part.passage;
+            const hasPerQImages = part.images && part.images.length > 0;
             const isVerticalMCQ = !part.images;
             const isNoticePartOne = !hasPassage && !part.images && !part.audio && /Part 1\b/.test(part.title);
             const isCentered = !hasPassage && !part.images && !isNoticePartOne;
-            let html = `<div class="${isNoticePartOne ? 'max-w-5xl mx-auto' : isCentered ? 'max-w-2xl mx-auto' : 'w-full'}">
+            let html = `<div class="${isNoticePartOne ? 'max-w-5xl mx-auto' : hasPerQImages ? 'max-w-3xl mx-auto' : isCentered ? 'max-w-2xl mx-auto' : 'w-full'}">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
             if (part.audio) {
                 html += `<div class="mb-4 bg-slate-50 rounded-xl p-3 border">
@@ -3552,7 +3553,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                     html += `<div class="bg-white rounded-2xl p-4 border shadow-sm mb-3" style="font-size:20px;">
                         ${questionHtml}`;
                     if (hasItemImage) html += `<img src="${item.image}" alt="Question ${item.num}" class="w-full rounded-xl mb-3">`;
-                    if (hasPartImage) html += `<img src="${part.images[i]}" alt="Question ${item.num}" class="w-full rounded-xl mb-3">`;
+                    if (hasPartImage) html += `<img src="${part.images[i]}" alt="Question ${item.num}" class="rounded-xl mb-3 mx-auto" style="max-width:100%;max-height:280px;object-fit:contain">`;
                     html += `<div class="${itemFlexCls}">`;
                     item.options.forEach((opt, j) => {
                         let cls = `${isVerticalMCQ && !hasItemImage && !hasPartImage ? '' : 'flex-1'} p-3 rounded-xl ${isVerticalMCQ && !hasItemImage && !hasPartImage ? 'text-left' : 'text-center'} font-medium cursor-pointer transition-all `;
