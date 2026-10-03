@@ -48,7 +48,7 @@
       "questions": 5,
       "instructions": "For each question, choose the correct answer.",
       "type": "multiple-choice-abc",
-      "audio": "audio/compact-a2-key/unit9/listening-part4.mp3",
+      "audio": "audio/compact-a2-key/unit9/listening-part4a.mp3",
       "items": [
         {
           "num": 1,
@@ -133,6 +133,135 @@
         }
       ],
       "sampleAnswer": "Hi Sunita,\nI am going to see the Beijing circus next week in Central Park. Would you like to come with me? You'll love it because you love clowns.\nIt starts at 3 p.m. but I think we should meet earlier. What about 2:30 outside the ticket office? You can get the number 13 bus there or you can cycle – it's not far.\nSpeak soon,"
+    },
+    {
+      "id": "reading-part3b",
+      "title": "Reading & Writing Part 3",
+      "questions": 5,
+      "instructions": "Read the text about becoming an actor. For each question, choose the correct answer.",
+      "type": "multiple-choice-abc",
+      "passage": "If you have decided to be a doctor or an engineer, it's easy to get information about how to become one. It's more difficult if you want to be an actor. Nobody can say, 'First you do this, then you do that, and one day you're an actor.' But I can tell you some things that will help.\n\nLearning to be an actor usually starts at school. Drama lessons and clubs can teach students many things, including different ways of acting and how to write their own plays. Writing helps you understand a lot about acting. But even more important is learning to work in a group with other actors.\n\nHowever, school lessons and clubs are only one part of learning about being an actor. Find small theatre groups near where you live – and don't worry about being the star! It doesn't matter if you only have one word to say in a play, it will still help you to improve. You need to be on stage as much as possible, in a variety of different types of plays.\n\nWhen you finish school, you should think about studying at university. Of course, it's possible to be an actor without going to university, but doing a theatre course is a good idea for some people. These courses may improve your acting, and also help you learn about a variety of subjects, such as business, history, music and dance.",
+      "items": [
+        {
+          "num": 1,
+          "question": "What does the writer say is difficult if you want to act?",
+          "options": ["deciding if it's a good job for you", "finding out what you need to do", "telling people why you want to do it"],
+          "answer": 1
+        },
+        {
+          "num": 2,
+          "question": "What does the writer believe is the most useful thing to learn at school?",
+          "options": ["writing for the theatre", "being part of a team", "acting in plays"],
+          "answer": 1
+        },
+        {
+          "num": 3,
+          "question": "What advice does the writer give in the third paragraph?",
+          "options": ["Practise acting outside school.", "Meet theatre stars who live near you.", "Learn about all kinds of jobs in theatres."],
+          "answer": 0
+        },
+        {
+          "num": 4,
+          "question": "What does the writer think about university for people who want to be actors?",
+          "options": ["It is the best thing to do after school.", "It is good if they study lots of subjects.", "It is not always important for them."],
+          "answer": 2
+        },
+        {
+          "num": 5,
+          "question": "What is the best title for this text?",
+          "options": ["My life as an actor", "How to become an actor", "Different types of acting jobs"],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "listening-part4b",
+      "title": "Listening Part 4",
+      "questions": 5,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "multiple-choice-abc",
+      "audio": "audio/compact-a2-key/unit9/listening-part4b.mp3",
+      "items": [
+        {
+          "num": 1,
+          "question": "You will hear a girl talking about the job she wants to do. What does she want to be?",
+          "options": ["an artist", "a journalist", "a teacher"],
+          "answer": 1
+        },
+        {
+          "num": 2,
+          "question": "You will hear Ravi talking to his dad. What are they discussing?",
+          "options": ["when a sports programme will finish", "when Ravi should do his homework", "when is the best time to have dinner"],
+          "answer": 1
+        },
+        {
+          "num": 3,
+          "question": "You will hear Holly talking about going to the library. Why is she going there?",
+          "options": ["to collect a book", "to take a book back", "to order a book"],
+          "answer": 2
+        },
+        {
+          "num": 4,
+          "question": "You will hear Rosie telling her mum about an exhibition. What was wrong with the exhibition?",
+          "options": ["Rosie didn't understand the pictures.", "Rosie couldn't see the whole exhibition.", "Rosie didn't like the artist."],
+          "answer": 0
+        },
+        {
+          "num": 5,
+          "question": "You will hear a boy talking to his mum about his lunch. What is he going to make for lunch?",
+          "options": ["some soup", "some sandwiches", "some salad"],
+          "answer": 0
+        }
+      ],
+      "script": [
+        { "speaker": "Narrator", "text": "1. You will hear a girl talking about the job she wants to do. What does she want to be?" },
+        { "speaker": "Girl", "text": "At school, I enjoy my art lessons, especially photography. My art teacher gave me some tips about taking great pictures on a trip to Kripps Lake. I also enjoy writing stories and finding out about people's lives. So <u>I'd really like to put all those things together, and get a job on a newspaper or a magazine</u>. But I don't think that'll be easy!" },
+        { "speaker": "Narrator", "text": "2. You will hear Ravi talking to his dad. What are they discussing?" },
+        { "speaker": "Dad", "text": "Haven't you got to do some maths exercises before dinner, Ravi? It's going to be ready in an hour." },
+        { "speaker": "Ravi", "text": "I'll do them later, Dad – I want to watch a basketball game." },
+        { "speaker": "Dad", "text": "<u>You must do them before you watch TV.</u>" },
+        { "speaker": "Ravi", "text": "OK. I'll do them now. I'll watch the game online after dinner." },
+        { "speaker": "Narrator", "text": "3. You will hear Holly talking about going to the library. Why is she going there?" },
+        { "speaker": "Holly", "text": "After my last lesson, I'm going to the school library. I need a book for my history research and they don't have it on the shelves – I checked online today. So <u>I'm going to ask Mrs Stewart at the library to get it for me</u>. She's really nice. I did this before, and the book arrived in about three days. I took it back yesterday." },
+        { "speaker": "Narrator", "text": "4. You will hear Rosie telling her mum about an exhibition. What was wrong with the exhibition?" },
+        { "speaker": "Mum", "text": "So why didn't you enjoy the exhibition, Rosie?" },
+        { "speaker": "Rosie", "text": "Well, Mum, there were lots of interesting paintings. <u>I just wasn't sure what most of them were, or what they meant.</u>" },
+        { "speaker": "Mum", "text": "Oh. There are usually signs next to the pictures which tell you about them." },
+        { "speaker": "Rosie", "text": "Not for this exhibition. There was just one poster, about the painter's life." },
+        { "speaker": "Narrator", "text": "5. You will hear a boy talking to his mum about lunch. What is he going to make for lunch?" },
+        { "speaker": "Boy", "text": "I'm going to make lunch for us, Mum. There are lots of vegetables in the fridge – <u>I'll cut them into little pieces and heat them in a pan with some water and some tomatoes</u>, and lots of pepper and salt … and perhaps a bit of pasta. Then we'll have a nice hot bowl of it with some bread. OK?" },
+        { "speaker": "Mum", "text": "Sounds lovely!" }
+      ]
+    },
+    {
+      "id": "writing-task-b",
+      "title": "Reading & Writing Part 6",
+      "questions": 1,
+      "instructions": "Your friend Paddy has asked you to go to the cinema with him on Wednesday.\nWrite an email to Paddy.\n\n• say why you can't go on Wednesday\n• say when you would like to go\n• say which film you want to see\n\nWrite 25 words or more.",
+      "type": "picture-story-write",
+      "prompt": "Your friend Paddy has asked you to go to the cinema with him on Wednesday.\nWrite an email to Paddy.\n\n• say why you can't go on Wednesday\n• say when you would like to go\n• say which film you want to see\n\nWrite 25 words or more.",
+      "minWords": 25,
+      "checklist": [
+        {
+          "category": "Content",
+          "band5": "All three bullet points are addressed clearly and with relevant detail.",
+          "band3": "Two bullet points addressed, or answers lack detail.",
+          "band1": "Only one bullet point addressed or content is mostly irrelevant."
+        },
+        {
+          "category": "Organisation",
+          "band5": "The email is well-organised with a greeting, clear information and a sign-off.",
+          "band3": "Some organisation but may lack greeting/sign-off or information is not clearly separated.",
+          "band1": "Very little organisation. Hard to follow."
+        },
+        {
+          "category": "Language",
+          "band5": "Uses a range of everyday vocabulary and grammar accurately. Spelling is mostly correct.",
+          "band3": "Uses simple vocabulary and grammar with some errors that don't prevent understanding.",
+          "band1": "Very limited vocabulary. Frequent errors make the text difficult to understand."
+        }
+      ],
+      "sampleAnswer": "Hi, Paddy\nI'm sorry, I can't come to the cinema with you on Wednesday because I'm going to visit my grandma. Can we go on Friday instead? I'd like to see 'Snow Flight'.\nHarry"
     }
   ]
 }
