@@ -1,0 +1,192 @@
+{
+  "type": "reading-test",
+  "title": "Unit 11 - Healthy body, healthy mind",
+  "parts": [
+    {
+      "id": "reading-part2a",
+      "title": "Reading & Writing Part 2",
+      "questions": 7,
+      "instructions": "Read the three texts about a trip to hospital. For each question, choose the correct answer.",
+      "type": "reading-match-persons",
+      "persons": [
+        {
+          "name": "Alessio",
+          "letter": "A",
+          "text": "I've never stayed in a hospital, but about a month ago I visited my friend there. He was in a room with lots of other people. I was afraid just before we went into the room, but then I saw my friend. He was smiling and didn't look ill. The doctors and nurses were really kind and my friend got better quickly. He said being in hospital was OK, but I'm not sure. There's nothing to do except sleep and watch TV."
+        },
+        {
+          "name": "Selim",
+          "letter": "B",
+          "text": "I went to the hospital when my little sister was born. Mum stayed there for a night and we visited the next day. Dad asked me if I was scared about going to a hospital, but I was just excited about meeting my sister. The hospital was interesting. The doctor told me that little babies can't see well, which I didn't know before. I asked Mum if she wanted me to wash the baby with her, but we did that when we took her home."
+        },
+        {
+          "name": "Esteban",
+          "letter": "C",
+          "text": "I had to go to hospital when I broke my leg. I was there for two days. I met another boy there, and we talked and played together so we didn't get bored. I taught him to play cards. I still see him sometimes. My leg hurt, but the doctors gave me medicine to take the pain away and showed me pictures of my leg, called X-rays. I think I'd like to do their job. It's good to help people when they're ill."
+        }
+      ],
+      "items": [
+        {
+          "num": 1,
+          "question": "Who has spent the night in a hospital?",
+          "answer": "C"
+        },
+        {
+          "num": 2,
+          "question": "Who offered to help someone when he was in the hospital?",
+          "answer": "B"
+        },
+        {
+          "num": 3,
+          "question": "Who felt scared when he first entered the hospital?",
+          "answer": "A"
+        },
+        {
+          "num": 4,
+          "question": "Who made a friend when he was in the hospital?",
+          "answer": "C"
+        },
+        {
+          "num": 5,
+          "question": "Who thinks it's boring to be in hospital?",
+          "answer": "A"
+        },
+        {
+          "num": 6,
+          "question": "Who learned something new in the hospital?",
+          "answer": "B"
+        },
+        {
+          "num": 7,
+          "question": "Who is interested in being a doctor?",
+          "answer": "C"
+        }
+      ]
+    },
+    {
+      "id": "reading-part4a",
+      "title": "Reading & Writing Part 4",
+      "questions": 6,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "grammar-cloze",
+      "passage": "A short history of glasses\n\nPeople haven't always (1) .......... glasses. History books say there weren't any reading glasses when the Italian writer Seneca was born in 4BC, for example. So how did people with bad eyes read without them? Seneca looked (2) .......... a drinking glass!\n\nWe've known for a long time that the sun can (3) .......... our eyes. The Chinese first used sunglasses about 2,000 years ago. In the north of Canada, the sunlight on the snow is very strong in spring when the sun is (4) .......... in the sky. People put (5) .......... of wood over their eyes before they had sunglasses there.\n\nPeople didn't start to use glasses to see better until much later. People (6) .......... that the first pair of glasses was made in Italy in about 1284.",
+      "items": [
+        {
+          "num": 1,
+          "options": ["held", "worn", "taken"],
+          "answer": 1
+        },
+        {
+          "num": 2,
+          "options": ["through", "across", "between"],
+          "answer": 0
+        },
+        {
+          "num": 3,
+          "options": ["break", "fail", "hurt"],
+          "answer": 2
+        },
+        {
+          "num": 4,
+          "options": ["high", "deep", "tall"],
+          "answer": 0
+        },
+        {
+          "num": 5,
+          "options": ["areas", "pieces", "sides"],
+          "answer": 1
+        },
+        {
+          "num": 6,
+          "options": ["describe", "believe", "understand"],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "writing-part6a",
+      "title": "Reading & Writing Part 6",
+      "questions": 1,
+      "instructions": "Read the email from your English friend, Robyn. Write an email to Robyn and answer the questions. Write 25 words or more.",
+      "type": "picture-story-write",
+      "prompt": "From: Robyn\n\nI've started going to the gym to keep fit. What activity do you do to keep fit? Who do you usually do it with? How long have you done it for?",
+      "minWords": 25,
+      "checklist": [
+        {
+          "category": "Content",
+          "band5": "All three questions are answered clearly and with relevant detail.",
+          "band3": "Two questions answered, or answers lack detail.",
+          "band1": "Only one question answered or content is mostly irrelevant."
+        },
+        {
+          "category": "Organisation",
+          "band5": "The email is well-organised with a greeting, clear answers and a sign-off.",
+          "band3": "Some organisation but may lack greeting/sign-off or answers are not clearly separated.",
+          "band1": "Very little organisation. Hard to follow."
+        },
+        {
+          "category": "Language",
+          "band5": "Uses a range of everyday vocabulary and grammar accurately. Spelling is mostly correct.",
+          "band3": "Uses simple vocabulary and grammar with some errors that don't prevent understanding.",
+          "band1": "Very limited vocabulary. Frequent errors make the text difficult to understand."
+        }
+      ],
+      "sampleAnswer": "Dear Robyn,\nTo keep fit I go swimming at my local pool once a week. I usually go with my friend Jana. We've done it for about three months.\nBest wishes,\nMarta"
+    },
+    {
+      "id": "listening-part3a",
+      "title": "Listening Part 3",
+      "questions": 5,
+      "instructions": "For each question, choose the correct answer. You will hear Alissa talking to her friend Joey about a Healthy Living Day at a sports centre.",
+      "type": "multiple-choice-abc",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/compact-a2-key/unit11/listening-part3a.mp3",
+      "script": [
+        { "speaker": "Joey", "text": "How was your Healthy Living Day, Alissa?" },
+        { "speaker": "Alissa", "text": "Great! My cousin Georgia and I learned about living in a healthy way, and tried some different sports." },
+        { "speaker": "Joey", "text": "Were you tired afterwards?" },
+        { "speaker": "Alissa", "text": "Georgia was, and she didn't feel well. I was OK but <u>I needed something to drink</u>. I forgot to take anything!" },
+        { "speaker": "Joey", "text": "Was it expensive?" },
+        { "speaker": "Alissa", "text": "No, £20 for adults, and £15 for under 16s. But we're members, so <u>it was only £10</u> for us." },
+        { "speaker": "Joey", "text": "I think I'd like to do a Healthy Living Day." },
+        { "speaker": "Alissa", "text": "You! Why?" },
+        { "speaker": "Joey", "text": "It's different from the things I usually do. All that exercise! <u>I need to do more of that!</u> And if you and Georgia go again, I'll be with friends. When's the next day?" },
+        { "speaker": "Alissa", "text": "I've booked a place for <u>July 5th</u> but the next one is actually on 28th May. They're always on Saturdays." },
+        { "speaker": "Joey", "text": "I'm free most Saturdays after 14th June, so I'll come to the one you booked. Can you do climbing there?" },
+        { "speaker": "Alissa", "text": "They don't have a wall, unfortunately. I'm going to do hockey, and Georgia wants to try <u>skateboarding</u>." },
+        { "speaker": "Joey", "text": "I like Georgia's idea – <u>it sounds the best!</u>" }
+      ],
+      "items": [
+        {
+          "num": 1,
+          "question": "How did Alissa feel at the end of her day at the sports centre?",
+          "options": ["ill", "tired", "thirsty"],
+          "answer": 2
+        },
+        {
+          "num": 2,
+          "question": "How much did Alissa pay for the Healthy Living Day?",
+          "options": ["£10", "£15", "£20"],
+          "answer": 0
+        },
+        {
+          "num": 3,
+          "question": "Joey would like to do a Healthy Living Day because he thinks",
+          "options": ["he might make new friends.", "he should do more exercise.", "he needs to try a different sport."],
+          "answer": 1
+        },
+        {
+          "num": 4,
+          "question": "Joey will go to the Healthy Living Day on",
+          "options": ["28th May.", "14th June.", "5th July."],
+          "answer": 2
+        },
+        {
+          "num": 5,
+          "question": "For the next Healthy Living Day, Joey will do",
+          "options": ["hockey.", "climbing.", "skateboarding."],
+          "answer": 2
+        }
+      ]
+    }
+  ]
+}
