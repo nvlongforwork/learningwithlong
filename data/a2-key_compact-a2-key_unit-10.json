@@ -1,0 +1,171 @@
+{
+  "type": "reading-test",
+  "title": "Unit 10 - Are you an outdoors person?",
+  "parts": [
+    {
+      "id": "listening-part4a",
+      "title": "Listening Part 4",
+      "questions": 5,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "multiple-choice-abc",
+      "audio": "audio/compact-a2-key/unit10/listening-part4a.mp3",
+      "items": [
+        {
+          "num": 1,
+          "question": "Where will Joel and his family stay this year?",
+          "options": ["the hotel next to the river", "the hotel in Great Woods", "the hotel on top of the hill"],
+          "answer": 1
+        },
+        {
+          "num": 2,
+          "question": "How much do Daniella's walking boots cost on the website?",
+          "options": ["£100", "£120", "£130"],
+          "answer": 2
+        },
+        {
+          "num": 3,
+          "question": "What time does the park close today?",
+          "options": ["5:30", "6:00", "6:30"],
+          "answer": 1
+        },
+        {
+          "num": 4,
+          "question": "What will they do in the afternoon?",
+          "options": ["build a tree house", "go windsurfing", "go mountain biking"],
+          "answer": 0
+        },
+        {
+          "num": 5,
+          "question": "Where are Dad's keys?",
+          "options": ["on the bag", "on the ground", "inside the car"],
+          "answer": 2
+        }
+      ],
+      "script": [
+        { "speaker": "Narrator", "text": "1. Where will Joel and his family stay this year?" },
+        { "speaker": "Joel", "text": "Dad, can we go to that hotel next to the river again this year?" },
+        { "speaker": "Dad", "text": "Sorry, Joel. Your mother didn't like it very much." },
+        { "speaker": "Joel", "text": "How about that place on top of that hill? We stayed there two years ago." },
+        { "speaker": "Dad", "text": "That's full, so <u>Mum and I found one in Great Woods</u>. I booked it last night." },
+        { "speaker": "Narrator", "text": "2. How much do Daniella's walking boots cost on the website?" },
+        { "speaker": "Daniella", "text": "I saw some great new walking boots in town today but they were £120." },
+        { "speaker": "Mum", "text": "Oh, Daniella, why don't you look online? Your cousin bought some boots for £100." },
+        { "speaker": "Daniella", "text": "I looked at www.bestboots.com and <u>the cheapest ones were £130</u>." },
+        { "speaker": "Mum", "text": "Oh, really? Let's go and buy them from that shop in town then." },
+        { "speaker": "Narrator", "text": "3. What time does the park close today?" },
+        { "speaker": "Girl", "text": "Excuse me. Do you know what time the park closes?" },
+        { "speaker": "Man", "text": "The sign says it shuts at six thirty every day. Oh, except <u>Sunday when it closes at six</u>. That's today, isn't it?" },
+        { "speaker": "Girl", "text": "Yes, that's right. What time is it now?" },
+        { "speaker": "Man", "text": "Five thirty – so it's nearly time to go." },
+        { "speaker": "Narrator", "text": "4. What will they do in the afternoon?" },
+        { "speaker": "Girl", "text": "That was awesome! I've never been windsurfing on this lake before." },
+        { "speaker": "Boy", "text": "I come here a lot. It's great, isn't it? Do you know what we're going to do next?" },
+        { "speaker": "Girl", "text": "My dad said that after lunch <u>we're going to build a tree house</u>." },
+        { "speaker": "Boy", "text": "Cool! And tomorrow we're going mountain biking. I love being outdoors in the school holidays!" },
+        { "speaker": "Narrator", "text": "5. Where are Dad's keys?" },
+        { "speaker": "Dad", "text": "I can't find my car keys. I thought I left them on that bag." },
+        { "speaker": "Girl", "text": "Look on the floor. Maybe you dropped them." },
+        { "speaker": "Dad", "text": "They're not there. I think <u>they may still be inside the car</u>." },
+        { "speaker": "Girl", "text": "I'll look ... You're right, Dad, here they are!" }
+      ]
+    },
+    {
+      "id": "reading-part1a",
+      "title": "Reading & Writing Part 1",
+      "questions": 6,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "multiple-choice-abc",
+      "items": [
+        {
+          "num": 1,
+          "question": "Samuel, we can't go fishing today – the lake's covered in ice. Shall we go for a bike ride instead? Is ten o'clock too late? Alfonso\nWhy did Alfonso send this message?",
+          "options": [
+            "to find out if Samuel can go with him today",
+            "to ask Samuel to give him ideas for today's activities",
+            "to tell Samuel that they have to change their plan"
+          ],
+          "answer": 2
+        },
+        {
+          "num": 2,
+          "question": "The Adventure Park is closed this week while we add more fun activities.",
+          "options": [
+            "You can't use the adventure park as they are repairing some parts of it.",
+            "When the adventure park opens again it will be even better than before.",
+            "There are other activities you can do while the adventure park is shut."
+          ],
+          "answer": 1
+        },
+        {
+          "num": 3,
+          "question": "Sara – about the forest walk. Dad says it isn't too hard for us, but he'll come anyway for the beautiful views and the fresh air! Amelia\nSara's dad will go with the girls because",
+          "options": [
+            "he is worried that the walk is difficult for them.",
+            "the walk will be easy for him.",
+            "he wants to walk in the countryside."
+          ],
+          "answer": 2
+        },
+        {
+          "num": 4,
+          "question": "Park Café\nToday's special offer:\nFree guidebook for customers whose bill is over £20",
+          "options": [
+            "You will get a guidebook if you spend enough today.",
+            "If you show your guidebook, your food will be cheaper.",
+            "You can buy guidebooks for less than usual today."
+          ],
+          "answer": 0
+        },
+        {
+          "num": 5,
+          "question": "Pedro – I called that little shop in the park. It's open between 10 a.m. and 3 p.m. but it only sells snacks. Let's take a picnic. Monica\nMonica thinks they should take a picnic because the shop",
+          "options": [
+            "doesn't open at lunchtime.",
+            "doesn't sell much food.",
+            "isn't very big."
+          ],
+          "answer": 1
+        },
+        {
+          "num": 6,
+          "question": "KYLE RIVER\nPlease be careful when crossing this bridge in wet weather. DON'T RUN.",
+          "options": [
+            "You might fall if it has rained.",
+            "The bridge is closed because of the rain.",
+            "This is the only place to cross the river in rainy weather."
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "writing-part7a",
+      "title": "Reading & Writing Part 7",
+      "questions": 1,
+      "instructions": "Look at the three pictures. Write the story shown in the pictures. Write 35 words or more.",
+      "type": "picture-story-write",
+      "minWords": 35,
+      "checklist": [
+        {
+          "category": "Content",
+          "band5": "All the content is relevant to the task. The candidate has described all three pictures clearly.",
+          "band3": "Some content is relevant but may miss one picture or include irrelevant details.",
+          "band1": "Content is mostly irrelevant or too short to assess."
+        },
+        {
+          "category": "Organisation",
+          "band5": "The story is well-organised with clear sequencing and connecting words (first, then, after that).",
+          "band3": "Some attempt at organisation but the story may be hard to follow in places.",
+          "band1": "Very little organisation. Ideas are not connected."
+        },
+        {
+          "category": "Language",
+          "band5": "Uses a range of everyday vocabulary and grammar accurately. Spelling is mostly correct.",
+          "band3": "Uses simple vocabulary and grammar with some errors that don't prevent understanding.",
+          "band1": "Very limited vocabulary. Frequent errors make the text difficult to understand."
+        }
+      ],
+      "sampleAnswer": "Some teenagers were walking in the countryside when they saw a farmer. He was upset because he was losing his sheep. A wall was broken and the sheep were walking into a road. The teenagers wanted to help the farmer, so some repaired the wall and the others took the sheep back into the field."
+    }
+  ]
+}
