@@ -1,0 +1,138 @@
+{
+  "type": "reading-test",
+  "title": "Unit 12 - Technology & me",
+  "parts": [
+    {
+      "id": "listening-part4a",
+      "title": "Listening Part 4",
+      "questions": 5,
+      "instructions": "For each question, choose the correct answer. You will hear Tasha talking to a friend about her family. What is each person's favourite thing?",
+      "type": "drag-match-letters",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/compact-a2-key/unit12/listening-part4a.mp3",
+      "example": { "person": "Dad", "answer": "A" },
+      "options": ["A", "B", "C", "D", "E", "F", "G", "H"],
+      "things": [
+        { "letter": "A", "name": "CD player" },
+        { "letter": "B", "name": "digital camera" },
+        { "letter": "C", "name": "DVD player" },
+        { "letter": "D", "name": "laptop" },
+        { "letter": "E", "name": "mobile phone" },
+        { "letter": "F", "name": "PC" },
+        { "letter": "G", "name": "tablet" },
+        { "letter": "H", "name": "TV" }
+      ],
+      "answers": [
+        { "person": "Mum", "answer": "TODO" },
+        { "person": "Sister", "answer": "TODO" },
+        { "person": "Brother", "answer": "TODO" },
+        { "person": "Grandmother", "answer": "TODO" },
+        { "person": "Grandfather", "answer": "TODO" }
+      ],
+      "script": []
+    },
+    {
+      "id": "reading-part2a",
+      "title": "Reading & Writing Part 2",
+      "questions": 7,
+      "instructions": "Read the three texts about computers and school. For each question, choose the correct answer.",
+      "type": "reading-match-persons",
+      "persons": [
+        {
+          "name": "Berta",
+          "letter": "A",
+          "text": "We use computers and other technology in almost every class at school, and everybody is given a tablet computer to use. We also do ICT every Wednesday. Nobody buys textbooks any more, but we still read books from time to time. In the future, I don't think people will have to go to school. We'll have all our lessons online at home and that will give us more time to do sport with our friends."
+        },
+        {
+          "name": "Elif",
+          "letter": "B",
+          "text": "We aren't taught ICT at our school. If we need to use the internet, the teacher takes us to the computer room, but we mostly use books in class. I don't mind that because I don't really like spending my time on computers or things like that. I prefer to finish my homework quickly and then go out skating with my friends. I'm sure that in the future people will use computers to study even more than now."
+        },
+        {
+          "name": "Gloria",
+          "letter": "C",
+          "text": "We don't study ICT as a school subject because it's part of every class and we can go online in all the classrooms. I often use the internet to do my homework, too. My mum says we never use our school books but this isn't true. It's just that we use technology, too. I think the lessons of the future will be online, without books. But I hope we still go to school, because I might miss my friends if I have to study alone at home."
+        }
+      ],
+      "items": [
+        {
+          "num": 1,
+          "question": "Who studies ICT as a school subject?",
+          "answer": "A"
+        },
+        {
+          "num": 2,
+          "question": "Who never uses school books during lessons?",
+          "answer": "A"
+        },
+        {
+          "num": 3,
+          "question": "Who does a sport with friends after school?",
+          "answer": "B"
+        },
+        {
+          "num": 4,
+          "question": "Who says schools won't use books in the future?",
+          "answer": "C"
+        },
+        {
+          "num": 5,
+          "question": "Who has to go to another classroom to go online?",
+          "answer": "B"
+        },
+        {
+          "num": 6,
+          "question": "Who doesn't enjoy using technology?",
+          "answer": "B"
+        },
+        {
+          "num": 7,
+          "question": "Who likes studying with other people?",
+          "answer": "C"
+        }
+      ]
+    },
+    {
+      "id": "reading-part5a",
+      "title": "Reading & Writing Part 5",
+      "questions": 6,
+      "instructions": "For each question, write the correct answer. Write one word for each gap.",
+      "type": "fill-blank-reading",
+      "passage": "To: Lisa\n\nI think I've lost (0) ___my___ phone.\n\nI (1) .......... given it as a present just (2) .......... few weeks ago. I know I had it on Saturday before we went to the cinema with Jason. Have (3) .......... seen it anywhere, Lisa? It's got a green case which says 'Made (4) .......... Portugal' on it.\n\nTo: Baha\n\nDon't worry! Theo (5) .......... got it. He found it in his dad's car after they took us home. I'm going to meet Theo later. Shall I get the phone from him? Then I can bring it (6) .......... we see each other tomorrow. Is that OK?",
+      "example": {
+        "sentence": "I think I've lost (0) ..........<strong>my</strong>.......... phone."
+      },
+      "items": [
+        {
+          "num": 1,
+          "sentence": "I (1) .......... given it as a present just a few weeks ago.",
+          "answer": "was"
+        },
+        {
+          "num": 2,
+          "sentence": "I was given it as a present just (2) .......... few weeks ago.",
+          "answer": "a"
+        },
+        {
+          "num": 3,
+          "sentence": "Have (3) .......... seen it anywhere, Lisa?",
+          "answer": "you"
+        },
+        {
+          "num": 4,
+          "sentence": "It's got a green case which says 'Made (4) .......... Portugal' on it.",
+          "answer": "in"
+        },
+        {
+          "num": 5,
+          "sentence": "Don't worry! Theo (5) .......... got it.",
+          "answer": "has"
+        },
+        {
+          "num": 6,
+          "sentence": "Then I can bring it (6) .......... we see each other tomorrow.",
+          "answer": "when"
+        }
+      ]
+    }
+  ]
+}

@@ -2536,6 +2536,8 @@
                     readingAnswers[i] = part.items.map(() => '');
                 } else if (part.type === 'reading-match-persons') {
                     readingAnswers[i] = part.items.map(() => '');
+                } else if (part.type === 'drag-match-letters') {
+                    readingAnswers[i] = part.answers.map(() => '');
                 } else if (part.type === 'picture-story-write') {
                     readingAnswers[i] = [''];
                 } else if (part.type === 'free-writing') {
@@ -2614,6 +2616,7 @@
             else if (part.type === 'picture-story-write') renderPictureStoryWrite(part);
             else if (part.type === 'free-writing') renderFreeWriting(part);
             else if (part.type === 'multiple-choice-abc') renderWorkbookListening(part);
+            else if (part.type === 'drag-match-letters') renderWorkbookDragLetters(part);
             else if (part.type === 'fill-blank') renderWorkbookFillBlank(part);
         }
 
@@ -3584,6 +3587,111 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             content.innerHTML = html;
         }
 
+        function clickWorkbookLetterSlot(rowIdx) {
+            if (readingSubmitted) return;
+            const answers = readingAnswers[activeReadingPart];
+            if (answers[rowIdx]) {
+                answers[rowIdx] = '';
+                selectedBank = null;
+                renderWorkbookDragLetters(readingData.parts[activeReadingPart]);
+                return;
+            }
+            if (!selectedBank || selectedBank.type !== 'letter') return;
+            answers[rowIdx] = selectedBank.value;
+            selectedBank = null;
+            renderWorkbookDragLetters(readingData.parts[activeReadingPart]);
+        }
+
+        function renderWorkbookDragLetters(part) {
+            const content = document.getElementById('reading-content');
+            const answers = readingAnswers[activeReadingPart];
+            const usedLetters = answers.filter(Boolean);
+
+            let html = `<div class="max-w-4xl mx-auto">
+                <p class="text-slate-500 italic mb-4 text-sm whitespace-pre-line"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
+            if (part.audio) {
+                html += `<div class="mb-4 bg-slate-50 rounded-xl p-3 border">
+                    <audio controls class="w-full" src="${part.audio}"></audio>
+                </div>`;
+            }
+            html += `<div class="resp-row"><div class="resp-col shrink-0" style="width:40%">
+                <div class="bg-white rounded-2xl p-4 shadow-sm border sticky top-4">
+                    <h4 class="font-bold text-slate-700 mb-3" style="font-size:20px;"><i class="fa-solid fa-list mr-1 text-purple-500"></i> Things</h4>
+                    <div class="space-y-2">`;
+            if (part.things) {
+                part.things.forEach(t => {
+                    html += `<div class="flex items-center gap-2 p-2 bg-purple-50 rounded-xl border border-purple-100">
+                        <span class="inline-flex items-center justify-center w-8 h-8 bg-purple-500 text-white font-bold rounded-lg">${t.letter}</span>
+                        <span class="font-medium text-slate-700" style="font-size:20px;">${t.name}</span>
+                    </div>`;
+                });
+            }
+            html += `</div></div></div>
+                <div class="resp-col" style="width:60%">
+                    <div class="bg-white rounded-2xl shadow-sm border overflow-hidden">
+                        <table class="listening-table w-full">
+                            <thead><tr class="bg-turtle-50">
+                                <th class="p-3 text-left text-turtle-700 font-bold w-12">#</th>
+                                <th class="p-3 text-left text-turtle-700 font-bold">Person</th>
+                                <th class="p-3 text-center text-turtle-700 font-bold w-24">Answer</th>
+                            </tr></thead>
+                            <tbody>`;
+            if (part.example) {
+                html += `<tr class="bg-green-50">
+                    <td class="p-3 font-bold text-green-600">Ex</td>
+                    <td class="p-3 font-semibold text-green-700" style="font-size:20px;">${part.example.person}</td>
+                    <td class="p-3 text-center"><span class="inline-flex items-center justify-center w-10 h-10 bg-green-500 text-white font-bold rounded-xl text-lg">${part.example.answer}</span></td>
+                </tr>`;
+            }
+            part.answers.forEach((row, i) => {
+                let slotHtml;
+                if (readingCanReview) {
+                    const isCorrect = answers[i].toUpperCase() === row.answer.toUpperCase();
+                    if (answers[i]) {
+                        slotHtml = `<span class="inline-flex items-center justify-center w-10 h-10 font-bold rounded-xl text-lg ${isCorrect ? 'bg-green-500 text-white' : 'bg-red-400 text-white'}">${answers[i]}</span>`;
+                        if (!isCorrect) slotHtml += `<span class="text-green-600 font-bold text-sm ml-1">${row.answer}</span>`;
+                    } else {
+                        slotHtml = `<span class="text-red-400 font-bold">—</span> <span class="text-green-600 font-bold text-sm">${row.answer}</span>`;
+                    }
+                } else {
+                    const filled = answers[i] ? 'filled' : '';
+                    slotHtml = `<div class="drop-slot ${filled} w-12 h-12 mx-auto text-lg font-bold" onclick="clickWorkbookLetterSlot(${i})">${answers[i] || ''}</div>`;
+                }
+                html += `<tr>
+                    <td class="p-3 font-bold text-slate-500">${i + 1}</td>
+                    <td class="p-3 font-medium text-slate-700" style="font-size:20px;">${row.person}</td>
+                    <td class="p-3 text-center">${slotHtml}</td>
+                </tr>`;
+            });
+            html += `</tbody></table></div>`;
+            if (!readingSubmitted && !readingCanReview) {
+                html += `<div class="bg-white rounded-2xl p-4 shadow-sm border mt-4">
+                    <h4 class="font-bold text-slate-600 mb-3"><i class="fa-solid fa-font mr-1 text-purple-500"></i> Letters</h4>
+                    <div class="flex flex-wrap gap-2 justify-center">`;
+                const exAnswer = part.example ? part.example.answer : '';
+                part.options.filter(o => o !== exAnswer).forEach(letter => {
+                    const isUsed = usedLetters.includes(letter);
+                    const isSel = selectedBank && selectedBank.value === letter && selectedBank.type === 'letter';
+                    html += `<div class="bank-chip ${isUsed ? 'used' : ''} ${isSel ? 'selected' : ''} w-12 h-12 flex items-center justify-center bg-purple-50 border-2 border-purple-200 rounded-xl font-bold text-purple-700 text-lg" onclick="selectChip('${letter}','letter',this)">${letter}</div>`;
+                });
+                html += `</div></div>`;
+            }
+            if (readingCanReview && part.script) {
+                html += `<div class="mt-4 bg-amber-50 border border-amber-200 rounded-2xl p-4">
+                    <h4 class="font-bold text-amber-700 mb-3"><i class="fa-solid fa-headphones mr-1"></i> Audio Script</h4>
+                    <div class="space-y-2">`;
+                part.script.forEach(line => {
+                    html += `<div class="bg-white rounded-xl p-3 border border-amber-100">
+                        <span class="font-bold text-turtle-600 mr-2">${line.speaker}:</span>
+                        <span class="text-slate-700">${line.text}</span>
+                    </div>`;
+                });
+                html += `</div></div>`;
+            }
+            html += `</div></div></div>`;
+            content.innerHTML = html;
+        }
+
         function renderWorkbookFillBlank(part) {
             const content = document.getElementById('reading-content');
             const answers = readingAnswers[activeReadingPart];
@@ -3684,7 +3792,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 else if (part.type === 'fill-blank-reading') {
                     ans.forEach(a => { if (Array.isArray(a)) { answeredCount += a.filter(v => v.trim()).length; } else if (a.trim()) answeredCount++; });
                 }
-                else if (part.type === 'sentence-transform' || part.type === 'error-correction' || part.type === 'word-box-fill' || part.type === 'reading-match-persons' || part.type === 'picture-story-write' || part.type === 'free-writing') answeredCount += ans.filter(a => typeof a === 'string' && a.trim()).length;
+                else if (part.type === 'sentence-transform' || part.type === 'error-correction' || part.type === 'word-box-fill' || part.type === 'reading-match-persons' || part.type === 'picture-story-write' || part.type === 'free-writing' || part.type === 'drag-match-letters') answeredCount += ans.filter(a => typeof a === 'string' && a.trim()).length;
                 else if (part.type === 'multiple-choice-abc') answeredCount += ans.filter(a => a >= 0).length;
                 else if (part.type === 'fill-blank') answeredCount += ans.filter(a => typeof a === 'string' && a.trim()).length;
             });
@@ -3756,6 +3864,8 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                     part.items.forEach((item, j) => { if (ans[j].toLowerCase().trim() === item.answer.toLowerCase().trim()) correct++; });
                 } else if (part.type === 'reading-match-persons') {
                     part.items.forEach((item, j) => { if (ans[j].toUpperCase().trim() === item.answer.toUpperCase().trim()) correct++; });
+                } else if (part.type === 'drag-match-letters') {
+                    part.answers.forEach((row, j) => { if (ans[j].toUpperCase().trim() === row.answer.toUpperCase().trim()) correct++; });
                 } else if (part.type === 'picture-story-write') {
                     correct = 0;
                 } else if (part.type === 'free-writing') {
