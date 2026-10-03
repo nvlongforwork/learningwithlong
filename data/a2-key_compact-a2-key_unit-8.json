@@ -1,0 +1,126 @@
+{
+  "type": "reading-test",
+  "title": "Unit 8 - Let's celebrate!",
+  "parts": [
+    {
+      "id": "listening-part5a",
+      "title": "Listening Part 5",
+      "questions": 5,
+      "instructions": "You will hear Victoria talking to her dad about where her friends stayed on holiday. Where did each person stay? For each question, write a letter (A–H).",
+      "type": "fill-blank",
+      "audio": "audio/compact-a2-key/unit8/listening-part5.mp3",
+      "formTitle": "Holiday places",
+      "optionsLegend": [
+        { "letter": "A", "text": "apartment" },
+        { "letter": "B", "text": "boat" },
+        { "letter": "C", "text": "campsite" },
+        { "letter": "D", "text": "castle" },
+        { "letter": "E", "text": "farm" },
+        { "letter": "F", "text": "friend's house" },
+        { "letter": "G", "text": "guest house" },
+        { "letter": "H", "text": "hotel" }
+      ],
+      "example": { "label": "Liam:", "prefix": "", "answer": "C" },
+      "rows": [
+        { "num": 1, "label": "Daniel:", "prefix": "", "answer": "A" },
+        { "num": 2, "label": "Melissa:", "prefix": "", "answer": "H" },
+        { "num": 3, "label": "Alba:", "prefix": "", "answer": "D" },
+        { "num": 4, "label": "Martin:", "prefix": "", "answer": "F" },
+        { "num": 5, "label": "Olivia:", "prefix": "", "answer": "G" }
+      ],
+      "script": [
+        { "speaker": "Dad", "text": "So Victoria, did your friends have a good holiday?" },
+        { "speaker": "Victoria", "text": "Yes, most of them did." },
+        { "speaker": "Dad", "text": "Good. Where did Liam go?" },
+        { "speaker": "Victoria", "text": "He went to a lake, somewhere near here. They took a tent." },
+        { "speaker": "Dad", "text": "Oh, so he stayed at a <u>campsite</u>?" },
+        { "speaker": "Victoria", "text": "Yes. He said it was fun." },
+        { "speaker": "Dad", "text": "What about Daniel? Where did he go?" },
+        { "speaker": "Victoria", "text": "He went to the beach with his family. They wanted to stay in a hotel but there were no rooms." },
+        { "speaker": "Dad", "text": "Oh no." },
+        { "speaker": "Victoria", "text": "It was OK. <u>They rented an apartment</u> instead. It was really nice." },
+        { "speaker": "Dad", "text": "Good. And Melissa?" },
+        { "speaker": "Victoria", "text": "She went to Spain. <u>They stayed in a really big hotel</u> with a pool." },
+        { "speaker": "Dad", "text": "Lovely! And what about Alba?" },
+        { "speaker": "Victoria", "text": "She went somewhere really cool. <u>They stayed in an old castle</u>!" },
+        { "speaker": "Dad", "text": "Wow! That sounds amazing." },
+        { "speaker": "Victoria", "text": "Yes, she said it was beautiful but a bit cold at night." },
+        { "speaker": "Dad", "text": "And Martin?" },
+        { "speaker": "Victoria", "text": "He didn't go far. <u>He stayed at his friend's house</u> in the next town." },
+        { "speaker": "Dad", "text": "That's nice. What about Olivia?" },
+        { "speaker": "Victoria", "text": "<u>She stayed in a small guest house</u> by the sea. She said the food there was excellent." },
+        { "speaker": "Dad", "text": "Sounds like everyone had a great time." }
+      ]
+    },
+    {
+      "id": "reading-part4a",
+      "title": "Reading & Writing Part 4",
+      "questions": 6,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "grammar-cloze",
+      "passage": "Competition winner\n\nI'm Sophie and I won a wonderful (1) .......... in a competition! My teacher told us about this competition, and I decided to enter.\n\nI won a (2) .......... to Guadeloupe, a beautiful island in the Caribbean. When I arrived, I (3) .......... a man at the airport. He drove me to the hotel and was my guide.\n\nThe people in Guadeloupe (4) .......... French and Creole. I could understand some French from my lessons at school.\n\nI (5) .......... at the hotel for a week. I went swimming in the sea every day and visited many interesting places.\n\nGuadeloupe is now my (6) .......... place in the world. I want to go back again next year!",
+      "items": [
+        {
+          "num": 1,
+          "options": ["present", "prize", "gift"],
+          "answer": 1
+        },
+        {
+          "num": 2,
+          "options": ["journey", "travel", "flight"],
+          "answer": 2
+        },
+        {
+          "num": 3,
+          "options": ["met", "knew", "found"],
+          "answer": 0
+        },
+        {
+          "num": 4,
+          "options": ["speak", "tell", "say"],
+          "answer": 0
+        },
+        {
+          "num": 5,
+          "options": ["lived", "stayed", "spent"],
+          "answer": 1
+        },
+        {
+          "num": 6,
+          "options": ["best", "first", "favourite"],
+          "answer": 2
+        }
+      ]
+    },
+    {
+      "id": "writing-part7a",
+      "title": "Reading & Writing Part 7",
+      "questions": 1,
+      "instructions": "Look at the three pictures. Write the story shown in the pictures. Write 35 words or more.",
+      "type": "picture-story-write",
+      "storyImage": "images/compact-a2-key/unit8/rw-part7-story.webp",
+      "minWords": 35,
+      "checklist": [
+        {
+          "category": "Content",
+          "band5": "All the content is relevant to the task. The candidate has described all three pictures clearly.",
+          "band3": "Some content is relevant but may miss one picture or include irrelevant details.",
+          "band1": "Content is mostly irrelevant or too short to assess."
+        },
+        {
+          "category": "Organisation",
+          "band5": "The story is well-organised with clear sequencing and connecting words (first, then, after that).",
+          "band3": "Some attempt at organisation but the story may be hard to follow in places.",
+          "band1": "Very little organisation. Ideas are not connected."
+        },
+        {
+          "category": "Language",
+          "band5": "Uses a range of everyday vocabulary and grammar accurately. Spelling is mostly correct.",
+          "band3": "Uses simple vocabulary and grammar with some errors that don't prevent understanding.",
+          "band1": "Very limited vocabulary. Frequent errors make the text difficult to understand."
+        }
+      ],
+      "sampleAnswer": "Last weekend, my friends and I went to the beach to play volleyball. We were having a great time playing together. Suddenly, the ball went into the sea. My friend Tom ran into the water to get it back. He got very wet but we all laughed and continued playing."
+    }
+  ]
+}
