@@ -174,6 +174,172 @@
         }
       ],
       "sampleAnswer": "Some teenagers were walking in the countryside when they saw a farmer. He was upset because he was losing his sheep. A wall was broken and the sheep were walking into a road. The teenagers wanted to help the farmer, so some repaired the wall and the others took the sheep back into the field."
+    },
+    {
+      "id": "writing-part7b",
+      "title": "Reading & Writing Part 7",
+      "questions": 1,
+      "instructions": "Look at the three pictures. Write the story shown in the pictures. Write 35 words or more.",
+      "type": "picture-story-write",
+      "storyImage": "images/compact-a2-key/unit10/rw-part7b-story.webp",
+      "minWords": 35,
+      "checklist": [
+        {
+          "category": "Content",
+          "band5": "All the content is relevant to the task. The candidate has described all three pictures clearly.",
+          "band3": "Some content is relevant but may miss one picture or include irrelevant details.",
+          "band1": "Content is mostly irrelevant or too short to assess."
+        },
+        {
+          "category": "Organisation",
+          "band5": "The story is well-organised with clear sequencing and connecting words (first, then, after that).",
+          "band3": "Some attempt at organisation but the story may be hard to follow in places.",
+          "band1": "Very little organisation. Ideas are not connected."
+        },
+        {
+          "category": "Language",
+          "band5": "Uses a range of everyday vocabulary and grammar accurately. Spelling is mostly correct.",
+          "band3": "Uses simple vocabulary and grammar with some errors that don't prevent understanding.",
+          "band1": "Very limited vocabulary. Frequent errors make the text difficult to understand."
+        }
+      ],
+      "sampleAnswer": "Jack and Martin are going to play in the snow. They are wearing warm hats, jackets, boots and scarves. They take their dog on the path. It is snowing. They build a snow dog and give it a scarf. Their dog likes it, too!"
+    },
+    {
+      "id": "listening-part4b",
+      "title": "Listening Part 4",
+      "questions": 5,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "multiple-choice-abc",
+      "audio": "audio/compact-a2-key/unit10/listening-part4b.mp3",
+      "items": [
+        {
+          "num": 1,
+          "question": "What was the weather like last winter?",
+          "options": ["snowy", "rainy", "icy"],
+          "answer": 1
+        },
+        {
+          "num": 2,
+          "question": "Who will go for the birthday meal with Jade and her parents?",
+          "options": ["Jade's two friends and her brother", "Jade's two friends and another boy", "Jade's two friends and another girl"],
+          "answer": 0
+        },
+        {
+          "num": 3,
+          "question": "What happened during the storm last week?",
+          "options": ["A tree fell across the road.", "A tree fell on a building.", "A tree fell near the road and the road flooded."],
+          "answer": 2
+        },
+        {
+          "num": 4,
+          "question": "What does Eleanor do on the farm at weekends?",
+          "options": ["collects eggs", "works in the farm shop", "looks after horses"],
+          "answer": 0
+        },
+        {
+          "num": 5,
+          "question": "Where is Charlie's phone?",
+          "options": ["in the kitchen", "in Mum's car", "in the library"],
+          "answer": 1
+        }
+      ],
+      "script": [
+        { "speaker": "Narrator", "text": "1. What was the weather like last winter?" },
+        { "speaker": "Boy", "text": "Look at the snow outside, Daisy!" },
+        { "speaker": "Daisy", "text": "Wow! We can go skiing this weekend – brilliant! We didn't ski last winter at all, did we?" },
+        { "speaker": "Boy", "text": "No, <u>it was too wet</u>. But there may be a lot of ice on the roads this weekend, so we may not go skiing." },
+        { "speaker": "Narrator", "text": "2. Who will go for the birthday meal with Jade and her parents?" },
+        { "speaker": "Mum", "text": "Who's coming to the restaurant with us on your birthday, Jade?" },
+        { "speaker": "Jade", "text": "I asked three of my best friends, Mary, Kate and Emma, but Emma can't come." },
+        { "speaker": "Mum", "text": "OK ... and of course <u>your brother</u> will be with us." },
+        { "speaker": "Jade", "text": "Yes, and you and dad." },
+        { "speaker": "Narrator", "text": "3. What happened during the storm last week?" },
+        { "speaker": "Boy", "text": "That storm was terrible last week, wasn't it?" },
+        { "speaker": "Girl", "text": "Yes! <u>A tree fell across the river and the water came up onto the road</u> near our school." },
+        { "speaker": "Boy", "text": "Was the school OK?" },
+        { "speaker": "Girl", "text": "Yes, but we had to walk there every morning until the water went away. Cars couldn't get to the school, but it was OK on foot." },
+        { "speaker": "Narrator", "text": "4. What does Eleanor do on the farm at weekends?" },
+        { "speaker": "Eleanor", "text": "I usually go to my uncle's farm at weekends." },
+        { "speaker": "Man", "text": "Really? Where's the farm, Eleanor?" },
+        { "speaker": "Eleanor", "text": "It's the one next to the horse-riding school." },
+        { "speaker": "Man", "text": "Cool! And you told me that he has lots of chickens – <u>do you collect their eggs</u>?" },
+        { "speaker": "Eleanor", "text": "I do, and my friend Sue sells them in the farm shop. It's really good fun." },
+        { "speaker": "Narrator", "text": "5. Where is Charlie's phone?" },
+        { "speaker": "Girl", "text": "Why are you using my phone, Charlie?" },
+        { "speaker": "Charlie", "text": "Because <u>mine's in Mum's car</u> and she's gone to see Grandma." },
+        { "speaker": "Girl", "text": "Are you sure? I saw it in the kitchen this morning." },
+        { "speaker": "Charlie", "text": "I know, but I went to the library after that. Mum drove me home, and she's just texted Dad to say she found it on one of the seats." }
+      ]
+    },
+    {
+      "id": "reading-part1b",
+      "title": "Reading & Writing Part 1",
+      "questions": 6,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "multiple-choice-abc",
+      "items": [
+        {
+          "num": 1,
+          "question": "Knight's Park West Gate\nExit only.\nTo enter park, use North Gate.",
+          "options": [
+            "The West Gate is closed at the moment.",
+            "The West Gate is the only entrance to the park.",
+            "The West Gate is where you go out of the park."
+          ],
+          "answer": 2
+        },
+        {
+          "num": 2,
+          "question": "To: Windsurfing Course students\nFrom: Hannah (teacher)\nPlease call me each morning to find out if the weather's good enough for lessons to take place.",
+          "options": [
+            "Students will learn to check the weather during their windsurfing lessons.",
+            "Students should get information from the teacher before every windsurfing lesson.",
+            "Today's lesson is not happening because the teacher cannot get there."
+          ],
+          "answer": 1
+        },
+        {
+          "num": 3,
+          "question": "This week's special offer: get a free T-shirt with clothes orders over £20!\nWhat is this week's special offer?",
+          "options": [
+            "The clothes you can buy here are cheaper than usual.",
+            "If you spend more than £20 on clothes, you get a gift.",
+            "All the clothes except T-shirts cost just £20."
+          ],
+          "answer": 1
+        },
+        {
+          "num": 4,
+          "question": "Children are welcome at the factory's visitor centre, but they must be with an adult at all times and they must be 13 or over to join factory tours.\nIf you are 12 years old or younger, you cannot",
+          "options": [
+            "visit the factory with an adult.",
+            "enter the visitor centre.",
+            "go on a tour of the factory."
+          ],
+          "answer": 2
+        },
+        {
+          "num": 5,
+          "question": "Our company offers special coach travel to concerts, from towns across the country to the gates of the Meadow Stadium.\nThis is an advertisement for",
+          "options": [
+            "transport.",
+            "concert tickets.",
+            "stadium tours."
+          ],
+          "answer": 0
+        },
+        {
+          "num": 6,
+          "question": "Bus timetable R-67\nThis gives details for Monday to Saturday only. Download timetable R-68 for Sundays.",
+          "options": [
+            "Bus times are different from timetable R-67 on three days of the week.",
+            "You should check online every day for changes to bus times.",
+            "If you want to travel on a Sunday, you will need another timetable."
+          ],
+          "answer": 2
+        }
+      ]
     }
   ]
 }
