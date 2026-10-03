@@ -121,6 +121,119 @@
         }
       ],
       "sampleAnswer": "Last weekend, my friends and I went to the beach to play volleyball. We were having a great time playing together. Suddenly, the ball went into the sea. My friend Tom ran into the water to get it back. He got very wet but we all laughed and continued playing."
+    },
+    {
+      "id": "listening-part5b",
+      "title": "Listening Part 5",
+      "questions": 5,
+      "instructions": "You will hear Matthew talking to Alice about courses their friends took while they were on holiday. Which course did each friend take? For each question, write a letter (A–H).",
+      "type": "fill-blank",
+      "audio": "audio/compact-a2-key/unit8/listening-part5b.mp3",
+      "formTitle": "Holiday courses",
+      "optionsLegend": [
+        { "letter": "A", "text": "cooking" },
+        { "letter": "B", "text": "dance" },
+        { "letter": "C", "text": "jewellery-making" },
+        { "letter": "D", "text": "language" },
+        { "letter": "E", "text": "music" },
+        { "letter": "F", "text": "science" },
+        { "letter": "G", "text": "water sports" },
+        { "letter": "H", "text": "writing" }
+      ],
+      "example": { "label": "Alice:", "prefix": "", "answer": "H" },
+      "rows": [
+        { "num": 1, "label": "Ahmet:", "prefix": "", "answer": "A" },
+        { "num": 2, "label": "Zena:", "prefix": "", "answer": "B" },
+        { "num": 3, "label": "Leah:", "prefix": "", "answer": "C" },
+        { "num": 4, "label": "Mick:", "prefix": "", "answer": "G" },
+        { "num": 5, "label": "Ellie:", "prefix": "", "answer": "F" }
+      ],
+      "script": [
+        { "speaker": "Matthew", "text": "How was your holiday, Alice?" },
+        { "speaker": "Alice", "text": "Great, thanks, Matthew. My course was really interesting." },
+        { "speaker": "Matthew", "text": "What did you learn?" },
+        { "speaker": "Alice", "text": "<u>How to write stories and news articles</u>." },
+        { "speaker": "Matthew", "text": "Really? That sounds interesting." },
+        { "speaker": "Alice", "text": "Ahmet did a course, too. <u>He learned how to prepare Chinese dishes</u> on holiday – he wants to work as a food writer when he leaves school." },
+        { "speaker": "Matthew", "text": "Zena went to the same holiday camp, didn't she?" },
+        { "speaker": "Alice", "text": "Yes, but she didn't need to do lots of reading and writing for her course. <u>She had a week of Spanish dancing lessons</u>." },
+        { "speaker": "Matthew", "text": "What about Zena's sister, Leah?" },
+        { "speaker": "Alice", "text": "<u>She learned to work with silver and made a beautiful necklace and earrings</u>. I saw them yesterday." },
+        { "speaker": "Matthew", "text": "That's amazing! Is Mick still on holiday?" },
+        { "speaker": "Alice", "text": "No, he had to come home on Monday to do a music exam. But before that, <u>he did a windsurfing and sailing course</u> at Lake Jarvis." },
+        { "speaker": "Matthew", "text": "Cool! When does Ellie come home?" },
+        { "speaker": "Alice", "text": "Next week. <u>She's doing a short course on biology</u> this week. It's all about water plants and she loves it." }
+      ]
+    },
+    {
+      "id": "reading-part4b",
+      "title": "Reading & Writing Part 4",
+      "questions": 6,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "grammar-cloze",
+      "passage": "The Tree Hotel\n\nThe Tree Hotel is an unusual hotel in a forest in Sweden. People travel from all around the world to (1) .......... in this hotel because its seven rooms are at the top of trees. Each room looks very different, but you have to (2) .......... up to all of them – there are no lifts!\n\nThe newest one, '7th Room', is the largest, with beds for five people. It's also the (3) .......... of the seven rooms, as it's 10 metres up in a tree. It even has a (4) .......... for guests to wash in, too.\n\nAnother room is (5) .......... 'The Mirrorcube' because it has mirrors on all its outside walls. The hotel is near the Lule River, a good place to (6) .......... fishing.",
+      "items": [
+        {
+          "num": 1,
+          "options": ["spend", "stay", "visit"],
+          "answer": 1
+        },
+        {
+          "num": 2,
+          "options": ["climb", "build", "explore"],
+          "answer": 0
+        },
+        {
+          "num": 3,
+          "options": ["highest", "shortest", "longest"],
+          "answer": 0
+        },
+        {
+          "num": 4,
+          "options": ["fridge", "shower", "cupboard"],
+          "answer": 1
+        },
+        {
+          "num": 5,
+          "options": ["called", "told", "described"],
+          "answer": 0
+        },
+        {
+          "num": 6,
+          "options": ["make", "play", "go"],
+          "answer": 2
+        }
+      ]
+    },
+    {
+      "id": "writing-part7b",
+      "title": "Reading & Writing Part 7",
+      "questions": 1,
+      "instructions": "Look at the three pictures. Write the story shown in the pictures. Write 35 words or more.",
+      "type": "picture-story-write",
+      "storyImage": "images/compact-a2-key/unit8/rw-part7b-story.webp",
+      "minWords": 35,
+      "checklist": [
+        {
+          "category": "Content",
+          "band5": "All the content is relevant to the task. The candidate has described all three pictures clearly.",
+          "band3": "Some content is relevant but may miss one picture or include irrelevant details.",
+          "band1": "Content is mostly irrelevant or too short to assess."
+        },
+        {
+          "category": "Organisation",
+          "band5": "The story is well-organised with clear sequencing and connecting words (first, then, after that).",
+          "band3": "Some attempt at organisation but the story may be hard to follow in places.",
+          "band1": "Very little organisation. Ideas are not connected."
+        },
+        {
+          "category": "Language",
+          "band5": "Uses a range of everyday vocabulary and grammar accurately. Spelling is mostly correct.",
+          "band3": "Uses simple vocabulary and grammar with some errors that don't prevent understanding.",
+          "band1": "Very limited vocabulary. Frequent errors make the text difficult to understand."
+        }
+      ],
+      "sampleAnswer": "Olivia packed her football for a camping holiday with her dad. He wanted to go walking in the mountains, but Olivia wasn't interested. When they arrived at the campsite, they met Olivia's friends and their dad. Olivia played football with her friends, while their dads went walking. Everyone was happy!"
     }
   ]
 }
