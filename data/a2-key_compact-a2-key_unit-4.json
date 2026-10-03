@@ -149,6 +149,13 @@
       "instructions": "For each question, choose the correct answer.",
       "type": "multiple-choice-abc",
       "audio": "audio/compact-a2-key/unit4/listening-part1b.mp3",
+      "images": [
+        "images/compact-a2-key/unit4/listening-part1b-q1.webp",
+        "images/compact-a2-key/unit4/listening-part1b-q2.webp",
+        "images/compact-a2-key/unit4/listening-part1b-q3.webp",
+        "images/compact-a2-key/unit4/listening-part1b-q4.webp",
+        "images/compact-a2-key/unit4/listening-part1b-q5.webp"
+      ],
       "items": [
         {
           "num": 1,
