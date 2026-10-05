@@ -1894,10 +1894,10 @@
                 <div class="bg-white rounded-2xl shadow-sm border p-6 sm:p-8">
                     <h3 class="text-2xl font-bold text-slate-800 text-center mb-6 pb-4 border-b">${part.formTitle}</h3>
                     <div class="space-y-5">
-                        <div class="flex flex-wrap items-center gap-3 bg-green-50 p-4 rounded-xl border border-green-200">
+                        <div class="flex items-center gap-3 bg-green-50 p-4 rounded-xl border border-green-200">
                             <span class="font-bold text-green-600 w-8 shrink-0">Ex</span>
-                            <span class="text-slate-700 font-medium w-48 shrink-0">${part.example.label}</span>
-                            <span class="text-green-700">${part.example.prefix}</span>
+                            <span class="text-slate-700 font-medium shrink-0">${part.example.label}</span>
+                            <span class="text-green-700 shrink-0">${part.example.prefix}</span>
                             <span class="font-bold text-green-700 border-b-2 border-green-400 px-2">${part.example.answer}</span>
                         </div>`;
 
@@ -1914,9 +1914,9 @@
                 }
 
                 formHtml += `
-                        <div class="flex flex-wrap items-center gap-3 p-4 rounded-xl border ${listeningSubmitted ? '' : 'hover:bg-slate-50'}">
+                        <div class="flex items-center gap-3 p-4 rounded-xl border ${listeningSubmitted ? '' : 'hover:bg-slate-50'}">
                             <span class="font-bold text-turtle-600 w-8 shrink-0">${row.num}</span>
-                            <span class="text-slate-700 font-medium w-48 shrink-0">${row.label}</span>
+                            <span class="text-slate-700 font-medium shrink-0">${row.label}</span>
                             ${row.prefix ? `<span class="text-slate-500 shrink-0">${row.prefix}</span>` : ''}
                             ${inputHtml}
                         </div>`;
