@@ -2850,13 +2850,14 @@
 
             let html = `<div class="w-full">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
-            if (part.image) {
-                html += `<div class="mb-4"><img src="${part.image}" alt="Part 4" class="w-full rounded-xl shadow-md border"></div>`;
-            }
             html += `<div class="resp-row">`;
 
-            // Passage LEFT (65%) — blanks show selected word from MCQ
-            html += `<div class="resp-col" style="width:65%"><div class="bg-white rounded-2xl p-6 shadow-sm border h-full"><div class="prose max-w-none leading-relaxed text-slate-700" style="font-size:20px;">`;
+            // Passage LEFT (65%) — image above text, inside the passage column
+            html += `<div class="resp-col" style="width:65%"><div class="bg-white rounded-2xl p-6 shadow-sm border h-full">`;
+            if (part.image) {
+                html += `<div class="mb-4"><img src="${part.image}" alt="Part 4" class="w-full rounded-xl shadow-sm border"></div>`;
+            }
+            html += `<div class="prose max-w-none leading-relaxed text-slate-700" style="font-size:20px;">`;
             if (part.passage) {
                 let blankIdx = 0;
                 let rendered = part.passage.replace(/\.\.\.\.\.\.\.\.\.\./g, () => {
@@ -2965,14 +2966,14 @@
                     html += `<h3 class="text-2xl font-bold text-slate-800 mb-3">${seg.title}</h3>`;
                 }
 
-                if (seg.image) {
-                    html += `<div class="mb-3"><img src="${seg.image}" alt="Story illustration" class="w-full rounded-xl shadow-md border"></div>`;
-                }
-
                 html += `<div class="resp-row mb-4">`;
 
-                // Story text LEFT
-                html += `<div class="resp-col" style="width:55%"><div class="bg-slate-100 rounded-2xl p-4 h-full"><div class="prose max-w-none leading-relaxed text-slate-700 whitespace-pre-line" style="font-size:20px;">${seg.text}</div></div></div>`;
+                // Story text LEFT — image above text, inside the reading column
+                html += `<div class="resp-col" style="width:55%"><div class="bg-slate-100 rounded-2xl p-4 h-full">`;
+                if (seg.image) {
+                    html += `<div class="mb-3"><img src="${seg.image}" alt="Story illustration" class="w-full rounded-xl shadow-sm border"></div>`;
+                }
+                html += `<div class="prose max-w-none leading-relaxed text-slate-700 whitespace-pre-line" style="font-size:20px;">${seg.text}</div></div></div>`;
 
                 // Questions RIGHT
                 html += `<div style="width:45%" class="resp-col flex flex-col gap-2">`;
