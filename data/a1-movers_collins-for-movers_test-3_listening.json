@@ -1,0 +1,138 @@
+{
+  "type": "listening-test",
+  "title": "Test 3 - Listening",
+  "parts": [
+    {
+      "id": "part1",
+      "title": "Part 1",
+      "questions": 5,
+      "instructions": "Listen and draw lines. There is one example.",
+      "type": "drag-match",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/part1-farm.webp",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-movers/test3/part1.mp3",
+      "names": ["Bill", "May", "Tom", "Lucy", "Jim", "Fred", "Jane"],
+      "actions": ["is climbing the tree", "is holding puppies", "is standing near the cows", "is pointing at the chickens", "is standing near the sheep", "is feeding the chickens", "is waving near the tree"],
+      "example": { "name": "May", "action": "is waving near the tree" },
+      "answers": [
+        { "name": "Bill", "action": "is climbing the tree" },
+        { "name": "Lucy", "action": "is standing near the cows" },
+        { "name": "Jim", "action": "is holding puppies" },
+        { "name": "Fred", "action": "is feeding the chickens" },
+        { "name": "Jane", "action": "is standing near the sheep" }
+      ],
+      "audioScript": [
+        "(Audio script to be added)",
+        "(Audio script to be added)",
+        "(Audio script to be added)",
+        "(Audio script to be added)",
+        "(Audio script to be added)"
+      ]
+    },
+    {
+      "id": "part2",
+      "title": "Part 2",
+      "questions": 5,
+      "instructions": "Listen and write. There is one example.",
+      "type": "fill-blank",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-movers/test3/part2.mp3",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/part2-classroom.webp",
+      "formTitle": "Mr Beard's new pet",
+      "example": { "label": "Mr Beard's pet is a:", "prefix": "", "answer": "kitten" },
+      "rows": [
+        { "num": 1, "label": "Colour:", "prefix": "", "answer": "grey" },
+        { "num": 2, "label": "Age:", "prefix": "", "answer": "six", "suffix": "weeks" },
+        { "num": 3, "label": "Likes to:", "prefix": "run and", "answer": "jump" },
+        { "num": 4, "label": "Eats:", "prefix": "kitten", "answer": "food" },
+        { "num": 5, "label": "Name:", "prefix": "", "answer": "Snowy" }
+      ],
+      "audioScript": [
+        "(Audio script to be added)",
+        "(Audio script to be added)",
+        "(Audio script to be added)",
+        "(Audio script to be added)",
+        "(Audio script to be added)"
+      ]
+    },
+    {
+      "id": "part3",
+      "title": "Part 3",
+      "questions": 5,
+      "instructions": "Mrs Lily is telling Jack what her family got at the weekend. What did each person buy?\nListen and write a letter in each box. There is one example.",
+      "type": "drag-match-letters",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-movers/test3/part3.mp3",
+      "peopleImage": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/part3-people.webp",
+      "activitiesImage": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/part3-items.webp",
+      "people": ["Mrs Lily", "Mr Lily", "Aunt Alice", "Sally", "Dan", "Zoe"],
+      "options": ["A", "B", "C", "D", "E", "F", "G", "H"],
+      "example": { "person": "Mrs Lily", "answer": "C" },
+      "answers": [
+        { "person": "Mr Lily", "answer": "A" },
+        { "person": "Aunt Alice", "answer": "E" },
+        { "person": "Sally", "answer": "G" },
+        { "person": "Dan", "answer": "H" },
+        { "person": "Zoe", "answer": "B" }
+      ],
+      "audioScript": [
+        "(Audio script to be added)",
+        "(Audio script to be added)",
+        "(Audio script to be added)",
+        "(Audio script to be added)",
+        "(Audio script to be added)"
+      ]
+    },
+    {
+      "id": "part4",
+      "title": "Part 4",
+      "questions": 5,
+      "instructions": "Listen and tick (✓) the box. There is one example.",
+      "type": "multiple-choice-abc",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-movers/test3/part4.mp3",
+      "images": ["https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/part4-page1.png", "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/part4-page2.png"],
+      "example": {
+        "question": "(To be added)",
+        "options": ["Option A", "Option B", "Option C"],
+        "answer": 0
+      },
+      "items": [
+        { "num": 1, "question": "(To be added)", "options": ["Option A", "Option B", "Option C"], "answer": 0 },
+        { "num": 2, "question": "(To be added)", "options": ["Option A", "Option B", "Option C"], "answer": 0 },
+        { "num": 3, "question": "(To be added)", "options": ["Option A", "Option B", "Option C"], "answer": 0 },
+        { "num": 4, "question": "(To be added)", "options": ["Option A", "Option B", "Option C"], "answer": 0 },
+        { "num": 5, "question": "(To be added)", "options": ["Option A", "Option B", "Option C"], "answer": 0 }
+      ],
+      "audioScript": [
+        "(Audio script to be added)",
+        "(Audio script to be added)",
+        "(Audio script to be added)",
+        "(Audio script to be added)",
+        "(Audio script to be added)"
+      ]
+    },
+    {
+      "id": "part5",
+      "title": "Part 5",
+      "questions": 5,
+      "instructions": "Listen and colour and write. There is one example.",
+      "type": "color-write",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-movers/test3/part5.mp3",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/part5-scene.png",
+      "colors": ["red", "blue", "purple", "green", "pink", "yellow", "gray", "black", "orange", "brown"],
+      "example": { "item": "(To be added)", "type": "color", "answer": "red" },
+      "itemBank": [],
+      "items": [
+        { "num": 1, "item": "(To be added)", "type": "color", "answer": "blue" },
+        { "num": 2, "item": "(To be added)", "type": "color", "answer": "green" },
+        { "num": 3, "item": "(To be added)", "type": "write", "answer": "word" },
+        { "num": 4, "item": "(To be added)", "type": "color", "answer": "yellow" },
+        { "num": 5, "item": "(To be added)", "type": "color", "answer": "pink" }
+      ],
+      "audioScript": [
+        "(Audio script to be added)",
+        "(Audio script to be added)",
+        "(Audio script to be added)",
+        "(Audio script to be added)",
+        "(Audio script to be added)"
+      ]
+    }
+  ]
+}
