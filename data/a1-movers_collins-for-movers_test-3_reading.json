@@ -1,0 +1,184 @@
+{
+  "type": "reading-test",
+  "title": "Test 3 - Reading & Writing",
+  "parts": [
+    {
+      "id": "part1",
+      "title": "Part 1",
+      "questions": 5,
+      "instructions": "Look and read. Choose the correct words and write them on the lines. There is one example.",
+      "type": "definition-match",
+      "wordBank": ["a panda", "a scarf", "a puppy", "socks", "a bedroom", "a lion", "a coat", "a basement"],
+      "wordImages": {
+        "a panda": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/words/p1-panda.webp",
+        "a scarf": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/words/p1-scarf.webp",
+        "a puppy": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/words/p1-puppy.webp",
+        "socks": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/words/p1-socks.webp",
+        "a bedroom": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/words/p1-bedroom.webp",
+        "a lion": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/words/p1-lion.webp",
+        "a coat": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/words/p1-coat.webp",
+        "a basement": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/words/p1-basement.webp"
+      },
+      "example": { "definition": "This is a big, strong animal that comes from the cat family.", "answer": "a lion" },
+      "items": [
+        { "num": 1, "definition": "You wear this on your neck when it is cold.", "answer": "a scarf" },
+        { "num": 2, "definition": "This animal is a baby dog.", "answer": "a puppy" },
+        { "num": 3, "definition": "You go to this room in a house to sleep.", "answer": "a bedroom" },
+        { "num": 4, "definition": "You wear these on your feet.", "answer": "socks" },
+        { "num": 5, "definition": "You go downstairs to get to this part of a house under the ground.", "answer": "a basement" }
+      ]
+    },
+    {
+      "id": "part2",
+      "title": "Part 2",
+      "questions": 6,
+      "instructions": "Read the text and choose the best answer.",
+      "type": "conversation-choice",
+      "context": "Fred is asking his friend Sally about her day.",
+      "example": {
+        "speaker": "Fred",
+        "question": "Where did you go today, Sally?",
+        "options": ["I can play the piano.", "I like ice cream.", "I went to Mary's party."],
+        "answer": 2
+      },
+      "items": [
+        { "num": 1, "speaker": "Fred", "question": "Was it a good party?", "options": ["Yes, it was great.", "Yes, I am.", "Yes, it did."], "answer": 0 },
+        { "num": 2, "speaker": "Fred", "question": "Were there lots of children there?", "options": ["No, there isn't.", "No, there were only eight children.", "Yes, it was sunny."], "answer": 1 },
+        { "num": 3, "speaker": "Fred", "question": "What did you do?", "options": ["Yes, it was good.", "No, I didn't.", "We played games and climbed trees in the garden."], "answer": 2 },
+        { "num": 4, "speaker": "Fred", "question": "Did Mary like the present you gave her?", "options": ["Yes, I did.", "Yes, she did.", "Yes, she has."], "answer": 1 },
+        { "num": 5, "speaker": "Fred", "question": "Did Mary have a nice cake?", "options": ["Yes, she had a lemon cake.", "Yes, I have.", "Yes, please."], "answer": 0 },
+        { "num": 6, "speaker": "Fred", "question": "Was Mary's grandmother there?", "options": ["No, she couldn't.", "Yes, she was.", "She doesn't know."], "answer": 1 }
+      ]
+    },
+    {
+      "id": "part3",
+      "title": "Part 3",
+      "questions": 6,
+      "instructions": "Read the story. Choose a word from the box. Write the correct word next to numbers 1–5. There is one example.",
+      "type": "story-fill",
+      "storyParts": [
+        "Yesterday it was sunny and very hot. Jim and Daisy went to the park and played football. Then Jim stopped the game and %%example%% on the grass.",
+        "\"What's the matter, Jim?\" asked Daisy.",
+        "\"I don't know,\" answered Jim. \"But I have a (1) %%blank%% and I'm very thirsty.\"",
+        "Daisy took her friend to her house because Daisy's mother was a (2) %%blank%% .",
+        "When Daisy's mum saw the children, she (3) %%blank%% them two big glasses of water.",
+        "\"Did you take your hats and some (4) %%blank%% of water with you to the park?\" she asked.",
+        "\"No, we didn't,\" said Daisy.",
+        "Daisy's mum said, \"When it's very hot you must (5) %%blank%% lots of water and you have to wear a hat.\"",
+        "\"My head is better now,\" said Jim. \"But I don't want to play in the sun again today.\""
+      ],
+      "wordBank": ["bottles", "hot", "headache", "hat", "gave", "drink", "threw", "doctor"],
+      "wordImages": {
+        "sat": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/words/p3-sat.webp",
+        "bottles": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/words/p3-bottles.webp",
+        "hot": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/words/p3-hot.webp",
+        "headache": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/words/p3-headache.webp",
+        "hat": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/words/p3-hat.webp",
+        "gave": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/words/p3-gave.webp",
+        "drink": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/words/p3-drink.webp",
+        "threw": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/words/p3-threw.webp",
+        "doctor": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/words/p3-doctor.webp"
+      },
+      "example": { "word": "sat" },
+      "items": [
+        { "num": 1, "answer": "headache" },
+        { "num": 2, "answer": "doctor" },
+        { "num": 3, "answer": "gave" },
+        { "num": 4, "answer": "bottles" },
+        { "num": 5, "answer": "drink" }
+      ],
+      "titleQuestion": {
+        "num": 6,
+        "instruction": "Now choose the best name for the story.",
+        "options": [
+          "Playing in hot weather",
+          "Jim goes to the doctor",
+          "Daisy plays football"
+        ],
+        "answer": 0
+      }
+    },
+    {
+      "id": "part4",
+      "title": "Part 4",
+      "questions": 5,
+      "instructions": "Read the text. Choose the correct words and write them on the lines.",
+      "type": "grammar-cloze",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/part4-fishing.webp",
+      "storyParts": [
+        "Fishing",
+        "Fishing is something that lots of different people %%example%% .",
+        "Many people enjoy fishing as a hobby – sometimes they (1) %%blank%% the fish home to eat and sometimes they put them back (2) %%blank%% the water.",
+        "Some people go fishing as their work and some people go fishing as a sport to see who can get the (3) %%blank%% fish.",
+        "Fish are good to eat. But we must (4) %%blank%% careful not to take too (5) %%blank%% fish from the sea because in some parts of the world, there are not a lot of fish now."
+      ],
+      "example": { "options": ["do", "don't", "does"], "answer": 0 },
+      "items": [
+        { "num": 1, "options": ["took", "take", "taking"], "answer": 1 },
+        { "num": 2, "options": ["in", "on", "behind"], "answer": 0 },
+        { "num": 3, "options": ["big", "bigger", "biggest"], "answer": 2 },
+        { "num": 4, "options": ["are", "be", "being"], "answer": 1 },
+        { "num": 5, "options": ["any", "many", "every"], "answer": 1 }
+      ]
+    },
+    {
+      "id": "part5",
+      "title": "Part 5",
+      "questions": 7,
+      "instructions": "Look at the pictures and read the story. Write some words to complete the sentences about the story. You can use 1, 2 or 3 words.",
+      "type": "story-write",
+      "storySegments": [
+        {
+          "title": "The Old Pirates",
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/part5-story1.webp",
+          "text": "Last Thursday was Peter's birthday. He had a big party and invited all his friends. They all wore pirates' clothes and played pirate games. Peter had a big birthday cake, which had two pirates on it. Peter got lots of presents but his favourite was a book, which was called The Old Pirates.",
+          "examples": [
+            { "sentence": "It was Peter's birthday %%answer%% .", "answer": "last Thursday" },
+            { "sentence": "Peter invited all his friends to %%answer%% .", "answer": "a big party" }
+          ],
+          "questions": [
+            { "num": 1, "sentence": "All the children %%blank%% pirates' clothes and played pirate games.", "answer": "wore" },
+            { "num": 2, "sentence": "Peter's favourite present was %%blank%% called The Old Pirates.", "answer": "a book" }
+          ]
+        },
+        {
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/part5-story2.webp",
+          "text": "After his party, Peter sat in the garden and started to read his new book. It was an exciting story about two good pirates. Their names were Black Beard and Brown Beard. Black Beard was taller than Brown Beard and Brown Beard was stronger than Black Beard. They sailed the sea and found lots of treasure. But the pirates were old and they wanted to stop being pirates and live quietly in a nice house with a small garden with beautiful flowers.\n\n\"What a great book!\" said Peter. \"I'm enjoying it. I want Black Beard and Brown Beard to find a nice place to live.\"",
+          "questions": [
+            { "num": 3, "sentence": "Peter read his new book in %%blank%% .", "answer": "the garden" },
+            { "num": 4, "sentence": "The pirates wanted to %%blank%% in a nice house.", "answer": "live quietly" },
+            { "num": 5, "sentence": "Peter thought that the new book was %%blank%% .", "answer": "great" }
+          ]
+        },
+        {
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/part5-story3.webp",
+          "text": "Then a loud lorry stopped outside the house opposite. Peter looked at the lorry and saw two men. They carried big boxes into the house. Both men had beards. The man with the black beard was taller than the man with the brown beard. The man with the brown beard was stronger than the man with the black beard. The two men smiled and waved at Peter.\n\nThen they walked into their nice house, which had a small garden with beautiful flowers.\n\n\"I think the pirates from my book found their new house,\" said Peter.",
+          "questions": [
+            { "num": 6, "sentence": "Peter saw %%blank%% with beards outside the house opposite.", "answer": "two men" },
+            { "num": 7, "sentence": "Peter thought that the two men were %%blank%% from his book.", "answer": "the pirates" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part6",
+      "title": "Part 6",
+      "questions": 6,
+      "instructions": "Look and read and write.",
+      "type": "picture-write",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/part6-bus-stop.webp",
+      "examples": [
+        { "type": "complete", "sentence": "There are two green %%answer%% .", "answer": "buses" },
+        { "type": "answer", "question": "What's the weather like?", "answer": "It's cloudy." }
+      ],
+      "items": [
+        { "num": 1, "type": "complete", "sentence": "The smallest boy is holding a %%blank%% .", "answer": "helicopter" },
+        { "num": 2, "type": "complete", "sentence": "The woman with long brown hair is giving the baby a bottle of %%blank%% .", "answer": "milk" },
+        { "num": 3, "type": "answer", "question": "How many boys are there behind the woman with the baby?", "answer": "There are three boys.", "points": 2 },
+        { "num": 4, "type": "answer", "question": "What's the tallest boy doing?", "answer": "He's eating a banana.", "points": 2 },
+        { "num": 5, "type": "free", "instruction": "Now write two sentences about the picture.", "answer": "" },
+        { "num": 6, "type": "free", "instruction": "", "answer": "" }
+      ]
+    }
+  ]
+}
