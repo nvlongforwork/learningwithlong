@@ -2846,12 +2846,12 @@
                             const correctWord = item.options[item.answer];
                             const selectedWord = answers[i] >= 0 ? item.options[answers[i]] : '—';
                             const isCorrect = answers[i] === item.answer;
-                            let h = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">(${item.num}) ${selectedWord}</span>`;
+                            let h = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${selectedWord}</span>`;
                             if (!isCorrect) h += `<span class="text-green-600 font-bold text-sm ml-1">${correctWord}</span>`;
                             return h;
                         } else {
                             const selectedWord = answers[i] >= 0 ? item.options[answers[i]] : '';
-                            return `<span class="text-turtle-600 font-bold">(${item.num})</span> <span id="gc-blank-${i}" class="inline-block min-w-[80px] px-2 py-0.5 border-2 ${selectedWord ? 'border-turtle-400 bg-turtle-50 text-turtle-700' : 'border-dashed border-slate-300 text-slate-400'} rounded-lg font-bold text-center cursor-default" style="font-size:20px;">${selectedWord || '...'}</span>`;
+                            return `<span id="gc-blank-${i}" class="inline-block min-w-[80px] px-2 py-0.5 border-2 ${selectedWord ? 'border-turtle-400 bg-turtle-50 text-turtle-700' : 'border-dashed border-slate-300 text-slate-400'} rounded-lg font-bold text-center cursor-default" style="font-size:20px;">${selectedWord || '...'}</span>`;
                         }
                     });
                     html += `<p class="mb-3">${rendered}</p>`;
