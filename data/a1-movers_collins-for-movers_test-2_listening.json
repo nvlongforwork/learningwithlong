@@ -87,7 +87,7 @@
       "instructions": "Listen and tick (✓) the box. There is one example.",
       "type": "multiple-choice-abc",
       "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-movers/test2/part4.mp3",
-      "images": ["https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/part4-page1.webp", "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/part4-page2.webp"],
+      "images": ["https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/part4-page1.png", "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/part4-page2.png"],
       "example": {
         "question": "What pet does Sally want to get?",
         "options": ["A kitten", "A puppy", "A mouse"],
@@ -115,7 +115,7 @@
       "instructions": "Listen and colour and write. There is one example.",
       "type": "color-write",
       "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-movers/test2/part5.mp3",
-      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/part5-station.webp",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/part5-station.png",
       "colors": ["red", "blue", "purple", "green", "pink", "yellow", "gray", "black", "orange", "brown"],
       "example": { "item": "Clock on the wall", "type": "color", "answer": "pink" },
       "itemBank": [
