@@ -11,21 +11,21 @@
       "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/part1-farm.webp",
       "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-movers/test3/part1.mp3",
       "names": ["Bill", "May", "Tom", "Lucy", "Jim", "Fred", "Jane"],
-      "actions": ["is climbing the tree", "is holding puppies", "is standing near the cows", "is pointing at the chickens", "is standing near the sheep", "is feeding the chickens", "is waving near the tree"],
-      "example": { "name": "May", "action": "is waving near the tree" },
+      "actions": ["is climbing the tree", "is giving food to the chickens", "is carrying bottles of milk", "is standing next to the cows", "is standing near the house", "is pointing to the sheep", "is playing with the puppies"],
+      "example": { "name": "May", "action": "is giving food to the chickens" },
       "answers": [
+        { "name": "Tom", "action": "is carrying bottles of milk" },
+        { "name": "Jane", "action": "is playing with the puppies" },
+        { "name": "Fred", "action": "is pointing to the sheep" },
         { "name": "Bill", "action": "is climbing the tree" },
-        { "name": "Lucy", "action": "is standing near the cows" },
-        { "name": "Jim", "action": "is holding puppies" },
-        { "name": "Fred", "action": "is feeding the chickens" },
-        { "name": "Jane", "action": "is standing near the sheep" }
+        { "name": "Lucy", "action": "is standing next to the cows" }
       ],
       "audioScript": [
-        "(Audio script to be added)",
-        "(Audio script to be added)",
-        "(Audio script to be added)",
-        "(Audio script to be added)",
-        "(Audio script to be added)"
+        "Man: Where's your Uncle Tom? I know him too.\nGirl: There he is. He's wearing a green scarf.\nMan: Oh yes. I see him. He's carrying lots of bottles of milk. Where's he taking them?\nGirl: He's helping the farmer. He's taking them to the farm.\nMan: OK.",
+        "Man: Who's that? The girl with the long blonde curly hair who's playing with the puppies.\nGirl: That's my cousin Jane.\nMan: Those puppies are beautiful.\nGirl: Yes, Jane loved them. She wanted to take one home, but her mum said she couldn't.\nMan: I want one too!",
+        "Girl: And there's my favourite cousin.\nMan: Where?\nGirl: He's the boy who's wearing the red coat. He's pointing to the sheep in the field behind the farm.\nMan: Oh yes, I can see. What's he called?\nGirl: His name is Fred.",
+        "Man: Is that your brother climbing the tree?\nGirl: Yes, how did you know?\nMan: He's got brown curly hair like you!\nGirl: Oh yes.\nMan: What's his name?\nGirl: He's called Bill.",
+        "Man: That girl next to the cows is angry.\nGirl: Which one?\nMan: The one with the shorter hair.\nGirl: Oh yes, that's my cousin Lucy. She's angry because she wanted to go to the cinema and not the farm!\nMan: Oh, I see."
       ]
     },
     {
@@ -39,18 +39,18 @@
       "formTitle": "Mr Beard's new pet",
       "example": { "label": "Mr Beard's pet is a:", "prefix": "", "answer": "kitten" },
       "rows": [
-        { "num": 1, "label": "Colour:", "prefix": "", "answer": "grey" },
-        { "num": 2, "label": "Age:", "prefix": "", "answer": "six", "suffix": "weeks" },
+        { "num": 1, "label": "Colour:", "prefix": "", "answer": "black" },
+        { "num": 2, "label": "Age:", "prefix": "", "answer": "10", "suffix": "weeks" },
         { "num": 3, "label": "Likes to:", "prefix": "run and", "answer": "jump" },
         { "num": 4, "label": "Eats:", "prefix": "kitten", "answer": "food" },
-        { "num": 5, "label": "Name:", "prefix": "", "answer": "Snowy" }
+        { "num": 5, "label": "Name:", "prefix": "", "answer": "Soot" }
       ],
       "audioScript": [
-        "(Audio script to be added)",
-        "(Audio script to be added)",
-        "(Audio script to be added)",
-        "(Audio script to be added)",
-        "(Audio script to be added)"
+        "Girl: I love kittens! What colour is it?\nMan: Well, there was a beautiful brown kitten at the shop, but he was very young and he had to be with his mother. Then I saw a little black kitten and I loved him!\nGirl: Did you get the black one then?\nMan: Yes, I did. Write that down.",
+        "Man: Any more questions?\nBoy: Yes, how old is the kitten?\nMan: I don't know when his birthday is, but I think he's 10 weeks old. He's very small and beautiful!\nBoy: Hmm.",
+        "Boy: And what does he like to do?\nMan: Well, he can't go outside yet because he's too young. But he likes to run and jump inside.\nBoy: I love playing with kittens!\nMan: Me too.",
+        "Girl: What does he eat? Does he like meat or fish?\nMan: No, he eats kitten food.\nGirl: Does he eat a lot of kitten food?\nMan: Yes, he's always hungry!",
+        "Man: Any more questions?\nGirl: Yes! You didn't tell us his name!\nMan: Oh yes, he's called Soot.\nGirl: That's a good name. Can you spell that for us?\nMan: Yes, of course. It's S-double O-T.\nGirl: Thanks."
       ]
     },
     {
@@ -66,18 +66,18 @@
       "options": ["A", "B", "C", "D", "E", "F", "G", "H"],
       "example": { "person": "Mrs Lily", "answer": "C" },
       "answers": [
-        { "person": "Mr Lily", "answer": "A" },
-        { "person": "Aunt Alice", "answer": "E" },
-        { "person": "Sally", "answer": "G" },
-        { "person": "Dan", "answer": "H" },
-        { "person": "Zoe", "answer": "B" }
+        { "person": "Mr Lily", "answer": "H" },
+        { "person": "Aunt Alice", "answer": "D" },
+        { "person": "Sally", "answer": "B" },
+        { "person": "Dan", "answer": "G" },
+        { "person": "Zoe", "answer": "E" }
       ],
       "audioScript": [
-        "(Audio script to be added)",
-        "(Audio script to be added)",
-        "(Audio script to be added)",
-        "(Audio script to be added)",
-        "(Audio script to be added)"
+        "Boy: Did Mr Lily go shopping with you?\nWoman: Yes, he did. He wanted to buy a new tennis racket, but he didn't like any of the rackets in the shop. He got some new tennis balls.\nBoy: Does he like playing tennis?\nWoman: Yes, he does. He plays every Friday at the sports centre.",
+        "Woman: My Aunt Alice came shopping, too.\nBoy: Oh, OK. Did she buy some clothes too?\nWoman: No, she didn't. She doesn't like shopping. She got some toothpaste from the supermarket, then she went home.",
+        "Woman: My children came shopping with us, too.\nBoy: What did they buy?\nWoman: My oldest daughter is called Sally. She got a red scarf.\nBoy: But it isn't cold. It's hot!\nWoman: I know! She isn't going to wear it now. She's going to wear it when it's cold!",
+        "Woman: My son Dan is five years old.\nBoy: Did he buy a new toy from the shops?\nWoman: No, he didn't. I got him a new comic.\nBoy: That's fun!\nWoman: Yes! Dan was very happy.",
+        "Boy: Have you got another daughter, Mrs Lily?\nWoman: Yes, I have. She's called Zoe and she's 10.\nBoy: What did she buy?\nWoman: She got a new, green skirt because she's going to a birthday party next week."
       ]
     },
     {
@@ -87,25 +87,25 @@
       "instructions": "Listen and tick (✓) the box. There is one example.",
       "type": "multiple-choice-abc",
       "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-movers/test3/part4.mp3",
-      "images": ["https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/part4-page1.png", "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/part4-page2.png"],
+      "images": ["https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/part4-page1.webp", "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/part4-page2.webp"],
       "example": {
-        "question": "(To be added)",
-        "options": ["Option A", "Option B", "Option C"],
-        "answer": 0
+        "question": "What does Nick want to do today?",
+        "options": ["Play on the beach", "Read a book", "Go back to bed"],
+        "answer": 1
       },
       "items": [
-        { "num": 1, "question": "(To be added)", "options": ["Option A", "Option B", "Option C"], "answer": 0 },
-        { "num": 2, "question": "(To be added)", "options": ["Option A", "Option B", "Option C"], "answer": 0 },
-        { "num": 3, "question": "(To be added)", "options": ["Option A", "Option B", "Option C"], "answer": 0 },
-        { "num": 4, "question": "(To be added)", "options": ["Option A", "Option B", "Option C"], "answer": 0 },
-        { "num": 5, "question": "(To be added)", "options": ["Option A", "Option B", "Option C"], "answer": 0 }
+        { "num": 1, "question": "What part of her body did Pat hurt?", "options": ["Her leg", "Her arm", "Her head"], "answer": 1 },
+        { "num": 2, "question": "What animal did Sally see at the farm?", "options": ["A chicken", "A sheep", "A horse"], "answer": 0 },
+        { "num": 3, "question": "What does Peter want to do on his birthday?", "options": ["Play football", "Go to the zoo", "Go to the cinema"], "answer": 1 },
+        { "num": 4, "question": "What did Mary lose at the park?", "options": ["A coat", "A doll", "A scarf"], "answer": 2 },
+        { "num": 5, "question": "What does Tom have to drink?", "options": ["Milk", "Orange juice", "Lemonade"], "answer": 1 }
       ],
       "audioScript": [
-        "(Audio script to be added)",
-        "(Audio script to be added)",
-        "(Audio script to be added)",
-        "(Audio script to be added)",
-        "(Audio script to be added)"
+        "Girl: Dad, I fell off my bike!\nMan: Oh, no. Are you OK, Pat? Did you hit your head?\nGirl: No, I didn't. My head's fine. And my legs are OK too because I was wearing long trousers. But my arm hurts.\nMan: Let me see. Oh yes, let's wash it.\nGirl: Ow!",
+        "Man: Did you have a nice day at the farm?\nGirl: Yes, it was great.\nMan: Did you see any chickens?\nGirl: Yes, we did. There weren't any sheep or any horses, but we saw a lot of chickens! I gave them some food.\nMan: Good.",
+        "Woman: Do you want to do something nice for your birthday?\nBoy: Yes, I do! What can we do?\nWoman: Well, shall we go to the cinema?\nBoy: No, we did that last birthday.\nWoman: Oh yes. How about going to the sports centre with some friends?\nBoy: No, that's boring. Can we go to the zoo? Please, Mum!\nWoman: OK, let's do that. You can choose three friends to come with us.\nBoy: Thanks! You're the best mum in the world!",
+        "Man: Did you enjoy playing at the park?\nGirl: No, I didn't. I lost something that I love.\nMan: Oh no, did you lose your favourite doll?\nGirl: No, I didn't take her with me. I lost my new purple scarf.\nMan: Oh no!\nGirl: I took off my hat and coat because I was hot.\nMan: Did you lose your coat too?\nGirl: No, I found my coat, but I couldn't find my scarf.\nMan: Don't be sad. We can buy you a new one when we go to town tomorrow.",
+        "Boy: Mum, I'm thirsty. Can I have a drink?\nWoman: Yes, you can. Would you like some milk?\nBoy: No, thank you. Can I have some lemonade, please?\nWoman: We don't have any lemonade. How about some orange juice?\nBoy: Yes, please!"
       ]
     },
     {
@@ -115,23 +115,34 @@
       "instructions": "Listen and colour and write. There is one example.",
       "type": "color-write",
       "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-movers/test3/part5.mp3",
-      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/part5-scene.png",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/part5-livingroom.webp",
       "colors": ["red", "blue", "purple", "green", "pink", "yellow", "gray", "black", "orange", "brown"],
-      "example": { "item": "(To be added)", "type": "color", "answer": "red" },
-      "itemBank": [],
+      "example": { "item": "Girl's sweater (eating soup at the table)", "type": "color", "answer": "green" },
+      "itemBank": [
+        "Girl's sweater (eating soup at the table)",
+        "Lamp next to the bookcase",
+        "Bigger truck",
+        "Smaller truck",
+        "Pineapple in the fruit bowl",
+        "Picture on the wall (sun)",
+        "Dress of the girl with straight long hair",
+        "Dress of the girl with curly hair",
+        "Popcorn bucket",
+        "Boy's T-shirt"
+      ],
       "items": [
-        { "num": 1, "item": "(To be added)", "type": "color", "answer": "blue" },
-        { "num": 2, "item": "(To be added)", "type": "color", "answer": "green" },
-        { "num": 3, "item": "(To be added)", "type": "write", "answer": "word" },
-        { "num": 4, "item": "(To be added)", "type": "color", "answer": "yellow" },
-        { "num": 5, "item": "(To be added)", "type": "color", "answer": "pink" }
+        { "num": 1, "item": "Lamp next to the bookcase", "type": "color", "answer": "yellow" },
+        { "num": 2, "item": "Bigger truck", "type": "color", "answer": "blue" },
+        { "num": 3, "item": "Pineapple in the fruit bowl", "type": "color", "answer": "grey" },
+        { "num": 4, "item": "Picture on the wall (sun)", "type": "write", "answer": "sun" },
+        { "num": 5, "item": "Dress of the girl with straight long hair", "type": "color", "answer": "purple" }
       ],
       "audioScript": [
-        "(Audio script to be added)",
-        "(Audio script to be added)",
-        "(Audio script to be added)",
-        "(Audio script to be added)",
-        "(Audio script to be added)"
+        "Woman: Now, can you colour the lamp?\nBoy: Which one?\nWoman: Colour the lamp next to the bookcase. Colour it yellow.\nBoy: OK, there.\nWoman: Great, well done.",
+        "Woman: There is a little boy who is playing with his trucks.\nBoy: Yes, I can see. Can I colour one of the trucks blue?\nWoman: OK, colour the bigger one blue.\nBoy: OK.",
+        "Boy: What now?\nWoman: Can you see the fruit bowl on the table?\nBoy: Yes, I can. That's a big pineapple.\nWoman: Yes, it is. Colour it grey.\nBoy: Grey? That's a funny colour for a pineapple!\nWoman: Yes, it is.",
+        "Woman: Would you like to write something now?\nBoy: Yes, please. I love writing.\nWoman: OK, can you see the pictures on the wall?\nBoy: Yes, I can. I like the bottom picture. I think that's a picture of the sun.\nWoman: That's right. Can you write the word \"sun\" on the wall under the picture?\nBoy: Yes, I can.",
+        "Woman: And last, there are two girls who are watching TV.\nBoy: Yes, they're sitting on the sofa.\nWoman: Yes, that's right. Do you want to colour one of their dresses purple?\nBoy: Which one?\nWoman: Colour the dress of the girl with the straight long hair.\nBoy: OK, I'm doing it now."
       ]
     }
   ]
