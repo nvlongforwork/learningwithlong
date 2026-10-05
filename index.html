@@ -318,7 +318,7 @@
             </div>
             <div class="flex items-center gap-3">
                 <div id="listening-student-info" class="flex items-center gap-3 text-sm"></div>
-                <button id="btn-submit-listening" onclick="submitListeningTest()" class="py-1.5 px-4 bg-turtle-500 text-white font-semibold rounded-xl hover:bg-turtle-600 transition-all shadow hover-bounce" style="font-size:14px">
+                <button id="btn-submit-listening" onclick="submitListeningTest()" class="py-1.5 px-4 bg-turtle-500 text-white font-semibold rounded-xl hover:bg-turtle-600 transition-all shadow hover-bounce" style="font-size:20px">
                     <i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài
                 </button>
             </div>
@@ -353,7 +353,7 @@
             </div>
             <div class="flex items-center gap-3">
                 <div id="reading-student-info" class="flex items-center gap-3 text-sm"></div>
-                <button id="btn-submit-reading" onclick="submitReadingTest()" class="py-1.5 px-4 bg-turtle-500 text-white font-semibold rounded-xl hover:bg-turtle-600 transition-all shadow hover-bounce" style="font-size:14px">
+                <button id="btn-submit-reading" onclick="submitReadingTest()" class="py-1.5 px-4 bg-turtle-500 text-white font-semibold rounded-xl hover:bg-turtle-600 transition-all shadow hover-bounce" style="font-size:20px">
                     <i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài
                 </button>
             </div>
@@ -1160,7 +1160,7 @@
                     <div class="bg-slate-50 rounded-xl p-3 mb-4 border max-h-40 overflow-y-auto" style="font-size:20px">${nameList}</div>
                     <div class="flex items-center gap-2 mb-2"><p class="text-slate-500 text-sm">Link giao bài:</p><span class="text-green-500 text-sm font-medium" id="assign-copy-status"><i class="fa-solid fa-check mr-1"></i>Đã copy</span></div>
                     <div class="flex gap-2">
-                        <input type="text" value="${link}" readonly class="flex-1 px-3 py-2 border rounded-lg text-sm bg-white" id="assign-link-input" style="font-size:16px" onclick="this.select();navigator.clipboard.writeText(this.value);document.getElementById('assign-copy-status').innerHTML='<i class=\\'fa-solid fa-check mr-1\\'></i>Đã copy'">
+                        <input type="text" value="${link}" readonly class="flex-1 px-3 py-2 border rounded-lg text-sm bg-white" id="assign-link-input" style="font-size:20px" onclick="this.select();navigator.clipboard.writeText(this.value);document.getElementById('assign-copy-status').innerHTML='<i class=\\'fa-solid fa-check mr-1\\'></i>Đã copy'">
                         <button onclick="navigator.clipboard.writeText(document.getElementById('assign-link-input').value);document.getElementById('assign-copy-status').innerHTML='<i class=\\'fa-solid fa-check mr-1\\'></i>Đã copy'" class="px-4 py-2 rounded-lg text-white font-bold transition-all" style="background:var(--theme-color)"><i class="fa-solid fa-copy"></i></button>
                     </div>
                 </div>`,
