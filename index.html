@@ -2720,8 +2720,11 @@
             const letters = ['A', 'B', 'C'];
 
             let html = `<div class="max-w-2xl mx-auto">
-                <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
-                <div class="bg-blue-50 rounded-2xl p-4 border border-blue-200 mb-4">
+                <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
+            if (part.image) {
+                html += `<div class="mb-4"><img src="${part.image}" alt="Part 2" class="w-full max-w-md mx-auto rounded-2xl shadow-md border"></div>`;
+            }
+            html += `<div class="bg-blue-50 rounded-2xl p-4 border border-blue-200 mb-4">
                     <p class="text-blue-800 font-medium" style="font-size:20px;"><i class="fa-solid fa-comment-dots mr-2 text-blue-500"></i>${part.context}</p>
                 </div>`;
 
@@ -2846,8 +2849,11 @@
             const answers = readingAnswers[activeReadingPart];
 
             let html = `<div class="w-full">
-                <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
-                <div class="resp-row">`;
+                <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
+            if (part.image) {
+                html += `<div class="mb-4"><img src="${part.image}" alt="Part 4" class="w-full max-w-md mx-auto rounded-2xl shadow-md border"></div>`;
+            }
+            html += `<div class="resp-row">`;
 
             // Passage LEFT (65%) — blanks show selected word from MCQ
             html += `<div class="resp-col" style="width:65%"><div class="bg-white rounded-2xl p-6 shadow-sm border h-full"><div class="prose max-w-none leading-relaxed text-slate-700" style="font-size:20px;">`;
@@ -2957,6 +2963,10 @@
             part.storySegments.forEach((seg, sIdx) => {
                 if (seg.title) {
                     html += `<h3 class="text-2xl font-bold text-slate-800 mb-3">${seg.title}</h3>`;
+                }
+
+                if (seg.image) {
+                    html += `<div class="mb-3"><img src="${seg.image}" alt="Story illustration" class="w-full max-w-lg mx-auto rounded-2xl shadow-md border"></div>`;
                 }
 
                 html += `<div class="resp-row mb-4">`;
