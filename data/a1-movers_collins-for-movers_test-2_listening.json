@@ -121,10 +121,14 @@
       "itemBank": [
         "Clock on the wall",
         "Coat of the taller girl (curly hair, standing next to train)",
+        "Coat of the shorter girl (curly hair, standing next to train)",
         "Dog sitting under the chair",
+        "Dog next to the door",
         "Man's bag (man with curly hair and big bag)",
         "Woman's dress (woman listening to music, long straight hair)",
-        "Flower on the woman's hat (woman sitting on chair, reading a book)"
+        "Flower on the woman's hat (woman sitting on chair, reading a book)",
+        "Woman's hat (woman sitting on chair, reading a book)",
+        "Train"
       ],
       "items": [
         { "num": 1, "item": "Coat of the taller girl (curly hair, standing next to train)", "type": "color", "answer": "green" },
