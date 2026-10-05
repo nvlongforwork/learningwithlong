@@ -1,0 +1,66 @@
+{
+  "type": "listening-test",
+  "title": "Test 2 - Listening",
+  "parts": [
+    {
+      "id": "part1",
+      "title": "Part 1",
+      "questions": 5,
+      "instructions": "Listen and draw lines. There is one example.",
+      "type": "drag-match",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/part1-sports.webp",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-movers/test2/part1.mp3",
+      "names": ["Anna", "Mary", "Peter", "Kim", "Paul", "Ben", "Sue"],
+      "actions": ["is throwing a basketball at the hoop", "is hitting a ball over the net", "is kicking a football near the goal", "is playing badminton", "is sitting on the grass watching", "is sitting under the tree", "is standing near the goal"],
+      "example": { "name": "TODO", "action": "TODO" },
+      "answers": [
+        { "name": "TODO", "action": "TODO" },
+        { "name": "TODO", "action": "TODO" },
+        { "name": "TODO", "action": "TODO" },
+        { "name": "TODO", "action": "TODO" },
+        { "name": "TODO", "action": "TODO" }
+      ],
+      "audioScript": []
+    },
+    {
+      "id": "part2",
+      "title": "Part 2",
+      "questions": 5,
+      "instructions": "Listen and write. There is one example.",
+      "type": "fill-blank",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-movers/test2/part2.mp3",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/part2-weekend.webp",
+      "formTitle": "Mrs Jack's weekend",
+      "example": { "label": "Mrs Jack went to:", "prefix": "the", "answer": "mountains" },
+      "rows": [
+        { "num": 1, "label": "She went with:", "prefix": "her", "answer": "TODO" },
+        { "num": 2, "label": "Her friend's house is:", "prefix": "next to", "answer": "TODO" },
+        { "num": 3, "label": "She was there for:", "prefix": "", "answer": "TODO" },
+        { "num": 4, "label": "They went for:", "prefix": "long", "answer": "TODO" },
+        { "num": 5, "label": "She went by:", "prefix": "", "answer": "TODO" }
+      ],
+      "audioScript": []
+    },
+    {
+      "id": "part3",
+      "title": "Part 3",
+      "questions": 5,
+      "instructions": "Charlie is helping his mother at home. Where does he put these things?\nListen and write a letter in each box. There is one example.",
+      "type": "drag-match-letters",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-movers/test2/part3.mp3",
+      "peopleImage": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/part3-things.webp",
+      "activitiesImage": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/part3-places.webp",
+      "people": ["blanket", "laptop", "board game", "radio", "plant", "sweater"],
+      "options": ["A", "B", "C", "D", "E", "F", "G", "H"],
+      "example": { "person": "blanket", "answer": "F" },
+      "answers": [
+        { "person": "laptop", "answer": "TODO" },
+        { "person": "board game", "answer": "TODO" },
+        { "person": "radio", "answer": "TODO" },
+        { "person": "plant", "answer": "TODO" },
+        { "person": "sweater", "answer": "TODO" }
+      ],
+      "audioScript": []
+    }
+  ]
+}
