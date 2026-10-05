@@ -1964,15 +1964,9 @@
             let html = `<div class="mx-auto" style="max-width:1100px">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
             if (part.image) {
-                html += `<div class="resp-row">
-                    <div class="resp-col" style="width:40%">
-                        <img src="${part.image}" alt="" class="rounded-2xl shadow-sm border w-full sticky top-4" style="object-fit:contain">
-                    </div>
-                    <div class="resp-col" style="width:60%">${formHtml}</div>
-                </div>`;
-            } else {
-                html += formHtml;
+                html += `<div class="mb-4"><img src="${part.image}" alt="" class="w-full rounded-2xl shadow-md border"></div>`;
             }
+            html += formHtml;
             html += renderAudioScripts(part);
             html += `</div>`;
             content.innerHTML = html;
