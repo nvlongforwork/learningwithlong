@@ -1931,7 +1931,7 @@
                 <div class="bg-white rounded-2xl shadow-sm border p-6 sm:p-8">
                     <h3 class="text-2xl font-bold text-slate-800 text-center mb-6 pb-4 border-b">${part.formTitle}</h3>
                     <div class="space-y-5">
-                        <div class="flex items-center gap-3 bg-green-50 p-4 rounded-xl border border-green-200">
+                        <div class="flex items-center gap-3 bg-green-50 p-4 rounded-xl border border-green-200" style="font-size:20px;">
                             <span class="font-bold text-green-600 w-8 shrink-0">Ex</span>
                             <span class="text-slate-700 font-medium shrink-0">${part.example.label}</span>
                             <span class="text-green-700 shrink-0">${part.example.prefix}</span>
@@ -1942,16 +1942,16 @@
                 let inputHtml;
                 if (listeningCanReview) {
                     const isCorrect = answers[i].toLowerCase().trim() === row.answer.toLowerCase().trim();
-                    inputHtml = `<input type="text" value="${answers[i]}" readonly class="flex-1 px-3 py-2 border-2 rounded-xl font-bold ${isCorrect ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700'}">`;
+                    inputHtml = `<input type="text" value="${answers[i]}" readonly class="flex-1 px-3 py-2 border-2 rounded-xl font-bold ${isCorrect ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700'}" style="font-size:20px;">`;
                     if (!isCorrect && row.answer) {
-                        inputHtml += `<span class="text-green-600 font-bold text-sm ml-2 shrink-0"><i class="fa-solid fa-arrow-right mr-1"></i>${row.answer}</span>`;
+                        inputHtml += `<span class="text-green-600 font-bold ml-2 shrink-0" style="font-size:20px;"><i class="fa-solid fa-arrow-right mr-1"></i>${row.answer}</span>`;
                     }
                 } else {
-                    inputHtml = `<input type="text" value="${answers[i]}" ${listeningSubmitted ? 'readonly' : ''} placeholder="..." ${listeningSubmitted ? '' : `oninput="listeningAnswers[${activePart}][${i}]=this.value"`} class="flex-1 px-3 py-2 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-turtle-400 font-medium">`;
+                    inputHtml = `<input type="text" value="${answers[i]}" ${listeningSubmitted ? 'readonly' : ''} placeholder="..." ${listeningSubmitted ? '' : `oninput="listeningAnswers[${activePart}][${i}]=this.value"`} class="flex-1 px-3 py-2 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
                 }
 
                 formHtml += `
-                        <div class="flex items-center gap-3 p-4 rounded-xl border ${listeningSubmitted ? '' : 'hover:bg-slate-50'}">
+                        <div class="flex items-center gap-3 p-4 rounded-xl border ${listeningSubmitted ? '' : 'hover:bg-slate-50'}" style="font-size:20px;">
                             <span class="font-bold text-turtle-600 w-8 shrink-0">${row.num}</span>
                             <span class="text-slate-700 font-medium shrink-0">${row.label}</span>
                             ${row.prefix ? `<span class="text-slate-500 shrink-0">${row.prefix}</span>` : ''}
