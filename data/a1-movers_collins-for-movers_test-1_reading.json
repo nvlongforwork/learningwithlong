@@ -34,6 +34,7 @@
       "questions": 6,
       "instructions": "Read the text and choose the best answer.",
       "type": "conversation-choice",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test1/part2-conversation.webp",
       "context": "Paul is telling his friend Daisy about a film he saw at the cinema.",
       "example": {
         "speaker": "Daisy",
@@ -105,6 +106,7 @@
       "questions": 5,
       "instructions": "Read the text. Choose the correct words and write them on the lines.",
       "type": "grammar-cloze",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test1/part4-sandwiches.webp",
       "storyParts": [
         "Sandwiches",
         "You make a sandwich with bread. You can put cheese, fish, meat or salad %%example%% sandwiches. Children sometimes take sandwiches (1) %%blank%% school. People sometimes eat sandwiches when they have a picnic.",
@@ -129,6 +131,7 @@
       "storySegments": [
         {
           "title": "Jane and Mr Sam",
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test1/part5-story1.webp",
           "text": "Last week, Jane went for a drive with her parents. They put a big picnic in the car. Dad drove and Jane listened to music. They got to the forest and they went for a long walk. Jane saw a small pink house by a river.\n\n\"Whose house is that?\" asked Jane. \"I don't know,\" said Mum.\n\nThey stopped and ate their picnic. Then they sat under a tree and Jane listened to Mum who told her a story.\n\n\"There was a little girl called Jane who went for a walk in a forest and saw a nice bear called Mr Sam...\"\n\nJane was very tired. She closed her eyes and slept. She started to dream.",
           "examples": [
             { "sentence": "Jane and her parents went for a drive %%answer%% .", "answer": "last week" },
@@ -140,6 +143,7 @@
           ]
         },
         {
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test1/part5-story2.webp",
           "text": "\"Hello, Jane,\" said a nice big brown bear, \"my name is Mr Sam.\"\n\n\"I know,\" answered Jane. \"My mum told me about you.\"\n\n\"Would you like to see my house?\" asked Mr Sam.\n\n\"Yes, please,\" said Jane.\n\nMr Sam showed Jane his small pink house, which was next to a river.\n\n\"What a great house!\" said Jane.\n\nThey went inside and had some cake and milk. Mr Sam gave Jane his old scarf to wear because she was cold. It was purple and white.\n\n\"You can take my old scarf home, Jane,\" said Mr Sam. \"It's a present.\"\n\n\"Thank you,\" said Jane. \"I love it.\"",
           "questions": [
             { "num": 3, "sentence": "Jane had a dream and talked to a bear who was called %%blank%% .", "answer": "Mr Sam" },
@@ -148,6 +152,7 @@
           ]
         },
         {
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test1/part5-story3.webp",
           "text": "Then Jane woke up and said to her mother, \"Where did Mr Sam go?\"\n\n\"Mr Sam isn't here, Jane. He's only in a story.\"\n\nJane told her mum that she went to Mr Sam's small house in the forest.\n\n\"It was a dream,\" said Mum. \"Come on, let's go home.\"\n\nJane was sad because she liked Mr Sam. Then she saw the purple and white scarf, which was round her neck. She looked at the forest again and saw the nice big brown bear behind a tree.\n\n\"Goodbye, Mr Sam,\" Jane said very quietly. \"Thank you again for the beautiful scarf.\"\n\nMr Sam smiled at her and waved goodbye.",
           "questions": [
             { "num": 6, "sentence": "When Jane %%blank%% , she asked for Mr Sam and her mum said he was only a bear in a story.", "answer": "woke up" },
