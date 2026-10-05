@@ -4409,35 +4409,85 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             const studentEng = currentStudent && currentStudent.englishName ? ` (${currentStudent.englishName})` : '';
             const studentClass = currentStudent ? currentStudent.class : '';
 
-            const allParts = [
-                ...lisPartScores.map(p => ({ title: `<i class="fa-solid fa-headphones" style="margin-right:4px;color:#0891b2"></i>${p.title}`, correct: p.score, total: p.total })),
-                ...readPartScores.map(p => ({ title: `<i class="fa-solid fa-book-open" style="margin-right:4px;color:#7c3aed"></i>${p.title}`, correct: p.correct, total: p.total }))
-            ];
+            const matName = getMaterialDisplayName();
+            const matColor = getMaterialColor();
+            const totalColor = grandPct >= 80 ? '#22c55e' : grandPct >= 50 ? '#eab308' : '#ef4444';
+            const emoji = grandPct >= 80 ? '🎉' : grandPct >= 50 ? '👍' : '💪';
+            const ringPct = Math.min(grandPct, 100);
+            const circumference = 2 * Math.PI * 54;
+            const offset = circumference - (ringPct / 100) * circumference;
 
-            const resultHtml = buildResultCard({
-                testTitle: ftReadingData.title.replace(/ - .*/, ''),
-                skillLabel: 'Full Test',
-                partScores: allParts,
-                totalScore: grandTotal,
-                totalMax: grandMax,
-                pct: grandPct,
-                shields: null,
-                studentName, studentEng, studentClass, timeStr,
-                reviewBtnId: 'btn-review-fulltest',
-                saveBtnId: 'btn-save-fulltest'
-            }).replace('</table>', `</table>
-                ${listeningShieldsCount !== null ? `<div style="display:flex;gap:8px;justify-content:center;margin:8px 0 4px">
-                    <div style="flex:1;text-align:center;padding:10px;background:linear-gradient(135deg,#ecfeff,#cffafe);border-radius:12px;border:1px solid #a5f3fc">
-                        <div style="font-size:20px;font-weight:700;color:#0891b2;margin-bottom:4px"><i class="fa-solid fa-headphones" style="margin-right:3px"></i>Listening: ${lisScore}/${lisMax}</div>
-                        <div>${renderShieldIcons(listeningShieldsCount)}</div>
-                        <div style="font-size:20px;font-weight:800;color:#b45309;margin-top:2px">${listeningShieldsCount}/5</div>
+            const lisPct = lisMax > 0 ? Math.round((lisScore / lisMax) * 100) : 0;
+            const readPct = readMax > 0 ? Math.round((readScore / readMax) * 100) : 0;
+
+            const buildPartRows = (scores, type) => scores.filter(ps => ps.total > 0).map(ps => {
+                const sc = type === 'lis' ? ps.score : ps.correct;
+                const pp = Math.round((sc / ps.total) * 100);
+                const c = pp >= 80 ? '#22c55e' : pp >= 50 ? '#f59e0b' : '#ef4444';
+                return `<tr style="border-bottom:1px solid #f1f5f9">
+                    <td style="padding:10px 14px;font-weight:600;color:#334155;font-size:20px">${ps.title}</td>
+                    <td style="padding:10px 14px;text-align:center;font-weight:700;color:#1e293b;font-size:20px">${sc}/${ps.total}</td>
+                    <td style="padding:10px 14px;text-align:center"><span style="background:${c};color:white;padding:3px 12px;border-radius:20px;font-weight:700;font-size:20px">${pp}%</span></td>
+                </tr>`;
+            }).join('');
+
+            const lisColor = lisPct >= 80 ? '#22c55e' : lisPct >= 50 ? '#f59e0b' : '#ef4444';
+            const readColor = readPct >= 80 ? '#22c55e' : readPct >= 50 ? '#f59e0b' : '#ef4444';
+
+            const resultHtml = `
+            <div id="result-card" style="font-family:Inter,sans-serif;text-align:left;max-width:1080px;margin:0 auto;display:flex;flex-direction:column;padding:10px">
+                <div style="background:linear-gradient(135deg, ${matColor}, ${matColor}dd);border-radius:20px;padding:20px 30px;text-align:center;color:white;position:relative;overflow:hidden">
+                    <div style="position:absolute;top:-30px;right:-30px;width:150px;height:150px;background:rgba(255,255,255,0.1);border-radius:50%"></div>
+                    <div style="font-size:20px;text-transform:uppercase;letter-spacing:3px;opacity:0.9;margin-bottom:4px;font-weight:700">${matName}</div>
+                    <div style="font-size:26px;font-weight:800;margin-bottom:4px">${ftReadingData.title.replace(/ - .*/, '')}</div>
+                    <div style="font-size:20px;opacity:0.85;font-weight:500"><i class="fa-solid fa-clipboard-list" style="margin-right:6px"></i>Full Test</div>
+                </div>
+                <div style="text-align:center;margin:10px 0 8px">
+                    <div style="font-size:22px;font-weight:800;color:#1e293b">${studentName}${studentEng}</div>
+                    <div style="font-size:20px;color:#64748b;margin-top:2px">
+                        ${studentClass ? `<i class="fa-solid fa-school" style="margin-right:4px"></i>${studentClass} &nbsp;|&nbsp;` : ''}
+                        <i class="fa-solid fa-clock" style="margin-right:4px"></i>${timeStr}
                     </div>
-                    <div style="flex:1;text-align:center;padding:10px;background:linear-gradient(135deg,#faf5ff,#f3e8ff);border-radius:12px;border:1px solid #d8b4fe">
-                        <div style="font-size:20px;font-weight:700;color:#7c3aed;margin-bottom:4px"><i class="fa-solid fa-book-open" style="margin-right:3px"></i>Reading: ${readScore}/${readMax}</div>
-                        <div>${renderShieldIcons(readingShieldsCount)}</div>
-                        <div style="font-size:20px;font-weight:800;color:#b45309;margin-top:2px">${readingShieldsCount}/5</div>
+                </div>
+                <div style="display:flex;gap:16px;align-items:flex-start;margin:8px 0">
+                    <div style="flex:0 0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 8px">
+                        <svg width="160" height="160" viewBox="0 0 130 130" style="display:inline-block">
+                            <circle cx="65" cy="65" r="54" fill="none" stroke="#e2e8f0" stroke-width="10"/>
+                            <circle cx="65" cy="65" r="54" fill="none" stroke="${totalColor}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${circumference}" stroke-dashoffset="${offset}" transform="rotate(-90 65 65)"/>
+                            <text x="65" y="58" text-anchor="middle" style="font-size:32px;font-weight:800;fill:${totalColor}">${grandPct}%</text>
+                            <text x="65" y="78" text-anchor="middle" style="font-size:20px;font-weight:600;fill:#64748b">${grandTotal}/${grandMax}</text>
+                        </svg>
+                        <div style="font-size:28px;margin-top:2px">${emoji}</div>
                     </div>
-                </div>` : ''}`);
+                    <div style="flex:1;display:flex;gap:10px;min-width:0">
+                        <div style="flex:1;min-width:0">
+                            <div style="text-align:center;padding:10px;background:linear-gradient(135deg,#ecfeff,#cffafe);border-radius:14px 14px 0 0;border:1px solid #a5f3fc;border-bottom:none">
+                                <div style="font-size:20px;font-weight:800;color:#0891b2"><i class="fa-solid fa-headphones" style="margin-right:4px"></i>Listening</div>
+                                <div style="font-size:22px;font-weight:800;color:#1e293b;margin-top:2px">${lisScore}/${lisMax} <span style="background:${lisColor};color:white;padding:2px 10px;border-radius:12px;font-size:20px;margin-left:4px">${lisPct}%</span></div>
+                                ${listeningShieldsCount !== null ? `<div style="margin-top:4px">${renderShieldIcons(listeningShieldsCount)} <span style="font-size:20px;font-weight:800;color:#b45309;margin-left:4px">${listeningShieldsCount}/5</span></div>` : ''}
+                            </div>
+                            <table style="width:100%;border-collapse:collapse;border:1px solid #a5f3fc;border-top:none;border-radius:0 0 14px 14px;overflow:hidden">
+                                <tbody>${buildPartRows(lisPartScores, 'lis')}</tbody>
+                            </table>
+                        </div>
+                        <div style="flex:1;min-width:0">
+                            <div style="text-align:center;padding:10px;background:linear-gradient(135deg,#faf5ff,#f3e8ff);border-radius:14px 14px 0 0;border:1px solid #d8b4fe;border-bottom:none">
+                                <div style="font-size:20px;font-weight:800;color:#7c3aed"><i class="fa-solid fa-book-open" style="margin-right:4px"></i>Reading</div>
+                                <div style="font-size:22px;font-weight:800;color:#1e293b;margin-top:2px">${readScore}/${readMax} <span style="background:${readColor};color:white;padding:2px 10px;border-radius:12px;font-size:20px;margin-left:4px">${readPct}%</span></div>
+                                ${readingShieldsCount !== null ? `<div style="margin-top:4px">${renderShieldIcons(readingShieldsCount)} <span style="font-size:20px;font-weight:800;color:#b45309;margin-left:4px">${readingShieldsCount}/5</span></div>` : ''}
+                            </div>
+                            <table style="width:100%;border-collapse:collapse;border:1px solid #d8b4fe;border-top:none;border-radius:0 0 14px 14px;overflow:hidden">
+                                <tbody>${buildPartRows(readPartScores, 'read')}</tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                ${(!isTeacherMode && grandPct < 80) ? `<div style="text-align:center;margin-top:8px;padding:10px 20px;background:#fef2f2;border:1px solid #fecaca;border-radius:12px;color:#dc2626;font-size:20px;font-weight:600"><i class="fa-solid fa-lock" style="margin-right:6px"></i>Đạt từ 80% trở lên để xem đáp án</div>` : ''}
+                <div style="display:flex;gap:12px;justify-content:center;margin-top:12px">
+                    <button id="btn-review-fulltest" ${(!isTeacherMode && grandPct < 80) ? 'disabled' : ''} style="padding:14px 28px;background:${(!isTeacherMode && grandPct < 80) ? '#94a3b8' : `linear-gradient(135deg,${matColor},${matColor}cc)`};color:white;border:none;border-radius:14px;font-weight:700;cursor:${(!isTeacherMode && grandPct < 80) ? 'not-allowed' : 'pointer'};font-size:20px;box-shadow:0 4px 12px ${(!isTeacherMode && grandPct < 80) ? 'rgba(0,0,0,0.1)' : `${matColor}40`};opacity:${(!isTeacherMode && grandPct < 80) ? '0.6' : '1'}"><i class="fa-solid fa-${(!isTeacherMode && grandPct < 80) ? 'lock' : 'eye'}" style="margin-right:8px"></i>Xem lại bài làm</button>
+                    <button id="btn-save-fulltest" style="padding:14px 28px;background:linear-gradient(135deg,#6366f1,#818cf8);color:white;border:none;border-radius:14px;font-weight:700;cursor:pointer;font-size:20px;box-shadow:0 4px 12px rgba(99,102,241,0.3)"><i class="fa-solid fa-download" style="margin-right:8px"></i>Lưu kết quả</button>
+                </div>
+            </div>`;
 
             ftCanReview = isTeacherMode || grandPct >= 80;
             listeningCanReview = ftCanReview;
