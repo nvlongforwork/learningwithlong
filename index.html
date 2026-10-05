@@ -2838,6 +2838,7 @@
                 part.storyParts.forEach(para => {
                     let rendered = para;
                     rendered = rendered.replace('%%example%%', `<span class="font-bold text-green-700 border-b-2 border-green-400 px-1">${part.example.options[part.example.answer]}</span>`);
+                    rendered = rendered.replace(/\(\d+\)\s*%%blank%%/g, '%%blank%%');
                     rendered = rendered.replace(/%%blank%%/g, () => {
                         const i = blankIdx++;
                         const item = part.items[i];
@@ -2846,12 +2847,12 @@
                             const correctWord = item.options[item.answer];
                             const selectedWord = answers[i] >= 0 ? item.options[answers[i]] : '—';
                             const isCorrect = answers[i] === item.answer;
-                            let h = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${selectedWord}</span>`;
+                            let h = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">(${item.num}) ${selectedWord}</span>`;
                             if (!isCorrect) h += `<span class="text-green-600 font-bold text-sm ml-1">${correctWord}</span>`;
                             return h;
                         } else {
                             const selectedWord = answers[i] >= 0 ? item.options[answers[i]] : '';
-                            return `<span id="gc-blank-${i}" class="inline-block min-w-[80px] px-2 py-0.5 border-2 ${selectedWord ? 'border-turtle-400 bg-turtle-50 text-turtle-700' : 'border-dashed border-slate-300 text-slate-400'} rounded-lg font-bold text-center cursor-default" style="font-size:20px;">${selectedWord || '...'}</span>`;
+                            return `<span class="text-turtle-600 font-bold">(${item.num})</span> <span id="gc-blank-${i}" class="inline-block min-w-[80px] px-2 py-0.5 border-2 ${selectedWord ? 'border-turtle-400 bg-turtle-50 text-turtle-700' : 'border-dashed border-slate-300 text-slate-400'} rounded-lg font-bold text-center cursor-default" style="font-size:20px;">${selectedWord || '...'}</span>`;
                         }
                     });
                     html += `<p class="mb-3">${rendered}</p>`;
@@ -3028,7 +3029,7 @@
                     }
                 }
 
-                const pointsBadge = item.points && item.points > 1 ? `<span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded-lg font-bold text-xs ml-2">${item.points} điểm</span>` : '';
+                const pointsBadge = '';
                 html += `<div class="bg-white rounded-xl p-4 border shadow-sm" style="font-size:20px;">
                     <span class="font-bold text-turtle-600 mr-2">${item.num}.</span>${pointsBadge}
                     ${questionHtml}
