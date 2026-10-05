@@ -2834,24 +2834,26 @@
                 }).replace(/\n\n/g, '</p><p class="mb-3">').replace(/\n/g, '<br>');
                 html += `<p class="mb-3">${rendered}</p>`;
             } else if (part.storyParts) {
+                let blankIdx = 0;
                 part.storyParts.forEach(para => {
                     let rendered = para;
                     rendered = rendered.replace('%%example%%', `<span class="font-bold text-green-700 border-b-2 border-green-400 px-1">${part.example.options[part.example.answer]}</span>`);
-                    for (let i = 0; i < part.items.length; i++) {
+                    rendered = rendered.replace(/%%blank%%/g, () => {
+                        const i = blankIdx++;
                         const item = part.items[i];
-                        let blankHtml;
+                        if (!item) return '...';
                         if (readingCanReview) {
                             const correctWord = item.options[item.answer];
                             const selectedWord = answers[i] >= 0 ? item.options[answers[i]] : '—';
                             const isCorrect = answers[i] === item.answer;
-                            blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">(${item.num}) ${selectedWord}</span>`;
-                            if (!isCorrect) blankHtml += `<span class="text-green-600 font-bold text-sm ml-1">${correctWord}</span>`;
+                            let h = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">(${item.num}) ${selectedWord}</span>`;
+                            if (!isCorrect) h += `<span class="text-green-600 font-bold text-sm ml-1">${correctWord}</span>`;
+                            return h;
                         } else {
                             const selectedWord = answers[i] >= 0 ? item.options[answers[i]] : '';
-                            blankHtml = `<span class="text-turtle-600 font-bold">(${item.num})</span> <span id="gc-blank-${i}" class="inline-block min-w-[80px] px-2 py-0.5 border-2 ${selectedWord ? 'border-turtle-400 bg-turtle-50 text-turtle-700' : 'border-dashed border-slate-300 text-slate-400'} rounded-lg font-bold text-center cursor-default" style="font-size:20px;">${selectedWord || '...'}</span>`;
+                            return `<span class="text-turtle-600 font-bold">(${item.num})</span> <span id="gc-blank-${i}" class="inline-block min-w-[80px] px-2 py-0.5 border-2 ${selectedWord ? 'border-turtle-400 bg-turtle-50 text-turtle-700' : 'border-dashed border-slate-300 text-slate-400'} rounded-lg font-bold text-center cursor-default" style="font-size:20px;">${selectedWord || '...'}</span>`;
                         }
-                        rendered = rendered.replace('%%blank%%', blankHtml);
-                    }
+                    });
                     html += `<p class="mb-3">${rendered}</p>`;
                 });
             }
