@@ -11,16 +11,22 @@
       "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/part1-sports.webp",
       "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-movers/test2/part1.mp3",
       "names": ["Anna", "Mary", "Peter", "Kim", "Paul", "Ben", "Sue"],
-      "actions": ["is throwing a basketball at the hoop", "is hitting a ball over the net", "is kicking a football near the goal", "is playing badminton", "is sitting on the grass watching", "is sitting under the tree", "is standing near the goal"],
-      "example": { "name": "TODO", "action": "TODO" },
+      "actions": ["is sitting under the tree", "is playing basketball", "is playing football (green T-shirt)", "is playing tennis", "is playing football (red trousers)", "is watching the basketball game", "is playing badminton"],
+      "example": { "name": "Mary", "action": "is playing basketball" },
       "answers": [
-        { "name": "TODO", "action": "TODO" },
-        { "name": "TODO", "action": "TODO" },
-        { "name": "TODO", "action": "TODO" },
-        { "name": "TODO", "action": "TODO" },
-        { "name": "TODO", "action": "TODO" }
+        { "name": "Peter", "action": "is playing football (green T-shirt)" },
+        { "name": "Ben", "action": "is playing football (red trousers)" },
+        { "name": "Sue", "action": "is playing tennis" },
+        { "name": "Anna", "action": "is sitting under the tree" },
+        { "name": "Kim", "action": "is watching the basketball game" }
       ],
-      "audioScript": []
+      "audioScript": [
+        "Boy: My best friend Peter is playing football.\nWoman: Which one's he?\nBoy: He's the one who's wearing a green T-shirt. He's got short black hair.\nWoman: Oh yes, I can see him.\nBoy: He's very good at football.",
+        "Woman: There's another boy playing football.\nBoy: The one who's wearing the red trousers?\nWoman: Yes. What's his name?\nBoy: He's called Ben. He's in my class at school.\nWoman: Mmm.",
+        "Boy: Look at Sue.\nWoman: What's she doing?\nBoy: She's playing tennis. She's the tallest girl in our class.\nWoman: Oh yes, I can see her. Is she wearing a pink skirt?\nBoy: Yes, that's right.",
+        "Woman: One child isn't doing sports.\nBoy: Who do you mean?\nWoman: That girl who's sitting under the tree.\nBoy: Oh yes, that's Anna. I think she was tired.\nWoman: Yes.",
+        "Boy: And there's my cousin, Kim.\nWoman: Which one's she?\nBoy: She's watching the basketball game. She's the girl with the shorter hair who's smiling. Can you see her?\nWoman: Oh yes. Is she wearing a purple hat?\nBoy: Yes, she is."
+      ]
     },
     {
       "id": "part2",
@@ -33,13 +39,19 @@
       "formTitle": "Mrs Jack's weekend",
       "example": { "label": "Mrs Jack went to:", "prefix": "the", "answer": "mountains" },
       "rows": [
-        { "num": 1, "label": "She went with:", "prefix": "her", "answer": "TODO" },
-        { "num": 2, "label": "Her friend's house is:", "prefix": "next to", "answer": "TODO" },
-        { "num": 3, "label": "She was there for:", "prefix": "", "answer": "TODO" },
-        { "num": 4, "label": "They went for:", "prefix": "long", "answer": "TODO" },
-        { "num": 5, "label": "She went by:", "prefix": "", "answer": "TODO" }
+        { "num": 1, "label": "She went with:", "prefix": "her", "answer": "brother" },
+        { "num": 2, "label": "Her friend's house is:", "prefix": "next to", "answer": "Calm" },
+        { "num": 3, "label": "She was there for:", "prefix": "", "answer": "two" },
+        { "num": 4, "label": "They went for:", "prefix": "long", "answer": "walks" },
+        { "num": 5, "label": "She went by:", "prefix": "", "answer": "train" }
       ],
-      "audioScript": []
+      "audioScript": [
+        "Woman: Any more questions?\nBoy: Yes! Who did you go with?\nWoman: I went with my brother.\nBoy: What's he called?\nWoman: His name is Peter.",
+        "Boy: And where did you sleep?\nWoman: We slept at my friend's house which is next to a lake.\nBoy: What's the lake called Mrs Jack?\nWoman: It's called Calm Lake.\nBoy: Can you spell that, please?\nWoman: Yes, it's C-A-L-M.\nBoy: Thanks.",
+        "Boy: How many nights did you sleep there?\nWoman: We were there for two nights, Friday and Saturday.\nBoy: Did you want to come home?\nWoman: Yes, I did! I wanted to come and tell you about it.",
+        "Boy: What did you do in the mountains?\nWoman: We went for long walks. It was very beautiful. I saw lots of rivers and waterfalls too.\nBoy: Mmm, I love waterfalls!\nWoman: Me too!",
+        "Boy: And did you go by car to the mountains?\nWoman: No, we went by train because it's quicker than the car.\nBoy: OK. Thanks. I don't have any more questions."
+      ]
     },
     {
       "id": "part3",
@@ -54,13 +66,80 @@
       "options": ["A", "B", "C", "D", "E", "F", "G", "H"],
       "example": { "person": "blanket", "answer": "F" },
       "answers": [
-        { "person": "laptop", "answer": "TODO" },
-        { "person": "board game", "answer": "TODO" },
-        { "person": "radio", "answer": "TODO" },
-        { "person": "plant", "answer": "TODO" },
-        { "person": "sweater", "answer": "TODO" }
+        { "person": "sweater", "answer": "A" },
+        { "person": "board game", "answer": "E" },
+        { "person": "plant", "answer": "H" },
+        { "person": "laptop", "answer": "G" },
+        { "person": "radio", "answer": "B" }
       ],
-      "audioScript": []
+      "audioScript": [
+        "Boy: What shall I do now?\nWoman: Can you see that blue sweater on the floor, next to the bookcase?\nBoy: Yes, I can.\nWoman: Can you put that on the stairs?\nBoy: Yes, OK.\nWoman: Thank you.",
+        "Boy: What about this board game? Shall I put it in the cupboard?\nWoman: No, your sister wants to play with that today. Put it on the table over there.\nBoy: Shall I put it here? Next to the lamp?\nWoman: Yes, that's right. Thank you.",
+        "Boy: This plant needs some water, Mum.\nWoman: Yes, you're right.\nBoy: Shall I put it in the shower?!\nWoman: No, Charlie! Give it some water, then put it on the kitchen table, next to the bowl of fruit.\nBoy: OK, Mum.",
+        "Boy: Where shall I put your laptop, Mum?\nWoman: Oh, I'm not going to use it today. Can you put it in the cupboard, please?\nBoy: The cupboard in the living room?\nWoman: Yes, that's right. Thanks.",
+        "Boy: What about the radio, Mum? Where shall I put that?\nWoman: Put it on the bookcase, please.\nBoy: Shall I put it here? On top?\nWoman: Yes, that's great. Thank you for all your help."
+      ]
+    },
+    {
+      "id": "part4",
+      "title": "Part 4",
+      "questions": 5,
+      "instructions": "Listen and tick (✓) the box. There is one example.",
+      "type": "multiple-choice-abc",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-movers/test2/part4.mp3",
+      "images": ["https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/part4-page1.webp", "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/part4-page2.webp"],
+      "example": {
+        "question": "What pet does Sally want to get?",
+        "options": ["A kitten", "A puppy", "A mouse"],
+        "answer": 2
+      },
+      "items": [
+        { "num": 1, "question": "Where's Alex now?", "options": ["At school", "In the park", "At the supermarket"], "answer": 1 },
+        { "num": 2, "question": "Which is Pat's teacher?", "options": ["Woman with curly black hair and green sweater", "Woman with curly red hair and green jacket", "Woman with purple glasses"], "answer": 0 },
+        { "num": 3, "question": "What's the weather like today?", "options": ["Raining", "Sunny", "Cloudy and cold"], "answer": 2 },
+        { "num": 4, "question": "What's the film that Jane is watching about?", "options": ["Pirates", "A girl who's good at dancing", "Monsters"], "answer": 1 },
+        { "num": 5, "question": "Where's Jill's homework?", "options": ["Under a towel", "In her school bag", "On her desk"], "answer": 0 }
+      ],
+      "audioScript": [
+        "Boy: Hi, Mum.\nWoman: Hi, Alex. Where are you? Are you at school?\nBoy: No, I'm not. I'm playing football in the park with my friends. Shall I come home now, Mum?\nWoman: Yes, please. Can you buy some milk from the supermarket before you come home?\nBoy: OK.\nWoman: Thanks.",
+        "Girl: Look at this school picture. You can see all the children and teachers at my school.\nWoman: Wow! Which one is your teacher? Is she the one with the curly red hair who is wearing a green jacket?\nGirl: No, she has curly black hair. And she's wearing a green sweater.\nWoman: Hmm, is she the one with the big purple glasses?\nGirl: No, that's not her. My teacher doesn't wear glasses.\nWoman: Oh yes, I see her. She's smiling.\nGirl: Yes, that's her.",
+        "Woman: Wake up, Jim.\nBoy: Good morning, Mum.\nWoman: Get dressed quickly.\nBoy: Is it raining like yesterday?\nWoman: No. It was sunny when I woke up. But now it's cloudy and cold. Wear some trousers and a sweater.\nBoy: OK.",
+        "Boy: Jane, what are you doing?\nGirl: I'm watching a film.\nBoy: Can I watch it too? Is it about pirates?\nGirl: No, I don't like pirate films. It's about a girl who's very good at dancing.\nBoy: Boring! I want to watch a film about monsters.\nGirl: Well, you can't! Now, be quiet, I'm trying to listen.",
+        "Girl: Dad, where's my homework? I have to give it to my teacher today. I thought it was in my school bag. But I can't see it there.\nMan: I saw it upstairs on your desk yesterday.\nGirl: I looked there. It isn't in my room.\nMan: Oh, here it is. Why was it under your towel?\nGirl: Oh yes! I had it in my hand when I went to wash my face! Thanks, Dad!"
+      ]
+    },
+    {
+      "id": "part5",
+      "title": "Part 5",
+      "questions": 5,
+      "instructions": "Listen and colour and write. There is one example.",
+      "type": "color-write",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-movers/test2/part5.mp3",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/part5-station.webp",
+      "colors": ["red", "blue", "purple", "green", "pink", "yellow", "gray", "black", "orange", "brown"],
+      "example": { "item": "Clock on the wall", "type": "color", "answer": "pink" },
+      "itemBank": [
+        "Clock on the wall",
+        "Coat of the taller girl (curly hair, standing next to train)",
+        "Dog sitting under the chair",
+        "Man's bag (man with curly hair and big bag)",
+        "Woman's dress (woman listening to music, long straight hair)",
+        "Flower on the woman's hat (woman sitting on chair, reading a book)"
+      ],
+      "items": [
+        { "num": 1, "item": "Coat of the taller girl (curly hair, standing next to train)", "type": "color", "answer": "green" },
+        { "num": 2, "item": "Dog sitting under the chair", "type": "color", "answer": "brown" },
+        { "num": 3, "item": "Man's bag (man with curly hair)", "type": "write", "answer": "bag" },
+        { "num": 4, "item": "Woman's dress (woman listening to music)", "type": "color", "answer": "orange" },
+        { "num": 5, "item": "Flower on the woman's hat", "type": "color", "answer": "yellow" }
+      ],
+      "audioScript": [
+        "Girl: What shall I colour now?\nMan: Could you colour one of the people's coats?\nGirl: OK. Which one?\nMan: Can you see the two girls with curly hair who are standing next to the train?\nGirl: Yes, I can.\nMan: Colour the coat of the taller girl green.\nGirl: OK.",
+        "Man: Can you see the two dogs in the picture?\nGirl: Yes, I can. I love dogs.\nMan: Which dog would you like to colour? Do you want to colour the one that's next to the door?\nGirl: No, I want to colour the one that's sitting under the chair! It has a sad face.\nMan: OK, colour that one brown.",
+        "Man: Now, would you like to write something for me?\nGirl: Yes, OK.\nMan: Can you see the man with curly hair?\nGirl: Yes, I can. He has a big bag.\nMan: Yes, he does. Can you write the word \"bag\" on it?\nGirl: Yes, I'm writing \"bag\" on the bag!\nMan: Well done!",
+        "Man: There's a woman who's listening to music.\nGirl: Oh yes, I can see her. She has long straight hair.\nMan: Yes, that's right.\nGirl: She's wearing a beautiful dress.\nMan: Yes, she is. Colour her dress orange.\nGirl: OK. That's a good colour for it.",
+        "Man: One last thing now... what can we have?\nGirl: Can I colour that woman's funny hat?\nMan: Do you mean the woman who's sitting on the chair and reading a book?\nGirl: Yes, she has a flower on her hat. Can I colour the flower yellow?\nMan: OK. The picture is much better now!"
+      ]
     }
   ]
 }
