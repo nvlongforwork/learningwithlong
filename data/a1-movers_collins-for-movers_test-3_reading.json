@@ -34,6 +34,7 @@
       "questions": 6,
       "instructions": "Read the text and choose the best answer.",
       "type": "conversation-choice",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test3/part2-conversation.webp",
       "context": "Fred is asking his friend Sally about her day.",
       "example": {
         "speaker": "Fred",
