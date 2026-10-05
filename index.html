@@ -338,6 +338,42 @@
         </footer>
     </section>
 
+    <section id="view-fulltest" class="view-section fixed inset-0 z-[100] bg-slate-50 flex-col overflow-hidden" style="display: none;">
+        <header class="bg-white px-4 py-3 shadow-sm flex items-center justify-between shrink-0 z-10">
+            <div class="flex items-center gap-3">
+                <button onclick="closeFullTest()" class="w-10 h-10 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-500 transition-colors">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+                <h2 id="fulltest-title" class="text-lg font-bold text-slate-800 hidden sm:block"></h2>
+                <div class="flex items-center gap-1 ml-2">
+                    <button onclick="toggleHighlight('yellow')" id="hl-yellow-fulltest" class="hl-btn w-8 h-8 rounded-full border-2 border-transparent hover:border-slate-400 transition-all flex items-center justify-center" style="background:#fef08a" title="Highlight vàng"><i class="fa-solid fa-highlighter" style="font-size:12px;color:#a16207"></i></button>
+                    <button onclick="toggleHighlight('green')" id="hl-green-fulltest" class="hl-btn w-8 h-8 rounded-full border-2 border-transparent hover:border-slate-400 transition-all flex items-center justify-center" style="background:#bbf7d0" title="Highlight xanh"><i class="fa-solid fa-highlighter" style="font-size:12px;color:#15803d"></i></button>
+                    <button onclick="removeHighlight()" class="w-8 h-8 rounded-full border-2 border-transparent hover:border-slate-400 transition-all flex items-center justify-center bg-slate-100" title="Xoá highlight"><i class="fa-solid fa-eraser" style="font-size:12px;color:#64748b"></i></button>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div id="fulltest-student-info" class="flex items-center gap-3 text-sm"></div>
+                <button id="btn-submit-fulltest" onclick="submitFullTest()" class="py-1.5 px-4 bg-turtle-500 text-white font-semibold rounded-xl hover:bg-turtle-600 transition-all shadow hover-bounce" style="font-size:20px">
+                    <i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài
+                </button>
+            </div>
+        </header>
+        <div id="fulltest-skill-tabs" class="bg-white border-b px-4 py-2 flex gap-2 shrink-0"></div>
+        <div id="fulltest-part-tabs" class="bg-slate-50 border-b px-4 py-2 flex gap-2 shrink-0"></div>
+        <div id="fulltest-audio-box" class="bg-slate-100 px-4 py-3 border-b shrink-0 flex items-center justify-center" style="display:none">
+            <audio id="fulltest-audio-player" controls class="w-full max-w-xl h-10"></audio>
+        </div>
+        <div id="fulltest-content" class="flex-1 overflow-y-auto p-2 sm:p-4 custom-scrollbar"></div>
+        <footer class="bg-white border-t p-3 sm:p-5 shrink-0 flex items-center justify-between z-10">
+            <button id="btn-back-fulltest" onclick="navFullTestPart(-1)" class="py-2 px-5 bg-slate-200 text-slate-700 font-semibold rounded-xl hover:bg-slate-300 transition-all">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Back
+            </button>
+            <button id="btn-next-fulltest" onclick="navFullTestPart(1)" class="py-2 px-5 bg-turtle-500 text-white font-semibold rounded-xl hover:bg-turtle-600 transition-all shadow">
+                Next <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+        </footer>
+    </section>
+
     <section id="view-reading" class="view-section fixed inset-0 z-[100] bg-slate-50 flex-col overflow-hidden" style="display: none;">
         <header class="bg-white px-4 py-3 shadow-sm flex items-center justify-between shrink-0 z-10">
             <div class="flex items-center gap-3">
@@ -1233,10 +1269,7 @@
                     Swal.close();
 
                     fullTestMode = true;
-                    fullTestReadingData = readData;
-                    fullTestReadingTitle = title;
-                    fullTestListeningScore = null;
-                    askStudentCode(lisData, title, 'listening');
+                    askStudentCode({ _ftLis: lisData, _ftRead: readData }, title, 'fulltest');
                     return;
                 } catch (err) {
                     Swal.fire({ title: 'Lỗi', text: err.message, icon: 'error' });
@@ -1624,7 +1657,8 @@
                 isTeacherMode = true;
                 sessionStorage.setItem('elm_teacher_mode', 'true');
                 currentStudent = { name: 'Giáo viên', englishName: '', class: '', code: TEACHER_BYPASS_CODE };
-                if (testType === 'reading') openReadingTest(data, title);
+                if (testType === 'fulltest') openFullTest(data._ftLis, data._ftRead, title);
+                else if (testType === 'reading') openReadingTest(data, title);
                 else openListeningTest(data, title);
                 return;
             }
@@ -1662,7 +1696,9 @@
             });
             if (!isConfirmed) return askStudentCode(data, title, testType);
             currentStudent = student;
-            if (testType === 'reading') {
+            if (testType === 'fulltest') {
+                openFullTest(data._ftLis, data._ftRead, title);
+            } else if (testType === 'reading') {
                 openReadingTest(data, title);
             } else {
                 openListeningTest(data, title);
@@ -4063,6 +4099,414 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             const btn = document.getElementById('btn-submit-reading');
             btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài';
             btn.className = btn.className.replace('bg-slate-600', 'bg-turtle-500').replace('hover:bg-slate-700', 'hover:bg-turtle-600');
+        }
+
+        // ============================================================
+        // FULL TEST MODE
+        // ============================================================
+        let ftListeningData = null;
+        let ftReadingData = null;
+        let ftActiveSkill = 'listening'; // 'listening' or 'reading'
+        let ftActivePartIdx = 0;
+        let ftSubmitted = false;
+        let ftCanReview = false;
+        let ftStartTime = null;
+
+        function openFullTest(lisData, readData, title) {
+            ftListeningData = lisData;
+            ftReadingData = readData;
+            ftActiveSkill = 'listening';
+            ftActivePartIdx = 0;
+            ftSubmitted = false;
+            ftCanReview = false;
+            ftStartTime = Date.now();
+            selectedBank = null;
+
+            listeningData = lisData;
+            listeningAnswers = {};
+            listeningSubmitted = false;
+            listeningCanReview = false;
+            activePart = 0;
+            lisData.parts.forEach((part, i) => {
+                if (part.type === 'drag-match') listeningAnswers[i] = part.answers.map(() => ({ name: '', action: '' }));
+                else if (part.type === 'fill-blank') listeningAnswers[i] = part.rows.map(() => '');
+                else if (part.type === 'drag-match-letters') listeningAnswers[i] = part.answers.map(() => '');
+                else if (part.type === 'multiple-choice-abc') listeningAnswers[i] = part.items.map(() => -1);
+                else if (part.type === 'color-write') listeningAnswers[i] = part.items.map(() => ({ item: '', answer: '' }));
+            });
+
+            readingData = readData;
+            readingAnswers = {};
+            readingSubmitted = false;
+            readingCanReview = false;
+            activeReadingPart = 0;
+            readData.parts.forEach((part, i) => {
+                if (part.type === 'definition-match') readingAnswers[i] = part.items.map(() => '');
+                else if (part.type === 'conversation-choice') readingAnswers[i] = part.items.map(() => -1);
+                else if (part.type === 'story-fill') readingAnswers[i] = { blanks: part.items.map(() => ''), title: -1 };
+                else if (part.type === 'grammar-cloze') readingAnswers[i] = part.items.map(() => -1);
+                else if (part.type === 'story-write') {
+                    const total = part.storySegments.reduce((s, seg) => s + (seg.questions ? seg.questions.length : 0), 0);
+                    readingAnswers[i] = Array(total).fill('');
+                } else if (part.type === 'picture-write') readingAnswers[i] = part.items.map(() => '');
+                else if (part.type === 'sentence-transform' || part.type === 'error-correction') readingAnswers[i] = part.items.map(() => '');
+                else if (part.type === 'fill-blank-reading') {
+                    if (part.passage) readingAnswers[i] = part.items.map(() => '');
+                    else readingAnswers[i] = part.items.map(item => { const bc = (item.sentence.match(/\.\.\.\.\.\.\.\.\.\./g) || []).length; return bc > 1 ? Array(bc).fill('') : ''; });
+                } else if (part.type === 'word-box-fill') readingAnswers[i] = part.items.map(() => '');
+                else if (part.type === 'reading-match-persons') readingAnswers[i] = part.items.map(() => '');
+                else if (part.type === 'drag-match-letters') readingAnswers[i] = part.answers.map(() => '');
+                else if (part.type === 'picture-story-write') readingAnswers[i] = [''];
+                else if (part.type === 'free-writing') readingAnswers[i] = part.sampleAnswers ? part.sampleAnswers.map(() => '') : [];
+                else if (part.type === 'multiple-choice-abc') readingAnswers[i] = part.items.map(() => -1);
+                else if (part.type === 'fill-blank') readingAnswers[i] = part.rows.map(() => '');
+            });
+
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.getElementById('view-fulltest').classList.add('active');
+            document.getElementById('main-nav').classList.add('hidden');
+            document.getElementById('fulltest-title').textContent = title;
+
+            const infoEl = document.getElementById('fulltest-student-info');
+            if (currentStudent) {
+                const eng = currentStudent.englishName ? ` (${currentStudent.englishName})` : '';
+                infoEl.innerHTML = `<i class="fa-solid fa-user-check text-turtle-500"></i>
+                    <span class="font-semibold text-slate-700">${currentStudent.name}${eng}</span>
+                    <span class="text-slate-400">|</span>
+                    <span class="text-slate-500">${currentStudent.class}</span>`;
+            } else {
+                infoEl.innerHTML = '';
+            }
+
+            renderFullTestSkillTabs();
+            renderFullTestPartTabs();
+            renderFullTestPart();
+        }
+
+        function renderFullTestSkillTabs() {
+            const container = document.getElementById('fulltest-skill-tabs');
+            const lisActive = ftActiveSkill === 'listening';
+            const readActive = ftActiveSkill === 'reading';
+            container.innerHTML = `
+                <button onclick="switchFullTestSkill('listening')" class="px-6 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all ${lisActive ? 'bg-cyan-500 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}" style="font-size:20px">
+                    <i class="fa-solid fa-headphones"></i> Listening
+                </button>
+                <button onclick="switchFullTestSkill('reading')" class="px-6 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all ${readActive ? 'bg-purple-500 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}" style="font-size:20px">
+                    <i class="fa-solid fa-book-open"></i> Reading
+                </button>`;
+        }
+
+        function switchFullTestSkill(skill) {
+            ftActiveSkill = skill;
+            ftActivePartIdx = 0;
+            selectedBank = null;
+            if (skill === 'listening') { activePart = 0; }
+            else { activeReadingPart = 0; }
+            renderFullTestSkillTabs();
+            renderFullTestPartTabs();
+            renderFullTestPart();
+        }
+
+        function renderFullTestPartTabs() {
+            const container = document.getElementById('fulltest-part-tabs');
+            container.innerHTML = '';
+            const parts = ftActiveSkill === 'listening' ? ftListeningData.parts : ftReadingData.parts;
+            parts.forEach((part, i) => {
+                const isActive = ftActivePartIdx === i;
+                const btn = document.createElement('button');
+                btn.className = `part-tab px-4 py-2 rounded-xl font-bold ${isActive ? 'active shadow-md' : 'bg-white text-slate-600 hover:bg-slate-100'}`;
+                btn.textContent = part.title;
+                btn.onclick = () => { ftActivePartIdx = i; selectedBank = null; syncPartIdx(); renderFullTestPartTabs(); renderFullTestPart(); };
+                container.appendChild(btn);
+            });
+            updateFullTestNav();
+        }
+
+        function syncPartIdx() {
+            if (ftActiveSkill === 'listening') activePart = ftActivePartIdx;
+            else activeReadingPart = ftActivePartIdx;
+        }
+
+        function updateFullTestNav() {
+            const parts = ftActiveSkill === 'listening' ? ftListeningData.parts : ftReadingData.parts;
+            const backBtn = document.getElementById('btn-back-fulltest');
+            const nextBtn = document.getElementById('btn-next-fulltest');
+            if (backBtn) backBtn.style.visibility = (ftActiveSkill === 'listening' && ftActivePartIdx === 0) ? 'hidden' : 'visible';
+            if (nextBtn) nextBtn.style.visibility = (ftActiveSkill === 'reading' && ftActivePartIdx >= parts.length - 1) ? 'hidden' : 'visible';
+        }
+
+        function navFullTestPart(dir) {
+            const parts = ftActiveSkill === 'listening' ? ftListeningData.parts : ftReadingData.parts;
+            const newIdx = ftActivePartIdx + dir;
+            if (newIdx >= 0 && newIdx < parts.length) {
+                ftActivePartIdx = newIdx;
+                selectedBank = null;
+                syncPartIdx();
+                renderFullTestPartTabs();
+                renderFullTestPart();
+            } else if (dir === 1 && ftActiveSkill === 'listening') {
+                switchFullTestSkill('reading');
+            } else if (dir === -1 && ftActiveSkill === 'reading') {
+                ftActiveSkill = 'listening';
+                ftActivePartIdx = ftListeningData.parts.length - 1;
+                activePart = ftActivePartIdx;
+                selectedBank = null;
+                renderFullTestSkillTabs();
+                renderFullTestPartTabs();
+                renderFullTestPart();
+            }
+        }
+
+        function renderFullTestPart() {
+            const audioBox = document.getElementById('fulltest-audio-box');
+            const ftAudioPlayer = document.getElementById('fulltest-audio-player');
+            if (ftActiveSkill === 'listening') {
+                const part = ftListeningData.parts[ftActivePartIdx];
+                audioBox.style.display = 'flex';
+                if (part.audio) { ftAudioPlayer.src = part.audio; ftAudioPlayer.load(); }
+
+                const origContent = document.getElementById('listening-content');
+                const ftContent = document.getElementById('fulltest-content');
+                const origAudio = document.getElementById('listening-audio-player');
+                origContent.id = '_tmp_lis';
+                ftContent.id = 'listening-content';
+                origAudio.id = '_tmp_lis_audio';
+                ftAudioPlayer.id = 'listening-audio-player';
+
+                activePart = ftActivePartIdx;
+                renderListeningPart();
+
+                ftAudioPlayer.id = 'fulltest-audio-player';
+                origAudio.id = 'listening-audio-player';
+                ftContent.id = 'fulltest-content';
+                origContent.id = 'listening-content';
+            } else {
+                audioBox.style.display = 'none';
+                const origContent = document.getElementById('reading-content');
+                const ftContent = document.getElementById('fulltest-content');
+                origContent.id = '_tmp_read';
+                ftContent.id = 'reading-content';
+
+                activeReadingPart = ftActivePartIdx;
+                renderReadingPart();
+
+                ftContent.id = 'fulltest-content';
+                origContent.id = 'reading-content';
+            }
+        }
+
+        function submitFullTest() {
+            if (ftSubmitted) { closeFullTest(); return; }
+
+            let totalAnswered = 0;
+            let totalQ = 0;
+
+            ftListeningData.parts.forEach((part, i) => {
+                totalQ += part.questions;
+                const ans = listeningAnswers[i];
+                if (part.type === 'drag-match') totalAnswered += ans.filter(a => a.name && a.action).length;
+                else if (part.type === 'fill-blank') totalAnswered += ans.filter(a => a.trim()).length;
+                else if (part.type === 'drag-match-letters') totalAnswered += ans.filter(a => a).length;
+                else if (part.type === 'multiple-choice-abc') totalAnswered += ans.filter(a => a >= 0).length;
+                else if (part.type === 'color-write') totalAnswered += ans.filter(a => a.item && a.answer).length;
+            });
+
+            ftReadingData.parts.forEach((part, i) => {
+                totalQ += part.questions;
+                const ans = readingAnswers[i];
+                if (part.type === 'definition-match') totalAnswered += ans.filter(a => a.trim()).length;
+                else if (part.type === 'conversation-choice') totalAnswered += ans.filter(a => a >= 0).length;
+                else if (part.type === 'story-fill') { totalAnswered += ans.blanks.filter(a => a.trim()).length; if (ans.title >= 0) totalAnswered++; }
+                else if (part.type === 'grammar-cloze') totalAnswered += ans.filter(a => a >= 0).length;
+                else if (part.type === 'story-write') totalAnswered += ans.filter(a => a.trim()).length;
+                else if (part.type === 'picture-write') totalAnswered += ans.filter(a => a.trim()).length;
+                else if (part.type === 'fill-blank-reading') { ans.forEach(a => { if (Array.isArray(a)) totalAnswered += a.filter(v => v.trim()).length; else if (a.trim()) totalAnswered++; }); }
+                else if (part.type === 'sentence-transform' || part.type === 'error-correction' || part.type === 'word-box-fill' || part.type === 'reading-match-persons' || part.type === 'picture-story-write' || part.type === 'free-writing' || part.type === 'drag-match-letters') totalAnswered += ans.filter(a => typeof a === 'string' && a.trim()).length;
+                else if (part.type === 'multiple-choice-abc') totalAnswered += ans.filter(a => a >= 0).length;
+                else if (part.type === 'fill-blank') totalAnswered += ans.filter(a => typeof a === 'string' && a.trim()).length;
+            });
+
+            Swal.fire({
+                title: 'Nộp bài Full Test?',
+                html: `Bạn đã trả lời <b>${totalAnswered}/${totalQ}</b> câu hỏi.`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: '<i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài',
+                cancelButtonText: 'Quay lại',
+                confirmButtonColor: '#20a1a0'
+            }).then(r => { if (r.isConfirmed) doSubmitFullTest(); });
+        }
+
+        function doSubmitFullTest() {
+            ftSubmitted = true;
+            listeningSubmitted = true;
+            readingSubmitted = true;
+            const elapsed = Math.floor((Date.now() - ftStartTime) / 1000);
+            const mins = Math.floor(elapsed / 60);
+            const secs = elapsed % 60;
+            const timeStr = `${mins} phút ${secs < 10 ? '0' : ''}${secs} giây`;
+
+            // Score listening
+            let lisScore = 0;
+            const lisPartScores = [];
+            ftListeningData.parts.forEach((part, i) => {
+                const ans = listeningAnswers[i];
+                let ps = 0;
+                if (part.type === 'drag-match') part.answers.forEach((c, j) => { if (ans[j].name === c.name && ans[j].action === c.action) ps++; });
+                else if (part.type === 'fill-blank') part.rows.forEach((r, j) => { if (r.answer && ans[j].toLowerCase().trim() === r.answer.toLowerCase().trim()) ps++; });
+                else if (part.type === 'drag-match-letters') part.answers.forEach((c, j) => { if (ans[j] === c.answer) ps++; });
+                else if (part.type === 'multiple-choice-abc') part.items.forEach((it, j) => { if (ans[j] === it.answer) ps++; });
+                else if (part.type === 'color-write') part.items.forEach((it, j) => { if (ans[j].item === it.item && it.answer && ans[j].answer.toLowerCase().trim() === it.answer.toLowerCase().trim()) ps++; });
+                lisScore += ps;
+                lisPartScores.push({ title: part.title, score: ps, total: part.questions });
+            });
+
+            // Score reading
+            let readPartScores = [];
+            ftReadingData.parts.forEach((part, i) => {
+                const ans = readingAnswers[i];
+                let correct = 0;
+                if (part.type === 'definition-match') part.items.forEach((it, j) => { if (ans[j].toLowerCase().trim() === it.answer.toLowerCase().trim()) correct++; });
+                else if (part.type === 'conversation-choice') part.items.forEach((it, j) => { if (ans[j] === it.answer) correct++; });
+                else if (part.type === 'story-fill') {
+                    part.items.forEach((it, j) => { if (ans.blanks[j].toLowerCase().trim() === it.answer.toLowerCase().trim()) correct++; });
+                    if (part.titleQuestion && ans.title === part.titleQuestion.answer) correct++;
+                } else if (part.type === 'grammar-cloze') part.items.forEach((it, j) => { if (ans[j] === it.answer) correct++; });
+                else if (part.type === 'story-write') {
+                    let qi = 0;
+                    part.storySegments.forEach(seg => { if (seg.questions) seg.questions.forEach(q => { if (ans[qi].toLowerCase().trim() === q.answer.toLowerCase().trim()) correct++; qi++; }); });
+                } else if (part.type === 'picture-write') {
+                    part.items.forEach((it, j) => { if (it.type === 'free') return; const pts = it.points || 1; if (ans[j].toLowerCase().trim() === it.answer.toLowerCase().trim()) correct += pts; });
+                } else if (part.type === 'sentence-transform' || part.type === 'error-correction') {
+                    part.items.forEach((it, j) => { const all = [it.answer, ...(it.altAnswers || [])]; if (all.some(a => ans[j].toLowerCase().trim() === a.toLowerCase().trim())) correct++; });
+                } else if (part.type === 'fill-blank-reading') {
+                    part.items.forEach((it, j) => {
+                        const ia = it.answers || [it.answer];
+                        if (Array.isArray(ans[j])) ans[j].forEach((v, bi) => { const cv = (ia[bi] || ''); const alts = cv.split('/').map(a => a.toLowerCase().trim()); if (alts.includes(v.toLowerCase().trim())) correct++; });
+                        else if (ia.some(a => a.split('/').map(x=>x.toLowerCase().trim()).includes(ans[j].toLowerCase().trim()))) correct++;
+                    });
+                } else if (part.type === 'word-box-fill') part.items.forEach((it, j) => { if (ans[j].toLowerCase().trim() === it.answer.toLowerCase().trim()) correct++; });
+                else if (part.type === 'reading-match-persons') part.items.forEach((it, j) => { if (ans[j].toUpperCase().trim() === it.answer.toUpperCase().trim()) correct++; });
+                else if (part.type === 'drag-match-letters') part.answers.forEach((r, j) => { if (ans[j].toUpperCase().trim() === r.answer.toUpperCase().trim()) correct++; });
+                else if (part.type === 'multiple-choice-abc') part.items.forEach((it, j) => { if (ans[j] === it.answer) correct++; });
+                else if (part.type === 'fill-blank') part.rows.forEach((r, j) => { const ac = [r.answer, ...(r.altAnswers || [])].map(a => a.toLowerCase().trim()); if (ac.includes((ans[j] || '').toLowerCase().trim())) correct++; });
+                const nonFreeQ = part.type === 'picture-write' ? part.items.filter(it => it.type !== 'free').reduce((s, it) => s + (it.points || 1), 0) : (part.type === 'picture-story-write' || part.type === 'free-writing') ? 0 : part.type === 'fill-blank-reading' ? (part.passage ? part.items.length : part.items.reduce((s, item) => { const bc = (item.sentence.match(/\.\.\.\.\.\.\.\.\.\./g) || []).length; return s + (bc > 1 ? bc : 1); }, 0)) : part.questions;
+                readPartScores.push({ title: part.title, correct, total: nonFreeQ });
+            });
+
+            const readScore = readPartScores.reduce((s, p) => s + p.correct, 0);
+            const readMax = readPartScores.reduce((s, p) => s + p.total, 0);
+            const lisMax = ftListeningData.parts.reduce((s, p) => s + p.questions, 0);
+            const grandTotal = lisScore + readScore;
+            const grandMax = lisMax + readMax;
+            const grandPct = Math.round((grandTotal / grandMax) * 100);
+
+            const listeningShieldsCount = shieldThresholds[currentMaterialId] ? getShields(currentMaterialId, 'listening', lisScore) : null;
+            const readingShieldsCount = shieldThresholds[currentMaterialId] ? getShields(currentMaterialId, 'reading', readScore) : null;
+
+            const studentName = currentStudent ? currentStudent.name : 'Học sinh';
+            const studentEng = currentStudent && currentStudent.englishName ? ` (${currentStudent.englishName})` : '';
+            const studentClass = currentStudent ? currentStudent.class : '';
+
+            const allParts = [
+                ...lisPartScores.map(p => ({ title: `<i class="fa-solid fa-headphones" style="margin-right:4px;color:#0891b2"></i>${p.title}`, correct: p.score, total: p.total })),
+                ...readPartScores.map(p => ({ title: `<i class="fa-solid fa-book-open" style="margin-right:4px;color:#7c3aed"></i>${p.title}`, correct: p.correct, total: p.total }))
+            ];
+
+            const resultHtml = buildResultCard({
+                testTitle: ftReadingData.title.replace(/ - .*/, ''),
+                skillLabel: 'Full Test',
+                partScores: allParts,
+                totalScore: grandTotal,
+                totalMax: grandMax,
+                pct: grandPct,
+                shields: null,
+                studentName, studentEng, studentClass, timeStr,
+                reviewBtnId: 'btn-review-fulltest',
+                saveBtnId: 'btn-save-fulltest'
+            }).replace('</table>', `</table>
+                ${listeningShieldsCount !== null ? `<div style="display:flex;gap:8px;justify-content:center;margin:8px 0 4px">
+                    <div style="flex:1;text-align:center;padding:10px;background:linear-gradient(135deg,#ecfeff,#cffafe);border-radius:12px;border:1px solid #a5f3fc">
+                        <div style="font-size:20px;font-weight:700;color:#0891b2;margin-bottom:4px"><i class="fa-solid fa-headphones" style="margin-right:3px"></i>Listening: ${lisScore}/${lisMax}</div>
+                        <div>${renderShieldIcons(listeningShieldsCount)}</div>
+                        <div style="font-size:20px;font-weight:800;color:#b45309;margin-top:2px">${listeningShieldsCount}/5</div>
+                    </div>
+                    <div style="flex:1;text-align:center;padding:10px;background:linear-gradient(135deg,#faf5ff,#f3e8ff);border-radius:12px;border:1px solid #d8b4fe">
+                        <div style="font-size:20px;font-weight:700;color:#7c3aed;margin-bottom:4px"><i class="fa-solid fa-book-open" style="margin-right:3px"></i>Reading: ${readScore}/${readMax}</div>
+                        <div>${renderShieldIcons(readingShieldsCount)}</div>
+                        <div style="font-size:20px;font-weight:800;color:#b45309;margin-top:2px">${readingShieldsCount}/5</div>
+                    </div>
+                </div>` : ''}`);
+
+            ftCanReview = isTeacherMode || grandPct >= 80;
+            listeningCanReview = ftCanReview;
+            readingCanReview = ftCanReview;
+            let reviewClicked = false;
+            Swal.fire({
+                title: 'Hoàn thành Full Test!',
+                html: resultHtml,
+                icon: 'success',
+                showConfirmButton: false,
+                showCloseButton: true,
+                width: '90%',
+                customClass: { popup: 'swal-result-popup' },
+                didOpen: () => {
+                    const reviewBtn = document.getElementById('btn-review-fulltest');
+                    if (!reviewBtn.disabled) {
+                        reviewBtn.addEventListener('click', () => {
+                            reviewClicked = true;
+                            Swal.close();
+                            renderFullTestSkillTabs();
+                            renderFullTestPartTabs();
+                            renderFullTestPart();
+                        });
+                    }
+                    document.getElementById('btn-save-fulltest').addEventListener('click', async () => {
+                        const card = document.getElementById('result-card');
+                        const btns = card.querySelector('div[style*="display:flex;gap:12px;justify-content:center;margin-top"]');
+                        if (btns) btns.style.display = 'none';
+                        try {
+                            const canvas = await html2canvas(card, { backgroundColor: '#ffffff', scale: 2 });
+                            const link = document.createElement('a');
+                            const safeName = (currentStudent ? currentStudent.englishName || currentStudent.name : 'result').replace(/\s+/g, '_');
+                            link.download = `KetQua_FullTest_${safeName}_${new Date().toISOString().slice(0,10)}.png`;
+                            link.href = canvas.toDataURL('image/png');
+                            link.click();
+                        } catch(e) { console.error(e); }
+                        if (btns) btns.style.display = 'flex';
+                    });
+                },
+                didClose: () => {
+                    if (!reviewClicked && !ftCanReview) doCloseFullTest();
+                }
+            });
+        }
+
+        function closeFullTest() {
+            if (!ftSubmitted) {
+                Swal.fire({
+                    title: 'Thoát bài thi?',
+                    text: 'Tiến độ sẽ không được lưu.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#ef4444',
+                    cancelButtonColor: '#94a3b8',
+                    confirmButtonText: 'Thoát',
+                    cancelButtonText: 'Ở lại'
+                }).then(r => { if (r.isConfirmed) doCloseFullTest(); });
+            } else {
+                doCloseFullTest();
+            }
+        }
+
+        function doCloseFullTest() {
+            document.getElementById('view-fulltest').classList.remove('active');
+            document.getElementById('view-detail').classList.add('active');
+            if (isLoggedIn) document.getElementById('main-nav').classList.remove('hidden');
+            const btn = document.getElementById('btn-submit-fulltest');
+            btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài';
+            btn.className = btn.className.replace('bg-slate-600', 'bg-turtle-500').replace('hover:bg-slate-700', 'hover:bg-turtle-600');
+            fullTestMode = false;
         }
 
         // Lắng nghe sự kiện đổi URL (hash) để thay đổi view tương ứng
