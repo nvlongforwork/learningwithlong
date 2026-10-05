@@ -2850,14 +2850,13 @@
 
             let html = `<div class="w-full">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
+            if (part.image) {
+                html += `<div class="mb-4" style="width:65%"><img src="${part.image}" alt="Part 4" class="w-full rounded-xl shadow-md border"></div>`;
+            }
             html += `<div class="resp-row">`;
 
-            // Passage LEFT (65%) — image above text, inside the passage column
-            html += `<div class="resp-col" style="width:65%"><div class="bg-white rounded-2xl p-6 shadow-sm border h-full">`;
-            if (part.image) {
-                html += `<div class="mb-4"><img src="${part.image}" alt="Part 4" class="w-full rounded-xl shadow-sm border"></div>`;
-            }
-            html += `<div class="prose max-w-none leading-relaxed text-slate-700" style="font-size:20px;">`;
+            // Passage LEFT (65%)
+            html += `<div class="resp-col" style="width:65%"><div class="bg-white rounded-2xl p-6 shadow-sm border h-full"><div class="prose max-w-none leading-relaxed text-slate-700" style="font-size:20px;">`;
             if (part.passage) {
                 let blankIdx = 0;
                 let rendered = part.passage.replace(/\.\.\.\.\.\.\.\.\.\./g, () => {
@@ -2904,8 +2903,8 @@
             }
             html += `</div></div></div>`;
 
-            // Options table RIGHT (35%) — clickable MCQ, sticky to stay parallel with passage
-            html += `<div class="resp-col" style="width:35%"><div class="bg-white rounded-2xl shadow-sm border overflow-hidden sticky top-4">
+            // Options table RIGHT (35%) — clickable MCQ
+            html += `<div class="resp-col" style="width:35%"><div class="bg-white rounded-2xl shadow-sm border overflow-hidden">
                 <table class="w-full" style="font-size:20px;">
                     <thead><tr class="bg-turtle-50">
                         <th class="p-3 text-left text-turtle-700 font-bold w-12">#</th>
