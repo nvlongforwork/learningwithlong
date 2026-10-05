@@ -34,6 +34,7 @@
       "questions": 6,
       "instructions": "Read the text and choose the best answer.",
       "type": "conversation-choice",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/part2-conversation.webp",
       "context": "Peter is talking to his mother about his first day at a new school.",
       "example": {
         "speaker": "Mum",
@@ -104,6 +105,7 @@
       "questions": 5,
       "instructions": "Read the text. Choose the correct words and write them on the lines.",
       "type": "grammar-cloze",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/part4-bears.webp",
       "storyParts": [
         "Bears",
         "Bears are big, strong animals which eat both meat and plants. They are in different colours and some are big and (1) %%blank%% are small.",
@@ -129,6 +131,7 @@
       "storySegments": [
         {
           "title": "Let's find the treasure!",
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/part5-story1.webp",
           "text": "Last Tuesday was an exciting day for Fred and his family. A big lorry came to their old house and took all their things to a new house, which was in a village near the sea. Fred and his parents drove in their car with their dog Ben. When they got to their new house, Fred ran upstairs to his new bedroom.\n\nFred was very happy because his new bedroom was the best room in the house. It was on the top floor and he could see the sea from his window. He took all his things out of the boxes and put them in his new room.",
           "examples": [
             { "sentence": "Fred and his family had an exciting day %%answer%% .", "answer": "last Tuesday" },
@@ -140,6 +143,7 @@
           ]
         },
         {
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/part5-story2.webp",
           "text": "Then Fred was surprised to see something white on the wall of his bedroom. He took it down and looked at it carefully.\n\n\"What do you think it is, Ben?\" Fred asked his dog.\n\nThen Fred understood that it was a map of the garden. There was a big letter \"X\" on the map.\n\n\"It's a treasure map,\" said Fred. \"I want to find the treasure! Come on, Ben, let's go and look in the garden.\"",
           "questions": [
             { "num": 3, "sentence": "Fred found a white thing %%blank%% of his bedroom.", "answer": "on the wall" },
@@ -147,6 +151,7 @@
           ]
         },
         {
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/part5-story3.webp",
           "text": "In the garden, Fred looked at the \"X\" on the map and found the correct place under a big tree and next to a plant. But Fred couldn't see any treasure. Ben put his nose on the ground and looked under the plant.\n\nThen the clever dog found an old box and showed Fred.\n\n\"Well done, Ben, you found it!\" Fred said.\n\nOn the box, Fred read the words, \"A present for the new boy of the house from the old boy of the house\". Fred opened the box very slowly and saw that there were lots of old comics and toys inside. What a great box of treasure!",
           "questions": [
             { "num": 5, "sentence": "Fred found the right place in the garden under a big tree and %%blank%% a plant.", "answer": "next to" },
