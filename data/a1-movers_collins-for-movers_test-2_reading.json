@@ -1,0 +1,180 @@
+{
+  "type": "reading-test",
+  "title": "Test 2 - Reading & Writing",
+  "parts": [
+    {
+      "id": "part1",
+      "title": "Part 1",
+      "questions": 5,
+      "instructions": "Look and read. Choose the correct words and write them on the lines. There is one example.",
+      "type": "definition-match",
+      "wordBank": ["tea", "teeth", "a picnic", "a moustache", "juice", "a library", "a neck", "a supermarket"],
+      "wordImages": {
+        "tea": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/words/p1-tea.png",
+        "teeth": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/words/p1-teeth.png",
+        "a picnic": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/words/p1-picnic.png",
+        "a moustache": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/words/p1-moustache.png",
+        "juice": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/words/p1-juice.png",
+        "a library": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/words/p1-library.png",
+        "a neck": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/words/p1-neck.png",
+        "a supermarket": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/words/p1-supermarket.png"
+      },
+      "example": { "definition": "This is hair that men sometimes have above their mouth.", "answer": "a moustache" },
+      "items": [
+        { "num": 1, "definition": "You can find lots of books in this place.", "answer": "a library" },
+        { "num": 2, "definition": "You use these white things inside your mouth when you eat food.", "answer": "teeth" },
+        { "num": 3, "definition": "You can buy food and other things in this place.", "answer": "a supermarket" },
+        { "num": 4, "definition": "This part of the body is between the head and the shoulders.", "answer": "a neck" },
+        { "num": 5, "definition": "This hot drink is made with leaves which sometimes come in a bag.", "answer": "tea" }
+      ]
+    },
+    {
+      "id": "part2",
+      "title": "Part 2",
+      "questions": 6,
+      "instructions": "Read the text and choose the best answer.",
+      "type": "conversation-choice",
+      "context": "Peter is talking to his mother about his first day at a new school.",
+      "example": {
+        "speaker": "Mum",
+        "question": "How was your first day at school, Peter?",
+        "options": ["Yes, I can.", "No, I don't.", "It was good."],
+        "answer": 2
+      },
+      "items": [
+        { "num": 1, "speaker": "Mum", "question": "What's your new teacher called?", "options": ["She's got long brown hair.", "She wore a green sweater.", "Her name is Mrs Field."], "answer": 2 },
+        { "num": 2, "speaker": "Mum", "question": "Do you like her?", "options": ["Yes, she's very nice.", "Yes, she can walk.", "Yes, please."], "answer": 0 },
+        { "num": 3, "speaker": "Mum", "question": "Is she old?", "options": ["No, she's nice.", "Yes, she's young.", "No, she's young."], "answer": 2 },
+        { "num": 4, "speaker": "Mum", "question": "Are there a lot of new children in your class?", "options": ["Yes, there is.", "No, there isn't.", "No, there aren't."], "answer": 2 },
+        { "num": 5, "speaker": "Mum", "question": "Did you sit next to your friend Jim?", "options": ["No, I couldn't because he's in another class.", "Yes, I have.", "No, I'm not."], "answer": 0 },
+        { "num": 6, "speaker": "Mum", "question": "Do you want something to eat?", "options": ["Yes, please. I'm thirsty!", "Yes, please. I'm hungry!", "No, I didn't."], "answer": 1 }
+      ]
+    },
+    {
+      "id": "part3",
+      "title": "Part 3",
+      "questions": 6,
+      "instructions": "Read the story. Choose a word from the box. Write the correct word next to numbers 1–5. There is one example.",
+      "type": "story-fill",
+      "storyParts": [
+        "Last Saturday, Mary and Jim went for a drive in the countryside with their uncle Sam. It was a (1) %%blank%% day. They saw a beautiful forest and a big mountain. Then they came to a farm.",
+        "\"Let's go and see the farm,\" said Uncle Sam. \"I think it's open.\"",
+        "The farmer (2) %%blank%% at them when he saw them.",
+        "\"Would you like to see some animals?\" he asked.",
+        "\"Yes, please,\" said the children.",
+        "Mary gave some food to the chickens and Jim gave some water to the cows. Then they all went for a (3) %%blank%% on some brown horses.",
+        "\"I like all the animals,\" said Mary. \"But I like (4) %%blank%% best.\"",
+        "\"Me too,\" said Jim.",
+        "Then they had to go home. They said goodbye to the farmer. They were (5) %%blank%% but very happy."
+      ],
+      "wordBank": ["horses", "tired", "drove", "smiled", "sunny", "ride", "spider", "sang"],
+      "wordImages": {
+        "countryside": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/words/p3-countryside.webp",
+        "horses": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/words/p3-horses.webp",
+        "tired": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/words/p3-tired.webp",
+        "drove": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/words/p3-drove.webp",
+        "smiled": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/words/p3-smiled.webp",
+        "sunny": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/words/p3-sunny.webp",
+        "ride": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/words/p3-ride.webp",
+        "spider": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/words/p3-spider.webp",
+        "sang": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/words/p3-sang.webp"
+      },
+      "example": { "word": "countryside" },
+      "items": [
+        { "num": 1, "answer": "sunny" },
+        { "num": 2, "answer": "smiled" },
+        { "num": 3, "answer": "ride" },
+        { "num": 4, "answer": "horses" },
+        { "num": 5, "answer": "tired" }
+      ],
+      "titleQuestion": {
+        "num": 6,
+        "instruction": "Now choose the best name for the story.",
+        "options": [
+          "The children go for a drive",
+          "Chickens are the best",
+          "A busy day at the farm"
+        ],
+        "answer": 2
+      }
+    },
+    {
+      "id": "part4",
+      "title": "Part 4",
+      "questions": 5,
+      "instructions": "Read the text. Choose the correct words and write them on the lines.",
+      "type": "grammar-cloze",
+      "storyParts": [
+        "Bears",
+        "Bears are big, strong animals which eat both meat and plants. They are in different colours and some are big and (1) %%blank%% are small.",
+        "They have hair (2) %%blank%% their bodies.",
+        "Sometimes, they can be loud and angry. (3) %%blank%% they are clever and are good at hiding too. They have four legs but they can stand on (4) %%blank%% two back legs when they have to. They can climb and run quickly.",
+        "Bears often (5) %%blank%% in forests or mountains and some live in very cold places in the snow."
+      ],
+      "example": { "options": ["where", "which", "when"], "answer": 1 },
+      "items": [
+        { "num": 1, "options": ["some", "any", "all"], "answer": 0 },
+        { "num": 2, "options": ["in", "under", "on"], "answer": 2 },
+        { "num": 3, "options": ["Because", "Than", "But"], "answer": 2 },
+        { "num": 4, "options": ["my", "their", "his"], "answer": 1 },
+        { "num": 5, "options": ["live", "lived", "living"], "answer": 0 }
+      ]
+    },
+    {
+      "id": "part5",
+      "title": "Part 5",
+      "questions": 7,
+      "instructions": "Look at the pictures and read the story. Write some words to complete the sentences about the story. You can use 1, 2 or 3 words.",
+      "type": "story-write",
+      "storySegments": [
+        {
+          "title": "Let's find the treasure!",
+          "text": "Last Tuesday was an exciting day for Fred and his family. A big lorry came to their old house and took all their things to a new house, which was in a village near the sea. Fred and his parents drove in their car with their dog Ben. When they got to their new house, Fred ran upstairs to his new bedroom.\n\nFred was very happy because his new bedroom was the best room in the house. It was on the top floor and he could see the sea from his window. He took all his things out of the boxes and put them in his new room.",
+          "examples": [
+            { "sentence": "Fred and his family had an exciting day %%answer%% .", "answer": "last Tuesday" },
+            { "sentence": "Their new house is in a village %%answer%% .", "answer": "near the sea" }
+          ],
+          "questions": [
+            { "num": 1, "sentence": "Fred, his parents and their %%blank%% drove to their new house.", "answer": "dog Ben" },
+            { "num": 2, "sentence": "From his new bedroom window, Fred %%blank%% the sea.", "answer": "could see" }
+          ]
+        },
+        {
+          "text": "Then Fred was surprised to see something white on the wall of his bedroom. He took it down and looked at it carefully.\n\n\"What do you think it is, Ben?\" Fred asked his dog.\n\nThen Fred understood that it was a map of the garden. There was a big letter \"X\" on the map.\n\n\"It's a treasure map,\" said Fred. \"I want to find the treasure! Come on, Ben, let's go and look in the garden.\"",
+          "questions": [
+            { "num": 3, "sentence": "Fred found a white thing %%blank%% of his bedroom.", "answer": "on the wall" },
+            { "num": 4, "sentence": "It was %%blank%% the garden, which had an \"X\" on it for treasure.", "answer": "a map of" }
+          ]
+        },
+        {
+          "text": "In the garden, Fred looked at the \"X\" on the map and found the correct place under a big tree and next to a plant. But Fred couldn't see any treasure. Ben put his nose on the ground and looked under the plant.\n\nThen the clever dog found an old box and showed Fred.\n\n\"Well done, Ben, you found it!\" Fred said.\n\nOn the box, Fred read the words, \"A present for the new boy of the house from the old boy of the house\". Fred opened the box very slowly and saw that there were lots of old comics and toys inside. What a great box of treasure!",
+          "questions": [
+            { "num": 5, "sentence": "Fred found the right place in the garden under a big tree and %%blank%% a plant.", "answer": "next to" },
+            { "num": 6, "sentence": "Ben found an old box under %%blank%% .", "answer": "the plant" },
+            { "num": 7, "sentence": "Inside the box were many old %%blank%% .", "answer": "comics and toys" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part6",
+      "title": "Part 6",
+      "questions": 6,
+      "instructions": "Look and read and write.",
+      "type": "picture-write",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-movers/test2/part6-picnic.webp",
+      "examples": [
+        { "type": "complete", "sentence": "The woman who is wearing a green shirt is drinking some %%answer%% .", "answer": "orange juice" },
+        { "type": "answer", "question": "How many cows are there?", "answer": "three" }
+      ],
+      "items": [
+        { "num": 1, "type": "complete", "sentence": "The woman who has got glasses is wearing a red %%blank%% .", "answer": "dress" },
+        { "num": 2, "type": "complete", "sentence": "The biggest bird is eating a %%blank%% .", "answer": "sandwich" },
+        { "num": 3, "type": "answer", "question": "What is the girl in the blue dress doing?", "answer": "She's pointing at the bird.", "points": 2 },
+        { "num": 4, "type": "answer", "question": "What food have they got in their picnic?", "answer": "They've got sandwiches and cake.", "points": 2 },
+        { "num": 5, "type": "free", "instruction": "Now write two sentences about the picture.", "answer": "" },
+        { "num": 6, "type": "free", "instruction": "", "answer": "" }
+      ]
+    }
+  ]
+}
