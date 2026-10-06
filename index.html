@@ -641,10 +641,21 @@
                 const hasBothSections = unitSubs.length > 0 && partSubs.length > 0;
                 subtitleText = hasBothSections ? 'Chọn bài kiểm tra' : (partSubs.length > 0 ? 'Chọn dạng bài' : 'Chọn bài kiểm tra');
                 let html = '';
-                if (hasBothSections) {
+                if (unitSubs.length > 1) {
+                    html += `<div class="flex items-center justify-between mb-4 flex-wrap gap-2">`;
+                    if (hasBothSections) {
+                        html += `<h3 class="text-xl font-bold text-slate-700 flex items-center gap-2"><i class="fa-solid fa-book-open" style="color: var(--theme-color);"></i> Theo Unit</h3>`;
+                    } else {
+                        html += `<div></div>`;
+                    }
+                    html += `<button id="btn-multi-select" onclick="toggleMultiSelect('${materialId}','${folderId}')" class="py-2 px-4 rounded-xl border-2 font-bold transition-all" style="font-size:20px;border-color:var(--theme-color);color:var(--theme-color);background:white;">
+                        <i class="fa-solid fa-list-check mr-2"></i>Chọn nhiều
+                    </button>`;
+                    html += `</div>`;
+                } else if (hasBothSections) {
                     html += `<h3 class="text-xl font-bold text-slate-700 mb-4 flex items-center gap-2"><i class="fa-solid fa-book-open" style="color: var(--theme-color);"></i> Theo Unit</h3>`;
                 }
-                html += '<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">';
+                html += `<div id="unit-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">`;
                 unitSubs.forEach(sf => {
                     html += `
                         <a href="#/material/${materialId}/${folderId}/${sf.id}" data-unit-id="${sf.id}" class="unit-card aspect-square rounded-3xl p-6 border shadow-sm hover-bounce flex flex-col items-center justify-center text-center cursor-pointer relative overflow-hidden group border-slate-200 bg-slate-50" style="opacity:0.5;">
@@ -654,6 +665,12 @@
                     `;
                 });
                 html += '</div>';
+                html += `<div id="multi-select-bar" class="hidden mt-6 p-4 rounded-2xl border-2 flex items-center justify-between flex-wrap gap-3" style="border-color:var(--theme-color);background:var(--theme-bg-color);">
+                    <span id="multi-select-count" style="font-size:20px;font-weight:700;color:var(--theme-color);">Đã chọn: 0 unit</span>
+                    <button id="btn-start-multi" onclick="openMultiUnitQuiz('${materialId}','${folderId}')" disabled class="py-3 px-6 text-white font-bold rounded-xl transition-all shadow-lg" style="font-size:20px;background:var(--theme-color);opacity:0.5;cursor:not-allowed;">
+                        <i class="fa-solid fa-play mr-2"></i>Bắt đầu làm bài
+                    </button>
+                </div>`;
                 checkUnitContent(materialId, folderId, unitSubs);
                 if (partSubs.length > 0) {
                     if (hasBothSections) {
@@ -1065,6 +1082,138 @@
                 });
             });
             return Promise.all(fetches);
+        }
+
+        let multiSelectMode = false;
+        let selectedUnits = new Set();
+
+        function toggleMultiSelect(materialId, folderId) {
+            multiSelectMode = !multiSelectMode;
+            selectedUnits.clear();
+            const btn = document.getElementById('btn-multi-select');
+            const bar = document.getElementById('multi-select-bar');
+            const grid = document.getElementById('unit-grid');
+            if (!btn || !grid) return;
+
+            if (multiSelectMode) {
+                btn.style.background = 'var(--theme-color)';
+                btn.style.color = 'white';
+                btn.innerHTML = '<i class="fa-solid fa-xmark mr-2"></i>Hủy chọn';
+                bar.classList.remove('hidden');
+                grid.querySelectorAll('.unit-card').forEach(card => {
+                    if (card.style.opacity === '1') {
+                        card.removeAttribute('href');
+                        card.style.cursor = 'pointer';
+                        card.onclick = function(e) {
+                            e.preventDefault();
+                            const uid = this.getAttribute('data-unit-id');
+                            if (selectedUnits.has(uid)) {
+                                selectedUnits.delete(uid);
+                                this.style.outline = 'none';
+                                this.style.outlineOffset = '';
+                                const chk = this.querySelector('.multi-check');
+                                if (chk) chk.remove();
+                            } else {
+                                selectedUnits.add(uid);
+                                this.style.outline = '3px solid var(--theme-color)';
+                                this.style.outlineOffset = '-3px';
+                                if (!this.querySelector('.multi-check')) {
+                                    const chk = document.createElement('div');
+                                    chk.className = 'multi-check';
+                                    chk.style.cssText = 'position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:16px;z-index:10;background:var(--theme-color);';
+                                    chk.innerHTML = '<i class="fa-solid fa-check"></i>';
+                                    this.appendChild(chk);
+                                }
+                            }
+                            updateMultiSelectCount();
+                        };
+                    }
+                });
+            } else {
+                btn.style.background = 'white';
+                btn.style.color = 'var(--theme-color)';
+                btn.innerHTML = '<i class="fa-solid fa-list-check mr-2"></i>Chọn nhiều';
+                bar.classList.add('hidden');
+                grid.querySelectorAll('.unit-card').forEach(card => {
+                    card.style.outline = 'none';
+                    card.style.outlineOffset = '';
+                    const chk = card.querySelector('.multi-check');
+                    if (chk) chk.remove();
+                    card.onclick = null;
+                    const uid = card.getAttribute('data-unit-id');
+                    if (card.style.opacity === '1') {
+                        card.setAttribute('href', `#/material/${materialId}/${folderId}/${uid}`);
+                    }
+                });
+            }
+            updateMultiSelectCount();
+        }
+
+        function updateMultiSelectCount() {
+            const countEl = document.getElementById('multi-select-count');
+            const startBtn = document.getElementById('btn-start-multi');
+            if (countEl) countEl.textContent = `Đã chọn: ${selectedUnits.size} unit`;
+            if (startBtn) {
+                if (selectedUnits.size >= 2) {
+                    startBtn.disabled = false;
+                    startBtn.style.opacity = '1';
+                    startBtn.style.cursor = 'pointer';
+                } else {
+                    startBtn.disabled = true;
+                    startBtn.style.opacity = '0.5';
+                    startBtn.style.cursor = 'not-allowed';
+                }
+            }
+        }
+
+        async function openMultiUnitQuiz(materialId, folderId) {
+            if (selectedUnits.size < 2) return;
+            const unitIds = Array.from(selectedUnits).sort();
+            currentMaterialId = materialId;
+            currentQuizTheme = document.getElementById('view-detail').style.getPropertyValue('--theme-color') || '#20a1a0';
+
+            try {
+                Swal.fire({ title: 'Đang tải dữ liệu...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+                const fetches = unitIds.map(uid => fetch(`./data/${materialId}_${folderId}_${uid}.json?v=${Date.now()}`));
+                const responses = await Promise.all(fetches);
+                const allData = [];
+                for (let i = 0; i < responses.length; i++) {
+                    if (!responses[i].ok) continue;
+                    const d = await responses[i].json();
+                    if (d) allData.push({ unitId: unitIds[i], data: d });
+                }
+                if (allData.length === 0) {
+                    Swal.fire({ title: 'Lỗi', text: 'Không tìm thấy dữ liệu bài tập', icon: 'error' });
+                    return;
+                }
+
+                const material = materialsData.find(m => m.id === materialId);
+                const folder = material ? (material.folders || []).find(f => f.id === folderId) : null;
+                const unitNames = unitIds.map(uid => {
+                    const sf = folder ? folder.subfolders.find(s => s.id === uid) : null;
+                    return sf ? sf.name : uid;
+                });
+                const combinedTitle = unitNames.join(' + ');
+
+                const mergedData = { type: allData[0].data.type, title: combinedTitle, parts: [] };
+                allData.forEach(item => {
+                    if (item.data.parts) {
+                        item.data.parts.forEach(part => {
+                            mergedData.parts.push(part);
+                        });
+                    }
+                });
+
+                Swal.close();
+                fullTestMode = false;
+                if (mergedData.type === 'listening-test') {
+                    askStudentCode(mergedData, combinedTitle, 'listening');
+                } else {
+                    askStudentCode(mergedData, combinedTitle, 'reading');
+                }
+            } catch(err) {
+                Swal.fire({ title: 'Lỗi', text: err.message, icon: 'error' });
+            }
         }
 
         async function checkUnitContent(materialId, folderId, unitSubs) {
