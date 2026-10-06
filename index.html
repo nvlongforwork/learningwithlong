@@ -1612,6 +1612,75 @@
             document.getElementById('view-quiz').classList.remove('active');
             document.getElementById('view-detail').classList.add('active');
             if (isLoggedIn) document.getElementById('main-nav').classList.remove('hidden');
+            tabSwitchCount = 0;
+        }
+
+        // --- CHỐNG CHUYỂN TAB ---
+        let tabSwitchCount = 0;
+        const MAX_TAB_SWITCHES = 3;
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) return;
+            const quizView = document.getElementById('view-quiz');
+            if (!quizView || quizView.style.display === 'none' && !quizView.classList.contains('active')) return;
+            if (isTeacherMode) return;
+            tabSwitchCount++;
+            if (tabSwitchCount >= MAX_TAB_SWITCHES) {
+                Swal.fire({
+                    title: 'Bạn đã chuyển tab quá nhiều lần!',
+                    html: `<p style="font-size:20px">Bạn đã chuyển tab <b>${tabSwitchCount}/${MAX_TAB_SWITCHES}</b> lần.<br>Bài làm sẽ được tự động nộp.</p>`,
+                    icon: 'error',
+                    confirmButtonText: 'Đã hiểu',
+                    confirmButtonColor: '#ef4444',
+                    allowOutsideClick: false
+                }).then(() => {
+                    if (typeof ftSubmitted !== 'undefined' && ftListeningData && !ftSubmitted) { doSubmitFullTest(); }
+                    else if (listeningData && !listeningSubmitted) { document.getElementById('btn-submit-listening')?.click(); listeningSubmitted = true; }
+                    else if (readingData && !readingSubmitted) { doSubmitReading(); }
+                });
+            } else {
+                Swal.fire({
+                    title: 'Cảnh báo!',
+                    html: `<p style="font-size:20px">Không được chuyển tab trong khi làm bài!<br>Lần chuyển tab: <b>${tabSwitchCount}/${MAX_TAB_SWITCHES}</b></p>`,
+                    icon: 'warning',
+                    confirmButtonText: 'Quay lại làm bài',
+                    confirmButtonColor: '#f59e0b',
+                    allowOutsideClick: false
+                });
+            }
+        });
+
+        // --- TÌM CÂU CHƯA LÀM ---
+        function findFirstUnansweredListening(data) {
+            const d = data || listeningData;
+            if (!d) return null;
+            for (let i = 0; i < d.parts.length; i++) {
+                const part = d.parts[i];
+                const ans = listeningAnswers[i];
+                if (part.type === 'drag-match') { if (ans.some(a => !a.name || !a.action)) return i; }
+                else if (part.type === 'fill-blank') { if (ans.some(a => !a.trim())) return i; }
+                else if (part.type === 'drag-match-letters') { if (ans.some(a => !a)) return i; }
+                else if (part.type === 'multiple-choice-abc') { if (ans.some(a => a < 0)) return i; }
+                else if (part.type === 'color-write') { if (ans.some(a => !a.item || !a.answer)) return i; }
+            }
+            return null;
+        }
+
+        function findFirstUnansweredReading(data) {
+            const d = data || readingData;
+            if (!d) return null;
+            for (let i = 0; i < d.parts.length; i++) {
+                const part = d.parts[i];
+                const ans = readingAnswers[i];
+                if (part.type === 'definition-match') { if (ans.some(a => !a.trim())) return i; }
+                else if (part.type === 'conversation-choice' || part.type === 'grammar-cloze') { if (ans.some(a => a < 0)) return i; }
+                else if (part.type === 'story-fill') { if (ans.blanks.some(a => !a.trim()) || (part.titleQuestion && ans.title < 0)) return i; }
+                else if (part.type === 'story-write' || part.type === 'picture-write') { if (ans.some(a => !a.trim())) return i; }
+                else if (part.type === 'fill-blank-reading') { if (ans.some(a => Array.isArray(a) ? a.some(v => !v.trim()) : !a.trim())) return i; }
+                else if (part.type === 'sentence-transform' || part.type === 'error-correction' || part.type === 'word-box-fill' || part.type === 'reading-match-persons' || part.type === 'picture-story-write' || part.type === 'free-writing' || part.type === 'drag-match-letters') { if (ans.some(a => typeof a === 'string' && !a.trim())) return i; }
+                else if (part.type === 'multiple-choice-abc') { if (ans.some(a => a < 0)) return i; }
+                else if (part.type === 'fill-blank') { if (ans.some(a => typeof a === 'string' && !a.trim())) return i; }
+            }
+            return null;
         }
 
         // --- LISTENING TEST LOGIC ---
@@ -2426,10 +2495,31 @@
                 });
             };
 
-            if (totalAnswered < totalQuestions) {
+            if (totalAnswered < totalQuestions && !isTeacherMode) {
+                const remaining = totalQuestions - totalAnswered;
+                const unansweredIdx = findFirstUnansweredListening();
+                Swal.fire({
+                    title: 'Chưa hoàn thành!',
+                    html: `<p style="font-size:20px">Bạn còn <b>${remaining} câu</b> chưa trả lời.</p><p style="font-size:20px;color:#64748b;margin-top:8px">Hãy hoàn thành tất cả câu hỏi trước khi nộp bài.</p>`,
+                    icon: 'warning',
+                    confirmButtonText: 'Đến câu chưa làm',
+                    confirmButtonColor: '#f59e0b',
+                    allowOutsideClick: false
+                }).then(() => {
+                    if (unansweredIdx !== null) {
+                        activePart = unansweredIdx;
+                        selectedBank = null;
+                        renderListeningTabs();
+                        renderListeningPart();
+                    }
+                });
+                return;
+            }
+
+            if (totalAnswered < totalQuestions && isTeacherMode) {
                 Swal.fire({
                     title: 'Khoan đã!',
-                    html: `Bạn còn <b>${totalQuestions - totalAnswered} câu</b> chưa trả lời.<br>Nộp bài lúc này?`,
+                    html: `<p style="font-size:20px">Bạn còn <b>${totalQuestions - totalAnswered} câu</b> chưa trả lời.<br>Nộp bài lúc này?</p>`,
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#20a1a0',
@@ -2440,7 +2530,7 @@
             } else {
                 Swal.fire({
                     title: 'Xác nhận nộp bài',
-                    text: 'Bạn đã hoàn thành. Nộp bài nhé?',
+                    html: '<p style="font-size:20px">Bạn đã hoàn thành. Nộp bài nhé?</p>',
                     icon: 'question',
                     showCancelButton: true,
                     confirmButtonColor: '#20a1a0',
@@ -3856,9 +3946,29 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 else if (part.type === 'fill-blank') answeredCount += ans.filter(a => typeof a === 'string' && a.trim()).length;
             });
 
+            if (answeredCount < totalQ && !isTeacherMode) {
+                const remaining = totalQ - answeredCount;
+                const unansweredIdx = findFirstUnansweredReading();
+                Swal.fire({
+                    title: 'Chưa hoàn thành!',
+                    html: `<p style="font-size:20px">Bạn còn <b>${remaining} câu</b> chưa trả lời.</p><p style="font-size:20px;color:#64748b;margin-top:8px">Hãy hoàn thành tất cả câu hỏi trước khi nộp bài.</p>`,
+                    icon: 'warning',
+                    confirmButtonText: 'Đến câu chưa làm',
+                    confirmButtonColor: '#f59e0b',
+                    allowOutsideClick: false
+                }).then(() => {
+                    if (unansweredIdx !== null) {
+                        activeReadingPart = unansweredIdx;
+                        renderReadingTabs();
+                        renderReadingPart();
+                    }
+                });
+                return;
+            }
+
             Swal.fire({
                 title: 'Nộp bài?',
-                html: `Bạn đã trả lời <b>${answeredCount}/${totalQ}</b> câu hỏi.`,
+                html: `<p style="font-size:20px">Bạn đã trả lời <b>${answeredCount}/${totalQ}</b> câu hỏi.</p>`,
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: '<i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài',
@@ -4370,9 +4480,40 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 else if (part.type === 'fill-blank') totalAnswered += ans.filter(a => typeof a === 'string' && a.trim()).length;
             });
 
+            if (totalAnswered < totalQ && !isTeacherMode) {
+                const remaining = totalQ - totalAnswered;
+                const unansweredLis = findFirstUnansweredListening(ftListeningData);
+                const unansweredRead = unansweredLis === null ? findFirstUnansweredReading(ftReadingData) : null;
+                Swal.fire({
+                    title: 'Chưa hoàn thành!',
+                    html: `<p style="font-size:20px">Bạn còn <b>${remaining} câu</b> chưa trả lời.</p><p style="font-size:20px;color:#64748b;margin-top:8px">Hãy hoàn thành tất cả câu hỏi trước khi nộp bài.</p>`,
+                    icon: 'warning',
+                    confirmButtonText: 'Đến câu chưa làm',
+                    confirmButtonColor: '#f59e0b',
+                    allowOutsideClick: false
+                }).then(() => {
+                    if (unansweredLis !== null) {
+                        ftActiveSkill = 'listening';
+                        ftActivePartIdx = unansweredLis;
+                        syncPartIdx();
+                        renderFullTestSkillTabs();
+                        renderFullTestPartTabs();
+                        renderFullTestPart();
+                    } else if (unansweredRead !== null) {
+                        ftActiveSkill = 'reading';
+                        ftActivePartIdx = unansweredRead;
+                        syncPartIdx();
+                        renderFullTestSkillTabs();
+                        renderFullTestPartTabs();
+                        renderFullTestPart();
+                    }
+                });
+                return;
+            }
+
             Swal.fire({
                 title: 'Nộp bài Full Test?',
-                html: `Bạn đã trả lời <b>${totalAnswered}/${totalQ}</b> câu hỏi.`,
+                html: `<p style="font-size:20px">Bạn đã trả lời <b>${totalAnswered}/${totalQ}</b> câu hỏi.</p>`,
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: '<i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài',
