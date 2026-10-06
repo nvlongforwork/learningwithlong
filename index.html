@@ -480,8 +480,11 @@
         // Khóa copy/paste/cut khi đang làm bài (trừ giáo viên)
         ['copy', 'cut', 'paste'].forEach(evt => {
             document.addEventListener(evt, function(e) {
-                const quizView = document.getElementById('view-quiz');
-                if (quizView && quizView.style.display !== 'none' && !isTeacherMode) {
+                const isInTest = ['view-quiz', 'view-listening', 'view-reading', 'view-fulltest'].some(id => {
+                    const el = document.getElementById(id);
+                    return el && el.classList.contains('active');
+                });
+                if (isInTest && !isTeacherMode) {
                     e.preventDefault();
                 }
             });
@@ -1618,10 +1621,14 @@
         // --- CHỐNG CHUYỂN TAB ---
         let tabSwitchCount = 0;
         const MAX_TAB_SWITCHES = 3;
+        let forceAutoSubmit = false;
         document.addEventListener('visibilitychange', function() {
             if (document.hidden) return;
-            const quizView = document.getElementById('view-quiz');
-            if (!quizView || quizView.style.display === 'none' && !quizView.classList.contains('active')) return;
+            const isQuizActive = ['view-quiz', 'view-listening', 'view-reading', 'view-fulltest'].some(id => {
+                const el = document.getElementById(id);
+                return el && el.classList.contains('active');
+            });
+            if (!isQuizActive) return;
             if (isTeacherMode) return;
             tabSwitchCount++;
             if (tabSwitchCount >= MAX_TAB_SWITCHES) {
@@ -1633,9 +1640,11 @@
                     confirmButtonColor: '#ef4444',
                     allowOutsideClick: false
                 }).then(() => {
+                    forceAutoSubmit = true;
                     if (typeof ftSubmitted !== 'undefined' && ftListeningData && !ftSubmitted) { doSubmitFullTest(); }
-                    else if (listeningData && !listeningSubmitted) { document.getElementById('btn-submit-listening')?.click(); listeningSubmitted = true; }
+                    else if (listeningData && !listeningSubmitted) { submitListeningTest(); }
                     else if (readingData && !readingSubmitted) { doSubmitReading(); }
+                    forceAutoSubmit = false;
                 });
             } else {
                 Swal.fire({
@@ -2495,7 +2504,7 @@
                 });
             };
 
-            if (totalAnswered < totalQuestions && !isTeacherMode) {
+            if (totalAnswered < totalQuestions && !isTeacherMode && !forceAutoSubmit) {
                 const remaining = totalQuestions - totalAnswered;
                 const unansweredIdx = findFirstUnansweredListening();
                 Swal.fire({
@@ -2623,6 +2632,7 @@
             const btn = document.getElementById('btn-submit-listening');
             btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài';
             btn.className = btn.className.replace('bg-slate-600', 'bg-turtle-500').replace('hover:bg-slate-700', 'hover:bg-turtle-600');
+            tabSwitchCount = 0;
         }
 
         // ============================================================
@@ -4253,6 +4263,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             const btn = document.getElementById('btn-submit-reading');
             btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài';
             btn.className = btn.className.replace('bg-slate-600', 'bg-turtle-500').replace('hover:bg-slate-700', 'hover:bg-turtle-600');
+            tabSwitchCount = 0;
         }
 
         // ============================================================
@@ -4753,6 +4764,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài';
             btn.className = btn.className.replace('bg-slate-600', 'bg-turtle-500').replace('hover:bg-slate-700', 'hover:bg-turtle-600');
             fullTestMode = false;
+            tabSwitchCount = 0;
         }
 
         // Lắng nghe sự kiện đổi URL (hash) để thay đổi view tương ứng
