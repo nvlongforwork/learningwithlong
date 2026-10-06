@@ -477,6 +477,16 @@
         let isLoggedIn = sessionStorage.getItem('elm_teacher_logged_in') === 'true';
         let isTeacherMode = sessionStorage.getItem('elm_teacher_mode') === 'true';
 
+        // Khóa copy/paste/cut khi đang làm bài (trừ giáo viên)
+        ['copy', 'cut', 'paste'].forEach(evt => {
+            document.addEventListener(evt, function(e) {
+                const quizView = document.getElementById('view-quiz');
+                if (quizView && quizView.style.display !== 'none' && !isTeacherMode) {
+                    e.preventDefault();
+                }
+            });
+        });
+
         // Tham chiếu các phần tử DOM
         const viewLogin = document.getElementById('view-login');
         const viewDashboard = document.getElementById('view-dashboard');
