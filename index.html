@@ -633,6 +633,21 @@
                 quizFolderPath = `${folderId}/${subfolderId}`;
                 currentPartFilter = null;
             }
+            // Level 2: folder with ?multi= or ?parts= -> auto load multi quiz
+            else if (folderId && folder && folder.subfolders && (urlParams.has('multi') || urlParams.has('parts'))) {
+                titleText = folder.name;
+                subtitleText = 'Bài tập được giao';
+                container.innerHTML = `<div class="text-center py-8"><i class="fa-solid fa-spinner fa-spin text-3xl" style="color: var(--theme-color);"></i><p class="mt-3 text-slate-500" style="font-size:20px">Đang tải bài tập...</p></div>`;
+                if (urlParams.has('multi')) {
+                    const unitIds = urlParams.get('multi').split(',').filter(Boolean);
+                    selectedUnits = new Set(unitIds);
+                    openMultiUnitQuiz(materialId, folderId);
+                } else {
+                    const partIds = urlParams.get('parts').split(',').filter(Boolean);
+                    selectedParts = new Set(partIds);
+                    openMultiPartQuiz(materialId, folderId);
+                }
+            }
             // Level 2: folder with subfolders -> show subfolders
             else if (folderId && folder && folder.subfolders) {
                 titleText = folder.name;
@@ -667,20 +682,36 @@
                 html += '</div>';
                 html += `<div id="multi-select-bar" class="hidden mt-6 p-4 rounded-2xl border-2 flex items-center justify-between flex-wrap gap-3" style="border-color:var(--theme-color);background:var(--theme-bg-color);">
                     <span id="multi-select-count" style="font-size:20px;font-weight:700;color:var(--theme-color);">Đã chọn: 0 unit</span>
-                    <button id="btn-start-multi" onclick="openMultiUnitQuiz('${materialId}','${folderId}')" disabled class="py-3 px-6 text-white font-bold rounded-xl transition-all shadow-lg" style="font-size:20px;background:var(--theme-color);opacity:0.5;cursor:not-allowed;">
-                        <i class="fa-solid fa-play mr-2"></i>Bắt đầu làm bài
-                    </button>
+                    <div class="flex gap-3 flex-wrap">
+                        <button id="btn-start-multi" onclick="openMultiUnitQuiz('${materialId}','${folderId}')" disabled class="py-3 px-6 text-white font-bold rounded-xl transition-all shadow-lg" style="font-size:20px;background:#22c55e;opacity:0.5;cursor:not-allowed;">
+                            <i class="fa-solid fa-play mr-2"></i>Làm bài
+                        </button>
+                        <button id="btn-assign-multi" onclick="assignMultiUnit('${materialId}','${folderId}')" disabled class="py-3 px-6 text-white font-bold rounded-xl transition-all shadow-lg" style="font-size:20px;background:var(--theme-color);opacity:0.5;cursor:not-allowed;">
+                            <i class="fa-solid fa-share-from-square mr-2"></i>Giao bài
+                        </button>
+                    </div>
                 </div>`;
                 checkUnitContent(materialId, folderId, unitSubs);
                 if (partSubs.length > 0) {
-                    if (hasBothSections) {
+                    if (partSubs.length > 1) {
+                        html += `<div class="flex items-center justify-between mt-8 mb-4 flex-wrap gap-2">`;
+                        if (hasBothSections) {
+                            html += `<h3 class="text-xl font-bold text-slate-700 flex items-center gap-2"><i class="fa-solid fa-layer-group" style="color: var(--theme-color);"></i> Theo Part</h3>`;
+                        } else {
+                            html += `<div></div>`;
+                        }
+                        html += `<button id="btn-multi-select-part" onclick="toggleMultiSelectPart('${materialId}','${folderId}')" class="py-2 px-4 rounded-xl border-2 font-bold transition-all" style="font-size:20px;border-color:var(--theme-color);color:var(--theme-color);background:white;">
+                            <i class="fa-solid fa-list-check mr-2"></i>Chọn nhiều
+                        </button>`;
+                        html += `</div>`;
+                    } else if (hasBothSections) {
                         html += `<h3 class="text-xl font-bold text-slate-700 mt-8 mb-4 flex items-center gap-2"><i class="fa-solid fa-layer-group" style="color: var(--theme-color);"></i> Theo Part</h3>`;
                     }
-                    html += '<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">';
+                    html += `<div id="part-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">`;
                     partSubs.forEach(sf => {
                         const sfIcon = sf.partFilter.startsWith('Listening') ? 'fa-headphones' : 'fa-book-open';
                         html += `
-                            <a href="#/material/${materialId}/${folderId}/${sf.id}" class="aspect-square bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover-bounce flex flex-col items-center justify-center text-center cursor-pointer relative overflow-hidden group" style="background-color: var(--theme-bg-color);">
+                            <a href="#/material/${materialId}/${folderId}/${sf.id}" data-part-card-id="${sf.id}" class="part-select-card aspect-square bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover-bounce flex flex-col items-center justify-center text-center cursor-pointer relative overflow-hidden group" style="background-color: var(--theme-bg-color);">
                                 <i class="fa-solid ${sfIcon} text-4xl mb-3 opacity-80" style="color: var(--theme-color);"></i>
                                 <span class="relative z-10 text-lg sm:text-xl font-bold transition-transform group-hover:scale-105" style="color: var(--theme-color);">${sf.name}</span>
                                 <span class="part-count-badge text-sm text-slate-400 mt-1" data-part-id="${sf.id}"><i class="fa-solid fa-spinner fa-spin"></i></span>
@@ -688,6 +719,17 @@
                         `;
                     });
                     html += '</div>';
+                    html += `<div id="multi-select-bar-part" class="hidden mt-6 p-4 rounded-2xl border-2 flex items-center justify-between flex-wrap gap-3" style="border-color:var(--theme-color);background:var(--theme-bg-color);">
+                        <span id="multi-select-count-part" style="font-size:20px;font-weight:700;color:var(--theme-color);">Đã chọn: 0 part</span>
+                        <div class="flex gap-3 flex-wrap">
+                            <button id="btn-start-multi-part" onclick="openMultiPartQuiz('${materialId}','${folderId}')" disabled class="py-3 px-6 text-white font-bold rounded-xl transition-all shadow-lg" style="font-size:20px;background:#22c55e;opacity:0.5;cursor:not-allowed;">
+                                <i class="fa-solid fa-play mr-2"></i>Làm bài
+                            </button>
+                            <button id="btn-assign-multi-part" onclick="assignMultiPart('${materialId}','${folderId}')" disabled class="py-3 px-6 text-white font-bold rounded-xl transition-all shadow-lg" style="font-size:20px;background:var(--theme-color);opacity:0.5;cursor:not-allowed;">
+                                <i class="fa-solid fa-share-from-square mr-2"></i>Giao bài
+                            </button>
+                        </div>
+                    </div>`;
                 }
                 container.innerHTML = html;
                 if (partSubs.length > 0) {
@@ -1152,18 +1194,15 @@
         function updateMultiSelectCount() {
             const countEl = document.getElementById('multi-select-count');
             const startBtn = document.getElementById('btn-start-multi');
+            const assignBtn = document.getElementById('btn-assign-multi');
             if (countEl) countEl.textContent = `Đã chọn: ${selectedUnits.size} unit`;
-            if (startBtn) {
-                if (selectedUnits.size >= 2) {
-                    startBtn.disabled = false;
-                    startBtn.style.opacity = '1';
-                    startBtn.style.cursor = 'pointer';
-                } else {
-                    startBtn.disabled = true;
-                    startBtn.style.opacity = '0.5';
-                    startBtn.style.cursor = 'not-allowed';
-                }
-            }
+            const enabled = selectedUnits.size >= 1;
+            [startBtn, assignBtn].forEach(btn => {
+                if (!btn) return;
+                btn.disabled = !enabled;
+                btn.style.opacity = enabled ? '1' : '0.5';
+                btn.style.cursor = enabled ? 'pointer' : 'not-allowed';
+            });
         }
 
         async function openMultiUnitQuiz(materialId, folderId) {
@@ -1214,6 +1253,177 @@
             } catch(err) {
                 Swal.fire({ title: 'Lỗi', text: err.message, icon: 'error' });
             }
+        }
+
+        function assignMultiUnit(materialId, folderId) {
+            if (selectedUnits.size === 0) return;
+            const unitIds = Array.from(selectedUnits).sort();
+            const material = materialsData.find(m => m.id === materialId);
+            const folder = material ? (material.folders || []).find(f => f.id === folderId) : null;
+            const unitNames = unitIds.map(uid => {
+                const sf = folder ? folder.subfolders.find(s => s.id === uid) : null;
+                return sf ? sf.name : uid;
+            });
+            const link = `${window.location.origin}${window.location.pathname}#/material/${materialId}/${folderId}?multi=${unitIds.join(',')}`;
+            navigator.clipboard.writeText(link).catch(() => {});
+            const nameList = unitNames.map((n, i) => `<div class="flex items-center gap-2 py-1"><span class="bg-slate-100 text-slate-600 w-6 h-6 rounded-full flex items-center justify-center font-bold" style="font-size:14px">${i+1}</span><span style="font-size:20px">${n}</span></div>`).join('');
+            Swal.fire({
+                title: '<i class="fa-solid fa-share-from-square mr-2"></i> Giao bài',
+                html: `<div class="text-left">
+                    <p class="text-slate-500 mb-2" style="font-size:20px">${selectedUnits.size} unit đã chọn:</p>
+                    <div class="bg-slate-50 rounded-xl p-3 mb-4 border max-h-48 overflow-y-auto">${nameList}</div>
+                    <div class="flex items-center gap-2"><span class="text-green-500 font-medium" style="font-size:20px"><i class="fa-solid fa-check mr-1"></i>Đã copy link</span></div>
+                </div>`,
+                confirmButtonText: '<i class="fa-solid fa-copy mr-2"></i>Copy lại',
+                confirmButtonColor: '#20a1a0',
+                showCloseButton: true
+            }).then(r => {
+                if (r.isConfirmed) navigator.clipboard.writeText(link).catch(() => {});
+            });
+        }
+
+        let selectedParts = new Set();
+        let multiSelectPartMode = false;
+
+        function toggleMultiSelectPart(materialId, folderId) {
+            multiSelectPartMode = !multiSelectPartMode;
+            selectedParts.clear();
+            const btn = document.getElementById('btn-multi-select-part');
+            const bar = document.getElementById('multi-select-bar-part');
+            const grid = document.getElementById('part-grid');
+            if (!btn || !grid) return;
+
+            if (multiSelectPartMode) {
+                btn.style.background = 'var(--theme-color)';
+                btn.style.color = 'white';
+                btn.innerHTML = '<i class="fa-solid fa-xmark mr-2"></i>Hủy chọn';
+                bar.classList.remove('hidden');
+                grid.querySelectorAll('.part-select-card').forEach(card => {
+                    card.removeAttribute('href');
+                    card.style.cursor = 'pointer';
+                    card.onclick = function(e) {
+                        e.preventDefault();
+                        const pid = this.getAttribute('data-part-card-id');
+                        if (selectedParts.has(pid)) {
+                            selectedParts.delete(pid);
+                            this.style.outline = 'none';
+                            this.style.outlineOffset = '';
+                            const chk = this.querySelector('.multi-check');
+                            if (chk) chk.remove();
+                        } else {
+                            selectedParts.add(pid);
+                            this.style.outline = '3px solid var(--theme-color)';
+                            this.style.outlineOffset = '-3px';
+                            if (!this.querySelector('.multi-check')) {
+                                const chk = document.createElement('div');
+                                chk.className = 'multi-check';
+                                chk.style.cssText = 'position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:16px;z-index:10;background:var(--theme-color);';
+                                chk.innerHTML = '<i class="fa-solid fa-check"></i>';
+                                this.appendChild(chk);
+                            }
+                        }
+                        updateMultiSelectCountPart();
+                    };
+                });
+            } else {
+                btn.style.background = 'white';
+                btn.style.color = 'var(--theme-color)';
+                btn.innerHTML = '<i class="fa-solid fa-list-check mr-2"></i>Chọn nhiều';
+                bar.classList.add('hidden');
+                grid.querySelectorAll('.part-select-card').forEach(card => {
+                    card.style.outline = 'none';
+                    card.style.outlineOffset = '';
+                    const chk = card.querySelector('.multi-check');
+                    if (chk) chk.remove();
+                    card.onclick = null;
+                    const pid = card.getAttribute('data-part-card-id');
+                    card.setAttribute('href', `#/material/${materialId}/${folderId}/${pid}`);
+                });
+            }
+            updateMultiSelectCountPart();
+        }
+
+        function updateMultiSelectCountPart() {
+            const countEl = document.getElementById('multi-select-count-part');
+            const startBtn = document.getElementById('btn-start-multi-part');
+            const assignBtn = document.getElementById('btn-assign-multi-part');
+            if (countEl) countEl.textContent = `Đã chọn: ${selectedParts.size} part`;
+            const enabled = selectedParts.size >= 1;
+            [startBtn, assignBtn].forEach(btn => {
+                if (!btn) return;
+                btn.disabled = !enabled;
+                btn.style.opacity = enabled ? '1' : '0.5';
+                btn.style.cursor = enabled ? 'pointer' : 'not-allowed';
+            });
+        }
+
+        async function openMultiPartQuiz(materialId, folderId) {
+            if (selectedParts.size === 0) return;
+            const partIds = Array.from(selectedParts);
+            const material = materialsData.find(m => m.id === materialId);
+            const folder = material ? (material.folders || []).find(f => f.id === folderId) : null;
+            if (!folder) return;
+            const partSubs = partIds.map(pid => folder.subfolders.find(sf => sf.id === pid)).filter(Boolean);
+            currentMaterialId = materialId;
+            currentQuizTheme = document.getElementById('view-detail').style.getPropertyValue('--theme-color') || '#20a1a0';
+
+            try {
+                Swal.fire({ title: 'Đang tải dữ liệu...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+                const results = await scanAllParts(materialId, folderId, folder);
+                const mergedParts = [];
+                partSubs.forEach(psf => {
+                    results.forEach(({ data, skill }) => {
+                        if (!data) return;
+                        data.parts.forEach(part => {
+                            if (part.title === psf.partFilter && (!psf.partSkill || psf.partSkill === skill)) {
+                                mergedParts.push(part);
+                            }
+                        });
+                    });
+                });
+                if (mergedParts.length === 0) {
+                    Swal.fire({ title: 'Lỗi', text: 'Không tìm thấy bài tập', icon: 'error' });
+                    return;
+                }
+                const partNames = partSubs.map(p => p.name);
+                const combinedTitle = partNames.join(' + ');
+                const firstPart = mergedParts[0];
+                const dataType = firstPart.audio ? 'listening-test' : 'reading-test';
+                const mergedData = { type: dataType, title: combinedTitle, parts: mergedParts };
+                Swal.close();
+                fullTestMode = false;
+                currentPartFilter = null;
+                askStudentCode(mergedData, combinedTitle, dataType === 'listening-test' ? 'listening' : 'reading');
+            } catch(err) {
+                Swal.fire({ title: 'Lỗi', text: err.message, icon: 'error' });
+            }
+        }
+
+        function assignMultiPart(materialId, folderId) {
+            if (selectedParts.size === 0) return;
+            const partIds = Array.from(selectedParts);
+            const material = materialsData.find(m => m.id === materialId);
+            const folder = material ? (material.folders || []).find(f => f.id === folderId) : null;
+            const partNames = partIds.map(pid => {
+                const sf = folder ? folder.subfolders.find(s => s.id === pid) : null;
+                return sf ? sf.name : pid;
+            });
+            const link = `${window.location.origin}${window.location.pathname}#/material/${materialId}/${folderId}?parts=${partIds.join(',')}`;
+            navigator.clipboard.writeText(link).catch(() => {});
+            const nameList = partNames.map((n, i) => `<div class="flex items-center gap-2 py-1"><span class="bg-slate-100 text-slate-600 w-6 h-6 rounded-full flex items-center justify-center font-bold" style="font-size:14px">${i+1}</span><span style="font-size:20px">${n}</span></div>`).join('');
+            Swal.fire({
+                title: '<i class="fa-solid fa-share-from-square mr-2"></i> Giao bài',
+                html: `<div class="text-left">
+                    <p class="text-slate-500 mb-2" style="font-size:20px">${selectedParts.size} part đã chọn:</p>
+                    <div class="bg-slate-50 rounded-xl p-3 mb-4 border max-h-48 overflow-y-auto">${nameList}</div>
+                    <div class="flex items-center gap-2"><span class="text-green-500 font-medium" style="font-size:20px"><i class="fa-solid fa-check mr-1"></i>Đã copy link</span></div>
+                </div>`,
+                confirmButtonText: '<i class="fa-solid fa-copy mr-2"></i>Copy lại',
+                confirmButtonColor: '#20a1a0',
+                showCloseButton: true
+            }).then(r => {
+                if (r.isConfirmed) navigator.clipboard.writeText(link).catch(() => {});
+            });
         }
 
         async function checkUnitContent(materialId, folderId, unitSubs) {
