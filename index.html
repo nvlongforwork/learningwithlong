@@ -2447,7 +2447,7 @@
         function renderListeningPart() {
             const part = listeningData.parts[activePart];
             const audio = document.getElementById('listening-audio-player');
-            if (part.audio) { audio.src = part.audio; audio.load(); }
+            if (part.audio && audio.getAttribute('src') !== part.audio) { audio.src = part.audio; audio.load(); }
 
             if (part.type === 'drag-match') renderDragMatch(part);
             else if (part.type === 'fill-blank') renderFillBlank(part);
@@ -5264,7 +5264,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             if (ftActiveSkill === 'listening') {
                 const part = ftListeningData.parts[ftActivePartIdx];
                 audioBox.style.display = 'flex';
-                if (part.audio && !isExamMode) { ftAudioPlayer.src = part.audio; ftAudioPlayer.load(); }
+                if (part.audio && !isExamMode && ftAudioPlayer.getAttribute('src') !== part.audio) { ftAudioPlayer.src = part.audio; ftAudioPlayer.load(); }
 
                 const origContent = document.getElementById('listening-content');
                 const ftContent = document.getElementById('fulltest-content');
