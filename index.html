@@ -585,6 +585,8 @@
 
         // --- Render UI Chi tiết Bài Học & Thư mục ---
         function renderDetail(pathString) {
+            multiSelectMode = false;
+            selectedUnits.clear();
             const [pathOnly, queryStr] = pathString.split('?');
             const pathParts = pathOnly.split('/');
             const materialId = pathParts[0];
