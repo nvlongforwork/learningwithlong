@@ -853,6 +853,13 @@
         // --- Router (Quản lý chuyển trang bằng URL Hash) ---
         // Giúp tạo ra các link duy nhất cho từng bài tập
         function handleRouting() {
+            if (isExamMode && !ftSubmitted && !isTeacherMode) {
+                const ftView = document.getElementById('view-fulltest');
+                if (ftView && ftView.classList.contains('active')) {
+                    history.pushState(null, '', '#/exam');
+                    return;
+                }
+            }
             const hash = window.location.hash || '#/';
 
             // Ẩn tất cả view trước khi hiển thị view mới
@@ -5515,6 +5522,16 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
         }
 
         function closeFullTest() {
+            if (!ftSubmitted && isExamMode && !isTeacherMode) {
+                Swal.fire({
+                    title: 'Không thể thoát!',
+                    html: '<p style="font-size:20px">Trong phòng thi ảo, bạn không được thoát khỏi bài thi.</p><p style="font-size:20px;color:#64748b;margin-top:8px">Hãy hoàn thành bài thi và nộp bài.</p>',
+                    icon: 'error',
+                    confirmButtonText: 'Đã hiểu',
+                    confirmButtonColor: '#ef4444'
+                });
+                return;
+            }
             if (!ftSubmitted) {
                 Swal.fire({
                     title: 'Thoát bài thi?',
@@ -5544,6 +5561,13 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             isExamMode = false;
             examAudioPlayed = {};
         }
+
+        window.addEventListener('beforeunload', function(e) {
+            if (isExamMode && !ftSubmitted && !isTeacherMode) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
 
         // Lắng nghe sự kiện đổi URL (hash) để thay đổi view tương ứng
         window.addEventListener('hashchange', handleRouting);
