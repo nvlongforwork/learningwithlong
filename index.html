@@ -405,6 +405,10 @@
                 </div>
             </div>
             <div class="flex items-center gap-3">
+                <div id="exam-timer-display" class="items-center gap-2 px-4 py-2 rounded-xl font-bold" style="display:none;background:linear-gradient(135deg,#fee2e2,#fecaca);color:#dc2626;font-size:20px;border:2px solid #fca5a5;">
+                    <i class="fa-solid fa-clock"></i>
+                    <span id="exam-timer-text">00:00</span>
+                </div>
                 <div id="fulltest-student-info" class="flex items-center gap-3 text-sm"></div>
                 <button id="btn-submit-fulltest" onclick="submitFullTest()" class="py-1.5 px-4 bg-turtle-500 text-white font-semibold rounded-xl hover:bg-turtle-600 transition-all shadow hover-bounce" style="font-size:20px">
                     <i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài
@@ -2233,9 +2237,14 @@
                 isTeacherMode = true;
                 sessionStorage.setItem('elm_teacher_mode', 'true');
                 currentStudent = { name: 'Giáo viên', englishName: '', class: '', code: TEACHER_BYPASS_CODE };
-                if (testType === 'fulltest') openFullTest(data._ftLis, data._ftRead, title);
-                else if (testType === 'reading') openReadingTest(data, title);
-                else openListeningTest(data, title);
+                if (testType === 'fulltest') {
+                    const modeResult = await askExamMode();
+                    if (modeResult === null) return askStudentCode(data, title, testType);
+                    isExamMode = modeResult === 'exam';
+                    openFullTest(data._ftLis, data._ftRead, title);
+                }
+                else if (testType === 'reading') { isExamMode = false; openReadingTest(data, title); }
+                else { isExamMode = false; openListeningTest(data, title); }
                 return;
             }
             isTeacherMode = false;
@@ -2273,10 +2282,15 @@
             if (!isConfirmed) return askStudentCode(data, title, testType);
             currentStudent = student;
             if (testType === 'fulltest') {
+                const modeResult = await askExamMode();
+                if (modeResult === null) return askStudentCode(data, title, testType);
+                isExamMode = modeResult === 'exam';
                 openFullTest(data._ftLis, data._ftRead, title);
             } else if (testType === 'reading') {
+                isExamMode = false;
                 openReadingTest(data, title);
             } else {
+                isExamMode = false;
                 openListeningTest(data, title);
             }
         }
@@ -4759,6 +4773,202 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
         let ftCanReview = false;
         let ftStartTime = null;
 
+        // Exam mode (Phòng thi ảo)
+        let isExamMode = false;
+        let examTimerId = null;
+        let examTimeLeft = 0; // seconds remaining
+        let examAudioPlayed = {}; // { partIdx: true } — tracks which parts' audio have been played
+        const EXAM_TIMES = { 'a2-key': { reading: 60 * 60, listening: 35 * 60 } };
+        const EXAM_BREAK_SECONDS = 3 * 60;
+
+        async function askExamMode() {
+            const matColor = getMaterialColor();
+            const { value, isDismissed } = await Swal.fire({
+                html: `<div style="text-align:center;padding:10px 0">
+                    <div style="font-size:24px;font-weight:800;color:#1e293b;margin-bottom:6px">Chọn chế độ làm bài</div>
+                    <div style="font-size:20px;color:#64748b;margin-bottom:20px">Chọn cách bạn muốn làm bài</div>
+                    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+                        <label style="flex:1;min-width:200px;max-width:280px;cursor:pointer;">
+                            <input type="radio" name="exam-mode" value="practice" checked style="display:none">
+                            <div class="exam-mode-card" id="mode-card-practice" style="border:3px solid ${matColor};border-radius:20px;padding:20px;text-align:center;background:linear-gradient(135deg,${matColor}08,${matColor}15);transition:all 0.2s">
+                                <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#16a34a);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+                                    <i class="fa-solid fa-pencil" style="font-size:24px;color:white"></i>
+                                </div>
+                                <div style="font-size:22px;font-weight:800;color:#1e293b;margin-bottom:4px">Luyện tập</div>
+                                <div style="font-size:20px;color:#64748b">Không giới hạn thời gian, nghe lại thoải mái</div>
+                            </div>
+                        </label>
+                        <label style="flex:1;min-width:200px;max-width:280px;cursor:pointer;">
+                            <input type="radio" name="exam-mode" value="exam" style="display:none">
+                            <div class="exam-mode-card" id="mode-card-exam" style="border:3px solid #e2e8f0;border-radius:20px;padding:20px;text-align:center;transition:all 0.2s">
+                                <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#ef4444,#dc2626);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+                                    <i class="fa-solid fa-graduation-cap" style="font-size:24px;color:white"></i>
+                                </div>
+                                <div style="font-size:22px;font-weight:800;color:#1e293b;margin-bottom:4px">Phòng thi ảo</div>
+                                <div style="font-size:20px;color:#64748b">Có giới hạn thời gian, nghe 1 lần, giống thi thật</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>`,
+                confirmButtonText: '<i class="fa-solid fa-arrow-right" style="margin-right:6px"></i> Tiếp tục',
+                cancelButtonText: '<i class="fa-solid fa-arrow-left" style="margin-right:4px"></i> Quay lại',
+                showCancelButton: true,
+                confirmButtonColor: matColor,
+                width: 620,
+                didOpen: () => {
+                    const radios = document.querySelectorAll('input[name="exam-mode"]');
+                    const cardP = document.getElementById('mode-card-practice');
+                    const cardE = document.getElementById('mode-card-exam');
+                    const mc = getMaterialColor();
+                    function updateCards() {
+                        const val = document.querySelector('input[name="exam-mode"]:checked').value;
+                        if (val === 'practice') {
+                            cardP.style.borderColor = mc; cardP.style.background = `linear-gradient(135deg,${mc}08,${mc}15)`;
+                            cardE.style.borderColor = '#e2e8f0'; cardE.style.background = 'white';
+                        } else {
+                            cardE.style.borderColor = mc; cardE.style.background = `linear-gradient(135deg,${mc}08,${mc}15)`;
+                            cardP.style.borderColor = '#e2e8f0'; cardP.style.background = 'white';
+                        }
+                    }
+                    radios.forEach(r => r.addEventListener('change', updateCards));
+                    [cardP, cardE].forEach(c => c.addEventListener('click', () => {
+                        const radio = c.closest('label').querySelector('input');
+                        radio.checked = true;
+                        radio.dispatchEvent(new Event('change'));
+                    }));
+                },
+                preConfirm: () => document.querySelector('input[name="exam-mode"]:checked').value
+            });
+            if (isDismissed) return null;
+            return value;
+        }
+
+        function formatExamTime(seconds) {
+            const m = Math.floor(seconds / 60);
+            const s = seconds % 60;
+            return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+        }
+
+        function startExamTimer(seconds, onExpire) {
+            stopExamTimer();
+            examTimeLeft = seconds;
+            const display = document.getElementById('exam-timer-display');
+            const text = document.getElementById('exam-timer-text');
+            if (display) display.style.display = 'flex';
+            if (text) text.textContent = formatExamTime(examTimeLeft);
+            examTimerId = setInterval(() => {
+                examTimeLeft--;
+                if (text) text.textContent = formatExamTime(examTimeLeft);
+                if (display) {
+                    if (examTimeLeft <= 300) {
+                        display.style.background = 'linear-gradient(135deg,#fee2e2,#fecaca)';
+                        display.style.color = '#dc2626';
+                        display.style.borderColor = '#fca5a5';
+                        if (examTimeLeft <= 60) display.style.animation = 'pulse 1s infinite';
+                    } else {
+                        display.style.background = 'linear-gradient(135deg,#dbeafe,#bfdbfe)';
+                        display.style.color = '#2563eb';
+                        display.style.borderColor = '#93c5fd';
+                        display.style.animation = 'none';
+                    }
+                }
+                if (examTimeLeft <= 0) {
+                    stopExamTimer();
+                    if (onExpire) onExpire();
+                }
+            }, 1000);
+        }
+
+        function stopExamTimer() {
+            if (examTimerId) { clearInterval(examTimerId); examTimerId = null; }
+        }
+
+        function hideExamTimer() {
+            stopExamTimer();
+            const display = document.getElementById('exam-timer-display');
+            if (display) { display.style.display = 'none'; display.style.animation = 'none'; }
+        }
+
+        async function showExamBreak(onContinue) {
+            stopExamTimer();
+            let breakTimeLeft = EXAM_BREAK_SECONDS;
+            const { isConfirmed } = await Swal.fire({
+                html: `<div style="text-align:center;padding:20px 0">
+                    <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#2563eb);display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
+                        <i class="fa-solid fa-mug-hot" style="font-size:36px;color:white"></i>
+                    </div>
+                    <div style="font-size:24px;font-weight:800;color:#1e293b;margin-bottom:6px">Hoàn thành phần Listening!</div>
+                    <div style="font-size:20px;color:#64748b;margin-bottom:16px">Nghỉ giải lao trước khi làm phần Reading & Writing</div>
+                    <div style="font-size:48px;font-weight:800;color:#2563eb;margin-bottom:8px" id="break-timer-text">${formatExamTime(breakTimeLeft)}</div>
+                    <div style="font-size:20px;color:#94a3b8">Thời gian nghỉ còn lại</div>
+                </div>`,
+                confirmButtonText: '<i class="fa-solid fa-forward" style="margin-right:6px"></i> Bỏ qua — Làm tiếp ngay',
+                confirmButtonColor: '#2563eb',
+                showConfirmButton: true,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                width: 480,
+                didOpen: () => {
+                    const breakText = document.getElementById('break-timer-text');
+                    const breakTimer = setInterval(() => {
+                        breakTimeLeft--;
+                        if (breakText) breakText.textContent = formatExamTime(breakTimeLeft);
+                        if (breakTimeLeft <= 0) {
+                            clearInterval(breakTimer);
+                            Swal.close();
+                        }
+                    }, 1000);
+                    Swal.getPopup()._breakTimer = breakTimer;
+                },
+                willClose: () => {
+                    const popup = Swal.getPopup();
+                    if (popup && popup._breakTimer) clearInterval(popup._breakTimer);
+                }
+            });
+            if (onContinue) onContinue();
+        }
+
+        function setupExamAudioRestriction(audioEl, partIdx) {
+            if (!isExamMode || !audioEl) return;
+            audioEl.removeAttribute('controls');
+            const wrapper = audioEl.parentElement;
+            const existingBtn = wrapper.querySelector('.exam-play-btn');
+            if (existingBtn) existingBtn.remove();
+
+            if (examAudioPlayed[partIdx]) {
+                audioEl.style.display = 'none';
+                wrapper.innerHTML = `<div style="display:flex;align-items:center;gap:10px;padding:8px 16px;background:#f1f5f9;border-radius:12px;color:#94a3b8;font-size:20px;font-weight:600">
+                    <i class="fa-solid fa-volume-xmark"></i> Đã nghe — không thể nghe lại
+                </div>`;
+                return;
+            }
+
+            const playBtn = document.createElement('button');
+            playBtn.className = 'exam-play-btn';
+            playBtn.style.cssText = 'display:flex;align-items:center;gap:10px;padding:12px 24px;background:linear-gradient(135deg,#22c55e,#16a34a);color:white;border:none;border-radius:14px;font-weight:700;font-size:20px;cursor:pointer;box-shadow:0 4px 12px rgba(34,197,94,0.3);transition:all 0.2s';
+            playBtn.innerHTML = '<i class="fa-solid fa-play"></i> Bấm để nghe (1 lần duy nhất)';
+            audioEl.style.display = 'none';
+
+            let isPlaying = false;
+            playBtn.addEventListener('click', () => {
+                if (isPlaying || examAudioPlayed[partIdx]) return;
+                isPlaying = true;
+                examAudioPlayed[partIdx] = true;
+                playBtn.disabled = true;
+                playBtn.style.background = 'linear-gradient(135deg,#3b82f6,#2563eb)';
+                playBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Đang phát...';
+                playBtn.style.cursor = 'default';
+                audioEl.play();
+                audioEl.addEventListener('ended', () => {
+                    playBtn.style.background = '#94a3b8';
+                    playBtn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i> Đã nghe — không thể nghe lại';
+                    playBtn.style.boxShadow = 'none';
+                }, { once: true });
+            });
+
+            wrapper.appendChild(playBtn);
+        }
+
         function openFullTest(lisData, readData, title) {
             ftListeningData = lisData;
             ftReadingData = readData;
@@ -4825,22 +5035,77 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 infoEl.innerHTML = '';
             }
 
+            examAudioPlayed = {};
+            if (isExamMode) {
+                const examTimes = EXAM_TIMES[currentMaterialId] || { listening: 35 * 60, reading: 60 * 60 };
+                startExamTimer(examTimes.listening, () => {
+                    if (ftActiveSkill === 'listening' && !ftSubmitted) {
+                        Swal.fire({
+                            title: 'Hết giờ Listening!',
+                            text: 'Thời gian phần Listening đã hết. Chuyển sang phần Reading & Writing.',
+                            icon: 'warning',
+                            confirmButtonText: 'Tiếp tục',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false
+                        }).then(() => {
+                            examTransitionToReading();
+                        });
+                    }
+                });
+            } else {
+                hideExamTimer();
+            }
+
             renderFullTestSkillTabs();
             renderFullTestPartTabs();
             renderFullTestPart();
+        }
+
+        async function examTransitionToReading() {
+            if (isExamMode) {
+                await showExamBreak(() => {});
+            }
+            ftActiveSkill = 'reading';
+            ftActivePartIdx = 0;
+            activeReadingPart = 0;
+            selectedBank = null;
+            renderFullTestSkillTabs();
+            renderFullTestPartTabs();
+            renderFullTestPart();
+            if (isExamMode) {
+                const examTimes = EXAM_TIMES[currentMaterialId] || { listening: 35 * 60, reading: 60 * 60 };
+                startExamTimer(examTimes.reading, () => {
+                    if (!ftSubmitted) {
+                        forceAutoSubmit = true;
+                        doSubmitFullTest();
+                        forceAutoSubmit = false;
+                    }
+                });
+            }
         }
 
         function renderFullTestSkillTabs() {
             const container = document.getElementById('fulltest-skill-tabs');
             const lisActive = ftActiveSkill === 'listening';
             const readActive = ftActiveSkill === 'reading';
-            container.innerHTML = `
-                <button onclick="switchFullTestSkill('listening')" class="px-6 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all ${lisActive ? 'bg-cyan-500 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}" style="font-size:20px">
-                    <i class="fa-solid fa-headphones"></i> Listening
-                </button>
-                <button onclick="switchFullTestSkill('reading')" class="px-6 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all ${readActive ? 'bg-purple-500 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}" style="font-size:20px">
-                    <i class="fa-solid fa-book-open"></i> Reading
-                </button>`;
+            if (isExamMode) {
+                const lisDone = ftActiveSkill === 'reading';
+                container.innerHTML = `
+                    <button class="px-6 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all ${lisActive ? 'bg-cyan-500 text-white shadow-md' : lisDone ? 'bg-green-100 text-green-600' : 'bg-slate-100 text-slate-600'}" style="font-size:20px;cursor:default;" ${lisDone ? '' : ''}>
+                        <i class="fa-solid fa-headphones"></i> Listening ${lisDone ? '<i class="fa-solid fa-check ml-1"></i>' : ''}
+                    </button>
+                    <button class="px-6 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all ${readActive ? 'bg-purple-500 text-white shadow-md' : 'bg-slate-100 text-slate-400'}" style="font-size:20px;cursor:default;">
+                        <i class="fa-solid fa-book-open"></i> Reading & Writing ${!readActive ? '<i class="fa-solid fa-lock ml-1" style="font-size:14px"></i>' : ''}
+                    </button>`;
+            } else {
+                container.innerHTML = `
+                    <button onclick="switchFullTestSkill('listening')" class="px-6 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all ${lisActive ? 'bg-cyan-500 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}" style="font-size:20px">
+                        <i class="fa-solid fa-headphones"></i> Listening
+                    </button>
+                    <button onclick="switchFullTestSkill('reading')" class="px-6 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all ${readActive ? 'bg-purple-500 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}" style="font-size:20px">
+                        <i class="fa-solid fa-book-open"></i> Reading & Writing
+                    </button>`;
+            }
         }
 
         function switchFullTestSkill(skill) {
@@ -4892,8 +5157,13 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 renderFullTestPartTabs();
                 renderFullTestPart();
             } else if (dir === 1 && ftActiveSkill === 'listening') {
-                switchFullTestSkill('reading');
+                if (isExamMode) {
+                    examTransitionToReading();
+                } else {
+                    switchFullTestSkill('reading');
+                }
             } else if (dir === -1 && ftActiveSkill === 'reading') {
+                if (isExamMode) return;
                 ftActiveSkill = 'listening';
                 ftActivePartIdx = ftListeningData.parts.length - 1;
                 activePart = ftActivePartIdx;
@@ -4910,7 +5180,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             if (ftActiveSkill === 'listening') {
                 const part = ftListeningData.parts[ftActivePartIdx];
                 audioBox.style.display = 'flex';
-                if (part.audio) { ftAudioPlayer.src = part.audio; ftAudioPlayer.load(); }
+                if (part.audio && !isExamMode) { ftAudioPlayer.src = part.audio; ftAudioPlayer.load(); }
 
                 const origContent = document.getElementById('listening-content');
                 const ftContent = document.getElementById('fulltest-content');
@@ -4927,6 +5197,10 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 origAudio.id = 'listening-audio-player';
                 ftContent.id = 'fulltest-content';
                 origContent.id = 'listening-content';
+
+                if (isExamMode && part.audio) {
+                    setupExamAudioRestriction(ftAudioPlayer, ftActivePartIdx);
+                }
             } else {
                 audioBox.style.display = 'none';
                 const origContent = document.getElementById('reading-content');
@@ -5247,6 +5521,9 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             btn.className = btn.className.replace('bg-slate-600', 'bg-turtle-500').replace('hover:bg-slate-700', 'hover:bg-turtle-600');
             fullTestMode = false;
             tabSwitchCount = 0;
+            hideExamTimer();
+            isExamMode = false;
+            examAudioPlayed = {};
         }
 
         // Lắng nghe sự kiện đổi URL (hash) để thay đổi view tương ứng
