@@ -4778,8 +4778,12 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
         let examTimerId = null;
         let examTimeLeft = 0; // seconds remaining
         let examAudioPlayed = {}; // { partIdx: true } — tracks which parts' audio have been played
-        const EXAM_TIMES = { 'a2-key': { reading: 60 * 60, listening: 35 * 60 } };
+        const EXAM_TIMES = {
+            'a2-key': { reading: 60 * 60, listening: 35 * 60 },
+            'a1-movers': { listening: 30 * 60, reading: 40 * 60 }
+        };
         const EXAM_BREAK_SECONDS = 3 * 60;
+        const EXAM_MIN_MINUTES = 10;
 
         async function askExamMode() {
             const matColor = getMaterialColor();
@@ -5218,6 +5222,21 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
 
         function submitFullTest() {
             if (ftSubmitted) { closeFullTest(); return; }
+
+            if (isExamMode && !isTeacherMode && ftStartTime) {
+                const elapsedMin = (Date.now() - ftStartTime) / 60000;
+                if (elapsedMin < EXAM_MIN_MINUTES) {
+                    const remaining = Math.ceil(EXAM_MIN_MINUTES - elapsedMin);
+                    Swal.fire({
+                        title: 'Chưa thể nộp bài!',
+                        html: `<p style="font-size:20px">Trong phòng thi ảo, bạn không được nộp bài trước <b>${EXAM_MIN_MINUTES} phút</b>.</p><p style="font-size:20px;color:#64748b;margin-top:8px">Vui lòng chờ thêm <b>${remaining} phút</b> nữa.</p>`,
+                        icon: 'warning',
+                        confirmButtonText: 'Đã hiểu',
+                        confirmButtonColor: '#f59e0b'
+                    });
+                    return;
+                }
+            }
 
             let totalAnswered = 0;
             let totalQ = 0;
