@@ -1572,7 +1572,7 @@
                     <button onclick="toggleSelectAllExercises()" class="px-3 py-1.5 rounded-lg text-sm font-medium border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 transition-colors" id="btn-select-all-exercises">Chọn tất cả</button>
                 </div>
             </div>
-            <div id="part-start-bar" class="fixed bottom-0 left-0 right-0 bg-white border-t-2 shadow-2xl p-4 flex items-center justify-center gap-4 z-50 transition-transform" style="transform: translateY(100%); border-color: var(--theme-color);">
+            <div id="part-start-bar" class="fixed bottom-0 left-0 right-0 bg-white border-t-2 shadow-2xl p-4 items-center justify-center gap-4 z-50" style="display:none; border-color: var(--theme-color);">
                 <span class="text-slate-600 font-medium" id="part-selected-count">0 bài đã chọn</span>
                 <button onclick="startPartPractice()" class="px-6 py-3 rounded-xl text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all bg-green-500 hover:bg-green-600" id="btn-exercise-start" disabled>
                     <i class="fa-solid fa-play mr-2"></i>Làm bài
@@ -1626,7 +1626,7 @@
                     card.style.borderColor = 'var(--theme-bg-color)';
                 });
                 const bar = document.getElementById('part-start-bar');
-                if (bar) bar.style.transform = 'translateY(100%)';
+                if (bar) bar.style.display = 'none';
             }
             updatePartStartBar();
         }
@@ -1671,7 +1671,7 @@
             const btnAll = document.getElementById('btn-select-all-exercises');
             const btnStart = document.getElementById('btn-exercise-start');
             const btnAssign = document.getElementById('btn-exercise-assign');
-            if (bar) bar.style.transform = (window._exerciseMultiMode && count > 0) ? 'translateY(0)' : 'translateY(100%)';
+            if (bar) bar.style.display = (window._exerciseMultiMode && count > 0) ? 'flex' : 'none';
             if (label) label.textContent = `${count} bài đã chọn`;
             if (countLabel) countLabel.textContent = `Đã chọn: ${count} bài`;
             if (btnAll) btnAll.textContent = (count === window._partExercises.length) ? 'Bỏ chọn tất cả' : 'Chọn tất cả';
