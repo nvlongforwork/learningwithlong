@@ -118,6 +118,54 @@
         .text-xs, .text-sm, .text-base { font-size: 20px !important; }
         .text-lg { font-size: 20px !important; }
 
+        /* Result card responsive */
+        @media (max-width: 900px) {
+            #result-card .rc-body {
+                flex-direction: column !important;
+                gap: 16px !important;
+            }
+            #result-card .rc-ring-col {
+                flex: none !important;
+                padding: 0 !important;
+            }
+            #result-card .rc-ring-col svg {
+                width: 140px !important;
+                height: 140px !important;
+            }
+            #result-card .rc-table-col {
+                flex: none !important;
+                width: 100% !important;
+            }
+            #result-card .rc-ft-tables {
+                flex-direction: column !important;
+                gap: 12px !important;
+            }
+            #result-card .rc-ft-tables > div {
+                flex: none !important;
+                width: 100% !important;
+            }
+            #result-card .rc-buttons {
+                flex-wrap: wrap !important;
+            }
+            #result-card .rc-buttons button {
+                flex: 1 1 auto !important;
+                min-width: 140px !important;
+                padding: 12px 16px !important;
+            }
+        }
+        @media (max-width: 500px) {
+            #result-card .rc-ring-col svg {
+                width: 120px !important;
+                height: 120px !important;
+            }
+            #result-card .rc-buttons button {
+                min-width: 100px !important;
+                padding: 10px 12px !important;
+                font-size: 18px !important;
+            }
+            .swal-result-popup { padding: 12px !important; }
+        }
+
         @media (max-width: 768px) {
             .resp-row {
                 flex-direction: column !important;
@@ -1009,51 +1057,51 @@
             }).join('');
 
             return `
-            <div id="result-card" style="font-family:Inter,sans-serif;text-align:left;max-width:1020px;margin:0 auto;aspect-ratio:4/3;display:flex;flex-direction:column;justify-content:space-between;padding:10px">
-                <div style="background:linear-gradient(135deg, ${matColor}, ${matColor}dd);border-radius:20px;padding:24px 30px;text-align:center;color:white;position:relative;overflow:hidden">
+            <div id="result-card" style="font-family:Inter,sans-serif;text-align:left;max-width:1020px;margin:0 auto;display:flex;flex-direction:column;padding:10px">
+                <div style="background:linear-gradient(135deg, ${matColor}, ${matColor}dd);border-radius:20px;padding:20px 24px;text-align:center;color:white;position:relative;overflow:hidden">
                     <div style="position:absolute;top:-30px;right:-30px;width:150px;height:150px;background:rgba(255,255,255,0.1);border-radius:50%"></div>
                     <div style="position:absolute;bottom:-40px;left:-15px;width:120px;height:120px;background:rgba(255,255,255,0.08);border-radius:50%"></div>
-                    <div style="font-size:20px;text-transform:uppercase;letter-spacing:3px;opacity:0.9;margin-bottom:6px;font-weight:700">${matName}</div>
-                    <div style="font-size:26px;font-weight:800;margin-bottom:4px">${testTitle}</div>
+                    <div style="font-size:20px;text-transform:uppercase;letter-spacing:3px;opacity:0.9;margin-bottom:4px;font-weight:700">${matName}</div>
+                    <div style="font-size:24px;font-weight:800;margin-bottom:4px">${testTitle}</div>
                     <div style="font-size:20px;opacity:0.85;font-weight:500"><i class="fa-solid fa-${skillLabel === 'Listening' ? 'headphones' : skillLabel === 'Reading' ? 'book-open' : 'clipboard-list'}" style="margin-right:6px"></i>${skillLabel}</div>
                 </div>
-                <div style="text-align:center;margin:14px 0 10px">
-                    <div style="font-size:24px;font-weight:800;color:#1e293b">${studentName}${studentEng}</div>
+                <div style="text-align:center;margin:12px 0 8px">
+                    <div style="font-size:22px;font-weight:800;color:#1e293b">${studentName}${studentEng}</div>
                     <div style="font-size:20px;color:#64748b;margin-top:4px">
                         ${studentClass ? `<i class="fa-solid fa-school" style="margin-right:4px"></i>${studentClass} &nbsp;|&nbsp;` : ''}
                         <i class="fa-solid fa-clock" style="margin-right:4px"></i>${timeStr}
                     </div>
                 </div>
-                <div style="display:flex;gap:30px;align-items:center;flex:1;min-height:0">
-                    <div style="flex:0 0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 16px">
-                        <svg width="180" height="180" viewBox="0 0 130 130" style="display:inline-block">
+                <div class="rc-body" style="display:flex;gap:24px;align-items:center">
+                    <div class="rc-ring-col" style="flex:0 0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 12px">
+                        <svg width="160" height="160" viewBox="0 0 130 130" style="display:inline-block">
                             <circle cx="65" cy="65" r="54" fill="none" stroke="#e2e8f0" stroke-width="10"/>
                             <circle cx="65" cy="65" r="54" fill="none" stroke="${totalColor}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${circumference}" stroke-dashoffset="${offset}" transform="rotate(-90 65 65)" style="transition:stroke-dashoffset 1s ease"/>
                             <text x="65" y="58" text-anchor="middle" style="font-size:32px;font-weight:800;fill:${totalColor}">${pct}%</text>
                             <text x="65" y="78" text-anchor="middle" style="font-size:20px;font-weight:600;fill:#64748b">${totalScore}/${totalMax}</text>
                         </svg>
-                        <div style="font-size:32px;margin-top:4px">${emoji}</div>
-                        ${shields !== null && shields !== undefined ? `<div style="text-align:center;margin-top:12px;padding:14px 20px;background:linear-gradient(135deg,#fffbeb,#fef3c7);border-radius:14px;border:1px solid #fde68a">
-                            <div style="margin-bottom:6px">${renderShieldIcons(shields)}</div>
-                            <div style="font-size:22px;font-weight:800;color:#b45309">${shields}/5 khiên</div>
+                        <div style="font-size:28px;margin-top:4px">${emoji}</div>
+                        ${shields !== null && shields !== undefined ? `<div style="text-align:center;margin-top:10px;padding:10px 16px;background:linear-gradient(135deg,#fffbeb,#fef3c7);border-radius:14px;border:1px solid #fde68a">
+                            <div style="margin-bottom:4px">${renderShieldIcons(shields)}</div>
+                            <div style="font-size:20px;font-weight:800;color:#b45309">${shields}/5 khiên</div>
                         </div>` : ''}
                     </div>
-                    <div style="flex:1;min-width:0;overflow:auto">
+                    <div class="rc-table-col" style="flex:1;min-width:0;overflow:auto">
                         <table style="width:100%;border-collapse:collapse;border-radius:14px;overflow:hidden;border:1px solid #e2e8f0">
                             <thead><tr style="background:linear-gradient(135deg,#f8fafc,#f1f5f9)">
-                                <th style="padding:12px 18px;text-align:left;color:#475569;font-size:20px;text-transform:uppercase;letter-spacing:1px;font-weight:700">Phần</th>
-                                <th style="padding:12px 18px;text-align:center;color:#475569;font-size:20px;text-transform:uppercase;letter-spacing:1px;font-weight:700">Điểm</th>
-                                <th style="padding:12px 18px;text-align:center;color:#475569;font-size:20px;text-transform:uppercase;letter-spacing:1px;font-weight:700">%</th>
+                                <th style="padding:10px 14px;text-align:left;color:#475569;font-size:20px;text-transform:uppercase;letter-spacing:1px;font-weight:700">Phần</th>
+                                <th style="padding:10px 14px;text-align:center;color:#475569;font-size:20px;text-transform:uppercase;letter-spacing:1px;font-weight:700">Điểm</th>
+                                <th style="padding:10px 14px;text-align:center;color:#475569;font-size:20px;text-transform:uppercase;letter-spacing:1px;font-weight:700">%</th>
                             </tr></thead>
                             <tbody>${partRows}</tbody>
                         </table>
                     </div>
                 </div>
-                ${(!isTeacherMode && pct < 80) ? `<div style="text-align:center;margin-top:12px;padding:12px 20px;background:#fef2f2;border:1px solid #fecaca;border-radius:12px;color:#dc2626;font-size:20px;font-weight:600"><i class="fa-solid fa-lock" style="margin-right:6px"></i>Đạt từ 80% trở lên để xem đáp án</div>` : ''}
-                <div style="display:flex;gap:12px;justify-content:center;margin-top:16px">
-                    <button id="${reviewBtnId}" ${(!isTeacherMode && pct < 80) ? 'disabled' : ''} style="padding:14px 28px;background:${(!isTeacherMode && pct < 80) ? '#94a3b8' : `linear-gradient(135deg,${matColor},${matColor}cc)`};color:white;border:none;border-radius:14px;font-weight:700;cursor:${(!isTeacherMode && pct < 80) ? 'not-allowed' : 'pointer'};font-size:20px;box-shadow:0 4px 12px ${(!isTeacherMode && pct < 80) ? 'rgba(0,0,0,0.1)' : `${matColor}40`};opacity:${(!isTeacherMode && pct < 80) ? '0.6' : '1'}"><i class="fa-solid fa-${(!isTeacherMode && pct < 80) ? 'lock' : 'eye'}" style="margin-right:8px"></i>Xem lại bài làm</button>
-                    <button id="${saveBtnId}" style="padding:14px 28px;background:linear-gradient(135deg,#6366f1,#818cf8);color:white;border:none;border-radius:14px;font-weight:700;cursor:pointer;font-size:20px;box-shadow:0 4px 12px rgba(99,102,241,0.3)"><i class="fa-solid fa-download" style="margin-right:8px"></i>Lưu kết quả</button>
-                    ${writingBtnId ? `<button id="${writingBtnId}" style="padding:14px 28px;background:linear-gradient(135deg,#f59e0b,#f97316);color:white;border:none;border-radius:14px;font-weight:700;cursor:pointer;font-size:20px;box-shadow:0 4px 12px rgba(245,158,11,0.3)"><i class="fa-solid fa-file-word" style="margin-right:8px"></i>Tải bài viết</button>` : ''}
+                ${(!isTeacherMode && pct < 80) ? `<div style="text-align:center;margin-top:10px;padding:10px 16px;background:#fef2f2;border:1px solid #fecaca;border-radius:12px;color:#dc2626;font-size:20px;font-weight:600"><i class="fa-solid fa-lock" style="margin-right:6px"></i>Đạt từ 80% trở lên để xem đáp án</div>` : ''}
+                <div class="rc-buttons" style="display:flex;gap:12px;justify-content:center;margin-top:14px;flex-wrap:wrap">
+                    <button id="${reviewBtnId}" ${(!isTeacherMode && pct < 80) ? 'disabled' : ''} style="padding:12px 24px;background:${(!isTeacherMode && pct < 80) ? '#94a3b8' : `linear-gradient(135deg,${matColor},${matColor}cc)`};color:white;border:none;border-radius:14px;font-weight:700;cursor:${(!isTeacherMode && pct < 80) ? 'not-allowed' : 'pointer'};font-size:20px;box-shadow:0 4px 12px ${(!isTeacherMode && pct < 80) ? 'rgba(0,0,0,0.1)' : `${matColor}40`};opacity:${(!isTeacherMode && pct < 80) ? '0.6' : '1'}"><i class="fa-solid fa-${(!isTeacherMode && pct < 80) ? 'lock' : 'eye'}" style="margin-right:8px"></i>Xem lại bài làm</button>
+                    <button id="${saveBtnId}" style="padding:12px 24px;background:linear-gradient(135deg,#6366f1,#818cf8);color:white;border:none;border-radius:14px;font-weight:700;cursor:pointer;font-size:20px;box-shadow:0 4px 12px rgba(99,102,241,0.3)"><i class="fa-solid fa-download" style="margin-right:8px"></i>Lưu kết quả</button>
+                    ${writingBtnId ? `<button id="${writingBtnId}" style="padding:12px 24px;background:linear-gradient(135deg,#f59e0b,#f97316);color:white;border:none;border-radius:14px;font-weight:700;cursor:pointer;font-size:20px;box-shadow:0 4px 12px rgba(245,158,11,0.3)"><i class="fa-solid fa-file-word" style="margin-right:8px"></i>Tải bài viết</button>` : ''}
                 </div>
             </div>`;
         }
@@ -5006,10 +5054,10 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
 
             const resultHtml = `
             <div id="result-card" style="font-family:Inter,sans-serif;text-align:left;max-width:1080px;margin:0 auto;display:flex;flex-direction:column;padding:10px">
-                <div style="background:linear-gradient(135deg, ${matColor}, ${matColor}dd);border-radius:20px;padding:20px 30px;text-align:center;color:white;position:relative;overflow:hidden">
+                <div style="background:linear-gradient(135deg, ${matColor}, ${matColor}dd);border-radius:20px;padding:20px 24px;text-align:center;color:white;position:relative;overflow:hidden">
                     <div style="position:absolute;top:-30px;right:-30px;width:150px;height:150px;background:rgba(255,255,255,0.1);border-radius:50%"></div>
                     <div style="font-size:20px;text-transform:uppercase;letter-spacing:3px;opacity:0.9;margin-bottom:4px;font-weight:700">${matName}</div>
-                    <div style="font-size:26px;font-weight:800;margin-bottom:4px">${ftReadingData.title.replace(/ - .*/, '')}</div>
+                    <div style="font-size:24px;font-weight:800;margin-bottom:4px">${ftReadingData.title.replace(/ - .*/, '')}</div>
                     <div style="font-size:20px;opacity:0.85;font-weight:500"><i class="fa-solid fa-clipboard-list" style="margin-right:6px"></i>Full Test</div>
                 </div>
                 <div style="text-align:center;margin:10px 0 8px">
@@ -5019,9 +5067,9 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                         <i class="fa-solid fa-clock" style="margin-right:4px"></i>${timeStr}
                     </div>
                 </div>
-                <div style="display:flex;gap:16px;align-items:flex-start;margin:8px 0">
-                    <div style="flex:0 0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 8px">
-                        <svg width="160" height="160" viewBox="0 0 130 130" style="display:inline-block">
+                <div class="rc-body" style="display:flex;gap:16px;align-items:flex-start;margin:8px 0">
+                    <div class="rc-ring-col" style="flex:0 0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 8px">
+                        <svg width="140" height="140" viewBox="0 0 130 130" style="display:inline-block">
                             <circle cx="65" cy="65" r="54" fill="none" stroke="#e2e8f0" stroke-width="10"/>
                             <circle cx="65" cy="65" r="54" fill="none" stroke="${totalColor}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${circumference}" stroke-dashoffset="${offset}" transform="rotate(-90 65 65)"/>
                             <text x="65" y="58" text-anchor="middle" style="font-size:32px;font-weight:800;fill:${totalColor}">${grandPct}%</text>
@@ -5029,11 +5077,11 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                         </svg>
                         <div style="font-size:28px;margin-top:2px">${emoji}</div>
                     </div>
-                    <div style="flex:1;display:flex;gap:10px;min-width:0">
+                    <div class="rc-table-col rc-ft-tables" style="flex:1;display:flex;gap:10px;min-width:0">
                         <div style="flex:1;min-width:0">
                             <div style="text-align:center;padding:10px;background:linear-gradient(135deg,#ecfeff,#cffafe);border-radius:14px 14px 0 0;border:1px solid #a5f3fc;border-bottom:none">
                                 <div style="font-size:20px;font-weight:800;color:#0891b2"><i class="fa-solid fa-headphones" style="margin-right:4px"></i>Listening</div>
-                                <div style="font-size:22px;font-weight:800;color:#1e293b;margin-top:2px">${lisScore}/${lisMax} <span style="background:${lisColor};color:white;padding:2px 10px;border-radius:12px;font-size:20px;margin-left:4px">${lisPct}%</span></div>
+                                <div style="font-size:20px;font-weight:800;color:#1e293b;margin-top:2px">${lisScore}/${lisMax} <span style="background:${lisColor};color:white;padding:2px 10px;border-radius:12px;font-size:20px;margin-left:4px">${lisPct}%</span></div>
                                 ${listeningShieldsCount !== null ? `<div style="margin-top:4px">${renderShieldIcons(listeningShieldsCount)} <span style="font-size:20px;font-weight:800;color:#b45309;margin-left:4px">${listeningShieldsCount}/5</span></div>` : ''}
                             </div>
                             <table style="width:100%;border-collapse:collapse;border:1px solid #a5f3fc;border-top:none;border-radius:0 0 14px 14px;overflow:hidden">
@@ -5043,7 +5091,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                         <div style="flex:1;min-width:0">
                             <div style="text-align:center;padding:10px;background:linear-gradient(135deg,#faf5ff,#f3e8ff);border-radius:14px 14px 0 0;border:1px solid #d8b4fe;border-bottom:none">
                                 <div style="font-size:20px;font-weight:800;color:#7c3aed"><i class="fa-solid fa-book-open" style="margin-right:4px"></i>Reading</div>
-                                <div style="font-size:22px;font-weight:800;color:#1e293b;margin-top:2px">${readScore}/${readMax} <span style="background:${readColor};color:white;padding:2px 10px;border-radius:12px;font-size:20px;margin-left:4px">${readPct}%</span></div>
+                                <div style="font-size:20px;font-weight:800;color:#1e293b;margin-top:2px">${readScore}/${readMax} <span style="background:${readColor};color:white;padding:2px 10px;border-radius:12px;font-size:20px;margin-left:4px">${readPct}%</span></div>
                                 ${readingShieldsCount !== null ? `<div style="margin-top:4px">${renderShieldIcons(readingShieldsCount)} <span style="font-size:20px;font-weight:800;color:#b45309;margin-left:4px">${readingShieldsCount}/5</span></div>` : ''}
                             </div>
                             <table style="width:100%;border-collapse:collapse;border:1px solid #d8b4fe;border-top:none;border-radius:0 0 14px 14px;overflow:hidden">
@@ -5052,11 +5100,11 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                         </div>
                     </div>
                 </div>
-                ${(!isTeacherMode && grandPct < 80) ? `<div style="text-align:center;margin-top:8px;padding:10px 20px;background:#fef2f2;border:1px solid #fecaca;border-radius:12px;color:#dc2626;font-size:20px;font-weight:600"><i class="fa-solid fa-lock" style="margin-right:6px"></i>Đạt từ 80% trở lên để xem đáp án</div>` : ''}
-                <div style="display:flex;gap:12px;justify-content:center;margin-top:12px">
-                    <button id="btn-review-fulltest" ${(!isTeacherMode && grandPct < 80) ? 'disabled' : ''} style="padding:14px 28px;background:${(!isTeacherMode && grandPct < 80) ? '#94a3b8' : `linear-gradient(135deg,${matColor},${matColor}cc)`};color:white;border:none;border-radius:14px;font-weight:700;cursor:${(!isTeacherMode && grandPct < 80) ? 'not-allowed' : 'pointer'};font-size:20px;box-shadow:0 4px 12px ${(!isTeacherMode && grandPct < 80) ? 'rgba(0,0,0,0.1)' : `${matColor}40`};opacity:${(!isTeacherMode && grandPct < 80) ? '0.6' : '1'}"><i class="fa-solid fa-${(!isTeacherMode && grandPct < 80) ? 'lock' : 'eye'}" style="margin-right:8px"></i>Xem lại bài làm</button>
-                    <button id="btn-save-fulltest" style="padding:14px 28px;background:linear-gradient(135deg,#6366f1,#818cf8);color:white;border:none;border-radius:14px;font-weight:700;cursor:pointer;font-size:20px;box-shadow:0 4px 12px rgba(99,102,241,0.3)"><i class="fa-solid fa-download" style="margin-right:8px"></i>Lưu kết quả</button>
-                    ${ftReadingData.parts.some(p => p.type === 'picture-story-write' || p.type === 'free-writing') ? `<button id="btn-writing-fulltest" style="padding:14px 28px;background:linear-gradient(135deg,#f59e0b,#f97316);color:white;border:none;border-radius:14px;font-weight:700;cursor:pointer;font-size:20px;box-shadow:0 4px 12px rgba(245,158,11,0.3)"><i class="fa-solid fa-file-word" style="margin-right:8px"></i>Tải bài viết</button>` : ''}
+                ${(!isTeacherMode && grandPct < 80) ? `<div style="text-align:center;margin-top:8px;padding:10px 16px;background:#fef2f2;border:1px solid #fecaca;border-radius:12px;color:#dc2626;font-size:20px;font-weight:600"><i class="fa-solid fa-lock" style="margin-right:6px"></i>Đạt từ 80% trở lên để xem đáp án</div>` : ''}
+                <div class="rc-buttons" style="display:flex;gap:12px;justify-content:center;margin-top:12px;flex-wrap:wrap">
+                    <button id="btn-review-fulltest" ${(!isTeacherMode && grandPct < 80) ? 'disabled' : ''} style="padding:12px 24px;background:${(!isTeacherMode && grandPct < 80) ? '#94a3b8' : `linear-gradient(135deg,${matColor},${matColor}cc)`};color:white;border:none;border-radius:14px;font-weight:700;cursor:${(!isTeacherMode && grandPct < 80) ? 'not-allowed' : 'pointer'};font-size:20px;box-shadow:0 4px 12px ${(!isTeacherMode && grandPct < 80) ? 'rgba(0,0,0,0.1)' : `${matColor}40`};opacity:${(!isTeacherMode && grandPct < 80) ? '0.6' : '1'}"><i class="fa-solid fa-${(!isTeacherMode && grandPct < 80) ? 'lock' : 'eye'}" style="margin-right:8px"></i>Xem lại bài làm</button>
+                    <button id="btn-save-fulltest" style="padding:12px 24px;background:linear-gradient(135deg,#6366f1,#818cf8);color:white;border:none;border-radius:14px;font-weight:700;cursor:pointer;font-size:20px;box-shadow:0 4px 12px rgba(99,102,241,0.3)"><i class="fa-solid fa-download" style="margin-right:8px"></i>Lưu kết quả</button>
+                    ${ftReadingData.parts.some(p => p.type === 'picture-story-write' || p.type === 'free-writing') ? `<button id="btn-writing-fulltest" style="padding:12px 24px;background:linear-gradient(135deg,#f59e0b,#f97316);color:white;border:none;border-radius:14px;font-weight:700;cursor:pointer;font-size:20px;box-shadow:0 4px 12px rgba(245,158,11,0.3)"><i class="fa-solid fa-file-word" style="margin-right:8px"></i>Tải bài viết</button>` : ''}
                 </div>
             </div>`;
 
