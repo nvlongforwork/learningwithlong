@@ -949,17 +949,73 @@
         });
 
         // --- Hàm Copy Link dành cho giáo viên để gửi cho học sinh ---
-        function copyCurrentLink() {
-            // Lấy URL hiện tại (bao gồm cả Hash chứa bài tập)
+        async function copyCurrentLink() {
             const currentUrl = window.location.href;
+            const hash = window.location.hash || '';
+            const isFullTest = hash.includes('/full-test');
 
-            // Thử sử dụng Clipboard API hiện đại
+            let finalUrl = currentUrl;
+            if (isFullTest) {
+                const matColor = getMaterialColor();
+                const { value, isDismissed } = await Swal.fire({
+                    html: `<div style="text-align:center;padding:10px 0">
+                        <div style="font-size:24px;font-weight:800;color:#1e293b;margin-bottom:6px">Chọn chế độ cho link</div>
+                        <div style="font-size:20px;color:#64748b;margin-bottom:20px">Học sinh sẽ làm bài ở chế độ nào?</div>
+                        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap" id="copy-mode-cards">
+                            <label style="cursor:pointer;flex:1;min-width:180px;max-width:220px">
+                                <input type="radio" name="copy-mode" value="practice" style="display:none" checked>
+                                <div class="copy-mode-card" style="border:3px solid #e2e8f0;border-radius:20px;padding:20px 16px;text-align:center;transition:all 0.2s;background:white">
+                                    <div style="width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#dbeafe,#bfdbfe);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+                                        <i class="fa-solid fa-dumbbell" style="font-size:24px;color:#3b82f6"></i>
+                                    </div>
+                                    <div style="font-size:20px;font-weight:700;color:#1e293b">Luyện tập</div>
+                                    <div style="font-size:20px;color:#64748b;margin-top:4px">Không giới hạn thời gian</div>
+                                </div>
+                            </label>
+                            <label style="cursor:pointer;flex:1;min-width:180px;max-width:220px">
+                                <input type="radio" name="copy-mode" value="exam" style="display:none">
+                                <div class="copy-mode-card" style="border:3px solid #e2e8f0;border-radius:20px;padding:20px 16px;text-align:center;transition:all 0.2s;background:white">
+                                    <div style="width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#fee2e2,#fecaca);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+                                        <i class="fa-solid fa-graduation-cap" style="font-size:24px;color:#ef4444"></i>
+                                    </div>
+                                    <div style="font-size:20px;font-weight:700;color:#1e293b">Phòng thi ảo</div>
+                                    <div style="font-size:20px;color:#64748b;margin-top:4px">Có giới hạn thời gian</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>`,
+                    confirmButtonText: '<i class="fa-solid fa-copy" style="margin-right:6px"></i> Copy link',
+                    confirmButtonColor: matColor,
+                    showCancelButton: true,
+                    cancelButtonText: 'Huỷ',
+                    width: 520,
+                    didOpen: () => {
+                        const cards = document.querySelectorAll('#copy-mode-cards .copy-mode-card');
+                        const radios = document.querySelectorAll('input[name="copy-mode"]');
+                        function updateCards() {
+                            radios.forEach((r, i) => {
+                                cards[i].style.borderColor = r.checked ? matColor : '#e2e8f0';
+                                cards[i].style.boxShadow = r.checked ? '0 0 0 1px ' + matColor : 'none';
+                            });
+                        }
+                        radios.forEach(r => r.addEventListener('change', updateCards));
+                        updateCards();
+                    },
+                    preConfirm: () => {
+                        const checked = document.querySelector('input[name="copy-mode"]:checked');
+                        return checked ? checked.value : 'practice';
+                    }
+                });
+                if (isDismissed) return;
+                const base = currentUrl.split('?')[0];
+                finalUrl = base + '?mode=' + (value || 'practice');
+            }
+
             if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(currentUrl).then(showCopySuccess);
+                navigator.clipboard.writeText(finalUrl).then(showCopySuccess);
             } else {
-                // Cách fallback cho các trình duyệt cũ hơn hoặc môi trường iframe
                 let textArea = document.createElement("textarea");
-                textArea.value = currentUrl;
+                textArea.value = finalUrl;
                 textArea.style.position = "fixed";
                 textArea.style.left = "-999999px";
                 document.body.appendChild(textArea);
@@ -2214,6 +2270,13 @@
             return null;
         }
 
+        function getUrlModeParam() {
+            const params = new URLSearchParams(window.location.search);
+            const mode = params.get('mode');
+            if (mode === 'exam' || mode === 'practice') return mode;
+            return null;
+        }
+
         async function askStudentCode(data, title, testType) {
             await loadStudents();
             const matColor = getMaterialColor();
@@ -2245,9 +2308,14 @@
                 sessionStorage.setItem('elm_teacher_mode', 'true');
                 currentStudent = { name: 'Giáo viên', englishName: '', class: '', code: TEACHER_BYPASS_CODE };
                 if (testType === 'fulltest') {
-                    const modeResult = await askExamMode();
-                    if (modeResult === null) return askStudentCode(data, title, testType);
-                    isExamMode = modeResult === 'exam';
+                    const urlMode = getUrlModeParam();
+                    if (urlMode) {
+                        isExamMode = urlMode === 'exam';
+                    } else {
+                        const modeResult = await askExamMode();
+                        if (modeResult === null) return askStudentCode(data, title, testType);
+                        isExamMode = modeResult === 'exam';
+                    }
                     openFullTest(data._ftLis, data._ftRead, title);
                 }
                 else if (testType === 'reading') { isExamMode = false; openReadingTest(data, title); }
@@ -2289,9 +2357,14 @@
             if (!isConfirmed) return askStudentCode(data, title, testType);
             currentStudent = student;
             if (testType === 'fulltest') {
-                const modeResult = await askExamMode();
-                if (modeResult === null) return askStudentCode(data, title, testType);
-                isExamMode = modeResult === 'exam';
+                const urlMode = getUrlModeParam();
+                if (urlMode) {
+                    isExamMode = urlMode === 'exam';
+                } else {
+                    const modeResult = await askExamMode();
+                    if (modeResult === null) return askStudentCode(data, title, testType);
+                    isExamMode = modeResult === 'exam';
+                }
                 openFullTest(data._ftLis, data._ftRead, title);
             } else if (testType === 'reading') {
                 isExamMode = false;
