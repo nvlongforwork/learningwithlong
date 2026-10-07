@@ -1540,17 +1540,17 @@
                 return;
             }
             let html = `<div class="flex items-center justify-between mb-4">
-                <p class="text-slate-500">${exercises.length} bài tập — chọn bài để làm hoặc giao</p>
-                <button onclick="toggleSelectAllParts()" class="px-3 py-1.5 rounded-lg text-sm font-medium border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 transition-colors" id="btn-select-all-parts">Chọn tất cả</button>
+                <p class="text-slate-500">${exercises.length} bài tập</p>
+                <button onclick="toggleExerciseMultiSelect()" class="px-4 py-2 rounded-xl font-bold border-2 transition-all" style="border-color:var(--theme-color);color:var(--theme-color);background:white;" id="btn-exercise-multi-select"><i class="fa-solid fa-list-check mr-2"></i>Chọn nhiều</button>
             </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">`;
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" id="exercise-grid">`;
             exercises.forEach((ex, idx) => {
                 const icon = (ex.skill === 'listening' || subfolder.partSkill === 'listening' || (ex.part.audio)) ? 'fa-headphones' : 'fa-book-open';
                 html += `
                     <div class="bg-white rounded-2xl p-5 border-2 shadow-sm hover-bounce cursor-pointer group relative overflow-hidden part-exercise-card transition-all" style="background-color: var(--theme-bg-color); border-color: var(--theme-bg-color);"
-                         data-part-idx="${idx}" onclick="togglePartExercise(${idx}, event)">
+                         data-part-idx="${idx}" onclick="handleExerciseClick(${idx}, event)">
                         <div class="absolute top-2 left-2 w-6 h-6 rounded-full bg-slate-200 text-slate-500 text-xs font-bold flex items-center justify-center" style="font-size:12px !important;">${idx+1}</div>
-                        <div class="absolute top-3 right-3 w-7 h-7 rounded-md border-2 border-slate-300 flex items-center justify-center bg-white part-checkbox transition-all" id="part-cb-${idx}">
+                        <div class="absolute top-3 right-3 w-7 h-7 rounded-md border-2 border-slate-300 flex items-center justify-center bg-white part-checkbox transition-all hidden" id="part-cb-${idx}">
                         </div>
                         <div class="flex items-start gap-3 pr-8 pl-4">
                             <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style="background-color: var(--theme-color); opacity: 0.15;">
@@ -1564,12 +1564,18 @@
                     </div>`;
             });
             html += `</div>
+            <div id="exercise-multi-bar" class="hidden">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-slate-600 font-medium" id="exercise-selected-count">Đã chọn: 0 bài</span>
+                    <button onclick="toggleSelectAllExercises()" class="px-3 py-1.5 rounded-lg text-sm font-medium border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 transition-colors" id="btn-select-all-exercises">Chọn tất cả</button>
+                </div>
+            </div>
             <div id="part-start-bar" class="fixed bottom-0 left-0 right-0 bg-white border-t-2 shadow-2xl p-4 flex items-center justify-center gap-4 z-50 transition-transform" style="transform: translateY(100%); border-color: var(--theme-color);">
                 <span class="text-slate-600 font-medium" id="part-selected-count">0 bài đã chọn</span>
-                <button onclick="startPartPractice()" class="px-6 py-3 rounded-xl text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all bg-green-500 hover:bg-green-600">
+                <button onclick="startPartPractice()" class="px-6 py-3 rounded-xl text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all bg-green-500 hover:bg-green-600" id="btn-exercise-start" disabled>
                     <i class="fa-solid fa-play mr-2"></i>Làm bài
                 </button>
-                <button onclick="generateAssignmentLink()" class="px-6 py-3 rounded-xl text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all" style="background: var(--theme-color);">
+                <button onclick="generateAssignmentLink()" class="px-6 py-3 rounded-xl text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all" style="background: var(--theme-color);" id="btn-exercise-assign" disabled>
                     <i class="fa-solid fa-share-from-square mr-2"></i>Giao bài
                 </button>
             </div>`;
@@ -1577,6 +1583,50 @@
             window._partExercises = exercises;
             window._partExerciseMeta = { materialId, folderId, subfolder };
             window._selectedPartIdxs = new Set();
+            window._exerciseMultiMode = false;
+        }
+
+        function handleExerciseClick(idx, event) {
+            if (window._exerciseMultiMode) {
+                togglePartExercise(idx, event);
+            } else {
+                const meta = window._partExerciseMeta;
+                window.location.hash = `/material/${meta.materialId}/${meta.folderId}/${meta.subfolder.id}?assign=${idx}`;
+            }
+        }
+
+        function toggleExerciseMultiSelect() {
+            window._exerciseMultiMode = !window._exerciseMultiMode;
+            window._selectedPartIdxs.clear();
+            const btn = document.getElementById('btn-exercise-multi-select');
+            const multiBar = document.getElementById('exercise-multi-bar');
+            const grid = document.getElementById('exercise-grid');
+            if (!btn || !grid) return;
+
+            if (window._exerciseMultiMode) {
+                btn.style.background = 'var(--theme-color)';
+                btn.style.color = 'white';
+                btn.innerHTML = '<i class="fa-solid fa-xmark mr-2"></i>Hủy chọn';
+                if (multiBar) multiBar.classList.remove('hidden');
+                grid.querySelectorAll('.part-checkbox').forEach(cb => cb.classList.remove('hidden'));
+            } else {
+                btn.style.background = 'white';
+                btn.style.color = 'var(--theme-color)';
+                btn.innerHTML = '<i class="fa-solid fa-list-check mr-2"></i>Chọn nhiều';
+                if (multiBar) multiBar.classList.add('hidden');
+                grid.querySelectorAll('.part-checkbox').forEach(cb => {
+                    cb.classList.add('hidden');
+                    cb.style.background = '#fff';
+                    cb.style.borderColor = '#cbd5e1';
+                    cb.innerHTML = '';
+                });
+                grid.querySelectorAll('.part-exercise-card').forEach(card => {
+                    card.style.borderColor = 'var(--theme-bg-color)';
+                });
+                const bar = document.getElementById('part-start-bar');
+                if (bar) bar.style.transform = 'translateY(100%)';
+            }
+            updatePartStartBar();
         }
 
         function togglePartExercise(idx, event) {
@@ -1599,7 +1649,7 @@
             updatePartStartBar();
         }
 
-        function toggleSelectAllParts() {
+        function toggleSelectAllExercises() {
             const sel = window._selectedPartIdxs;
             const all = window._partExercises.length;
             const selectAll = sel.size < all;
@@ -1607,7 +1657,7 @@
                 if (selectAll && !sel.has(i)) togglePartExercise(i);
                 else if (!selectAll && sel.has(i)) togglePartExercise(i);
             }
-            const btn = document.getElementById('btn-select-all-parts');
+            const btn = document.getElementById('btn-select-all-exercises');
             if (btn) btn.textContent = selectAll ? 'Bỏ chọn tất cả' : 'Chọn tất cả';
         }
 
@@ -1615,10 +1665,17 @@
             const count = window._selectedPartIdxs.size;
             const bar = document.getElementById('part-start-bar');
             const label = document.getElementById('part-selected-count');
-            const btn = document.getElementById('btn-select-all-parts');
-            if (bar) bar.style.transform = count > 0 ? 'translateY(0)' : 'translateY(100%)';
+            const countLabel = document.getElementById('exercise-selected-count');
+            const btnAll = document.getElementById('btn-select-all-exercises');
+            const btnStart = document.getElementById('btn-exercise-start');
+            const btnAssign = document.getElementById('btn-exercise-assign');
+            if (bar) bar.style.transform = (window._exerciseMultiMode && count > 0) ? 'translateY(0)' : 'translateY(100%)';
             if (label) label.textContent = `${count} bài đã chọn`;
-            if (btn) btn.textContent = count === window._partExercises.length ? 'Bỏ chọn tất cả' : 'Chọn tất cả';
+            if (countLabel) countLabel.textContent = `Đã chọn: ${count} bài`;
+            if (btnAll) btnAll.textContent = (count === window._partExercises.length) ? 'Bỏ chọn tất cả' : 'Chọn tất cả';
+            const enabled = count >= 1;
+            if (btnStart) { btnStart.disabled = !enabled; btnStart.style.opacity = enabled ? '1' : '0.5'; }
+            if (btnAssign) { btnAssign.disabled = !enabled; btnAssign.style.opacity = enabled ? '1' : '0.5'; }
         }
 
         function generateAssignmentLink() {
