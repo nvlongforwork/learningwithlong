@@ -5388,6 +5388,54 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             }).then(r => { if (r.isConfirmed) doSubmitFullTest(); });
         }
 
+        const KET_CAMBRIDGE_SCALE = [
+            { raw: 30, scale: 150, grade: 'Grade A', level: 'B1' },
+            { raw: 29, scale: 145, grade: 'Grade A', level: 'B1' },
+            { raw: 28, scale: 140, grade: 'Grade A', level: 'B1' },
+            { raw: 27, scale: 138, grade: 'Grade B', level: 'A2' },
+            { raw: 26, scale: 135, grade: 'Grade B', level: 'A2' },
+            { raw: 25, scale: 133, grade: 'Grade B', level: 'A2' },
+            { raw: 24, scale: 130, grade: 'Grade C', level: 'A2' },
+            { raw: 23, scale: 128, grade: 'Grade C', level: 'A2' },
+            { raw: 22, scale: 125, grade: 'Grade C', level: 'A2' },
+            { raw: 21, scale: 123, grade: 'Grade C', level: 'A2' },
+            { raw: 20, scale: 120, grade: 'Grade C', level: 'A2' },
+            { raw: 19, scale: 117, grade: null, level: 'A1' },
+            { raw: 18, scale: 114, grade: null, level: 'A1' },
+            { raw: 17, scale: 111, grade: null, level: 'A1' },
+            { raw: 16, scale: 109, grade: null, level: 'A1' },
+            { raw: 15, scale: 106, grade: null, level: 'A1' },
+            { raw: 14, scale: 103, grade: null, level: 'A1' },
+            { raw: 13, scale: 100, grade: null, level: 'A1' }
+        ];
+
+        function getKetCefrResult(rawScore) {
+            const entry = KET_CAMBRIDGE_SCALE.find(e => rawScore >= e.raw);
+            if (!entry) return { scale: rawScore < 1 ? 50 : Math.round(55 + (rawScore - 1) * 3.75), grade: null, level: null, label: 'Không đạt', color: '#ef4444', bgColor: '#fef2f2', borderColor: '#fecaca' };
+            const gradeColors = {
+                'Grade A': { color: '#15803d', bgColor: '#f0fdf4', borderColor: '#bbf7d0', icon: 'fa-trophy' },
+                'Grade B': { color: '#2563eb', bgColor: '#eff6ff', borderColor: '#bfdbfe', icon: 'fa-medal' },
+                'Grade C': { color: '#7c3aed', bgColor: '#faf5ff', borderColor: '#ddd6fe', icon: 'fa-award' }
+            };
+            if (entry.grade) {
+                const gc = gradeColors[entry.grade];
+                return { scale: entry.scale, grade: entry.grade, level: entry.level, label: `${entry.grade} (Level ${entry.level})`, ...gc };
+            }
+            return { scale: entry.scale, grade: null, level: entry.level, label: `Level ${entry.level}`, color: '#d97706', bgColor: '#fffbeb', borderColor: '#fde68a', icon: 'fa-certificate' };
+        }
+
+        function buildCefrBadge(cefrResult) {
+            if (!cefrResult) return '';
+            const { scale, label, color, bgColor, borderColor, icon } = cefrResult;
+            return `<div style="margin-top:10px;padding:14px 18px;background:${bgColor};border:2px solid ${borderColor};border-radius:16px;text-align:center">
+                <div style="font-size:20px;color:#64748b;font-weight:600;margin-bottom:6px">Cambridge English Scale</div>
+                <div style="font-size:36px;font-weight:800;color:${color};margin-bottom:4px">${scale}</div>
+                <div style="display:inline-flex;align-items:center;gap:8px;background:${color};color:white;padding:6px 16px;border-radius:20px;font-weight:700;font-size:20px">
+                    <i class="fa-solid ${icon || 'fa-certificate'}"></i> ${label}
+                </div>
+            </div>`;
+        }
+
         function doSubmitFullTest() {
             ftSubmitted = true;
             listeningSubmitted = true;
@@ -5467,6 +5515,10 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             const circumference = 2 * Math.PI * 54;
             const offset = circumference - (ringPct / 100) * circumference;
 
+            const isKet = currentMaterialId === 'a2-key';
+            const cefrResult = isKet ? getKetCefrResult(grandTotal) : null;
+            const cefrBadgeHtml = isKet ? buildCefrBadge(cefrResult) : '';
+
             const lisPct = lisMax > 0 ? Math.round((lisScore / lisMax) * 100) : 0;
             const readPct = readMax > 0 ? Math.round((readScore / readMax) * 100) : 0;
 
@@ -5508,6 +5560,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                             <text x="65" y="78" text-anchor="middle" style="font-size:20px;font-weight:600;fill:#64748b">${grandTotal}/${grandMax}</text>
                         </svg>
                         <div style="font-size:28px;margin-top:2px">${emoji}</div>
+                        ${cefrBadgeHtml}
                     </div>
                     <div class="rc-table-col rc-ft-tables" style="flex:1;display:flex;gap:10px;min-width:0">
                         <div style="flex:1;min-width:0">
