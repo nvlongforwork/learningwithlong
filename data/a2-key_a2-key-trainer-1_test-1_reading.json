@@ -126,7 +126,7 @@
       "questions": 6,
       "instructions": "For each question, choose the correct answer.",
       "type": "grammar-cloze",
-      "passage": "Red pandas\n\nRed pandas live in Nepal, Northern Myanmar, India and Bhutan, as (19) ...................... as in China. They (20) ...................... a lot of their time in trees and are very (21) ...................... at climbing. They are more active during the night than the day, and they usually (22) ...................... for food in the evening and early in the morning. Their favourite food is bamboo. In fact, a female red panda can eat 20,000 bamboo leaves in a day! But they also eat fruit, grass, eggs, insects and (23) ...................... small birds and animals. Scientists believe that the number of red pandas in the world is (24) ...................... because the forests where they live are getting smaller. But much is being done in countries around the world to help this amazing animal.",
+      "passage": "Red pandas\n\nRed pandas live in Nepal, Northern Myanmar, India and Bhutan, as ...................... as in China. They ...................... a lot of their time in trees and are very ...................... at climbing. They are more active during the night than the day, and they usually ...................... for food in the evening and early in the morning. Their favourite food is bamboo. In fact, a female red panda can eat 20,000 bamboo leaves in a day! But they also eat fruit, grass, eggs, insects and ...................... small birds and animals. Scientists believe that the number of red pandas in the world is ...................... because the forests where they live are getting smaller. But much is being done in countries around the world to help this amazing animal.",
       "items": [
         { "num": 19, "options": ["soon", "much", "well"], "answer": 2 },
         { "num": 20, "options": ["spend", "live", "take"], "answer": 0 },
@@ -143,7 +143,7 @@
       "instructions": "For each question, write the correct answer. Write ONE word for each gap.",
       "type": "fill-blank-reading",
       "formTitle": "Email từ Giles gửi Aunt Nel",
-      "passage": "Dear Aunt Nel,\n\nThank you very (0) ..........MUCH.......... for the book you sent me. It was very kind (25) .......... you. Actually, History of Space Travel sounds like (26) .......... brilliant title. I'm really interested (27) .......... that kind of thing – exploring space and learning about the moon. I'll start it after I finish the one I'm reading now, (28) .......... is about how cars are made.\n\nThe holidays are nearly finished now. I go back (29) .......... school next week. Then I've only got two more years of school, so I need to decide (30) .......... to do next!\n\nThanks again for the present.\n\nBest wishes, Giles",
+      "passage": "Dear Aunt Nel,\n\nThank you very ..........MUCH.......... for the book you sent me. It was very kind .......... you. Actually, History of Space Travel sounds like .......... brilliant title. I'm really interested .......... that kind of thing – exploring space and learning about the moon. I'll start it after I finish the one I'm reading now, .......... is about how cars are made.\n\nThe holidays are nearly finished now. I go back .......... school next week. Then I've only got two more years of school, so I need to decide .......... to do next!\n\nThanks again for the present.\n\nBest wishes, Giles",
       "example": {
         "sentence": "Thank you very (0) ..........MUCH.......... for the book you sent me."
       },
@@ -192,6 +192,7 @@
       "questions": 1,
       "instructions": "Look at the three pictures. Write the story shown in the pictures. Write 35 words or more.",
       "type": "picture-story-write",
+      "storyImage": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a2-key-trainer-1/test1/reading-part7/story.webp",
       "minWords": 35,
       "checklist": [
         {
