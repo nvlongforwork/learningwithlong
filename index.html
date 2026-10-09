@@ -5388,7 +5388,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             }).then(r => { if (r.isConfirmed) doSubmitFullTest(); });
         }
 
-        const KET_CAMBRIDGE_SCALE = [
+        const KET_READING_SCALE = [
             { raw: 30, scale: 150, grade: 'Grade A', level: 'B1' },
             { raw: 29, scale: 145, grade: 'Grade A', level: 'B1' },
             { raw: 28, scale: 140, grade: 'Grade A', level: 'B1' },
@@ -5409,9 +5409,27 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             { raw: 13, scale: 100, grade: null, level: 'A1' }
         ];
 
-        function getKetCefrResult(rawScore) {
-            const entry = KET_CAMBRIDGE_SCALE.find(e => rawScore >= e.raw);
-            if (!entry) return { scale: rawScore < 1 ? 50 : Math.round(55 + (rawScore - 1) * 3.75), grade: null, level: null, label: 'Không đạt', color: '#ef4444', bgColor: '#fef2f2', borderColor: '#fecaca' };
+        const KET_LISTENING_SCALE = [
+            { raw: 25, scale: 150, grade: 'Grade A', level: 'B1' },
+            { raw: 24, scale: 145, grade: 'Grade A', level: 'B1' },
+            { raw: 23, scale: 140, grade: 'Grade A', level: 'B1' },
+            { raw: 22, scale: 137, grade: 'Grade B', level: 'A2' },
+            { raw: 21, scale: 133, grade: 'Grade B', level: 'A2' },
+            { raw: 20, scale: 129, grade: 'Grade C', level: 'A2' },
+            { raw: 19, scale: 126, grade: 'Grade C', level: 'A2' },
+            { raw: 18, scale: 123, grade: 'Grade C', level: 'A2' },
+            { raw: 17, scale: 120, grade: 'Grade C', level: 'A2' },
+            { raw: 16, scale: 117, grade: null, level: 'A1' },
+            { raw: 15, scale: 113, grade: null, level: 'A1' },
+            { raw: 14, scale: 110, grade: null, level: 'A1' },
+            { raw: 13, scale: 107, grade: null, level: 'A1' },
+            { raw: 12, scale: 103, grade: null, level: 'A1' },
+            { raw: 11, scale: 100, grade: null, level: 'A1' }
+        ];
+
+        function getKetCefrResult(rawScore, scaleTable) {
+            const entry = scaleTable.find(e => rawScore >= e.raw);
+            if (!entry) return { scale: rawScore < 1 ? 50 : Math.round(55 + (rawScore - 1) * 4), grade: null, level: null, label: 'Không đạt', color: '#ef4444', bgColor: '#fef2f2', borderColor: '#fecaca', icon: 'fa-circle-xmark' };
             const gradeColors = {
                 'Grade A': { color: '#15803d', bgColor: '#f0fdf4', borderColor: '#bbf7d0', icon: 'fa-trophy' },
                 'Grade B': { color: '#2563eb', bgColor: '#eff6ff', borderColor: '#bfdbfe', icon: 'fa-medal' },
@@ -5424,16 +5442,33 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             return { scale: entry.scale, grade: null, level: entry.level, label: `Level ${entry.level}`, color: '#d97706', bgColor: '#fffbeb', borderColor: '#fde68a', icon: 'fa-certificate' };
         }
 
-        function buildCefrBadge(cefrResult) {
+        function buildCefrBadge(cefrResult, compact) {
             if (!cefrResult) return '';
             const { scale, label, color, bgColor, borderColor, icon } = cefrResult;
+            if (compact) {
+                return `<div style="margin-top:8px;padding:8px 12px;background:${bgColor};border:2px solid ${borderColor};border-radius:12px;text-align:center">
+                    <div style="font-size:20px;color:#64748b;font-weight:600">Cambridge Scale: <span style="font-weight:800;color:${color};font-size:22px">${scale}</span></div>
+                    <div style="display:inline-flex;align-items:center;gap:6px;background:${color};color:white;padding:4px 12px;border-radius:16px;font-weight:700;font-size:20px;margin-top:4px">
+                        <i class="fa-solid ${icon}"></i> ${label}
+                    </div>
+                </div>`;
+            }
             return `<div style="margin-top:10px;padding:14px 18px;background:${bgColor};border:2px solid ${borderColor};border-radius:16px;text-align:center">
                 <div style="font-size:20px;color:#64748b;font-weight:600;margin-bottom:6px">Cambridge English Scale</div>
                 <div style="font-size:36px;font-weight:800;color:${color};margin-bottom:4px">${scale}</div>
                 <div style="display:inline-flex;align-items:center;gap:8px;background:${color};color:white;padding:6px 16px;border-radius:20px;font-weight:700;font-size:20px">
-                    <i class="fa-solid ${icon || 'fa-certificate'}"></i> ${label}
+                    <i class="fa-solid ${icon}"></i> ${label}
                 </div>
             </div>`;
+        }
+
+        function getKetOverallCefr(lisScale, readScale) {
+            const avg = Math.round((lisScale + readScale) / 2);
+            if (avg >= 140) return { scale: avg, label: 'Grade A (Level B1)', color: '#15803d', bgColor: '#f0fdf4', borderColor: '#bbf7d0', icon: 'fa-trophy' };
+            if (avg >= 133) return { scale: avg, label: 'Grade B (Level A2)', color: '#2563eb', bgColor: '#eff6ff', borderColor: '#bfdbfe', icon: 'fa-medal' };
+            if (avg >= 120) return { scale: avg, label: 'Grade C (Level A2)', color: '#7c3aed', bgColor: '#faf5ff', borderColor: '#ddd6fe', icon: 'fa-award' };
+            if (avg >= 100) return { scale: avg, label: 'Level A1', color: '#d97706', bgColor: '#fffbeb', borderColor: '#fde68a', icon: 'fa-certificate' };
+            return { scale: avg, label: 'Không đạt', color: '#ef4444', bgColor: '#fef2f2', borderColor: '#fecaca', icon: 'fa-circle-xmark' };
         }
 
         function doSubmitFullTest() {
@@ -5516,8 +5551,12 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             const offset = circumference - (ringPct / 100) * circumference;
 
             const isKet = currentMaterialId === 'a2-key';
-            const cefrResult = isKet ? getKetCefrResult(grandTotal) : null;
-            const cefrBadgeHtml = isKet ? buildCefrBadge(cefrResult) : '';
+            const ketLisCefr = isKet ? getKetCefrResult(lisScore, KET_LISTENING_SCALE) : null;
+            const ketReadCefr = isKet ? getKetCefrResult(readScore, KET_READING_SCALE) : null;
+            const ketOverallCefr = isKet ? getKetOverallCefr(ketLisCefr.scale, ketReadCefr.scale) : null;
+            const cefrBadgeHtml = isKet ? buildCefrBadge(ketOverallCefr) : '';
+            const lisCefrHtml = isKet ? buildCefrBadge(ketLisCefr, true) : '';
+            const readCefrHtml = isKet ? buildCefrBadge(ketReadCefr, true) : '';
 
             const lisPct = lisMax > 0 ? Math.round((lisScore / lisMax) * 100) : 0;
             const readPct = readMax > 0 ? Math.round((readScore / readMax) * 100) : 0;
@@ -5572,6 +5611,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                             <table style="width:100%;border-collapse:collapse;border:1px solid #a5f3fc;border-top:none;border-radius:0 0 14px 14px;overflow:hidden">
                                 <tbody>${buildPartRows(lisPartScores, 'lis')}</tbody>
                             </table>
+                            ${lisCefrHtml}
                         </div>
                         <div style="flex:1;min-width:0">
                             <div style="text-align:center;padding:10px;background:linear-gradient(135deg,#faf5ff,#f3e8ff);border-radius:14px 14px 0 0;border:1px solid #d8b4fe;border-bottom:none">
@@ -5582,6 +5622,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                             <table style="width:100%;border-collapse:collapse;border:1px solid #d8b4fe;border-top:none;border-radius:0 0 14px 14px;overflow:hidden">
                                 <tbody>${buildPartRows(readPartScores, 'read')}</tbody>
                             </table>
+                            ${readCefrHtml}
                         </div>
                     </div>
                 </div>
