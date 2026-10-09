@@ -4274,17 +4274,18 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 const hasItemImage = !!item.image;
                 const useNoticeLayout = isNoticePartOne && !hasItemImage;
                 if (useNoticeLayout) {
-                    let noticeText, mainQ;
-                    if (qLines.length > 1) {
-                        const lastLine = qLines[qLines.length - 1];
-                        const isLastLineQuestion = lastLine.endsWith('?') || lastLine.startsWith('The notice') || lastLine.endsWith(' to') || lastLine.endsWith(' that');
-                        const contextLines = isLastLineQuestion ? qLines.slice(0, -1) : qLines;
-                        mainQ = isLastLineQuestion ? lastLine : '';
-                        noticeText = contextLines.join('<br>');
-                    } else {
-                        noticeText = item.question;
-                        mainQ = '';
+                    const qParts = item.question.split('\n');
+                    let mainQ = '';
+                    let noticeLines = qParts;
+                    const lastLine = qParts[qParts.length - 1].trim();
+                    if (qParts.length > 1 && lastLine.endsWith('?')) {
+                        const prevLine = qParts.length > 2 ? qParts[qParts.length - 2].trim() : '';
+                        if (prevLine === '' || prevLine.endsWith('.') || prevLine.endsWith('!') || prevLine.endsWith(':')) {
+                            mainQ = lastLine;
+                            noticeLines = qParts.slice(0, -1);
+                        }
                     }
+                    const noticeText = noticeLines.join('<br>');
                     let optionsHtml = '';
                     item.options.forEach((opt, j) => {
                         let cls = 'p-3 rounded-xl text-left font-medium cursor-pointer transition-all ';
