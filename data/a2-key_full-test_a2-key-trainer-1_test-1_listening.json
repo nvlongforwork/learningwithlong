@@ -12,31 +12,36 @@
         {
           "num": 1,
           "question": "Where's the girl going this afternoon?",
-          "options": ["skateboard shop", "cinema", "café"],
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a2-key-trainer-1/test1/listening-part1/q1.webp",
+          "options": ["café", "cinema", "skateboard shop"],
           "answer": 1
         },
         {
           "num": 2,
           "question": "Which is the boy's new desk?",
-          "options": ["desk with two drawers on the left and three shelves on the right", "desk with four drawers", "desk with shelves on the left and drawers on the right"],
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a2-key-trainer-1/test1/listening-part1/q2.webp",
+          "options": ["desk with two drawers on left and three shelves on right", "desk with four drawers on left", "desk with two drawers on right"],
           "answer": 0
         },
         {
           "num": 3,
           "question": "How will they get to their tennis class?",
-          "options": ["by bike", "by bus", "on foot"],
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a2-key-trainer-1/test1/listening-part1/q3.webp",
+          "options": ["by bus", "by bike", "on foot"],
           "answer": 2
         },
         {
           "num": 4,
           "question": "Which woman is Laura's new English teacher?",
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a2-key-trainer-1/test1/listening-part1/q4.webp",
           "options": ["woman with long dark hair", "woman with blonde hair", "woman with short dark hair and glasses"],
           "answer": 2
         },
         {
           "num": 5,
           "question": "What might Harry do if it rains on Saturday?",
-          "options": ["stay at home", "go to the gym", "practise running indoors"],
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/a2-key-trainer-1/test1/listening-part1/q5.webp",
+          "options": ["play volleyball", "play badminton", "go running"],
           "answer": 0
         }
       ],
