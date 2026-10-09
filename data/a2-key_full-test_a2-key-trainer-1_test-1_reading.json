@@ -1,0 +1,219 @@
+{
+  "type": "reading-test",
+  "title": "Test 1 - Reading & Writing",
+  "parts": [
+    {
+      "id": "part1",
+      "title": "Part 1",
+      "questions": 6,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "multiple-choice-abc",
+      "items": [
+        {
+          "num": 1,
+          "question": "Swim-a-Fun pool\nOur café will be closed next week. Please bring your own drinks.",
+          "options": ["The café will have different opening times next week.", "You cannot buy drinks at the pool next week.", "The pool will be closed for one week."],
+          "answer": 1
+        },
+        {
+          "num": 2,
+          "question": "From: Bella\nTo: Amy\nI saw a really nice bag in town today – it would be perfect for you! Shall I get it for your birthday?",
+          "options": ["Bella wants to buy Amy a present.", "Bella wants Amy to go shopping with her.", "Bella is asking Amy to buy her a bag."],
+          "answer": 0
+        },
+        {
+          "num": 3,
+          "question": "Green Hill Cinema\nStudents pay half price on Tuesdays if they show their student card.",
+          "options": ["Students can see two films for the price of one.", "Students can get cheaper tickets on one day of the week.", "All students need to buy a card for the cinema."],
+          "answer": 1
+        },
+        {
+          "num": 4,
+          "question": "Museum open from 12. Children must be with an adult.",
+          "options": ["Adults can take children to the museum in the morning.", "Adults with children over 12 will enjoy the museum.", "Children can visit the museum if they are with an adult."],
+          "answer": 2
+        },
+        {
+          "num": 5,
+          "question": "From: Mrs Monmouth, Head Teacher\nTo: All Pupils and Parents\n\nHello,\n\nThis week, please don't use the car to get to school. Coming on foot is healthy and doesn't take much time.\n\nThanks, Mrs Monmouth\n\nWhy has Mrs Monmouth written this message?",
+          "options": ["to ask pupils to walk to school", "to tell pupils to get to school on time", "to explain about a health problem at school"],
+          "answer": 0
+        },
+        {
+          "num": 6,
+          "question": "Pedro's Pizza Bar\n\nBuy two pizzas at the same time, and we'll give you a third one for free! This offer is Mon—Fri only.",
+          "options": ["Pedro's Pizza Bar isn't open at weekends.", "The third time you visit, you get a free pizza.", "Three pizzas cost the same as two."],
+          "answer": 2
+        }
+      ]
+    },
+    {
+      "id": "part2",
+      "title": "Part 2",
+      "questions": 7,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "reading-match-persons",
+      "persons": [
+        {
+          "name": "Eureka!",
+          "letter": "A",
+          "text": "Eureka! is a complete hands-on experience, which means that visitors can actually pick up any object in the museum. It's a great way for young visitors to learn about the world, the body, how things work and move. And when you buy an entry ticket, it allows you to come back as many times as you want for a whole year for no extra cost. As Eureka! is right next to Halifax train station, it's very easy to get to from all over the country."
+        },
+        {
+          "name": "Museum of Museums",
+          "letter": "B",
+          "text": "Every time you visit the Museum of Museums, you'll be able to see something different. And that's because the things you see there are actually lent by other museums around the country. The museum always has lots of different vehicles, from ice-cream vans and old motorbikes to the different kinds of public transport people used to get to work many years ago. You can find out about all this and lots more."
+        },
+        {
+          "name": "Cinema Museum",
+          "letter": "C",
+          "text": "Ronald Grant, who opened the Cinema Museum in the 1960s, travelled round the country and bought things from cinemas which were closing down. This included old film posters and wooden cinema seating. At the museum, you can now see these and much more, including the uniforms that cinema staff once had to wear.\n\nPlease let us know by phone or email if you'd like to come. We'll be happy to see you, but we need to arrange a guide, as it's only possible to visit the museum on an organised tour."
+        }
+      ],
+      "items": [
+        { "num": 7, "question": "Which museum has an exhibition of clothes?", "answer": "C" },
+        { "num": 8, "question": "Which museum is full of things which visitors can touch?", "answer": "A" },
+        { "num": 9, "question": "Which museum is a good place to learn about how people travelled in the past?", "answer": "B" },
+        { "num": 10, "question": "Which museum can you visit again for free after you pay once?", "answer": "A" },
+        { "num": 11, "question": "Which museum do you need to contact before you visit?", "answer": "C" },
+        { "num": 12, "question": "Which museum shows things that were borrowed from other places?", "answer": "B" },
+        { "num": 13, "question": "Which museum has some furniture which wasn't needed any more?", "answer": "C" }
+      ]
+    },
+    {
+      "id": "part3",
+      "title": "Part 3",
+      "questions": 5,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "multiple-choice-abc",
+      "passage": "Will's blog\n\nOne day my dad said, 'Why don't we have a street party?' This means that the street is closed so cars can't use it, and people put tables and chairs out in the street, then have a party! Dad said there was one in 1977 and he still remembers it well. Everyone loved it! I couldn't believe that since 1977 they never had another one. If it was so good, why not do it again?\n\nWe started to organise it, together with some other people. I helped to make the web page, so everyone on the street knew about the party and could post their old photos from the party in 1977. There were some pictures of my dad when he was a kid, together with his friends, who have moved away from the street now. It was interesting to see that the buildings on the street haven't changed at all!\n\nMy mum was a bit worried about the party. 'But a lot of people on the street don't really know each other', she said. 'What if they don't have anything to talk about?' I just said, 'Relax, Mum. It'll be great.'\n\nSo, what was the party like? It was fantastic! My friends and I really liked speaking to an old lady called Louisa. She's 89 and was telling us about when she and her friends were our age. So now I always chat to her when I see her on the street. I didn't know who she was before, so I'm glad we had the party.",
+      "items": [
+        {
+          "num": 14,
+          "question": "Why was Will surprised?",
+          "options": ["His father wanted to have a street party.", "There hasn't been a street party for a long time.", "Many people remembered the last street party."],
+          "answer": 1
+        },
+        {
+          "num": 15,
+          "question": "What did the photos from 1977 show?",
+          "options": ["The street still looks the same now.", "There are more children living in the street now.", "The same people still live on the street now."],
+          "answer": 0
+        },
+        {
+          "num": 16,
+          "question": "Why was Will's mother worried?",
+          "options": ["She thought that the party was too expensive.", "She thought that people might not come to the party.", "She thought that the guests might not talk to each other."],
+          "answer": 2
+        },
+        {
+          "num": 17,
+          "question": "Will and his friends enjoyed",
+          "options": ["hearing Louisa's stories.", "meeting Louisa's friends.", "telling Louisa about their lives."],
+          "answer": 0
+        },
+        {
+          "num": 18,
+          "question": "What is the best title for the article?",
+          "options": ["Why I love street parties", "The street party we had", "How to have a street party"],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "part4",
+      "title": "Part 4",
+      "questions": 6,
+      "instructions": "For each question, choose the correct answer.",
+      "type": "grammar-cloze",
+      "passage": "Red pandas\n\nRed pandas live in Nepal, Northern Myanmar, India and Bhutan, as (19) ...................... as in China. They (20) ...................... a lot of their time in trees and are very (21) ...................... at climbing. They are more active during the night than the day, and they usually (22) ...................... for food in the evening and early in the morning. Their favourite food is bamboo. In fact, a female red panda can eat 20,000 bamboo leaves in a day! But they also eat fruit, grass, eggs, insects and (23) ...................... small birds and animals. Scientists believe that the number of red pandas in the world is (24) ...................... because the forests where they live are getting smaller. But much is being done in countries around the world to help this amazing animal.",
+      "items": [
+        { "num": 19, "options": ["soon", "much", "well"], "answer": 2 },
+        { "num": 20, "options": ["spend", "live", "take"], "answer": 0 },
+        { "num": 21, "options": ["nice", "great", "good"], "answer": 2 },
+        { "num": 22, "options": ["look", "see", "find"], "answer": 0 },
+        { "num": 23, "options": ["even", "quite", "still"], "answer": 0 },
+        { "num": 24, "options": ["little", "low", "short"], "answer": 1 }
+      ]
+    },
+    {
+      "id": "part5",
+      "title": "Part 5",
+      "questions": 6,
+      "instructions": "For each question, write the correct answer. Write ONE word for each gap.",
+      "type": "fill-blank-reading",
+      "formTitle": "Email từ Giles gửi Aunt Nel",
+      "passage": "Dear Aunt Nel,\n\nThank you very (0) ..........MUCH.......... for the book you sent me. It was very kind (25) .......... you. Actually, History of Space Travel sounds like (26) .......... brilliant title. I'm really interested (27) .......... that kind of thing – exploring space and learning about the moon. I'll start it after I finish the one I'm reading now, (28) .......... is about how cars are made.\n\nThe holidays are nearly finished now. I go back (29) .......... school next week. Then I've only got two more years of school, so I need to decide (30) .......... to do next!\n\nThanks again for the present.\n\nBest wishes, Giles",
+      "example": {
+        "sentence": "Thank you very (0) ..........MUCH.......... for the book you sent me."
+      },
+      "items": [
+        { "num": 25, "sentence": "It was very kind (25) .......... you.", "answer": "of" },
+        { "num": 26, "sentence": "Actually, History of Space Travel sounds like (26) .......... brilliant title.", "answer": "a" },
+        { "num": 27, "sentence": "I'm really interested (27) .......... that kind of thing – exploring space and learning about the moon.", "answer": "in" },
+        { "num": 28, "sentence": "I'll start it after I finish the one I'm reading now, (28) .......... is about how cars are made.", "answer": "which" },
+        { "num": 29, "sentence": "I go back (29) .......... school next week.", "answer": "to" },
+        { "num": 30, "sentence": "Then I've only got two more years of school, so I need to decide (30) .......... to do next!", "answer": "what" }
+      ]
+    },
+    {
+      "id": "part6",
+      "title": "Part 6",
+      "questions": 1,
+      "instructions": "Read this email from your English friend, Francis. Write an email to Francis and answer his questions. Write 25 words or more.",
+      "type": "picture-story-write",
+      "prompt": "From: Francis\n\nHi,\n\nIt's great that you're free to meet me this weekend. I have a few questions. Where is the best place in your town to meet? What would you like to do? And shall I bring anything?\n\nWrite soon!\nFrancis",
+      "minWords": 25,
+      "checklist": [
+        {
+          "category": "Content",
+          "band5": "All three questions are answered clearly and with relevant detail.",
+          "band3": "Two questions answered, or answers lack detail.",
+          "band1": "Only one question answered or content is mostly irrelevant."
+        },
+        {
+          "category": "Organisation",
+          "band5": "The email is well-organised with a greeting, clear answers and a sign-off.",
+          "band3": "Some organisation but may lack greeting/sign-off or answers are not clearly separated.",
+          "band1": "Very little organisation. Hard to follow."
+        },
+        {
+          "category": "Language",
+          "band5": "Uses a range of everyday vocabulary and grammar accurately. Spelling is mostly correct.",
+          "band3": "Uses simple vocabulary and grammar with some errors that don't prevent understanding.",
+          "band1": "Very limited vocabulary. Frequent errors make the text difficult to understand."
+        }
+      ],
+      "sampleAnswer": "Hi Francis,\nLet's meet at the café near the park – it's easy to find. We could go shopping or watch a film. Please bring your camera!\nSee you soon!"
+    },
+    {
+      "id": "part7",
+      "title": "Part 7",
+      "questions": 1,
+      "instructions": "Look at the three pictures. Write the story shown in the pictures. Write 35 words or more.",
+      "type": "picture-story-write",
+      "minWords": 35,
+      "checklist": [
+        {
+          "category": "Content",
+          "band5": "All the content is relevant to the task. The candidate has described all three pictures clearly.",
+          "band3": "Some content is relevant but may miss one picture or include irrelevant details.",
+          "band1": "Content is mostly irrelevant or too short to assess."
+        },
+        {
+          "category": "Organisation",
+          "band5": "The story is well-organised with clear sequencing and connecting words (first, then, after that).",
+          "band3": "Some attempt at organisation but the story may be hard to follow in places.",
+          "band1": "Very little organisation. Ideas are not connected."
+        },
+        {
+          "category": "Language",
+          "band5": "Uses a range of everyday vocabulary and grammar accurately. Spelling is mostly correct.",
+          "band3": "Uses simple vocabulary and grammar with some errors that don't prevent understanding.",
+          "band1": "Very limited vocabulary. Frequent errors make the text difficult to understand."
+        }
+      ],
+      "sampleAnswer": "Last Saturday, Tom wanted to visit his friend. He went to the bus stand to catch a bus, but there was a sign that said 'No trains today'. So he decided to walk to his friend's house instead. It took a long time, but he finally arrived and they had a great day together."
+    }
+  ]
+}

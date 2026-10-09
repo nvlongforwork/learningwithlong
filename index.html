@@ -2660,11 +2660,16 @@
             <div class="w-full">
                 <p class="text-slate-500 italic mb-4 text-sm whitespace-pre-line"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
                 <div class="resp-row">
-                    <div class="resp-col flex flex-row gap-2 shrink-0" style="width:55%">
-                        <img src="${part.peopleImage}" alt="People" class="w-1/2 rounded-xl shadow-md border object-contain">
-                        <img src="${part.activitiesImage}" alt="Activities" class="w-1/2 rounded-xl shadow-md border object-contain">
-                    </div>
-                    <div style="width:45%" class="resp-col flex flex-col gap-4">
+                    ${part.peopleImage || part.activitiesImage ? `<div class="resp-col flex flex-row gap-2 shrink-0" style="width:55%">
+                        ${part.peopleImage ? `<img src="${part.peopleImage}" alt="People" class="w-1/2 rounded-xl shadow-md border object-contain">` : ''}
+                        ${part.activitiesImage ? `<img src="${part.activitiesImage}" alt="Activities" class="w-1/2 rounded-xl shadow-md border object-contain">` : ''}
+                    </div>` : ''}${part.optionLabels ? `<div class="resp-col shrink-0" style="width:${part.peopleImage ? '45%' : '40%'}">
+                        <div class="bg-white rounded-2xl shadow-sm border p-4 mb-4">
+                            <h4 class="font-bold text-slate-600 mb-3" style="font-size:20px;"><i class="fa-solid fa-briefcase mr-1 text-purple-500"></i> Jobs</h4>
+                            <div class="flex flex-col gap-1">${part.options.map(o => `<div class="flex items-center gap-2 py-1"><span class="inline-flex items-center justify-center w-8 h-8 bg-purple-100 text-purple-700 font-bold rounded-lg" style="font-size:20px;">${o}</span><span class="text-slate-700" style="font-size:20px;">${part.optionLabels[o]}</span></div>`).join('')}</div>
+                        </div>
+                    </div>` : ''}
+                    <div style="width:${part.peopleImage || part.activitiesImage ? '45%' : part.optionLabels ? '60%' : '100%'}" class="resp-col flex flex-col gap-4">
                         <div class="bg-white rounded-2xl shadow-sm border overflow-hidden">
                             <table class="listening-table w-full">
                                 <thead><tr class="bg-turtle-50">
