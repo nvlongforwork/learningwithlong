@@ -4240,7 +4240,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             const isVerticalMCQ = !part.images;
             const isNoticePartOne = !hasPassage && !part.images && !part.audio && /Part 1\b/.test(part.title);
             const isCentered = !hasPassage && !part.images && !isNoticePartOne;
-            let html = `<div class="writing-container mx-auto" style="width:66%;max-width:${isNoticePartOne ? '1200px' : hasPerQImages ? '900px' : '800px'};min-width:320px;">
+            let html = `<div class="writing-container mx-auto" style="width:75%;max-width:1200px;min-width:320px;">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
             if (part.audio) {
                 html += `<div class="mb-4 bg-slate-50 rounded-xl p-3 border">
