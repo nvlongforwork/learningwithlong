@@ -2474,6 +2474,15 @@
             el.classList.add('selected');
         }
 
+        function reRenderListening() {
+            if (fullTestMode) renderFullTestPart();
+            else renderListeningPart();
+        }
+        function reRenderReading() {
+            if (fullTestMode) renderFullTestPart();
+            else renderReadingPart();
+        }
+
         function clickSlot(rowIdx, colType) {
             if (listeningSubmitted) return;
             const answers = listeningAnswers[activePart];
@@ -2481,7 +2490,7 @@
             if (answers[rowIdx][colType || 'value']) {
                 answers[rowIdx][colType || 'value'] = '';
                 selectedBank = null;
-                renderListeningPart();
+                reRenderListening();
                 return;
             }
 
@@ -2489,7 +2498,7 @@
 
             answers[rowIdx][colType || 'value'] = selectedBank.value;
             selectedBank = null;
-            renderListeningPart();
+            reRenderListening();
         }
 
         function clickLetterSlot(rowIdx) {
@@ -2499,14 +2508,14 @@
             if (answers[rowIdx]) {
                 answers[rowIdx] = '';
                 selectedBank = null;
-                renderListeningPart();
+                reRenderListening();
                 return;
             }
 
             if (!selectedBank || selectedBank.type !== 'letter') return;
             answers[rowIdx] = selectedBank.value;
             selectedBank = null;
-            renderListeningPart();
+            reRenderListening();
         }
 
         function renderAudioScripts(part) {
@@ -2726,7 +2735,8 @@
         function selectABC(questionIdx, optionIdx) {
             if (listeningSubmitted) return;
             listeningAnswers[activePart][questionIdx] = optionIdx;
-            renderMultipleChoiceABC(listeningData.parts[activePart]);
+            if (fullTestMode) renderFullTestPart();
+            else renderMultipleChoiceABC(listeningData.parts[activePart]);
         }
 
         function renderMultipleChoiceABC(part) {
@@ -2817,11 +2827,11 @@
         function clickP5ItemSlot(idx) {
             if (listeningSubmitted) return;
             const answers = listeningAnswers[activePart];
-            if (answers[idx].item) { answers[idx].item = ''; selectedItemChip = null; renderColorWrite(listeningData.parts[activePart]); return; }
+            if (answers[idx].item) { answers[idx].item = ''; selectedItemChip = null; reRenderListening(); return; }
             if (!selectedItemChip) return;
             answers[idx].item = selectedItemChip;
             selectedItemChip = null;
-            renderColorWrite(listeningData.parts[activePart]);
+            reRenderListening();
         }
 
         function clickP5ColorSlot(idx) {
@@ -2829,11 +2839,11 @@
             const answers = listeningAnswers[activePart];
             const item = listeningData.parts[activePart].items[idx];
             if (item.type !== 'color') return;
-            if (answers[idx].answer) { answers[idx].answer = ''; selectedColor = null; renderColorWrite(listeningData.parts[activePart]); return; }
+            if (answers[idx].answer) { answers[idx].answer = ''; selectedColor = null; reRenderListening(); return; }
             if (!selectedColor) return;
             answers[idx].answer = selectedColor;
             selectedColor = null;
-            renderColorWrite(listeningData.parts[activePart]);
+            reRenderListening();
         }
 
         const colorHex = { red:'#ef4444', blue:'#3b82f6', purple:'#a855f7', green:'#22c55e', pink:'#ec4899', yellow:'#eab308', gray:'#6b7280', black:'#1e293b', orange:'#f97316', brown:'#92400e' };
@@ -3419,7 +3429,8 @@
         function selectConvChoice(qIdx, optIdx) {
             if (readingSubmitted) return;
             readingAnswers[activeReadingPart][qIdx] = optIdx;
-            renderConversationChoice(readingData.parts[activeReadingPart]);
+            if (fullTestMode) renderFullTestPart();
+            else renderConversationChoice(readingData.parts[activeReadingPart]);
         }
 
         function renderConversationChoice(part) {
@@ -3477,7 +3488,8 @@
         function selectStoryTitle(optIdx) {
             if (readingSubmitted) return;
             readingAnswers[activeReadingPart].title = optIdx;
-            renderStoryFill(readingData.parts[activeReadingPart]);
+            if (fullTestMode) renderFullTestPart();
+            else renderStoryFill(readingData.parts[activeReadingPart]);
         }
 
         function renderStoryFill(part) {
@@ -3648,7 +3660,7 @@
                         <td class="p-3 font-bold text-slate-500">${item.num}</td>`;
                     item.options.forEach((opt, j) => {
                         const isSelected = answers[i] === j;
-                        html += `<td class="p-3 text-center font-medium ${isSelected ? 'bg-turtle-100 text-turtle-700 font-bold' : 'text-slate-600 hover:bg-slate-50'} ${readingSubmitted ? '' : 'cursor-pointer'}" ${readingSubmitted ? '' : `onclick="readingAnswers[${activeReadingPart}][${i}]=${j};renderGrammarCloze(readingData.parts[${activeReadingPart}])"`}>${opt}</td>`;
+                        html += `<td class="p-3 text-center font-medium ${isSelected ? 'bg-turtle-100 text-turtle-700 font-bold' : 'text-slate-600 hover:bg-slate-50'} ${readingSubmitted ? '' : 'cursor-pointer'}" ${readingSubmitted ? '' : `onclick="readingAnswers[${activeReadingPart}][${i}]=${j};reRenderReading()"`}>${opt}</td>`;
                     });
                     html += `</tr>`;
                 }
@@ -4031,7 +4043,7 @@
                         <div class="mt-2 flex gap-2 flex-wrap">`;
                     ['A', 'B', 'C'].forEach(letter => {
                         const isSelected = answers[i].toUpperCase() === letter;
-                        html += `<button onclick="readingAnswers[${activeReadingPart}][${i}]='${letter}';renderReadingPart()" class="px-4 py-2 rounded-lg font-bold transition-all ${isSelected ? 'bg-turtle-500 text-white shadow-md' : 'bg-slate-100 hover:bg-slate-200 text-slate-700'}">${letter}</button>`;
+                        html += `<button onclick="readingAnswers[${activeReadingPart}][${i}]='${letter}';reRenderReading()" class="px-4 py-2 rounded-lg font-bold transition-all ${isSelected ? 'bg-turtle-500 text-white shadow-md' : 'bg-slate-100 hover:bg-slate-200 text-slate-700'}">${letter}</button>`;
                     });
                     html += `</div></div>`;
                 }
@@ -4283,7 +4295,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                             if (answers[i] === j) cls += 'bg-turtle-500 text-white shadow-md';
                             else cls += 'bg-slate-50 border border-slate-200 text-slate-600 hover:border-turtle-300 hover:bg-turtle-50';
                         }
-                        optionsHtml += `<div class="${cls}" onclick="if(!readingSubmitted){readingAnswers[${activeReadingPart}][${i}]=${j};renderReadingPart()}"><span class="font-bold">${letters[j]}</span>. ${opt}</div>`;
+                        optionsHtml += `<div class="${cls}" onclick="if(!readingSubmitted){readingAnswers[${activeReadingPart}][${i}]=${j};reRenderReading()}"><span class="font-bold">${letters[j]}</span>. ${opt}</div>`;
                     });
                     html += `<div class="bg-white rounded-2xl p-4 border shadow-sm mb-3" style="font-size:20px;">
                         <div class="resp-row" style="gap:1rem;align-items:stretch">
@@ -4326,7 +4338,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                             if (answers[i] === j) cls += 'bg-turtle-500 text-white shadow-md';
                             else cls += 'bg-slate-50 border border-slate-200 text-slate-600 hover:border-turtle-300 hover:bg-turtle-50';
                         }
-                        html += `<div class="${cls}" onclick="if(!readingSubmitted){readingAnswers[${activeReadingPart}][${i}]=${j};renderReadingPart()}"><span class="font-bold">${letters[j]}</span>. ${opt}</div>`;
+                        html += `<div class="${cls}" onclick="if(!readingSubmitted){readingAnswers[${activeReadingPart}][${i}]=${j};reRenderReading()}"><span class="font-bold">${letters[j]}</span>. ${opt}</div>`;
                     });
                     html += `</div></div>`;
                 }
@@ -4351,13 +4363,15 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             if (answers[rowIdx]) {
                 answers[rowIdx] = '';
                 selectedBank = null;
-                renderWorkbookDragLetters(readingData.parts[activeReadingPart]);
+                if (fullTestMode) renderFullTestPart();
+                else renderWorkbookDragLetters(readingData.parts[activeReadingPart]);
                 return;
             }
             if (!selectedBank || selectedBank.type !== 'letter') return;
             answers[rowIdx] = selectedBank.value;
             selectedBank = null;
-            renderWorkbookDragLetters(readingData.parts[activeReadingPart]);
+            if (fullTestMode) renderFullTestPart();
+            else renderWorkbookDragLetters(readingData.parts[activeReadingPart]);
         }
 
         function renderWorkbookDragLetters(part) {
