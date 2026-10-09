@@ -2650,7 +2650,7 @@
 
             formHtml += `</div></div>`;
 
-            let html = `<div class="writing-container mx-auto" style="width:66%;max-width:1100px;min-width:320px;">
+            let html = `<div class="writing-container mx-auto" style="width:75%;max-width:1200px;min-width:320px;">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
             if (part.image) {
                 html += `<div class="mb-4"><img src="${part.image}" alt="" class="w-full rounded-2xl shadow-md border"></div>`;
@@ -2667,7 +2667,7 @@
             const usedLetters = answers.filter(Boolean);
 
             let html = `
-            <div class="writing-container mx-auto" style="width:66%;max-width:1200px;min-width:320px;">
+            <div class="writing-container mx-auto" style="width:75%;max-width:1200px;min-width:320px;">
                 <p class="text-slate-500 italic mb-4 text-sm whitespace-pre-line"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
                 <div class="resp-row">
                     ${part.peopleImage || part.activitiesImage ? `<div class="resp-col flex flex-row gap-2 shrink-0" style="width:55%">
@@ -2757,13 +2757,14 @@
 
             // Example
             if (part.example) {
+                const exLayout = hasItemImages ? 'flex gap-2' : 'flex flex-col gap-2';
                 html += `<div class="bg-green-50 rounded-2xl p-4 border border-green-200">
                     <div class="flex items-center gap-2 mb-2"><span class="bg-green-500 text-white px-3 py-1 rounded-lg font-bold text-sm">Example</span></div>
                     <p class="font-bold text-slate-800 mb-3" style="font-size:20px;">${part.example.question}</p>
-                    <div class="flex gap-2">`;
+                    <div class="${exLayout}">`;
                 part.example.options.forEach((opt, j) => {
                     const isAnswer = j === part.example.answer;
-                    html += `<div class="flex-1 p-3 rounded-xl text-center font-medium ${isAnswer ? 'bg-green-500 text-white' : 'bg-white border border-slate-200 text-slate-400'}" style="font-size:20px;">
+                    html += `<div class="${hasItemImages ? 'flex-1' : ''} p-3 rounded-xl ${hasItemImages ? 'text-center' : ''} font-medium ${isAnswer ? 'bg-green-500 text-white' : 'bg-white border border-slate-200 text-slate-400'}" style="font-size:20px;">
                         <span class="font-bold">${letters[j]}</span>. ${opt}</div>`;
                 });
                 html += `</div></div>`;
@@ -2776,9 +2777,10 @@
                 if (item.image) {
                     html += `<div class="mb-3"><img src="${item.image}" alt="Question ${item.num}" class="w-full rounded-xl border object-contain" style="max-height:280px;"></div>`;
                 }
-                html += `<div class="flex gap-2">`;
+                const optLayout = item.image ? 'flex gap-2' : 'flex flex-col gap-2';
+                html += `<div class="${optLayout}">`;
                 item.options.forEach((opt, j) => {
-                    let btnClass = 'flex-1 p-3 rounded-xl text-center font-medium cursor-pointer transition-all ';
+                    let btnClass = item.image ? 'flex-1 p-3 rounded-xl text-center font-medium cursor-pointer transition-all ' : 'p-3 rounded-xl font-medium cursor-pointer transition-all ';
                     if (listeningCanReview) {
                         if (j === item.answer) btnClass += 'bg-green-500 text-white';
                         else if (answers[i] === j && j !== item.answer) btnClass += 'bg-red-400 text-white';
