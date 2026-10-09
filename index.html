@@ -2536,6 +2536,8 @@
             return html;
         }
 
+        function getListeningWidth() { return currentMaterialId.startsWith('a2-key') ? '75%' : '66%'; }
+
         function renderDragMatch(part) {
             const content = document.getElementById('listening-content');
             const answers = listeningAnswers[activePart];
@@ -2543,7 +2545,7 @@
             const usedActions = answers.map(a => a.action).filter(Boolean);
 
             let html = `
-            <div class="writing-container mx-auto" style="width:75%;max-width:1200px;min-width:320px;">
+            <div class="writing-container mx-auto" style="width:${getListeningWidth()};max-width:1200px;min-width:320px;">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
                 <div class="flex flex-col lg:flex-row gap-6">
                     <div class="lg:w-5/12 shrink-0">
@@ -2650,7 +2652,7 @@
 
             formHtml += `</div></div>`;
 
-            let html = `<div class="writing-container mx-auto" style="width:75%;max-width:1200px;min-width:320px;">
+            let html = `<div class="writing-container mx-auto" style="width:${getListeningWidth()};max-width:1200px;min-width:320px;">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
             if (part.image) {
                 html += `<div class="mb-4"><img src="${part.image}" alt="" class="w-full rounded-2xl shadow-md border"></div>`;
@@ -2667,7 +2669,7 @@
             const usedLetters = answers.filter(Boolean);
 
             let html = `
-            <div class="writing-container mx-auto" style="width:75%;max-width:1200px;min-width:320px;">
+            <div class="writing-container mx-auto" style="width:${getListeningWidth()};max-width:1200px;min-width:320px;">
                 <p class="text-slate-500 italic mb-4 text-sm whitespace-pre-line"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
                 <div class="resp-row">
                     ${part.peopleImage || part.activitiesImage ? `<div class="resp-col flex flex-row gap-2 shrink-0" style="width:55%">
@@ -2741,7 +2743,7 @@
             const hasPartImages = part.images && part.images.length > 0;
             const hasItemImages = part.items && part.items.some(it => it.image);
             let html = `
-            <div class="writing-container mx-auto" style="width:75%;max-width:1200px;min-width:320px;">
+            <div class="writing-container mx-auto" style="width:${getListeningWidth()};max-width:1200px;min-width:320px;">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
             if (hasPartImages) {
                 html += `<div class="resp-row">
@@ -2752,7 +2754,8 @@
                 });
                 html += `</div><div style="width:45%" class="resp-col flex flex-col gap-4">`;
             } else {
-                html += `<div class="flex flex-col gap-4">`;
+                const isKetMCQ = currentMaterialId.startsWith('a2-key');
+                html += `<div class="${isKetMCQ ? '' : 'max-w-3xl mx-auto '}flex flex-col gap-4">`;
             }
 
             // Example
