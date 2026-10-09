@@ -3274,7 +3274,7 @@
                         readingAnswers[i] = part.items.map(() => '');
                     } else {
                         readingAnswers[i] = part.items.map(item => {
-                            const blankCount = (item.sentence.match(/\.\.\.\.\.\.\.\.\.\./g) || []).length;
+                            const blankCount = (item.sentence.replace(/\.{4,}[A-Za-z]+\.{4,}/g, '').match(/\.{4,}/g) || []).length;
                             return blankCount > 1 ? Array(blankCount).fill('') : '';
                         });
                     }
@@ -3570,7 +3570,7 @@
             html += `<div class="resp-col" style="width:65%"><div class="bg-white rounded-2xl p-6 shadow-sm border h-full"><div class="prose max-w-none leading-relaxed text-slate-700" style="font-size:20px;">`;
             if (part.passage) {
                 let blankIdx = 0;
-                let rendered = part.passage.replace(/\.\.\.\.\.\.\.\.\.\./g, () => {
+                let rendered = part.passage.replace(/\.{4,}/g, () => {
                     const i = blankIdx++;
                     const item = part.items[i];
                     if (!item) return '..........';
@@ -3609,6 +3609,7 @@
                             return `<span class="text-turtle-600 font-bold">(${item.num})</span> <span id="gc-blank-${i}" class="inline-block min-w-[80px] px-2 py-0.5 border-2 ${selectedWord ? 'border-turtle-400 bg-turtle-50 text-turtle-700' : 'border-dashed border-slate-300 text-slate-400'} rounded-lg font-bold text-center cursor-default" style="font-size:20px;">${selectedWord || '...'}</span>`;
                         }
                     });
+                    rendered = rendered.replace(/\.{4,}/g, '...');
                     html += `<p class="mb-3">${rendered}</p>`;
                 });
             }
@@ -3875,7 +3876,9 @@
                 let blankIdx = 0;
                 let passageRendered = part.passage.replace(/___([^_]+)___/g, (m, word) => {
                     return `<strong class="underline">${word}</strong>`;
-                }).replace(/\.\.\.\.\.\.\.\.\.\./g, () => {
+                }).replace(/\.{4,}([A-Za-z]+)\.{4,}/g, (m, word) => {
+                    return `<span class="font-bold text-green-700 border-b-2 border-green-400 px-1">${word}</span>`;
+                }).replace(/\.{4,}/g, () => {
                     const i = blankIdx;
                     const itemAnswers = part.items[i] ? (part.items[i].answers || [part.items[i].answer]) : [''];
                     blankIdx++;
@@ -3924,7 +3927,9 @@
                     const itemAnswers = item.answers || [item.answer];
                     let sentenceHtml = item.sentence;
                     let blankIdx = 0;
-                    sentenceHtml = sentenceHtml.replace(/\.\.\.\.\.\.\.\.\.\./g, () => {
+                    sentenceHtml = sentenceHtml.replace(/\.{4,}([A-Za-z]+)\.{4,}/g, (m, word) => {
+                        return `<span class="font-bold text-green-700 border-b-2 border-green-400 px-1">${word}</span>`;
+                    }).replace(/\.{4,}/g, () => {
                         const bi = blankIdx++;
                         if (readingCanReview) {
                             const userVal = isMultiBlank ? (answers[i][bi] || '') : (answers[i] || '');
@@ -4650,7 +4655,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                         if (allCorrect.includes((ans[j] || '').toLowerCase().trim())) correct++;
                     });
                 }
-                const nonFreeQ = part.type === 'picture-write' ? part.items.filter(it => it.type !== 'free').reduce((s, it) => s + (it.points || 1), 0) : (part.type === 'picture-story-write' || part.type === 'free-writing') ? 0 : part.type === 'fill-blank-reading' ? (part.passage ? part.items.length : part.items.reduce((s, item) => { const bc = (item.sentence.match(/\.\.\.\.\.\.\.\.\.\./g) || []).length; return s + (bc > 1 ? bc : 1); }, 0)) : part.questions;
+                const nonFreeQ = part.type === 'picture-write' ? part.items.filter(it => it.type !== 'free').reduce((s, it) => s + (it.points || 1), 0) : (part.type === 'picture-story-write' || part.type === 'free-writing') ? 0 : part.type === 'fill-blank-reading' ? (part.passage ? part.items.length : part.items.reduce((s, item) => { const bc = (item.sentence.replace(/\.{4,}[A-Za-z]+\.{4,}/g, '').match(/\.{4,}/g) || []).length; return s + (bc > 1 ? bc : 1); }, 0)) : part.questions;
                 partScores.push({ title: part.title, correct, total: nonFreeQ });
             });
 
@@ -5110,7 +5115,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 else if (part.type === 'sentence-transform' || part.type === 'error-correction') readingAnswers[i] = part.items.map(() => '');
                 else if (part.type === 'fill-blank-reading') {
                     if (part.passage) readingAnswers[i] = part.items.map(() => '');
-                    else readingAnswers[i] = part.items.map(item => { const bc = (item.sentence.match(/\.\.\.\.\.\.\.\.\.\./g) || []).length; return bc > 1 ? Array(bc).fill('') : ''; });
+                    else readingAnswers[i] = part.items.map(item => { const bc = (item.sentence.replace(/\.{4,}[A-Za-z]+\.{4,}/g, '').match(/\.{4,}/g) || []).length; return bc > 1 ? Array(bc).fill('') : ''; });
                 } else if (part.type === 'word-box-fill') readingAnswers[i] = part.items.map(() => '');
                 else if (part.type === 'reading-match-persons') readingAnswers[i] = part.items.map(() => '');
                 else if (part.type === 'drag-match-letters') readingAnswers[i] = part.answers.map(() => '');
@@ -5541,7 +5546,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 else if (part.type === 'drag-match-letters') part.answers.forEach((r, j) => { if (ans[j].toUpperCase().trim() === r.answer.toUpperCase().trim()) correct++; });
                 else if (part.type === 'multiple-choice-abc') part.items.forEach((it, j) => { if (ans[j] === it.answer) correct++; });
                 else if (part.type === 'fill-blank') part.rows.forEach((r, j) => { const ac = [r.answer, ...(r.altAnswers || [])].map(a => a.toLowerCase().trim()); if (ac.includes((ans[j] || '').toLowerCase().trim())) correct++; });
-                const nonFreeQ = part.type === 'picture-write' ? part.items.filter(it => it.type !== 'free').reduce((s, it) => s + (it.points || 1), 0) : (part.type === 'picture-story-write' || part.type === 'free-writing') ? 0 : part.type === 'fill-blank-reading' ? (part.passage ? part.items.length : part.items.reduce((s, item) => { const bc = (item.sentence.match(/\.\.\.\.\.\.\.\.\.\./g) || []).length; return s + (bc > 1 ? bc : 1); }, 0)) : part.questions;
+                const nonFreeQ = part.type === 'picture-write' ? part.items.filter(it => it.type !== 'free').reduce((s, it) => s + (it.points || 1), 0) : (part.type === 'picture-story-write' || part.type === 'free-writing') ? 0 : part.type === 'fill-blank-reading' ? (part.passage ? part.items.length : part.items.reduce((s, item) => { const bc = (item.sentence.replace(/\.{4,}[A-Za-z]+\.{4,}/g, '').match(/\.{4,}/g) || []).length; return s + (bc > 1 ? bc : 1); }, 0)) : part.questions;
                 readPartScores.push({ title: part.title, correct, total: nonFreeQ });
             });
 
