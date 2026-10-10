@@ -99,7 +99,7 @@
         .bank-chip:hover { transform: scale(1.05); }
         .bank-chip.selected { outline: 3px solid #20a1a0; outline-offset: 2px; transform: scale(1.08); box-shadow: 0 4px 12px rgba(32, 161, 160, 0.3); }
         .bank-chip.used { opacity: 0.3; pointer-events: none; }
-        .part-tab { transition: all 0.2s; font-size: 14px !important; }
+        .part-tab { transition: all 0.2s; font-size: 20px !important; }
         .part-tab.active { background-color: #20a1a0; color: white; }
         .listening-table th, .listening-table td { border: 1px solid #e2e8f0; }
         .color-chip.selected { outline: 3px solid #1e293b; outline-offset: 2px; transform: scale(1.15); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
@@ -161,7 +161,7 @@
             #result-card .rc-buttons button {
                 min-width: 100px !important;
                 padding: 10px 12px !important;
-                font-size: 18px !important;
+                font-size: 20px !important;
             }
             .swal-result-popup { padding: 12px !important; }
         }
@@ -174,7 +174,7 @@
                 width: 100% !important;
             }
             .part-tab {
-                font-size: 14px !important;
+                font-size: 20px !important;
                 padding: 6px 10px;
             }
             #listening-tabs, #reading-tabs, #fulltest-skill-tabs, #fulltest-part-tabs {
@@ -193,6 +193,7 @@
             }
             .writing-container {
                 width: 100% !important;
+                min-width: 0 !important;
             }
         }
     </style>
@@ -4240,9 +4241,9 @@
             if (part.storyImage) {
                 html += `<img src="${part.storyImage}" alt="Story pictures" class="w-full rounded-2xl shadow-md border">`;
             } else if (part.images) {
-                html += `<div class="flex flex-row gap-2">`;
+                html += `<div class="resp-row" style="gap:0.5rem;">`;
                 part.images.forEach((img, idx) => {
-                    html += `<img src="${img}" alt="Picture ${idx + 1}" class="rounded-xl shadow-sm border" style="flex:1; min-width:0; object-fit:contain;">`;
+                    html += `<div class="resp-col" style="flex:1;"><img src="${img}" alt="Picture ${idx + 1}" class="w-full rounded-xl shadow-sm border" style="object-fit:contain;"></div>`;
                 });
                 html += `</div>`;
             } else if (part.prompt) {
