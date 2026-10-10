@@ -3316,10 +3316,11 @@
                 } else if (part.type === 'sentence-transform' || part.type === 'error-correction') {
                     readingAnswers[i] = part.items.map(() => '');
                 } else if (part.type === 'fill-blank-reading') {
-                    if (part.passage) {
+                    if (part.passage || part.storyParts) {
                         readingAnswers[i] = part.items.map(() => '');
                     } else {
                         readingAnswers[i] = part.items.map(item => {
+                            if (!item.sentence) return '';
                             const blankCount = (item.sentence.replace(/\.{4,}[A-Za-z]+\.{4,}/g, '').match(/\.{4,}/g) || []).length;
                             return blankCount > 1 ? Array(blankCount).fill('') : '';
                         });
@@ -3914,11 +3915,35 @@
         function renderFillBlankReading(part) {
             const content = document.getElementById('reading-content');
             const answers = readingAnswers[activeReadingPart];
+            const hasStoryParts = !!part.storyParts;
             const hasPassageInline = !!part.passage;
-            const hasLeft = !hasPassageInline && (part.image || part.tableData);
+            const hasLeft = !hasPassageInline && !hasStoryParts && (part.image || part.tableData);
             let html = `<div class="writing-container mx-auto" style="width:70%;max-width:1200px;min-width:320px;">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
-            if (hasPassageInline) {
+            if (hasStoryParts) {
+                const hasImg = !!part.image;
+                if (hasImg) html += `<div class="resp-row"><div class="resp-col shrink-0" style="width:40%"><div class="sticky top-4"><img src="${part.image}" alt="" class="w-full rounded-2xl shadow-md border"></div></div><div class="resp-col" style="width:60%">`;
+                let blankIdx = 0;
+                part.storyParts.forEach(line => {
+                    let rendered = line.replace(/%%example%%/g, () => {
+                        return `<span class="font-bold text-green-700 border-b-2 border-green-400 px-1">${part.example ? part.example.answer : ''}</span>`;
+                    }).replace(/\((\d+)\)\s*%%blank%%/g, () => {
+                        const i = blankIdx;
+                        const itemAnswer = part.items[i] ? part.items[i].answer : '';
+                        blankIdx++;
+                        if (readingCanReview) {
+                            const userVal = answers[i] || '';
+                            const correctAlts = itemAnswer.split('/').map(a => a.toLowerCase().trim());
+                            const isCorrect = correctAlts.includes(userVal.toLowerCase().trim());
+                            return `<span class="font-bold text-slate-500">(${i + 1})</span> <span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${userVal || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${itemAnswer.split('/')[0]}</span>` : ''}`;
+                        } else {
+                            return `<span class="font-bold text-slate-500">(${i + 1})</span> <input type="text" value="${answers[i] || ''}" oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" placeholder="..." class="inline-block w-32 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium text-center" style="font-size:20px;">`;
+                        }
+                    });
+                    html += `<p class="mb-3" style="font-size:20px; line-height:1.8">${rendered}</p>`;
+                });
+                if (hasImg) html += `</div></div>`;
+            } else if (hasPassageInline) {
                 let blankIdx = 0;
                 let passageRendered = part.passage.replace(/___([^_]+)___/g, (m, word) => {
                     return `<strong class="underline">${word}</strong>`;
@@ -4702,7 +4727,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                         if (allCorrect.includes((ans[j] || '').toLowerCase().trim())) correct++;
                     });
                 }
-                const nonFreeQ = part.type === 'picture-write' ? part.items.filter(it => it.type !== 'free').reduce((s, it) => s + (it.points || 1), 0) : (part.type === 'picture-story-write' || part.type === 'free-writing') ? 0 : part.type === 'fill-blank-reading' ? (part.passage ? part.items.length : part.items.reduce((s, item) => { const bc = (item.sentence.replace(/\.{4,}[A-Za-z]+\.{4,}/g, '').match(/\.{4,}/g) || []).length; return s + (bc > 1 ? bc : 1); }, 0)) : part.questions;
+                const nonFreeQ = part.type === 'picture-write' ? part.items.filter(it => it.type !== 'free').reduce((s, it) => s + (it.points || 1), 0) : (part.type === 'picture-story-write' || part.type === 'free-writing') ? 0 : part.type === 'fill-blank-reading' ? ((part.passage || part.storyParts) ? part.items.length : part.items.reduce((s, item) => { if (!item.sentence) return s + 1; const bc = (item.sentence.replace(/\.{4,}[A-Za-z]+\.{4,}/g, '').match(/\.{4,}/g) || []).length; return s + (bc > 1 ? bc : 1); }, 0)) : part.questions;
                 partScores.push({ title: part.title, correct, total: nonFreeQ });
             });
 
@@ -5162,8 +5187,8 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 } else if (part.type === 'picture-write') readingAnswers[i] = part.items.map(() => '');
                 else if (part.type === 'sentence-transform' || part.type === 'error-correction') readingAnswers[i] = part.items.map(() => '');
                 else if (part.type === 'fill-blank-reading') {
-                    if (part.passage) readingAnswers[i] = part.items.map(() => '');
-                    else readingAnswers[i] = part.items.map(item => { const bc = (item.sentence.replace(/\.{4,}[A-Za-z]+\.{4,}/g, '').match(/\.{4,}/g) || []).length; return bc > 1 ? Array(bc).fill('') : ''; });
+                    if (part.passage || part.storyParts) readingAnswers[i] = part.items.map(() => '');
+                    else readingAnswers[i] = part.items.map(item => { if (!item.sentence) return ''; const bc = (item.sentence.replace(/\.{4,}[A-Za-z]+\.{4,}/g, '').match(/\.{4,}/g) || []).length; return bc > 1 ? Array(bc).fill('') : ''; });
                 } else if (part.type === 'word-box-fill') readingAnswers[i] = part.items.map(() => '');
                 else if (part.type === 'reading-match-persons') readingAnswers[i] = part.items.map(() => '');
                 else if (part.type === 'drag-match-letters') readingAnswers[i] = part.answers.map(() => '');
@@ -5594,7 +5619,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 else if (part.type === 'drag-match-letters') part.answers.forEach((r, j) => { if (ans[j].toUpperCase().trim() === r.answer.toUpperCase().trim()) correct++; });
                 else if (part.type === 'multiple-choice-abc') part.items.forEach((it, j) => { if (ans[j] === it.answer) correct++; });
                 else if (part.type === 'fill-blank') part.rows.forEach((r, j) => { const ac = [r.answer, ...(r.altAnswers || [])].map(a => a.toLowerCase().trim()); if (ac.includes((ans[j] || '').toLowerCase().trim())) correct++; });
-                const nonFreeQ = part.type === 'picture-write' ? part.items.filter(it => it.type !== 'free').reduce((s, it) => s + (it.points || 1), 0) : (part.type === 'picture-story-write' || part.type === 'free-writing') ? 0 : part.type === 'fill-blank-reading' ? (part.passage ? part.items.length : part.items.reduce((s, item) => { const bc = (item.sentence.replace(/\.{4,}[A-Za-z]+\.{4,}/g, '').match(/\.{4,}/g) || []).length; return s + (bc > 1 ? bc : 1); }, 0)) : part.questions;
+                const nonFreeQ = part.type === 'picture-write' ? part.items.filter(it => it.type !== 'free').reduce((s, it) => s + (it.points || 1), 0) : (part.type === 'picture-story-write' || part.type === 'free-writing') ? 0 : part.type === 'fill-blank-reading' ? ((part.passage || part.storyParts) ? part.items.length : part.items.reduce((s, item) => { if (!item.sentence) return s + 1; const bc = (item.sentence.replace(/\.{4,}[A-Za-z]+\.{4,}/g, '').match(/\.{4,}/g) || []).length; return s + (bc > 1 ? bc : 1); }, 0)) : part.questions;
                 readPartScores.push({ title: part.title, correct, total: nonFreeQ });
             });
 
