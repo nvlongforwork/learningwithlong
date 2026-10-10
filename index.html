@@ -3505,10 +3505,23 @@
             const content = document.getElementById('reading-content');
             const answers = readingAnswers[activeReadingPart];
 
+            const allWords = [part.example.word, ...part.wordBank];
+            const half = Math.ceil(allWords.length / 2);
             let html = `<div class="w-full">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
-                <div class="resp-row">
-                    <div style="width:70%" class="resp-col flex flex-col gap-4">`;
+                <div class="bg-white rounded-2xl p-4 shadow-sm border mb-4">
+                    <h4 class="font-bold text-slate-600 mb-3" style="font-size:20px;"><i class="fa-solid fa-list mr-1 text-indigo-500"></i><i class="fa-solid fa-spell-check ml-1 mr-1 text-indigo-500"></i> Word box</h4>
+                    <div class="grid grid-cols-2 gap-2" style="grid-template-columns: repeat(${half}, 1fr);">`;
+            allWords.forEach((w, idx) => {
+                const imgSrc = part.wordImages && part.wordImages[w] ? part.wordImages[w] : '';
+                const isExample = idx === 0;
+                html += `<div class="flex items-center gap-3 px-3 py-2 ${isExample ? 'bg-green-50 border border-green-200 rounded-xl font-medium text-green-700 opacity-50' : 'bg-indigo-50 border border-indigo-200 rounded-xl font-medium text-indigo-700'}" style="font-size:20px;">
+                    ${imgSrc ? `<img src="${imgSrc}" class="w-32 h-24 object-contain rounded">` : ''}
+                    <span>${w}</span>
+                </div>`;
+            });
+            html += `</div></div>
+                <div class="flex flex-col gap-4">`;
 
             // Story with blanks (text inputs)
             html += `<div class="bg-white rounded-2xl p-6 shadow-sm border"><div class="prose max-w-none leading-relaxed text-slate-700" style="font-size:20px;">`;
@@ -3552,23 +3565,7 @@
                 html += `</div></div>`;
             }
 
-            html += `</div>
-                    <div class="resp-col shrink-0" style="width:30%">
-                        <div class="bg-white rounded-2xl p-4 shadow-sm border sticky top-4">
-                            <h4 class="font-bold text-slate-600 mb-3"><i class="fa-solid fa-list mr-1 text-indigo-500"></i><i class="fa-solid fa-spell-check ml-1 mr-1 text-indigo-500"></i> Word box</h4>
-                            <div class="flex flex-col gap-2">
-                                <div class="flex items-center gap-3 px-3 py-2 bg-green-50 border border-green-200 rounded-xl font-medium text-green-700 opacity-50" style="font-size:20px;">
-                    ${part.wordImages && part.wordImages[part.example.word] ? `<img src="${part.wordImages[part.example.word]}" class="w-32 h-24 object-contain rounded">` : ''}
-                    <span>${part.example.word}</span>
-                </div>`;
-            part.wordBank.forEach(w => {
-                const imgSrc = part.wordImages && part.wordImages[w] ? part.wordImages[w] : '';
-                html += `<div class="flex items-center gap-3 px-3 py-2 bg-indigo-50 border border-indigo-200 rounded-xl font-medium text-indigo-700" style="font-size:20px;">
-                    ${imgSrc ? `<img src="${imgSrc}" class="w-32 h-24 object-contain rounded">` : ''}
-                    <span>${w}</span>
-                </div>`;
-            });
-            html += `</div></div></div></div></div>`;
+            html += `</div></div>`;
             content.innerHTML = html;
         }
 
