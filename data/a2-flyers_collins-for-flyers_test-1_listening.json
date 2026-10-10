@@ -137,7 +137,7 @@
       "items": [
         { "num": 1, "item": "The big flag at the back", "type": "color", "answer": "blue" },
         { "num": 2, "item": "The pyramid", "type": "write", "answer": "big" },
-        { "num": 3, "item": "The man on the camel's hat", "type": "color", "answer": "pink" },
+        { "num": 3, "item": "The hat of the man on the camel", "type": "color", "answer": "pink" },
         { "num": 4, "item": "The boy's T-shirt", "type": "write", "answer": "cars" },
         { "num": 5, "item": "The goat at the back under the flags", "type": "color", "answer": "red" }
       ],
