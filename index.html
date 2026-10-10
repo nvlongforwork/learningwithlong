@@ -3481,6 +3481,8 @@
         }
 
         // --- Part 2: Conversation Choice ---
+        function isConvUnanswered(v) { return v === null || v === undefined || v === '' || v === -1; }
+
         function selectConvChoice(qIdx, optIdx) {
             if (readingSubmitted) return;
             readingAnswers[activeReadingPart][qIdx] = optIdx;
@@ -3491,11 +3493,11 @@
                 const answers = readingAnswers[activeReadingPart];
                 let nextIdx = -1;
                 for (let k = qIdx + 1; k < part.items.length; k++) {
-                    if (answers[k] === null || answers[k] === undefined || answers[k] === '') { nextIdx = k; break; }
+                    if (isConvUnanswered(answers[k])) { nextIdx = k; break; }
                 }
                 if (nextIdx === -1) {
                     for (let k = 0; k < qIdx; k++) {
-                        if (answers[k] === null || answers[k] === undefined || answers[k] === '') { nextIdx = k; break; }
+                        if (isConvUnanswered(answers[k])) { nextIdx = k; break; }
                     }
                 }
                 if (nextIdx >= 0) {
@@ -3549,7 +3551,7 @@
 
             // Questions
             part.items.forEach((item, i) => {
-                const isActive = !readingSubmitted && !readingCanReview && (answers[i] === null || answers[i] === undefined || answers[i] === '');
+                const isActive = !readingSubmitted && !readingCanReview && isConvUnanswered(answers[i]);
                 html += `<div id="conv-q-${i}" class="rounded-2xl p-4 border shadow-sm mb-3 ${isActive ? 'bg-yellow-50 border-yellow-300' : 'bg-white'}">
                     <p class="font-bold text-slate-800 mb-2" style="font-size:20px;"><span class="text-turtle-600 mr-2">${item.num}.</span><span class="text-blue-600">${item.speaker}:</span> ${item.question}</p>`;
                 if (hasSharedOptions) {
@@ -3557,9 +3559,9 @@
                         const selected = answers[i];
                         const correct = item.answer;
                         const isCorrect = selected === correct;
-                        html += `<p class="font-bold ${isCorrect ? 'text-green-700' : 'text-red-600'}" style="font-size:20px;">${selected !== null && selected !== undefined && selected !== '' ? letters[selected] + '. ' + item.options[selected] : '<em class="text-slate-400">No answer</em>'}</p>`;
+                        html += `<p class="font-bold ${isCorrect ? 'text-green-700' : 'text-red-600'}" style="font-size:20px;">${!isConvUnanswered(selected) ? letters[selected] + '. ' + item.options[selected] : '<em class="text-slate-400">No answer</em>'}</p>`;
                         if (!isCorrect) html += `<p class="text-green-600 font-bold mt-1" style="font-size:20px;"><i class="fa-solid fa-arrow-right mr-1"></i>${letters[correct]}. ${item.options[correct]}</p>`;
-                    } else if (answers[i] !== null && answers[i] !== undefined && answers[i] !== '') {
+                    } else if (!isConvUnanswered(answers[i])) {
                         html += `<p class="font-bold text-turtle-600" style="font-size:20px;"><i class="fa-solid fa-check mr-1"></i>${letters[answers[i]]}. ${item.options[answers[i]]}</p>`;
                     } else {
                         html += `<p class="text-slate-400 italic" style="font-size:20px;"><i class="fa-solid fa-arrow-right mr-1"></i>Choose from the options →</p>`;
@@ -3616,7 +3618,7 @@
             const answers = readingAnswers[activeReadingPart];
             let targetIdx = -1;
             for (let k = 0; k < answers.length; k++) {
-                if (answers[k] === null || answers[k] === undefined || answers[k] === '') { targetIdx = k; break; }
+                if (isConvUnanswered(answers[k])) { targetIdx = k; break; }
             }
             if (targetIdx === -1) return;
             selectConvChoice(targetIdx, optIdx);
