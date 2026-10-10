@@ -62,7 +62,7 @@
       "instructions": "Michael has cleaned his bedroom and has found lots of things. Where did he find each thing?\nListen and write a letter in each box. There is one example.",
       "type": "drag-match-letters",
       "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-flyers/test1/part3.mp3",
-      "peopleImage": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test1/part3-items.webp",
+      "peopleImage": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test1/part3-items.png",
       "activitiesImage": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test1/part3-locations.webp",
       "people": ["camera", "football", "DVD", "umbrella", "torch", "toy train"],
       "options": ["A", "B", "C", "D", "E", "F", "G", "H"],
