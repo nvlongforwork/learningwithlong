@@ -3419,7 +3419,7 @@
             const answers = readingAnswers[activeReadingPart];
             const hasImages = part.wordImages && Object.keys(part.wordImages).length > 0;
 
-            let html = `<div class="w-full">
+            let html = `<div class="writing-container mx-auto" style="width:70%;max-width:1200px;min-width:320px;">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
 
             if (hasImages) {
@@ -3522,7 +3522,7 @@
             const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
             const hasSharedOptions = part.items.length > 0 && part.items.every(it => JSON.stringify(it.options) === JSON.stringify(part.items[0].options));
 
-            let html = `<div class="w-full">
+            let html = `<div class="writing-container mx-auto" style="width:70%;max-width:1200px;min-width:320px;">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
             if (part.image) {
                 html += `<div class="mb-4"><img src="${part.image}" alt="Part 2" class="w-full rounded-2xl shadow-md border"></div>`;
@@ -3645,7 +3645,7 @@
 
             const allWords = [part.example.word, ...part.wordBank];
             const half = Math.ceil(allWords.length / 2);
-            let html = `<div class="w-full">
+            let html = `<div class="writing-container mx-auto" style="width:70%;max-width:1200px;min-width:320px;">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
                 <div class="bg-white rounded-2xl p-4 shadow-sm border mb-4">
                     <h4 class="font-bold text-slate-600 mb-3" style="font-size:20px;"><i class="fa-solid fa-list mr-1 text-indigo-500"></i><i class="fa-solid fa-spell-check ml-1 mr-1 text-indigo-500"></i> Word box</h4>
