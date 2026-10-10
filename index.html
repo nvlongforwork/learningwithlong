@@ -3569,7 +3569,7 @@
                         html += `<p class="font-bold ${isCorrect ? 'text-green-700' : 'text-red-600'}" style="font-size:20px;">${!isConvUnanswered(selected) ? letters[selected] + '. ' + item.options[selected] : '<em class="text-slate-400">No answer</em>'}</p>`;
                         if (!isCorrect) html += `<p class="text-green-600 font-bold mt-1" style="font-size:20px;"><i class="fa-solid fa-arrow-right mr-1"></i>${letters[correct]}. ${item.options[correct]}</p>`;
                     } else if (!isConvUnanswered(answers[i])) {
-                        html += `<p class="font-bold text-turtle-600" style="font-size:20px;"><i class="fa-solid fa-check mr-1"></i>${letters[answers[i]]}. ${item.options[answers[i]]}</p>`;
+                        html += `<p class="font-bold text-turtle-600 cursor-pointer hover:opacity-70" style="font-size:20px;" onclick="selectConvChoice(${i},${answers[i]})" title="Click để huỷ chọn"><i class="fa-solid fa-check mr-1"></i>${letters[answers[i]]}. ${item.options[answers[i]]} <i class="fa-solid fa-xmark ml-2 text-red-400" style="font-size:16px;"></i></p>`;
                     } else {
                         html += `<p class="text-slate-400 italic" style="font-size:20px;"><i class="fa-solid fa-arrow-right mr-1"></i>Choose from the options →</p>`;
                     }
@@ -4034,7 +4034,7 @@
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
             if (hasStoryParts) {
                 const hasImg = !!part.image;
-                if (hasImg) html += `<div class="resp-row"><div class="resp-col shrink-0" style="width:40%"><div class="sticky top-4"><img src="${part.image}" alt="" class="w-full rounded-2xl shadow-md border"></div></div><div class="resp-col" style="width:60%">`;
+                if (hasImg) html += `<div class="mb-4"><img src="${part.image}" alt="" class="mx-auto rounded-2xl shadow-md border" style="max-height:300px; object-fit:contain;"></div>`;
                 let blankIdx = 0;
                 part.storyParts.forEach(line => {
                     let rendered = line.replace(/%%example%%/g, () => {
@@ -4054,7 +4054,6 @@
                     });
                     html += `<p class="mb-3" style="font-size:20px; line-height:1.8">${rendered}</p>`;
                 });
-                if (hasImg) html += `</div></div>`;
             } else if (hasPassageInline) {
                 let blankIdx = 0;
                 let passageRendered = part.passage.replace(/___([^_]+)___/g, (m, word) => {
@@ -4241,9 +4240,9 @@
             if (part.storyImage) {
                 html += `<img src="${part.storyImage}" alt="Story pictures" class="w-full rounded-2xl shadow-md border">`;
             } else if (part.images) {
-                html += `<div class="flex flex-col gap-2">`;
+                html += `<div class="flex flex-row gap-2">`;
                 part.images.forEach((img, idx) => {
-                    html += `<img src="${img}" alt="Picture ${idx + 1}" class="w-full rounded-xl shadow-sm border">`;
+                    html += `<img src="${img}" alt="Picture ${idx + 1}" class="rounded-xl shadow-sm border" style="flex:1; min-width:0; object-fit:contain;">`;
                 });
                 html += `</div>`;
             } else if (part.prompt) {
