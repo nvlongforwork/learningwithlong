@@ -3417,24 +3417,41 @@
         function renderDefinitionMatch(part) {
             const content = document.getElementById('reading-content');
             const answers = readingAnswers[activeReadingPart];
+            const hasImages = part.wordImages && Object.keys(part.wordImages).length > 0;
 
             let html = `<div class="w-full">
-                <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
-                <div class="resp-row">
+                <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
+
+            if (hasImages) {
+                html += `<div class="resp-row">
                     <div class="resp-col shrink-0" style="width:35%">
                         <div class="bg-white rounded-2xl p-4 shadow-sm border sticky top-0">
                             <h4 class="font-bold text-slate-600 mb-3"><i class="fa-solid fa-list mr-1 text-indigo-500"></i><i class="fa-solid fa-spell-check ml-1 mr-1 text-indigo-500"></i> Words</h4>
                             <div class="flex flex-col gap-2">`;
-            part.wordBank.forEach(w => {
-                const isExample = w === part.example.answer;
-                const imgSrc = part.wordImages && part.wordImages[w] ? part.wordImages[w] : '';
-                html += `<div class="flex items-center gap-3 px-3 py-2 ${isExample ? 'bg-green-50 border border-green-200 text-green-700 opacity-50' : 'bg-indigo-50 border border-indigo-200 text-indigo-700'} rounded-xl font-medium" style="font-size:20px;">
-                    ${imgSrc ? `<img src="${imgSrc}" class="w-32 h-24 object-contain rounded">` : ''}
-                    <span>${w}</span>
-                </div>`;
-            });
-            html += `</div></div></div>
+                part.wordBank.forEach(w => {
+                    const isExample = w === part.example.answer;
+                    const imgSrc = part.wordImages[w] || '';
+                    html += `<div class="flex items-center gap-3 px-3 py-2 ${isExample ? 'bg-green-50 border border-green-200 text-green-700 opacity-50' : 'bg-indigo-50 border border-indigo-200 text-indigo-700'} rounded-xl font-medium" style="font-size:20px;">
+                        ${imgSrc ? `<img src="${imgSrc}" class="w-32 h-24 object-contain rounded">` : ''}
+                        <span>${w}</span>
+                    </div>`;
+                });
+                html += `</div></div></div>
                     <div style="width:65%" class="resp-col flex flex-col gap-3">`;
+            } else {
+                const half = Math.ceil(part.wordBank.length / 2);
+                html += `<div class="bg-white rounded-2xl p-4 shadow-sm border mb-4">
+                    <h4 class="font-bold text-slate-600 mb-3"><i class="fa-solid fa-list mr-1 text-indigo-500"></i><i class="fa-solid fa-spell-check ml-1 mr-1 text-indigo-500"></i> Words</h4>
+                    <div class="grid gap-2" style="grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));">`;
+                part.wordBank.forEach(w => {
+                    const isExample = w === part.example.answer;
+                    html += `<div class="px-3 py-2 ${isExample ? 'bg-green-50 border border-green-200 text-green-700 opacity-50' : 'bg-indigo-50 border border-indigo-200 text-indigo-700'} rounded-xl font-medium text-center" style="font-size:20px;">
+                        <span>${w}</span>
+                    </div>`;
+                });
+                html += `</div></div>
+                <div class="flex flex-col gap-3">`;
+            }
 
             // Example
             html += `<div class="bg-green-50 rounded-2xl p-4 border border-green-200">
@@ -3459,7 +3476,7 @@
                 </div>`;
             });
 
-            html += `</div></div></div>`;
+            html += `</div>${hasImages ? '</div>' : ''}</div>`;
             content.innerHTML = html;
         }
 
@@ -3467,16 +3484,36 @@
         function selectConvChoice(qIdx, optIdx) {
             if (readingSubmitted) return;
             readingAnswers[activeReadingPart][qIdx] = optIdx;
+            const part = fullTestMode ? null : readingData.parts[activeReadingPart];
             if (fullTestMode) renderFullTestPart();
-            else renderConversationChoice(readingData.parts[activeReadingPart]);
+            else renderConversationChoice(part);
+            if (!readingSubmitted && part) {
+                const answers = readingAnswers[activeReadingPart];
+                let nextIdx = -1;
+                for (let k = qIdx + 1; k < part.items.length; k++) {
+                    if (answers[k] === null || answers[k] === undefined || answers[k] === '') { nextIdx = k; break; }
+                }
+                if (nextIdx === -1) {
+                    for (let k = 0; k < qIdx; k++) {
+                        if (answers[k] === null || answers[k] === undefined || answers[k] === '') { nextIdx = k; break; }
+                    }
+                }
+                if (nextIdx >= 0) {
+                    setTimeout(() => {
+                        const el = document.getElementById('conv-q-' + nextIdx);
+                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 150);
+                }
+            }
         }
 
         function renderConversationChoice(part) {
             const content = document.getElementById('reading-content');
             const answers = readingAnswers[activeReadingPart];
             const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+            const hasSharedOptions = part.items.length > 0 && part.items.every(it => JSON.stringify(it.options) === JSON.stringify(part.items[0].options));
 
-            let html = `<div class="max-w-2xl mx-auto">
+            let html = `<div class="w-full">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
             if (part.image) {
                 html += `<div class="mb-4"><img src="${part.image}" alt="Part 2" class="w-full rounded-2xl shadow-md border"></div>`;
@@ -3485,41 +3522,104 @@
                     <p class="text-blue-800 font-medium" style="font-size:20px;"><i class="fa-solid fa-comment-dots mr-2 text-blue-500"></i>${part.context}</p>
                 </div>`;
 
-            // Example
-            html += `<div class="bg-green-50 rounded-2xl p-4 border border-green-200 mb-3">
-                <div class="flex items-center gap-2 mb-2"><span class="bg-green-500 text-white px-3 py-1 rounded-lg font-bold text-sm">Example</span></div>
-                <p class="font-bold text-slate-800 mb-3" style="font-size:20px;"><span class="text-blue-600">${part.example.speaker}:</span> ${part.example.question}</p>
-                <div class="space-y-2">`;
-            part.example.options.forEach((opt, j) => {
-                const isAnswer = j === part.example.answer;
-                html += `<div class="p-3 rounded-xl font-medium ${isAnswer ? 'bg-green-500 text-white' : 'bg-white border border-slate-200 text-slate-400'}" style="font-size:20px;">
-                    <span class="font-bold">${letters[j]}.</span> ${opt}</div>`;
-            });
-            html += `</div></div>`;
+            if (hasSharedOptions) {
+                html += `<div class="resp-row">
+                <div class="resp-col" style="width:60%">`;
+            }
 
-            // Questions
-            part.items.forEach((item, i) => {
-                html += `<div class="bg-white rounded-2xl p-4 border shadow-sm mb-3">
-                    <p class="font-bold text-slate-800 mb-3" style="font-size:20px;"><span class="text-turtle-600 mr-2">${item.num}.</span><span class="text-blue-600">${item.speaker}:</span> ${item.question}</p>
+            // Example
+            if (hasSharedOptions) {
+                html += `<div class="bg-green-50 rounded-2xl p-4 border border-green-200 mb-3">
+                    <div class="flex items-center gap-2 mb-2"><span class="bg-green-500 text-white px-3 py-1 rounded-lg font-bold text-sm">Example</span></div>
+                    <p class="font-bold text-slate-800 mb-2" style="font-size:20px;"><span class="text-blue-600">${part.example.speaker}:</span> ${part.example.question}</p>
+                    <p class="font-bold text-green-700" style="font-size:20px;"><i class="fa-solid fa-check mr-1"></i>${letters[part.example.answer]}. ${part.example.options[part.example.answer]}</p>
+                </div>`;
+            } else {
+                html += `<div class="bg-green-50 rounded-2xl p-4 border border-green-200 mb-3">
+                    <div class="flex items-center gap-2 mb-2"><span class="bg-green-500 text-white px-3 py-1 rounded-lg font-bold text-sm">Example</span></div>
+                    <p class="font-bold text-slate-800 mb-3" style="font-size:20px;"><span class="text-blue-600">${part.example.speaker}:</span> ${part.example.question}</p>
                     <div class="space-y-2">`;
-                item.options.forEach((opt, j) => {
-                    let btnClass = 'p-3 rounded-xl font-medium transition-all ';
-                    if (readingCanReview) {
-                        if (j === item.answer) btnClass += 'bg-green-500 text-white';
-                        else if (answers[i] === j && j !== item.answer) btnClass += 'bg-red-400 text-white';
-                        else btnClass += 'bg-slate-50 border border-slate-200 text-slate-400';
-                    } else {
-                        if (answers[i] === j) btnClass += 'bg-turtle-500 text-white shadow-md';
-                        else btnClass += 'bg-slate-50 border border-slate-200 text-slate-600 hover:border-turtle-300 hover:bg-turtle-50 cursor-pointer';
-                    }
-                    html += `<div class="${btnClass}" style="font-size:20px;" onclick="selectConvChoice(${i},${j})">
+                part.example.options.forEach((opt, j) => {
+                    const isAnswer = j === part.example.answer;
+                    html += `<div class="p-3 rounded-xl font-medium ${isAnswer ? 'bg-green-500 text-white' : 'bg-white border border-slate-200 text-slate-400'}" style="font-size:20px;">
                         <span class="font-bold">${letters[j]}.</span> ${opt}</div>`;
                 });
                 html += `</div></div>`;
+            }
+
+            // Questions
+            part.items.forEach((item, i) => {
+                const isActive = !readingSubmitted && !readingCanReview && (answers[i] === null || answers[i] === undefined || answers[i] === '');
+                html += `<div id="conv-q-${i}" class="rounded-2xl p-4 border shadow-sm mb-3 ${isActive ? 'bg-yellow-50 border-yellow-300' : 'bg-white'}">
+                    <p class="font-bold text-slate-800 mb-2" style="font-size:20px;"><span class="text-turtle-600 mr-2">${item.num}.</span><span class="text-blue-600">${item.speaker}:</span> ${item.question}</p>`;
+                if (hasSharedOptions) {
+                    if (readingCanReview) {
+                        const selected = answers[i];
+                        const correct = item.answer;
+                        const isCorrect = selected === correct;
+                        html += `<p class="font-bold ${isCorrect ? 'text-green-700' : 'text-red-600'}" style="font-size:20px;">${selected !== null && selected !== undefined && selected !== '' ? letters[selected] + '. ' + item.options[selected] : '<em class="text-slate-400">No answer</em>'}</p>`;
+                        if (!isCorrect) html += `<p class="text-green-600 font-bold mt-1" style="font-size:20px;"><i class="fa-solid fa-arrow-right mr-1"></i>${letters[correct]}. ${item.options[correct]}</p>`;
+                    } else if (answers[i] !== null && answers[i] !== undefined && answers[i] !== '') {
+                        html += `<p class="font-bold text-turtle-600" style="font-size:20px;"><i class="fa-solid fa-check mr-1"></i>${letters[answers[i]]}. ${item.options[answers[i]]}</p>`;
+                    } else {
+                        html += `<p class="text-slate-400 italic" style="font-size:20px;"><i class="fa-solid fa-arrow-right mr-1"></i>Choose from the options →</p>`;
+                    }
+                } else {
+                    html += `<div class="space-y-2">`;
+                    item.options.forEach((opt, j) => {
+                        let btnClass = 'p-3 rounded-xl font-medium transition-all ';
+                        if (readingCanReview) {
+                            if (j === item.answer) btnClass += 'bg-green-500 text-white';
+                            else if (answers[i] === j && j !== item.answer) btnClass += 'bg-red-400 text-white';
+                            else btnClass += 'bg-slate-50 border border-slate-200 text-slate-400';
+                        } else {
+                            if (answers[i] === j) btnClass += 'bg-turtle-500 text-white shadow-md';
+                            else btnClass += 'bg-slate-50 border border-slate-200 text-slate-600 hover:border-turtle-300 hover:bg-turtle-50 cursor-pointer';
+                        }
+                        html += `<div class="${btnClass}" style="font-size:20px;" onclick="selectConvChoice(${i},${j})">
+                            <span class="font-bold">${letters[j]}.</span> ${opt}</div>`;
+                    });
+                    html += `</div>`;
+                }
+                html += `</div>`;
             });
+
+            if (hasSharedOptions) {
+                html += `</div><div class="resp-col" style="width:40%">
+                    <div class="sticky top-4 bg-white rounded-2xl p-4 shadow-sm border">
+                        <h4 class="font-bold text-slate-600 mb-3"><i class="fa-solid fa-list-ol mr-1 text-indigo-500"></i> Options</h4>
+                        <div class="flex flex-col gap-2">`;
+                part.items[0].options.forEach((opt, j) => {
+                    const isUsedExample = j === part.example.answer;
+                    const isUsedByAnswer = Object.values(answers).some(a => a === j);
+                    let optClass = 'p-3 rounded-xl font-medium cursor-pointer transition-all ';
+                    if (readingCanReview || readingSubmitted) {
+                        optClass += isUsedExample ? 'bg-green-50 border border-green-200 text-green-700 opacity-50' : 'bg-slate-50 border border-slate-200 text-slate-600';
+                    } else {
+                        optClass += isUsedExample ? 'bg-green-50 border border-green-200 text-green-700 opacity-50' :
+                            isUsedByAnswer ? 'bg-turtle-100 border border-turtle-300 text-turtle-700' :
+                            'bg-indigo-50 border border-indigo-200 text-indigo-700 hover:bg-indigo-100';
+                    }
+                    const clickable = !readingSubmitted && !readingCanReview && !isUsedExample;
+                    html += `<div class="${optClass}" style="font-size:20px;" ${clickable ? `onclick="selectConvSharedOption(${j})"` : ''}>
+                        <span class="font-bold">${letters[j]}.</span> ${opt}</div>`;
+                });
+                html += `</div></div></div></div>`;
+            }
 
             html += `</div>`;
             content.innerHTML = html;
+        }
+
+        function selectConvSharedOption(optIdx) {
+            if (readingSubmitted) return;
+            const answers = readingAnswers[activeReadingPart];
+            let targetIdx = -1;
+            for (let k = 0; k < answers.length; k++) {
+                if (answers[k] === null || answers[k] === undefined || answers[k] === '') { targetIdx = k; break; }
+            }
+            if (targetIdx === -1) return;
+            selectConvChoice(targetIdx, optIdx);
         }
 
         // --- Part 3: Story Fill ---
