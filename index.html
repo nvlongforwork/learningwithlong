@@ -497,7 +497,14 @@
                     { id: 'listening-part-2', name: 'Listening Part 2', partFilter: 'Part 2', partSkill: 'listening' },
                     { id: 'listening-part-3', name: 'Listening Part 3', partFilter: 'Part 3', partSkill: 'listening' },
                     { id: 'listening-part-4', name: 'Listening Part 4', partFilter: 'Part 4', partSkill: 'listening' },
-                    { id: 'listening-part-5', name: 'Listening Part 5', partFilter: 'Part 5', partSkill: 'listening' }
+                    { id: 'listening-part-5', name: 'Listening Part 5', partFilter: 'Part 5', partSkill: 'listening' },
+                    { id: 'reading-part-1', name: 'Reading Part 1', partFilter: 'Part 1', partSkill: 'reading' },
+                    { id: 'reading-part-2', name: 'Reading Part 2', partFilter: 'Part 2', partSkill: 'reading' },
+                    { id: 'reading-part-3', name: 'Reading Part 3', partFilter: 'Part 3', partSkill: 'reading' },
+                    { id: 'reading-part-4', name: 'Reading Part 4', partFilter: 'Part 4', partSkill: 'reading' },
+                    { id: 'reading-part-5', name: 'Reading Part 5', partFilter: 'Part 5', partSkill: 'reading' },
+                    { id: 'reading-part-6', name: 'Reading Part 6', partFilter: 'Part 6', partSkill: 'reading' },
+                    { id: 'reading-part-7', name: 'Reading Part 7', partFilter: 'Part 7', partSkill: 'reading' }
                 ]}
             ] },
             { id: 'a2-key', name: 'A2 Key', description: 'Chứng chỉ tiếng Anh tổng quát trình độ A2 (KET).', color: '#008579', folders: [
@@ -2768,7 +2775,7 @@
         function renderMultipleChoiceABC(part) {
             const content = document.getElementById('listening-content');
             const answers = listeningAnswers[activePart];
-            const letters = ['A', 'B', 'C'];
+            const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 
             const hasPartImages = part.images && part.images.length > 0;
             const hasItemImages = part.items && part.items.some(it => it.image);
@@ -3466,7 +3473,7 @@
         function renderConversationChoice(part) {
             const content = document.getElementById('reading-content');
             const answers = readingAnswers[activeReadingPart];
-            const letters = ['A', 'B', 'C'];
+            const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 
             let html = `<div class="max-w-2xl mx-auto">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
@@ -4269,7 +4276,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
         function renderWorkbookListening(part) {
             const content = document.getElementById('reading-content');
             const answers = readingAnswers[activeReadingPart];
-            const letters = ['A', 'B', 'C'];
+            const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
             const hasPassage = !!part.passage;
             const hasPerQImages = part.images && part.images.length > 0;
             const isVerticalMCQ = !part.images;

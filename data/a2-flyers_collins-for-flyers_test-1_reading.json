@@ -1,0 +1,187 @@
+{
+  "type": "reading-test",
+  "title": "Test 1 - Reading & Writing",
+  "parts": [
+    {
+      "id": "part1",
+      "title": "Part 1",
+      "questions": 10,
+      "instructions": "Look and read. Choose the correct words and write them on the lines. There is one example.",
+      "type": "definition-match",
+      "wordBank": ["an octopus", "an umbrella", "a knife", "a dentist", "medicine", "a stamp", "a dinosaur", "a theatre", "a dictionary", "butter", "biscuits", "a snowman", "a comb", "an astronaut", "soap"],
+      "example": { "definition": "You use this to wash your body.", "answer": "soap" },
+      "items": [
+        { "num": 1, "definition": "This person looks after your teeth and helps you if you have toothache.", "answer": "a dentist" },
+        { "num": 2, "definition": "You use this to make your hair look tidy.", "answer": "a comb" },
+        { "num": 3, "definition": "You use this to stay dry when it is raining.", "answer": "an umbrella" },
+        { "num": 4, "definition": "This person goes in a rocket.", "answer": "an astronaut" },
+        { "num": 5, "definition": "This animal lives in the sea. It has eight legs.", "answer": "an octopus" },
+        { "num": 6, "definition": "You put this on a letter before you send it.", "answer": "a stamp" },
+        { "num": 7, "definition": "You use this to cut food. It is usually made of metal.", "answer": "a knife" },
+        { "num": 8, "definition": "You use this book to find out what words mean.", "answer": "a dictionary" },
+        { "num": 9, "definition": "A doctor might tell you to take this if you are ill.", "answer": "medicine" },
+        { "num": 10, "definition": "You might put this on your bread with a knife. It is usually yellow and is made from milk.", "answer": "butter" }
+      ]
+    },
+    {
+      "id": "part2",
+      "title": "Part 2",
+      "questions": 5,
+      "instructions": "Read the conversation and choose the best answer. Write a letter (A–H) for each answer.",
+      "type": "conversation-choice",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test1/part2r-conversation.webp",
+      "context": "William is talking to his mum about going to the circus with Uncle Robert. What does William say?",
+      "example": {
+        "speaker": "Mum",
+        "question": "Hello William, did you have fun at the circus?",
+        "options": ["It started at 12 and finished at 3.", "No, thank you, I'm not hungry.", "Yes, it was great!", "No, we went by bus.", "I liked the clowns best because they were so funny.", "Yes, that's a good idea. I'll do it now.", "It was raining all morning and sunny in the afternoon.", "Yes, he did. I had chocolate biscuits! I love chocolate!"],
+        "answer": 2
+      },
+      "items": [
+        { "num": 1, "speaker": "Mum", "question": "Which was your favourite part of the circus?", "options": ["It started at 12 and finished at 3.", "No, thank you, I'm not hungry.", "Yes, it was great!", "No, we went by bus.", "I liked the clowns best because they were so funny.", "Yes, that's a good idea. I'll do it now.", "It was raining all morning and sunny in the afternoon.", "Yes, he did. I had chocolate biscuits! I love chocolate!"], "answer": 4 },
+        { "num": 2, "speaker": "Mum", "question": "How long did it last?", "options": ["It started at 12 and finished at 3.", "No, thank you, I'm not hungry.", "Yes, it was great!", "No, we went by bus.", "I liked the clowns best because they were so funny.", "Yes, that's a good idea. I'll do it now.", "It was raining all morning and sunny in the afternoon.", "Yes, he did. I had chocolate biscuits! I love chocolate!"], "answer": 0 },
+        { "num": 3, "speaker": "Mum", "question": "Did you go by train?", "options": ["It started at 12 and finished at 3.", "No, thank you, I'm not hungry.", "Yes, it was great!", "No, we went by bus.", "I liked the clowns best because they were so funny.", "Yes, that's a good idea. I'll do it now.", "It was raining all morning and sunny in the afternoon.", "Yes, he did. I had chocolate biscuits! I love chocolate!"], "answer": 3 },
+        { "num": 4, "speaker": "Mum", "question": "Did Uncle Robert give you a snack?", "options": ["It started at 12 and finished at 3.", "No, thank you, I'm not hungry.", "Yes, it was great!", "No, we went by bus.", "I liked the clowns best because they were so funny.", "Yes, that's a good idea. I'll do it now.", "It was raining all morning and sunny in the afternoon.", "Yes, he did. I had chocolate biscuits! I love chocolate!"], "answer": 7 },
+        { "num": 5, "speaker": "Mum", "question": "Me too! Do you want to write a thank-you card for Uncle Robert?", "options": ["It started at 12 and finished at 3.", "No, thank you, I'm not hungry.", "Yes, it was great!", "No, we went by bus.", "I liked the clowns best because they were so funny.", "Yes, that's a good idea. I'll do it now.", "It was raining all morning and sunny in the afternoon.", "Yes, he did. I had chocolate biscuits! I love chocolate!"], "answer": 5 }
+      ]
+    },
+    {
+      "id": "part3",
+      "title": "Part 3",
+      "questions": 6,
+      "instructions": "Read the story. Choose a word from the box. Write the correct word next to numbers 1–5. There is one example.",
+      "type": "story-fill",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test1/part3r-museum.webp",
+      "storyParts": [
+        "Last Wednesday, Michael went to the toy %%example%% with his mum.",
+        "He wanted to see some (1) %%blank%% robots because robots are his favourite toy. When they arrived at the museum, Michael felt very (2) %%blank%% .",
+        "But the museum was closed.",
+        "\"Oh no,\" said Michael.",
+        "Then a woman opened the door of the museum and asked, \"What are you doing here?\"",
+        "\"We wanted to visit the museum, but it's closed,\" explained Mum.",
+        "She said, \"I look after the museum and I can (3) %%blank%% you some toys if you are interested.\"",
+        "\"Yes please!\" said Michael and his mum together.",
+        "They walked inside slowly. The museum was dark and Michael felt afraid. Then the woman (4) %%blank%% on the lights and suddenly Michael saw lots of beautiful old toys.",
+        "\"Look at the amazing robots!\" he said.",
+        "The woman let Michael play with some toy trains and (5) %%blank%% . He had a great afternoon and didn't want to go home."
+      ],
+      "wordBank": ["opened", "dinosaurs", "traffic", "walking", "dark", "show", "turned", "excited", "old"],
+      "example": { "word": "museum" },
+      "items": [
+        { "num": 1, "answer": "old" },
+        { "num": 2, "answer": "excited" },
+        { "num": 3, "answer": "show" },
+        { "num": 4, "answer": "turned" },
+        { "num": 5, "answer": "dinosaurs" }
+      ],
+      "titleQuestion": {
+        "num": 6,
+        "instruction": "Now choose the best name for the story.",
+        "options": [
+          "Michael's favourite toy",
+          "Michael's exciting afternoon at the museum",
+          "Michael plays with trains"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "id": "part4",
+      "title": "Part 4",
+      "questions": 10,
+      "instructions": "Read the text. Choose the correct words and write them on the lines.",
+      "type": "grammar-cloze",
+      "title_text": "Camels",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test1/part4r-camels.webp",
+      "storyParts": [
+        "Camels",
+        "Camels are interesting animals, %%example%% usually live in the desert. This is because they (1) %%blank%% need to drink a lot and they can live without water for two weeks. Also, they have fur over their ears and they can (2) %%blank%% close their noses %%blank%% that sand doesn't get in. Camels usually live for about 40 to 50 years but can live (3) %%blank%% to be as old as 80. They can run as fast %%blank%% horses.",
+        "Camels don't eat meat, but they eat desert plants. (4) %%blank%% big animals have long necks so that they can (5) %%blank%% the leaves of tall trees.",
+        "Camels can carry heavy things on their backs. People (6) %%blank%% used camels to carry them and their things across the deserts for (7) %%blank%% centuries. People also use camels for (8) %%blank%% milk, wool and meat. You can see or (9) %%blank%% on a camel if you go to a desert. Or you can also see them (10) %%blank%% zoos all over the world."
+      ],
+      "example": { "options": ["where", "which", "when"], "answer": 1 },
+      "items": [
+        { "num": 1, "options": ["won't", "don't", "didn't"], "answer": 1 },
+        { "num": 2, "options": ["also", "because", "so"], "answer": 2 },
+        { "num": 3, "options": ["to", "than", "as"], "answer": 2 },
+        { "num": 4, "options": ["This", "These", "That"], "answer": 1 },
+        { "num": 5, "options": ["eat", "eating", "ate"], "answer": 0 },
+        { "num": 6, "options": ["has", "does", "have"], "answer": 2 },
+        { "num": 7, "options": ["many", "much", "any"], "answer": 1 },
+        { "num": 8, "options": ["his", "their", "your"], "answer": 1 },
+        { "num": 9, "options": ["ride", "rode", "riding"], "answer": 0 },
+        { "num": 10, "options": ["in", "under", "behind"], "answer": 0 }
+      ]
+    },
+    {
+      "id": "part5",
+      "title": "Part 5",
+      "questions": 7,
+      "instructions": "Look at the picture and read the story. Write some words to complete the sentences about the story. You can use 1, 2, 3 or 4 words.",
+      "type": "story-write",
+      "storySegments": [
+        {
+          "title": "What a clever dog!",
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test1/part5r-mountain.webp",
+          "text": "Last Saturday, Harry and his sister Emma went for a walk up a mountain near their house because it was a beautiful sunny day. They took their dog, Jack, with them. On the way up, they sang songs together and they were very happy.\n\nAt the top of the mountain, they ate their picnic, which was sandwiches, cake and lemonade. After lunch, they decided to go home. As they were walking down the mountain, Emma fell over and hurt her foot. She couldn't walk any more.\n\n\"Oh dear,\" she said. \"What are we going to do?\"\n\nHarry said, \"Don't worry, Emma. Jack's a clever dog and he can go for help.\"\n\nHarry turned to Jack, pointed down the mountain and said loudly, \"Jack, go home, go home and get help.\"",
+          "examples": [
+            { "sentence": "Harry and Emma have %%answer%% called Jack.", "answer": "a dog" },
+            { "sentence": "Last Saturday, it was sunny, so Harry and Emma decided to go for a walk up %%answer%% .", "answer": "a mountain" }
+          ],
+          "questions": [
+            { "num": 1, "sentence": "Harry and Emma %%blank%% Jack with them on their walk.", "answer": "took" },
+            { "num": 2, "sentence": "They had %%blank%% for their picnic.", "answer": "sandwiches, cake and lemonade" }
+          ]
+        },
+        {
+          "text": "Jack looked at Harry and then he looked at Emma. Then he suddenly understood and he ran down the mountain as fast as he could. Harry stayed with Emma and held her hand.\n\nAfter two hours, it began to get dark and the children were very afraid. Then they heard the sound of people talking and saw torch lights coming up the mountain.\n\nEmma cried, \"Dad, it's you!\"\n\nDad said, \"I'm so happy to see you both. When Jack came back without you, we knew something was wrong. What a brave dog!\"\n\nDad picked Emma up and carried her down the hill. When they got home, everyone was very tired but happy.",
+          "questions": [
+            { "num": 3, "sentence": "As they were going home, %%blank%% and hurt her foot.", "answer": "Emma fell over" },
+            { "num": 4, "sentence": "Emma %%blank%% any more.", "answer": "couldn't walk" },
+            { "num": 5, "sentence": "Harry sent %%blank%% to get help.", "answer": "Jack" },
+            { "num": 6, "sentence": "They waited on the mountain for %%blank%% before help arrived.", "answer": "two hours" },
+            { "num": 7, "sentence": "Dad %%blank%% Emma home.", "answer": "carried" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part6",
+      "title": "Part 6",
+      "questions": 5,
+      "instructions": "Read the email and write the missing words. Write one word on each line.",
+      "type": "fill-blank-reading",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test1/part6r-email.webp",
+      "storyParts": [
+        "Dear Aunt Vicky,",
+        "I am writing to %%example%% you our exciting news. We got a new puppy yesterday! He's called Ben (1) %%blank%% he's black all over! I'm (2) %%blank%% to send you a photo of him so that you can see what he looks like.",
+        "He's only six weeks (3) %%blank%% and he's very small. He likes to (4) %%blank%% games and last night he slept in a box next to my bed.",
+        "You've got (5) %%blank%% come and meet Ben soon!",
+        "Love,",
+        "George"
+      ],
+      "example": { "answer": "tell" },
+      "items": [
+        { "num": 1, "answer": "and" },
+        { "num": 2, "answer": "going" },
+        { "num": 3, "answer": "old" },
+        { "num": 4, "answer": "play" },
+        { "num": 5, "answer": "to" }
+      ]
+    },
+    {
+      "id": "part7",
+      "title": "Part 7",
+      "questions": 1,
+      "instructions": "Look at the three pictures. Write about this story. Write 20 or more words.",
+      "type": "picture-story-write",
+      "images": [
+        "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test1/part7r-zoo1.webp",
+        "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test1/part7r-zoo2.webp",
+        "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test1/part7r-zoo3.webp"
+      ],
+      "minWords": 20,
+      "sampleAnswer": "A man is taking a photo of a monkey at the zoo. Now, the man is eating a banana. The monkey takes his camera. The monkey has the camera and is taking a photo of the man."
+    }
+  ]
+}
