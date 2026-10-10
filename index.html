@@ -92,10 +92,10 @@
         #view-listening.active { display: flex !important; }
         #view-reading.active { display: flex !important; }
         #view-fulltest.active { display: flex !important; }
-        .drop-slot { min-height: 2.5rem; border: 2px dashed #cbd5e1; border-radius: 0.75rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+        .drop-slot { min-height: 2.5rem; border: 2px dashed #cbd5e1; border-radius: 0.75rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
         .drop-slot:hover { border-color: #20a1a0; background-color: #f0fbfa; }
         .drop-slot.filled { border-style: solid; border-color: #20a1a0; background-color: #ccf2ef; color: #136768; font-weight: 600; }
-        .bank-chip { cursor: pointer; transition: all 0.2s; user-select: none; display: inline-block; }
+        .bank-chip { cursor: pointer; transition: all 0.2s; user-select: none; display: inline-block; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
         .bank-chip:hover { transform: scale(1.05); }
         .bank-chip.selected { outline: 3px solid #20a1a0; outline-offset: 2px; transform: scale(1.08); box-shadow: 0 4px 12px rgba(32, 161, 160, 0.3); }
         .bank-chip.used { opacity: 0.3; pointer-events: none; }
@@ -2610,6 +2610,10 @@
                 part.answers.forEach((a, i) => { html += `<li><b>${i+1}.</b> ${a.name} — ${a.action}</li>`; });
                 html += `</ul></div>`;
             } else {
+                html += `<div class="bg-turtle-50 border border-turtle-200 rounded-xl px-4 py-2 mb-3 flex items-center gap-2" style="font-size:20px;">
+                    <i class="fa-solid fa-hand-pointer text-turtle-500"></i>
+                    <span class="text-turtle-700">Bấm chọn 1 tên/hành động bên dưới, rồi bấm vào ô trống trong bảng.</span>
+                </div>`;
                 html += `<div class="bg-white rounded-2xl p-4 shadow-sm border">
                     <h4 class="font-bold text-slate-600 mb-2"><i class="fa-solid fa-users mr-1 text-blue-500"></i> Names</h4>
                     <div class="flex flex-wrap gap-2 mb-4">`;
