@@ -3485,6 +3485,13 @@
 
         function selectConvChoice(qIdx, optIdx) {
             if (readingSubmitted) return;
+            if (readingAnswers[activeReadingPart][qIdx] === optIdx) {
+                readingAnswers[activeReadingPart][qIdx] = -1;
+                const part = fullTestMode ? null : readingData.parts[activeReadingPart];
+                if (fullTestMode) renderFullTestPart();
+                else renderConversationChoice(part);
+                return;
+            }
             readingAnswers[activeReadingPart][qIdx] = optIdx;
             const part = fullTestMode ? null : readingData.parts[activeReadingPart];
             if (fullTestMode) renderFullTestPart();
@@ -3651,8 +3658,11 @@
                     <span>${w}</span>
                 </div>`;
             });
-            html += `</div></div>
-                <div class="flex flex-col gap-4">`;
+            html += `</div></div>`;
+            if (part.image) {
+                html += `<div class="mb-4"><img src="${part.image}" alt="" class="w-full rounded-2xl shadow-md border" style="max-height:400px; object-fit:contain;"></div>`;
+            }
+            html += `<div class="flex flex-col gap-4">`;
 
             // Story with blanks (text inputs)
             let blankIdx = 0;
