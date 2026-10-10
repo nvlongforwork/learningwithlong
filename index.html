@@ -2536,7 +2536,7 @@
             return html;
         }
 
-        function getListeningWidth() { return currentMaterialId.startsWith('a2-key') ? '75%' : '66%'; }
+        function getListeningWidth() { return currentMaterialId.startsWith('a2-key') ? 'width:75%;max-width:1200px;' : 'width:100%;'; }
 
         function renderDragMatch(part) {
             const content = document.getElementById('listening-content');
@@ -2545,7 +2545,7 @@
             const usedActions = answers.map(a => a.action).filter(Boolean);
 
             let html = `
-            <div class="writing-container mx-auto" style="width:${getListeningWidth()};max-width:1200px;min-width:320px;">
+            <div class="writing-container mx-auto" style="${getListeningWidth()}min-width:320px;">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
                 <div class="flex flex-col lg:flex-row gap-6">
                     <div class="lg:w-5/12 shrink-0">
@@ -2652,7 +2652,7 @@
 
             formHtml += `</div></div>`;
 
-            let html = `<div class="writing-container mx-auto" style="width:${getListeningWidth()};max-width:1200px;min-width:320px;">
+            let html = `<div class="writing-container mx-auto" style="${getListeningWidth()}min-width:320px;">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
             if (part.image) {
                 html += `<div class="mb-4"><img src="${part.image}" alt="" class="w-full rounded-2xl shadow-md border"></div>`;
@@ -2669,24 +2669,29 @@
             const usedLetters = answers.filter(Boolean);
 
             let html = `
-            <div class="writing-container mx-auto" style="width:${getListeningWidth()};max-width:1200px;min-width:320px;">
+            <div class="writing-container mx-auto" style="${getListeningWidth()}min-width:320px;">
                 <p class="text-slate-500 italic mb-4 text-sm whitespace-pre-line"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
+                ${part.peopleImage || part.activitiesImage ? `<div class="flex flex-row gap-3 mb-4">
+                        ${part.peopleImage ? `<img src="${part.peopleImage}" alt="People" class="${part.activitiesImage ? 'w-1/2' : 'w-full'} rounded-xl shadow-md border object-contain">` : ''}
+                        ${part.activitiesImage ? `<img src="${part.activitiesImage}" alt="Activities" class="${part.peopleImage ? 'w-1/2' : 'w-full'} rounded-xl shadow-md border object-contain">` : ''}
+                    </div>` : ''}
                 <div class="resp-row">
-                    ${part.peopleImage || part.activitiesImage ? `<div class="resp-col flex flex-row gap-2 shrink-0" style="width:55%">
-                        ${part.peopleImage ? `<img src="${part.peopleImage}" alt="People" class="w-1/2 rounded-xl shadow-md border object-contain">` : ''}
-                        ${part.activitiesImage ? `<img src="${part.activitiesImage}" alt="Activities" class="w-1/2 rounded-xl shadow-md border object-contain">` : ''}
-                    </div>` : ''}${part.optionLabels ? `<div class="resp-col shrink-0" style="width:${part.peopleImage ? '45%' : '40%'}">
-                        <div class="bg-white rounded-2xl shadow-sm border p-4 mb-4 sticky top-4">
-                            <h4 class="font-bold text-slate-600 mb-3" style="font-size:20px;"><i class="fa-solid fa-briefcase mr-1 text-purple-500"></i> ${part.optionTitle || 'Jobs'}</h4>
-                            <div class="flex flex-col gap-1">${part.options.map(o => {
+                    ${part.options ? `<div class="resp-col shrink-0" style="width:${part.optionLabels ? '40%' : '20%'}">
+                        <div class="bg-white rounded-2xl shadow-sm border p-4 sticky top-4">
+                            <h4 class="font-bold text-slate-600 mb-3" style="font-size:20px;"><i class="fa-solid fa-briefcase mr-1 text-purple-500"></i> ${part.optionTitle || 'Letters'}</h4>
+                            <div class="${part.optionLabels ? 'flex flex-col gap-1' : 'flex flex-wrap gap-2'}">${part.options.map(o => {
                                 const isUsed = o === part.example.answer || usedLetters.includes(o);
                                 const isSel = !listeningSubmitted && !listeningCanReview && selectedBank && selectedBank.value === o && selectedBank.type === 'letter';
                                 const isExample = o === part.example.answer;
-                                return `<div class="flex items-center gap-2 py-2 px-3 rounded-xl transition-all ${isExample ? 'opacity-40 cursor-not-allowed bg-gray-50' : isUsed && !isSel ? 'opacity-40 cursor-not-allowed bg-gray-50' : isSel ? 'bg-purple-100 border-2 border-purple-500 cursor-pointer shadow-md' : listeningSubmitted || listeningCanReview ? '' : 'hover:bg-purple-50 cursor-pointer border-2 border-transparent'}" ${!isExample && !listeningSubmitted && !listeningCanReview && !(isUsed && !isSel) ? `onclick="selectChip('${o}','letter',this)"` : ''}><span class="inline-flex items-center justify-center w-8 h-8 ${isSel ? 'bg-purple-600 text-white' : 'bg-purple-100 text-purple-700'} font-bold rounded-lg" style="font-size:20px;">${o}</span><span class="${isSel ? 'text-purple-700 font-semibold' : 'text-slate-700'}" style="font-size:20px;">${part.optionLabels[o]}</span></div>`;
+                                if (part.optionLabels) {
+                                    return `<div class="flex items-center gap-2 py-2 px-3 rounded-xl transition-all ${isExample ? 'opacity-40 cursor-not-allowed bg-gray-50' : isUsed && !isSel ? 'opacity-40 cursor-not-allowed bg-gray-50' : isSel ? 'bg-purple-100 border-2 border-purple-500 cursor-pointer shadow-md' : listeningSubmitted || listeningCanReview ? '' : 'hover:bg-purple-50 cursor-pointer border-2 border-transparent'}" ${!isExample && !listeningSubmitted && !listeningCanReview && !(isUsed && !isSel) ? `onclick="selectChip('${o}','letter',this)"` : ''}><span class="inline-flex items-center justify-center w-8 h-8 ${isSel ? 'bg-purple-600 text-white' : 'bg-purple-100 text-purple-700'} font-bold rounded-lg" style="font-size:20px;">${o}</span><span class="${isSel ? 'text-purple-700 font-semibold' : 'text-slate-700'}" style="font-size:20px;">${part.optionLabels[o]}</span></div>`;
+                                } else {
+                                    return `<div class="inline-flex items-center justify-center w-12 h-12 rounded-xl font-bold cursor-pointer transition-all ${isExample ? 'opacity-40 cursor-not-allowed bg-gray-100 text-gray-400' : isUsed && !isSel ? 'opacity-40 cursor-not-allowed bg-gray-100 text-gray-400' : isSel ? 'bg-purple-600 text-white shadow-md scale-110' : listeningSubmitted || listeningCanReview ? 'bg-purple-50 text-purple-700' : 'bg-purple-100 text-purple-700 hover:bg-purple-200 border-2 border-transparent hover:border-purple-400'}" style="font-size:22px;" ${!isExample && !listeningSubmitted && !listeningCanReview && !(isUsed && !isSel) ? `onclick="selectChip('${o}','letter',this)"` : ''}>${o}</div>`;
+                                }
                             }).join('')}</div>
                         </div>
                     </div>` : ''}
-                    <div style="width:${part.peopleImage || part.activitiesImage ? '45%' : part.optionLabels ? '60%' : '100%'}" class="resp-col flex flex-col gap-4">
+                    <div style="width:${part.options ? (part.optionLabels ? '60%' : '80%') : '100%'}" class="resp-col flex flex-col gap-4">
                         <div class="bg-white rounded-2xl shadow-sm border overflow-hidden">
                             <table class="listening-table w-full">
                                 <thead><tr class="bg-turtle-50">
@@ -2743,7 +2748,7 @@
             const hasPartImages = part.images && part.images.length > 0;
             const hasItemImages = part.items && part.items.some(it => it.image);
             let html = `
-            <div class="writing-container mx-auto" style="width:${getListeningWidth()};max-width:1200px;min-width:320px;">
+            <div class="writing-container mx-auto" style="${getListeningWidth()}min-width:320px;">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
             if (hasPartImages) {
                 html += `<div class="resp-row">
@@ -2754,8 +2759,7 @@
                 });
                 html += `</div><div style="width:45%" class="resp-col flex flex-col gap-4">`;
             } else {
-                const isKetMCQ = currentMaterialId.startsWith('a2-key');
-                html += `<div class="${isKetMCQ ? '' : 'max-w-3xl mx-auto '}flex flex-col gap-4">`;
+                html += `<div class="flex flex-col gap-4">`;
             }
 
             // Example
@@ -2780,10 +2784,11 @@
                 if (item.image) {
                     html += `<div class="mb-3"><img src="${item.image}" alt="Question ${item.num}" class="w-full rounded-xl border object-contain" style="max-height:280px;"></div>`;
                 }
-                const optLayout = item.image ? 'flex gap-2' : 'flex flex-col gap-2';
+                const useHorizontal = item.image || hasPartImages;
+                const optLayout = useHorizontal ? 'flex gap-2' : 'flex flex-col gap-2';
                 html += `<div class="${optLayout}">`;
                 item.options.forEach((opt, j) => {
-                    let btnClass = item.image ? 'flex-1 p-3 rounded-xl text-center font-medium cursor-pointer transition-all ' : 'p-3 rounded-xl font-medium cursor-pointer transition-all ';
+                    let btnClass = useHorizontal ? 'flex-1 p-3 rounded-xl text-center font-medium cursor-pointer transition-all ' : 'p-3 rounded-xl font-medium cursor-pointer transition-all ';
                     if (listeningCanReview) {
                         if (j === item.answer) btnClass += 'bg-green-500 text-white';
                         else if (answers[i] === j && j !== item.answer) btnClass += 'bg-red-400 text-white';
@@ -2854,7 +2859,7 @@
             const usedColors = answers.map(a => a.answer).filter(Boolean);
 
             let html = `
-            <div class="writing-container mx-auto" style="width:66%;max-width:1200px;min-width:320px;">
+            <div class="writing-container mx-auto" style="${getListeningWidth()}min-width:320px;">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
                 <div class="resp-row">
                     <div class="resp-col shrink-0" style="width:30%">
