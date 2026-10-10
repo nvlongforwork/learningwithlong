@@ -3172,7 +3172,9 @@
                 return;
             }
 
-            if (totalAnswered < totalQuestions && isTeacherMode) {
+            if (forceAutoSubmit) {
+                doSubmit();
+            } else if (totalAnswered < totalQuestions && isTeacherMode) {
                 Swal.fire({
                     title: 'Khoan đã!',
                     html: `<p style="font-size:20px">Bạn còn <b>${totalQuestions - totalAnswered} câu</b> chưa trả lời.<br>Nộp bài lúc này?</p>`,
