@@ -3753,8 +3753,9 @@
                         let questionHtml;
                         if (readingCanReview) {
                             const userAns = answers[aIdx] || '';
-                            const isCorrect = userAns.toLowerCase().trim() === q.answer.toLowerCase().trim();
-                            const blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${userAns || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${q.answer}</span>` : ''}`;
+                            const ansAlts = q.answer.split('/').map(a => a.toLowerCase().trim());
+                            const isCorrect = ansAlts.includes(userAns.toLowerCase().trim());
+                            const blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${userAns || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${q.answer.split('/')[0]}</span>` : ''}`;
                             questionHtml = parts[0] + blankHtml + (parts[1] || '');
                         } else {
                             const blankHtml = `<input type="text" value="${answers[aIdx]}" ${readingSubmitted ? 'readonly' : ''} placeholder="..." ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}][${aIdx}]=this.value"`} class="inline-block w-40 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
@@ -5577,7 +5578,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 } else if (part.type === 'grammar-cloze') part.items.forEach((it, j) => { if (ans[j] === it.answer) correct++; });
                 else if (part.type === 'story-write') {
                     let qi = 0;
-                    part.storySegments.forEach(seg => { if (seg.questions) seg.questions.forEach(q => { if (ans[qi].toLowerCase().trim() === q.answer.toLowerCase().trim()) correct++; qi++; }); });
+                    part.storySegments.forEach(seg => { if (seg.questions) seg.questions.forEach(q => { const alts = q.answer.split('/').map(a => a.toLowerCase().trim()); if (alts.includes(ans[qi].toLowerCase().trim())) correct++; qi++; }); });
                 } else if (part.type === 'picture-write') {
                     part.items.forEach((it, j) => { if (it.type === 'free') return; const pts = it.points || 1; if (ans[j].toLowerCase().trim() === it.answer.toLowerCase().trim()) correct += pts; });
                 } else if (part.type === 'sentence-transform' || part.type === 'error-correction') {

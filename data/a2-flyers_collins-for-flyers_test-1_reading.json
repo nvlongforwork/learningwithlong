@@ -107,7 +107,7 @@
         { "num": 4, "options": ["This", "These", "That"], "answer": 1 },
         { "num": 5, "options": ["eat", "eating", "ate"], "answer": 0 },
         { "num": 6, "options": ["has", "does", "have"], "answer": 2 },
-        { "num": 7, "options": ["many", "much", "any"], "answer": 1 },
+        { "num": 7, "options": ["many", "much", "any"], "answer": 0 },
         { "num": 8, "options": ["his", "their", "your"], "answer": 1 },
         { "num": 9, "options": ["ride", "rode", "riding"], "answer": 0 },
         { "num": 10, "options": ["in", "under", "behind"], "answer": 0 }
@@ -140,7 +140,7 @@
             { "num": 4, "sentence": "Emma %%blank%% any more.", "answer": "couldn't walk" },
             { "num": 5, "sentence": "Harry sent %%blank%% to get help.", "answer": "Jack" },
             { "num": 6, "sentence": "They waited on the mountain for %%blank%% before help arrived.", "answer": "two hours" },
-            { "num": 7, "sentence": "Dad %%blank%% Emma home.", "answer": "carried" }
+            { "num": 7, "sentence": "Dad %%blank%% Emma home.", "answer": "carried/took" }
           ]
         }
       ]
@@ -162,8 +162,8 @@
       ],
       "example": { "answer": "tell" },
       "items": [
-        { "num": 1, "answer": "and" },
-        { "num": 2, "answer": "going" },
+        { "num": 1, "answer": "and/because/as/since" },
+        { "num": 2, "answer": "going/planning/hoping" },
         { "num": 3, "answer": "old" },
         { "num": 4, "answer": "play" },
         { "num": 5, "answer": "to" }
