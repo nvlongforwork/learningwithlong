@@ -16,9 +16,9 @@
       "answers": [
         { "name": "William", "action": "is sailing his boat in the river" },
         { "name": "Helen", "action": "is holding the baby" },
-        { "name": "Jack", "action": "is eating a sandwich" },
         { "name": "Katy", "action": "is flying a kite" },
-        { "name": "Robert", "action": "is under the tree with a dog" }
+        { "name": "Robert", "action": "is under the tree with a dog" },
+        { "name": "Jack", "action": "is eating a sandwich" }
       ],
       "audioScript": [
         "Girl: Uncle David, look at this picture of our picnic last weekend.\nMan: Wow, what a great picnic!\nGirl: Can you see Michael? There he is, next to the car.\nMan: Is he the boy in green and black striped shorts?\nGirl: Yes, that's him. He's eating an apple.",
