@@ -2669,32 +2669,39 @@
             const answers = listeningAnswers[activePart];
             const usedLetters = answers.filter(Boolean);
 
+            const hasImages = part.peopleImage || part.activitiesImage;
+            const hasLabels = part.optionLabels;
+            const lettersRight = !hasImages && hasLabels && part.options;
+
+            let lettersHtml = '';
+            if (part.options) {
+                lettersHtml = `<div class="bg-white rounded-2xl shadow-sm border p-4">
+                    <h4 class="font-bold text-slate-600 mb-3" style="font-size:20px;"><i class="fa-solid fa-briefcase mr-1 text-purple-500"></i> ${part.optionTitle || 'Letters'}</h4>
+                    <div class="${hasLabels ? 'flex flex-col gap-1' : 'flex flex-wrap gap-2'}">${part.options.map(o => {
+                        const isUsed = o === part.example.answer || usedLetters.includes(o);
+                        const isSel = !listeningSubmitted && !listeningCanReview && selectedBank && selectedBank.value === o && selectedBank.type === 'letter';
+                        const isExample = o === part.example.answer;
+                        if (part.optionLabels) {
+                            return `<div class="flex items-center gap-2 py-2 px-3 rounded-xl transition-all ${isExample ? 'opacity-40 cursor-not-allowed bg-gray-50' : isUsed && !isSel ? 'opacity-40 cursor-not-allowed bg-gray-50' : isSel ? 'bg-purple-100 border-2 border-purple-500 cursor-pointer shadow-md' : listeningSubmitted || listeningCanReview ? '' : 'hover:bg-purple-50 cursor-pointer border-2 border-transparent'}" ${!isExample && !listeningSubmitted && !listeningCanReview && !(isUsed && !isSel) ? `onclick="selectChip('${o}','letter',this)"` : ''}><span class="inline-flex items-center justify-center w-8 h-8 ${isSel ? 'bg-purple-600 text-white' : 'bg-purple-100 text-purple-700'} font-bold rounded-lg" style="font-size:20px;">${o}</span><span class="${isSel ? 'text-purple-700 font-semibold' : 'text-slate-700'}" style="font-size:20px;">${part.optionLabels[o]}</span></div>`;
+                        } else {
+                            return `<div class="inline-flex items-center justify-center w-12 h-12 rounded-xl font-bold cursor-pointer transition-all ${isExample ? 'opacity-40 cursor-not-allowed bg-gray-100 text-gray-400' : isUsed && !isSel ? 'opacity-40 cursor-not-allowed bg-gray-100 text-gray-400' : isSel ? 'bg-purple-600 text-white shadow-md scale-110' : listeningSubmitted || listeningCanReview ? 'bg-purple-50 text-purple-700' : 'bg-purple-100 text-purple-700 hover:bg-purple-200 border-2 border-transparent hover:border-purple-400'}" style="font-size:22px;" ${!isExample && !listeningSubmitted && !listeningCanReview && !(isUsed && !isSel) ? `onclick="selectChip('${o}','letter',this)"` : ''}>${o}</div>`;
+                        }
+                    }).join('')}</div>
+                </div>`;
+            }
+
             let html = `
             <div class="writing-container mx-auto" style="${getListeningWidth()}min-width:320px;">
                 <p class="text-slate-500 italic mb-4 text-sm whitespace-pre-line"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
                 <div class="resp-row">
-                    ${part.peopleImage || part.activitiesImage ? `<div class="resp-col shrink-0" style="width:40%">
+                    ${hasImages ? `<div class="resp-col shrink-0" style="width:40%">
                         <div class="sticky top-4 flex flex-row gap-2">
                             ${part.peopleImage ? `<img src="${part.peopleImage}" alt="People" class="w-1/2 rounded-xl shadow-md border object-contain">` : ''}
                             ${part.activitiesImage ? `<img src="${part.activitiesImage}" alt="Activities" class="w-1/2 rounded-xl shadow-md border object-contain">` : ''}
                         </div>
                     </div>` : ''}
-                    <div class="resp-col" style="width:${part.peopleImage || part.activitiesImage ? '60%' : '100%'}">
-                    ${part.options ? `<div class="mb-4">
-                        <div class="bg-white rounded-2xl shadow-sm border p-4">
-                            <h4 class="font-bold text-slate-600 mb-3" style="font-size:20px;"><i class="fa-solid fa-briefcase mr-1 text-purple-500"></i> ${part.optionTitle || 'Letters'}</h4>
-                            <div class="${part.optionLabels ? 'flex flex-col gap-1' : 'flex flex-wrap gap-2'}">${part.options.map(o => {
-                                const isUsed = o === part.example.answer || usedLetters.includes(o);
-                                const isSel = !listeningSubmitted && !listeningCanReview && selectedBank && selectedBank.value === o && selectedBank.type === 'letter';
-                                const isExample = o === part.example.answer;
-                                if (part.optionLabels) {
-                                    return `<div class="flex items-center gap-2 py-2 px-3 rounded-xl transition-all ${isExample ? 'opacity-40 cursor-not-allowed bg-gray-50' : isUsed && !isSel ? 'opacity-40 cursor-not-allowed bg-gray-50' : isSel ? 'bg-purple-100 border-2 border-purple-500 cursor-pointer shadow-md' : listeningSubmitted || listeningCanReview ? '' : 'hover:bg-purple-50 cursor-pointer border-2 border-transparent'}" ${!isExample && !listeningSubmitted && !listeningCanReview && !(isUsed && !isSel) ? `onclick="selectChip('${o}','letter',this)"` : ''}><span class="inline-flex items-center justify-center w-8 h-8 ${isSel ? 'bg-purple-600 text-white' : 'bg-purple-100 text-purple-700'} font-bold rounded-lg" style="font-size:20px;">${o}</span><span class="${isSel ? 'text-purple-700 font-semibold' : 'text-slate-700'}" style="font-size:20px;">${part.optionLabels[o]}</span></div>`;
-                                } else {
-                                    return `<div class="inline-flex items-center justify-center w-12 h-12 rounded-xl font-bold cursor-pointer transition-all ${isExample ? 'opacity-40 cursor-not-allowed bg-gray-100 text-gray-400' : isUsed && !isSel ? 'opacity-40 cursor-not-allowed bg-gray-100 text-gray-400' : isSel ? 'bg-purple-600 text-white shadow-md scale-110' : listeningSubmitted || listeningCanReview ? 'bg-purple-50 text-purple-700' : 'bg-purple-100 text-purple-700 hover:bg-purple-200 border-2 border-transparent hover:border-purple-400'}" style="font-size:22px;" ${!isExample && !listeningSubmitted && !listeningCanReview && !(isUsed && !isSel) ? `onclick="selectChip('${o}','letter',this)"` : ''}>${o}</div>`;
-                                }
-                            }).join('')}</div>
-                        </div>
-                    </div>` : ''}
+                    <div class="resp-col" style="width:${hasImages ? '60%' : lettersRight ? '55%' : '100%'}">
+                    ${part.options && hasImages ? `<div class="mb-4">${lettersHtml}</div>` : ''}
                     <div class="flex flex-col gap-4">
                         <div class="bg-white rounded-2xl shadow-sm border overflow-hidden">
                             <table class="listening-table w-full">
@@ -2731,7 +2738,11 @@
                 </tr>`;
             });
 
-            html += `</tbody></table></div></div></div></div>`;
+            html += `</tbody></table></div></div></div>`;
+            if (lettersRight) {
+                html += `<div class="resp-col shrink-0" style="width:45%"><div class="sticky top-4">${lettersHtml}</div></div>`;
+            }
+            html += `</div>`;
             html += renderAudioScripts(part);
             html += `</div>`;
             content.innerHTML = html;
@@ -3574,7 +3585,7 @@
             const content = document.getElementById('reading-content');
             const answers = readingAnswers[activeReadingPart];
 
-            let html = `<div class="w-full">
+            let html = `<div class="writing-container mx-auto" style="width:70%;max-width:1200px;min-width:320px;">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
             if (part.image) {
                 html += `<div class="mb-4 resp-col" style="width:65%"><img src="${part.image}" alt="Part 4" class="w-full rounded-xl shadow-md border"></div>`;
@@ -3885,7 +3896,7 @@
             const answers = readingAnswers[activeReadingPart];
             const hasPassageInline = !!part.passage;
             const hasLeft = !hasPassageInline && (part.image || part.tableData);
-            let html = `<div class="writing-container mx-auto" style="width:75%;max-width:1200px;min-width:320px;">
+            let html = `<div class="writing-container mx-auto" style="width:70%;max-width:1200px;min-width:320px;">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
             if (hasPassageInline) {
                 let blankIdx = 0;
