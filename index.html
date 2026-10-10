@@ -3535,22 +3535,24 @@
                 <div class="flex flex-col gap-4">`;
 
             // Story with blanks (text inputs)
+            let blankIdx = 0;
             html += `<div class="bg-white rounded-2xl p-6 shadow-sm border"><div class="prose max-w-none leading-relaxed text-slate-700" style="font-size:20px;">`;
             part.storyParts.forEach(para => {
                 let rendered = para;
                 rendered = rendered.replace('%%example%%', `<span class="font-bold text-green-700 border-b-2 border-green-400 px-1">${part.example.word}</span>`);
-                for (let i = 0; i < part.items.length; i++) {
+                rendered = rendered.replace(/%%blank%%/g, () => {
+                    const i = blankIdx++;
                     const item = part.items[i];
-                    let blankHtml;
+                    if (!item) return '...';
                     if (readingCanReview) {
                         const isCorrect = answers.blanks[i].toLowerCase().trim() === item.answer.toLowerCase().trim();
-                        blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers.blanks[i] || '—'}</span>`;
-                        if (!isCorrect) blankHtml += `<span class="text-green-600 font-bold text-sm ml-1">${item.answer}</span>`;
+                        let h = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers.blanks[i] || '—'}</span>`;
+                        if (!isCorrect) h += `<span class="text-green-600 font-bold text-sm ml-1">${item.answer}</span>`;
+                        return h;
                     } else {
-                        blankHtml = `<input type="text" value="${answers.blanks[i]}" ${readingSubmitted ? 'readonly' : ''} placeholder="..." ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}].blanks[${i}]=this.value"`} class="inline-block w-32 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium text-center" style="font-size:20px;">`;
+                        return `<input type="text" value="${answers.blanks[i]}" ${readingSubmitted ? 'readonly' : ''} placeholder="..." ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}].blanks[${i}]=this.value"`} class="inline-block w-32 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium text-center" style="font-size:20px;">`;
                     }
-                    rendered = rendered.replace('%%blank%%', blankHtml);
-                }
+                });
                 html += `<p class="mb-3">${rendered}</p>`;
             });
             html += `</div></div>`;
