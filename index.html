@@ -489,7 +489,17 @@
                     { id: 'reading-part-6', name: 'Reading Part 6', partFilter: 'Part 6', partSkill: 'reading' }
                 ]}
             ] },
-            { id: 'a2-flyers', name: 'A2 Flyers', description: 'Cấp độ cao nhất trong hệ thống YLE cho trẻ.', color: '#9DC37A', folders: [{ id: 'i-dictionary', name: 'I Dictionary' }] },
+            { id: 'a2-flyers', name: 'A2 Flyers', description: 'Cấp độ cao nhất trong hệ thống YLE cho trẻ.', color: '#9DC37A', folders: [
+                { id: 'i-dictionary', name: 'I Dictionary' },
+                { id: 'collins-for-flyers', name: 'Collins for Flyers', subfolders: [
+                    { id: 'test-1', name: 'Test 1', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'},{id:'full-test',name:'Full Test'}] },
+                    { id: 'listening-part-1', name: 'Listening Part 1', partFilter: 'Part 1', partSkill: 'listening' },
+                    { id: 'listening-part-2', name: 'Listening Part 2', partFilter: 'Part 2', partSkill: 'listening' },
+                    { id: 'listening-part-3', name: 'Listening Part 3', partFilter: 'Part 3', partSkill: 'listening' },
+                    { id: 'listening-part-4', name: 'Listening Part 4', partFilter: 'Part 4', partSkill: 'listening' },
+                    { id: 'listening-part-5', name: 'Listening Part 5', partFilter: 'Part 5', partSkill: 'listening' }
+                ]}
+            ] },
             { id: 'a2-key', name: 'A2 Key', description: 'Chứng chỉ tiếng Anh tổng quát trình độ A2 (KET).', color: '#008579', folders: [
                 { id: 'compact-a2-key', name: 'Compact A2 Key for School', subfolders: [
                     { id: 'unit-1', name: 'My family, my friends & me' },
@@ -4911,7 +4921,8 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
         let examAudioPlayed = {}; // { partIdx: true } — tracks which parts' audio have been played
         const EXAM_TIMES = {
             'a2-key': { reading: 60 * 60, listening: 35 * 60 },
-            'a1-movers': { listening: 30 * 60, reading: 40 * 60 }
+            'a1-movers': { listening: 30 * 60, reading: 40 * 60 },
+            'a2-flyers': { listening: 30 * 60, reading: 40 * 60 }
         };
         const EXAM_BREAK_SECONDS = 3 * 60;
         const EXAM_MIN_MINUTES = 10;

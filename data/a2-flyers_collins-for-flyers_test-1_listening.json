@@ -1,0 +1,154 @@
+{
+  "type": "listening-test",
+  "title": "Test 1 - Listening",
+  "parts": [
+    {
+      "id": "part1",
+      "title": "Part 1",
+      "questions": 5,
+      "instructions": "Listen and draw lines. There is one example.",
+      "type": "drag-match",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test1/part1-picnic.webp",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-flyers/test1/part1.mp3",
+      "names": ["Michael", "Betty", "Helen", "Jack", "Katy", "Robert", "William"],
+      "actions": ["is eating an apple next to the car", "is sailing his boat in the river", "is holding the baby", "is eating a sandwich", "is flying a kite", "is under the tree with a dog", "is sitting on the blanket"],
+      "example": { "name": "Michael", "action": "is eating an apple next to the car" },
+      "answers": [
+        { "name": "William", "action": "is sailing his boat in the river" },
+        { "name": "Helen", "action": "is holding the baby" },
+        { "name": "Jack", "action": "is eating a sandwich" },
+        { "name": "Katy", "action": "is flying a kite" },
+        { "name": "Robert", "action": "is under the tree with a dog" }
+      ],
+      "audioScript": [
+        "Girl: Uncle David, look at this picture of our picnic last weekend.\nMan: Wow, what a great picnic!\nGirl: Can you see Michael? There he is, next to the car.\nMan: Is he the boy in green and black striped shorts?\nGirl: Yes, that's him. He's eating an apple.",
+        "Man: Who's that boy?\nGirl: The one who's sailing his boat in the river?\nMan: Yes. Who's he?\nGirl: That's William. He wasn't happy later because he fell in the river!\nMan: Oh dear!",
+        "Man: What's William's mum called?\nGirl: Helen. There she is. She's got long brown hair and she's holding the baby.\nMan: Did the baby like the picnic?\nGirl: Well, he slept all day so I don't know!",
+        "Girl: And there's my best friend. She's called Katy.\nMan: Which one's she?\nGirl: She's the girl who's wearing a blue T-shirt and a purple skirt. She's flying the kite.\nMan: That looks fun!\nGirl: Yes, it went very high!",
+        "Girl: Robert brought his dog on the picnic. Can you see him playing with his dog?\nMan: Is he wearing a red hat?\nGirl: No, Robert is the boy who's under the tree. He's wearing brown trousers and a green sweater.\nMan: Oh yes. That dog is very big.\nGirl: Yes he is!",
+        "Man: Who's the boy who's eating a sandwich?\nGirl: Do you mean the boy with straight brown hair?\nMan: No, I mean the boy with curly blonde hair.\nGirl: Oh, that's Jack. He's in my class at school.\nMan: Oh, OK. I'm happy you had a good time with your friends!"
+      ]
+    },
+    {
+      "id": "part2",
+      "title": "Part 2",
+      "questions": 5,
+      "instructions": "Listen and write. There is one example.",
+      "type": "fill-blank",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-flyers/test1/part2.mp3",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test1/part2-london.webp",
+      "formTitle": "Miss Peter's holiday",
+      "example": { "label": "Where?", "prefix": "", "answer": "London" },
+      "rows": [
+        { "num": 1, "label": "Going to visit:", "prefix": "three", "answer": "museums" },
+        { "num": 2, "label": "Name of hotel:", "prefix": "", "suffix": "Hotel", "answer": "Grange" },
+        { "num": 3, "label": "Going with:", "prefix": "her", "answer": "sister" },
+        { "num": 4, "label": "How many days:", "prefix": "", "suffix": "days", "answer": "six" },
+        { "num": 5, "label": "Going by:", "prefix": "by", "answer": "train" }
+      ],
+      "audioScript": [
+        "Woman: Good morning, children. I'm going to go somewhere very exciting next week. Ask me some questions about what I'm going to do, then write down what I say. OK, who wants to ask me something?\nBoy: I do.\nWoman: What's your question, Alex?\nBoy: Where are you going to go, Miss Peter?\nWoman: I'm going to go to London, Alex.",
+        "Boy: Wow! What are you going to do in London?\nWoman: Good question. There's a lot to do in London. I'm going to visit three museums because I love history.",
+        "Boy: And where are you going to stay?\nWoman: I'm going to stay in a lovely hotel next to a river.\nBoy: And what's the name of the hotel?\nWoman: Well, it's called the Grange Hotel. That's G-R-A-N-G-E.",
+        "Boy: Who's going to go with you?\nWoman: I'm going to go with my sister. I always go on holiday with her. Any more questions?",
+        "Boy: Yes, how long are you going to stay in London, Miss Peter?\nWoman: Hmm, I'm going to go from Saturday to Thursday, so that's six days. Anything else?",
+        "Boy: And ... are you going to drive to London?\nWoman: No, I don't have a car, so I'm going to go by train."
+      ]
+    },
+    {
+      "id": "part3",
+      "title": "Part 3",
+      "questions": 5,
+      "instructions": "Michael has cleaned his bedroom and has found lots of things. Where did he find each thing?\nListen and write a letter in each box. There is one example.",
+      "type": "drag-match-letters",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-flyers/test1/part3.mp3",
+      "peopleImage": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test1/part3-items.webp",
+      "activitiesImage": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test1/part3-locations.webp",
+      "people": ["camera", "football", "DVD", "umbrella", "torch", "toy train"],
+      "options": ["A", "B", "C", "D", "E", "F", "G", "H"],
+      "example": { "person": "camera", "answer": "E" },
+      "answers": [
+        { "person": "football", "answer": "B" },
+        { "person": "DVD", "answer": "H" },
+        { "person": "umbrella", "answer": "F" },
+        { "person": "torch", "answer": "A" },
+        { "person": "toy train", "answer": "C" }
+      ],
+      "audioScript": [
+        "Boy: Hey, Mum, I've cleaned my room. Come and see how tidy it is!\nWoman: Well done, Michael! Wow! It looks great in here. I can see the floor again!\nBoy: Ha! Ha! Very funny, Mum! Look at all these things that I've found. I haven't seen them for a long time. Here's my camera.\nWoman: Where did you find that?\nBoy: It was in my rucksack. I took it with me when we went on the class visit to the castle last month and didn't take it out when I got home.\nWoman: Great, you can take it camping next weekend.\nBoy: Oh yes!",
+        "Woman: What else did you find?\nBoy: Here's the torch that I got for my birthday. I thought it was in my cupboard with the shoes, but it wasn't. It was on the shelf behind some books.\nWoman: How did it get there?\nBoy: I've no idea! I'll take that camping too.\nWoman: Yes, you'll need it.",
+        "Boy: And look what else I found. It's William's DVD. It was behind my computer.\nWoman: Oh dear. You've had that for months and you must give it back to him.\nBoy: Yes, I know. I'll give it to him at school tomorrow.\nWoman: OK.",
+        "Woman: Did you find anything else?\nBoy: Yes, I found my favourite football.\nWoman: How can you lose a football, Michael?!\nBoy: I don't know! I thought it was in the garden, but it was under my bed. I'm very happy to find it again.",
+        "Boy: And look! Do you remember this?\nWoman: Oh yes, it's the toy train you had when you were very young. You played with that all the time! Where did you find that?\nBoy: It was under my shoes in my cupboard. I don't want it any more. Shall we give it to Robert next door?\nWoman: That's a great idea. He loves trains.\nBoy: OK.",
+        "Woman: Did you find your missing green umbrella? I looked under the stairs for that last week and couldn't find it. You'll need to take that camping too.\nBoy: Yes, I did.\nWoman: Great! Where was it?\nBoy: It was behind the armchair, under some magazines.\nWoman: OK. Well, maybe if you clean your room more often, you won't lose so many things!\nBoy: I'll try, Mum!"
+      ]
+    },
+    {
+      "id": "part4",
+      "title": "Part 4",
+      "questions": 5,
+      "instructions": "Listen and tick (✓) the box. There is one example.",
+      "type": "multiple-choice-abc",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-flyers/test1/part4.mp3",
+      "images": ["https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test1/part4-page1.webp", "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test1/part4-page2.webp"],
+      "example": {
+        "question": "Where does Katy want to go?",
+        "options": ["the supermarket", "the library", "the beach"],
+        "answer": 2
+      },
+      "items": [
+        { "num": 1, "question": "Who is going to go with Katy and Sarah?", "options": ["Sarah's brother", "Sarah's dad", "Sarah's mum"], "answer": 2 },
+        { "num": 2, "question": "What time will Katy be home?", "options": ["12 o'clock", "10 o'clock", "half past six"], "answer": 2 },
+        { "num": 3, "question": "What's the weather like today?", "options": ["rainy", "sunny", "windy"], "answer": 1 },
+        { "num": 4, "question": "What is Katy going to wear?", "options": ["striped shorts", "blue dress", "purple and pink spotted dress"], "answer": 2 },
+        { "num": 5, "question": "What snack is Katy going to take?", "options": ["cookies", "apples", "chocolate"], "answer": 0 }
+      ],
+      "audioScript": [
+        "Girl: Dad, can I go to the beach with Sarah today?\nMan: Well, I need to go to the supermarket and didn't you want to go to the library later?\nGirl: Oh Dad, I don't want to go to the library. Please can I go to the beach?\nMan: Oh, OK!",
+        "Man: Who else is going to go with you and Sarah?\nGirl: Sarah's mum is going to take us.\nMan: What about Sarah's little brother? Is he going to go?\nGirl: No, he's gone to visit his grandmother today.",
+        "Man: And what time will you be home?\nGirl: Well, it's 10 o'clock now, so we'll probably get there at about 12 o'clock. And we'll want to have a few hours to play, so I don't think we'll be home until half past six. Is that OK?\nMan: Yes, it's the weekend, so that's fine.",
+        "Girl: It's very sunny today! It's a great day for the beach!\nMan: Yes! It's very hot as well, so drink lots of water, won't you?\nGirl: I will.\nMan: I can't believe how sunny it is after all the rain and wind we've had this week.\nGirl: I know! I got wet in the rain yesterday and I'll get wet in the sea today!\nMan: Yes!",
+        "Man: What are you going to wear, Katy?\nGirl: I want to wear my purple and pink spotted dress.\nMan: Yes, good idea.\nGirl: Where is it, Dad?\nMan: I put it in your cupboard next to your striped shorts.\nGirl: OK, I'll go and get it. Thanks.",
+        "Girl: Can I take a snack to the beach?\nMan: Yes, of course. What would you like to take?\nGirl: Umm, can I take some chocolate?\nMan: No, we don't have any. How about some apples?\nGirl: Sarah doesn't like apples. Can I take some cookies?\nMan: OK, you can take the cookies we made yesterday.\nGirl: Great! I can't wait!"
+      ]
+    },
+    {
+      "id": "part5",
+      "title": "Part 5",
+      "questions": 5,
+      "instructions": "Listen and colour and write. There is one example.",
+      "type": "color-write",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-flyers/test1/part5.mp3",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test1/part5-desert.webp",
+      "colors": ["red", "blue", "purple", "green", "pink", "yellow", "gray", "black", "orange", "brown"],
+      "example": { "item": "The pyramid", "type": "color", "answer": "yellow" },
+      "itemBank": [
+        "The pyramid",
+        "The big flag at the back",
+        "The small flag at the back",
+        "The man on the camel",
+        "The man's hat",
+        "The little boy at the front",
+        "The boy's T-shirt",
+        "The goat at the back",
+        "The goat in front of the camel",
+        "The tent"
+      ],
+      "items": [
+        { "num": 1, "item": "The big flag at the back", "type": "color", "answer": "blue" },
+        { "num": 2, "item": "The pyramid", "type": "write", "answer": "big" },
+        { "num": 3, "item": "The man on the camel's hat", "type": "color", "answer": "pink" },
+        { "num": 4, "item": "The boy's T-shirt", "type": "write", "answer": "cars" },
+        { "num": 5, "item": "The goat at the back under the flags", "type": "color", "answer": "red" }
+      ],
+      "audioScript": [
+        "Girl: This is a great picture. Can I colour it?\nMan: Of course you can. What would you like to colour first?\nGirl: The pyramid.\nMan: OK. Make it yellow.",
+        "Girl: What shall I colour now?\nMan: Can you see the two flags at the back of the picture?\nGirl: Yes, shall I colour the big one or the small one?\nMan: Colour the big one blue.\nGirl: OK.",
+        "Girl: Can I write something now?\nMan: Yes, OK. Do you remember the pyramid that you coloured?\nGirl: Yes, I do. It's very big.\nMan: Yes, it is. Could you write the word \"big\" on the pyramid?\nGirl: No problem!",
+        "Girl: Can I write something else?\nMan: No, let's do some more colouring now. There's a man on a camel.\nGirl: Yes, I can see him.\nMan: Can you colour his hat pink?\nGirl: OK. That's easy.",
+        "Girl: Can I write something else now?\nMan: Yes, OK. Look at the little boy at the front of the picture with the toy cars. He's got a T-shirt with words on it, but one word is missing. \"I love ...\" can you see that?\nGirl: Yes, I can. But I don't know what the missing word is.\nMan: It's \"cars\". It should say \"I love cars\". Can you write the word \"cars\" for me?\nGirl: OK, I'll do that now.",
+        "Man: And last, would you like to colour one of the goats?\nGirl: Yes, but which one? The one in front of the camel?\nMan: No, don't colour that one. Colour the one at the back under the flags.\nGirl: What colour shall I use?\nMan: I think red is a good colour for that goat.\nGirl: Yes. The picture looks good now, doesn't it?\nMan: Yes, it does."
+      ]
+    }
+  ]
+}
