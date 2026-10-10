@@ -173,10 +173,10 @@
         { "type": "answer", "question": "How many dogs are there?", "answer": "two" }
       ],
       "items": [
-        { "num": 1, "type": "complete", "sentence": "The boy who is wearing a scarf is eating a %%blank%% .", "answer": "apple" },
-        { "num": 2, "type": "complete", "sentence": "There are six ducks in the %%blank%% .", "answer": "pond" },
-        { "num": 3, "type": "answer", "question": "What is the man with the grey moustache doing?", "answer": "reading a book", "points": 2 },
-        { "num": 4, "type": "answer", "question": "What colour are the girls' kites?", "answer": "red and yellow", "points": 2 },
+        { "num": 1, "type": "complete", "sentence": "The boy who is wearing a scarf is eating a %%blank%% .", "answer": "burger" },
+        { "num": 2, "type": "complete", "sentence": "There are six ducks in the %%blank%% .", "answer": "lake" },
+        { "num": 3, "type": "answer", "question": "What is the man with the grey moustache doing?", "answer": "He's reading a book", "points": 2 },
+        { "num": 4, "type": "answer", "question": "What colour are the girls' kites?", "answer": "They're red and yellow", "points": 2 },
         { "num": 5, "type": "free", "instruction": "Now write two sentences about the picture.", "answer": "" },
         { "num": 6, "type": "free", "instruction": "", "answer": "" }
       ]
