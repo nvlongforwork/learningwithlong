@@ -2280,6 +2280,7 @@
         let currentStudent = null;
         let studentsData = null;
         let listeningStartTime = null;
+        let listeningAudioPlayed = {};
 
         async function loadStudents() {
             if (studentsData) return studentsData;
@@ -2411,6 +2412,7 @@
             listeningSubmitted = false;
             listeningCanReview = false;
             selectedBank = null;
+            listeningAudioPlayed = {};
 
             data.parts.forEach((part, i) => {
                 if (part.type === 'drag-match') {
@@ -2476,13 +2478,29 @@
         function renderListeningPart() {
             const part = listeningData.parts[activePart];
             const audio = document.getElementById('listening-audio-player');
-            if (part.audio && audio.getAttribute('src') !== part.audio) { audio.src = part.audio; audio.load(); }
+            if (part.audio && audio) {
+                if (audio.getAttribute('src') !== part.audio) { audio.src = part.audio; audio.load(); }
+            }
 
             if (part.type === 'drag-match') renderDragMatch(part);
             else if (part.type === 'fill-blank') renderFillBlank(part);
             else if (part.type === 'drag-match-letters') renderDragLetters(part);
             else if (part.type === 'multiple-choice-abc') renderMultipleChoiceABC(part);
             else if (part.type === 'color-write') renderColorWrite(part);
+
+            if (!isTeacherMode && !listeningSubmitted && part.audio && !fullTestMode) {
+                setupAudioOneTime(audio, activePart, listeningAudioPlayed);
+            } else if (audio) {
+                audio.style.display = '';
+                audio.setAttribute('controls', '');
+                const wrapper = audio.parentElement;
+                if (wrapper) {
+                    const btn = wrapper.querySelector('.exam-play-btn');
+                    if (btn) btn.remove();
+                    const msg = wrapper.querySelector('.audio-played-msg');
+                    if (msg) msg.remove();
+                }
+            }
         }
 
         function selectChip(value, bankType, el) {
@@ -5226,18 +5244,22 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             if (onContinue) onContinue();
         }
 
-        function setupExamAudioRestriction(audioEl, partIdx) {
-            if (!isExamMode || !audioEl) return;
+        function setupAudioOneTime(audioEl, partIdx, tracker) {
+            if (!audioEl) return;
             audioEl.removeAttribute('controls');
+            audioEl.style.display = 'none';
             const wrapper = audioEl.parentElement;
             const existingBtn = wrapper.querySelector('.exam-play-btn');
             if (existingBtn) existingBtn.remove();
+            const existingMsg = wrapper.querySelector('.audio-played-msg');
+            if (existingMsg) existingMsg.remove();
 
-            if (examAudioPlayed[partIdx]) {
-                audioEl.style.display = 'none';
-                wrapper.innerHTML = `<div style="display:flex;align-items:center;gap:10px;padding:8px 16px;background:#f1f5f9;border-radius:12px;color:#94a3b8;font-size:20px;font-weight:600">
-                    <i class="fa-solid fa-volume-xmark"></i> Đã nghe — không thể nghe lại
-                </div>`;
+            if (tracker[partIdx]) {
+                const msg = document.createElement('div');
+                msg.className = 'audio-played-msg';
+                msg.style.cssText = 'display:flex;align-items:center;gap:10px;padding:8px 16px;background:#f1f5f9;border-radius:12px;color:#94a3b8;font-size:20px;font-weight:600';
+                msg.innerHTML = '<i class="fa-solid fa-volume-xmark"></i> Đã nghe — không thể nghe lại';
+                wrapper.appendChild(msg);
                 return;
             }
 
@@ -5245,13 +5267,12 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             playBtn.className = 'exam-play-btn';
             playBtn.style.cssText = 'display:flex;align-items:center;gap:10px;padding:12px 24px;background:linear-gradient(135deg,#22c55e,#16a34a);color:white;border:none;border-radius:14px;font-weight:700;font-size:20px;cursor:pointer;box-shadow:0 4px 12px rgba(34,197,94,0.3);transition:all 0.2s';
             playBtn.innerHTML = '<i class="fa-solid fa-play"></i> Bấm để nghe (1 lần duy nhất)';
-            audioEl.style.display = 'none';
 
             let isPlaying = false;
             playBtn.addEventListener('click', () => {
-                if (isPlaying || examAudioPlayed[partIdx]) return;
+                if (isPlaying || tracker[partIdx]) return;
                 isPlaying = true;
-                examAudioPlayed[partIdx] = true;
+                tracker[partIdx] = true;
                 playBtn.disabled = true;
                 playBtn.style.background = 'linear-gradient(135deg,#3b82f6,#2563eb)';
                 playBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Đang phát...';
@@ -5265,6 +5286,11 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             });
 
             wrapper.appendChild(playBtn);
+        }
+
+        function setupExamAudioRestriction(audioEl, partIdx) {
+            if (!isExamMode || !audioEl) return;
+            setupAudioOneTime(audioEl, partIdx, examAudioPlayed);
         }
 
         function openFullTest(lisData, readData, title) {
@@ -5496,8 +5522,8 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 ftContent.id = 'fulltest-content';
                 origContent.id = 'listening-content';
 
-                if (isExamMode && part.audio) {
-                    setupExamAudioRestriction(ftAudioPlayer, ftActivePartIdx);
+                if (part.audio && !isTeacherMode) {
+                    setupAudioOneTime(ftAudioPlayer, ftActivePartIdx, examAudioPlayed);
                 }
             } else {
                 audioBox.style.display = 'none';
