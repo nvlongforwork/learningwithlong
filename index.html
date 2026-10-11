@@ -5246,15 +5246,19 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
 
         function setupAudioOneTime(audioEl, partIdx, tracker) {
             if (!audioEl) return;
-            audioEl.removeAttribute('controls');
-            audioEl.style.display = 'none';
             const wrapper = audioEl.parentElement;
             const existingBtn = wrapper.querySelector('.exam-play-btn');
-            if (existingBtn) existingBtn.remove();
             const existingMsg = wrapper.querySelector('.audio-played-msg');
+            const isCurrentlyPlaying = !audioEl.paused && !audioEl.ended;
+
+            if (isCurrentlyPlaying && existingBtn) return;
+
+            audioEl.removeAttribute('controls');
+            audioEl.style.display = 'none';
+            if (existingBtn) existingBtn.remove();
             if (existingMsg) existingMsg.remove();
 
-            if (tracker[partIdx]) {
+            if (tracker[partIdx] && !isCurrentlyPlaying) {
                 const msg = document.createElement('div');
                 msg.className = 'audio-played-msg';
                 msg.style.cssText = 'display:flex;align-items:center;gap:10px;padding:8px 16px;background:#f1f5f9;border-radius:12px;color:#94a3b8;font-size:20px;font-weight:600';
@@ -5263,15 +5267,28 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 return;
             }
 
+            if (tracker[partIdx] && isCurrentlyPlaying) {
+                const playBtn = document.createElement('button');
+                playBtn.className = 'exam-play-btn';
+                playBtn.disabled = true;
+                playBtn.style.cssText = 'display:flex;align-items:center;gap:10px;padding:12px 24px;background:linear-gradient(135deg,#3b82f6,#2563eb);color:white;border:none;border-radius:14px;font-weight:700;font-size:20px;cursor:default;box-shadow:0 4px 12px rgba(59,130,246,0.3)';
+                playBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i> Đang phát...';
+                audioEl.addEventListener('ended', () => {
+                    playBtn.style.background = '#94a3b8';
+                    playBtn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i> Đã nghe — không thể nghe lại';
+                    playBtn.style.boxShadow = 'none';
+                }, { once: true });
+                wrapper.appendChild(playBtn);
+                return;
+            }
+
             const playBtn = document.createElement('button');
             playBtn.className = 'exam-play-btn';
             playBtn.style.cssText = 'display:flex;align-items:center;gap:10px;padding:12px 24px;background:linear-gradient(135deg,#22c55e,#16a34a);color:white;border:none;border-radius:14px;font-weight:700;font-size:20px;cursor:pointer;box-shadow:0 4px 12px rgba(34,197,94,0.3);transition:all 0.2s';
             playBtn.innerHTML = '<i class="fa-solid fa-play"></i> Bấm để nghe (1 lần duy nhất)';
 
-            let isPlaying = false;
             playBtn.addEventListener('click', () => {
-                if (isPlaying || tracker[partIdx]) return;
-                isPlaying = true;
+                if (tracker[partIdx]) return;
                 tracker[partIdx] = true;
                 playBtn.disabled = true;
                 playBtn.style.background = 'linear-gradient(135deg,#3b82f6,#2563eb)';
