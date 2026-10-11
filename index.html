@@ -3168,7 +3168,7 @@
                                 link.click();
                                 setTimeout(() => document.body.removeChild(link), 1000);
                             } catch(e) { console.error(e); }
-                            btns.style.display = 'flex';
+                            if (btns) btns.style.display = 'flex';
                         });
                     },
                     didClose: () => {
