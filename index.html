@@ -3163,7 +3163,10 @@
                                 const safeName = (currentStudent ? currentStudent.englishName || currentStudent.name : 'result').replace(/\s+/g, '_');
                                 link.download = `KetQua_${safeName}_${new Date().toISOString().slice(0,10)}.png`;
                                 link.href = canvas.toDataURL('image/png');
+                                link.style.display = 'none';
+                                document.body.appendChild(link);
                                 link.click();
+                                setTimeout(() => document.body.removeChild(link), 1000);
                             } catch(e) { console.error(e); }
                             btns.style.display = 'flex';
                         });
@@ -4396,8 +4399,10 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             const safeName = studentName.replace(/\s+/g, '_');
             a.href = url;
             a.download = `Writing_${safeName}_${dateStr.replace(/\//g, '-')}.doc`;
+            a.style.display = 'none';
+            document.body.appendChild(a);
             a.click();
-            URL.revokeObjectURL(url);
+            setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 1000);
         }
 
         function selectWritingBand(criteriaIdx, band, el) {
@@ -4949,7 +4954,10 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                                 const safeName = (currentStudent ? currentStudent.englishName || currentStudent.name : 'result').replace(/\s+/g, '_');
                                 link.download = `KetQua_FullTest_${safeName}_${new Date().toISOString().slice(0,10)}.png`;
                                 link.href = canvas.toDataURL('image/png');
+                                link.style.display = 'none';
+                                document.body.appendChild(link);
                                 link.click();
+                                setTimeout(() => document.body.removeChild(link), 1000);
                             } catch(e) { console.error(e); }
                             if (btns) btns.style.display = 'flex';
                         });
@@ -5019,7 +5027,10 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                                 const safeName = (currentStudent ? currentStudent.englishName || currentStudent.name : 'result').replace(/\s+/g, '_');
                                 link.download = `KetQua_Reading_${safeName}_${new Date().toISOString().slice(0,10)}.png`;
                                 link.href = canvas.toDataURL('image/png');
+                                link.style.display = 'none';
+                                document.body.appendChild(link);
                                 link.click();
+                                setTimeout(() => document.body.removeChild(link), 1000);
                             } catch(e) { console.error(e); }
                             if (btns) btns.style.display = 'flex';
                         });
@@ -5924,7 +5935,10 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                             const safeName = (currentStudent ? currentStudent.englishName || currentStudent.name : 'result').replace(/\s+/g, '_');
                             link.download = `KetQua_FullTest_${safeName}_${new Date().toISOString().slice(0,10)}.png`;
                             link.href = canvas.toDataURL('image/png');
+                            link.style.display = 'none';
+                            document.body.appendChild(link);
                             link.click();
+                            setTimeout(() => document.body.removeChild(link), 1000);
                         } catch(e) { console.error(e); }
                         if (btns) btns.style.display = 'flex';
                     });
