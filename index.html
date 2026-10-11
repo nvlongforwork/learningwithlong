@@ -2978,7 +2978,8 @@
                 html += `<div class="bg-white rounded-2xl p-3 shadow-sm border">
                     <h4 class="font-bold text-slate-600 mb-2"><i class="fa-solid fa-list mr-1 text-indigo-500"></i> Items</h4>
                     <div class="flex flex-wrap gap-2">`;
-                (part.itemBank || []).filter(it => it !== part.example.item).forEach(it => {
+                const exampleItemUsedInAnswers = part.items.some(q => q.item === part.example.item);
+                (part.itemBank || []).filter(it => it !== part.example.item || exampleItemUsedInAnswers).forEach(it => {
                     const isUsed = usedItems.includes(it);
                     const isSel = selectedItemChip === it;
                     html += `<div class="item-chip bank-chip ${isUsed ? 'used' : ''} ${isSel ? 'selected' : ''} px-3 py-1.5 bg-indigo-50 border border-indigo-200 rounded-lg font-medium text-indigo-700 text-base" onclick="selectItemChip('${it.replace(/'/g, "\\'")}',this)">${it}</div>`;
