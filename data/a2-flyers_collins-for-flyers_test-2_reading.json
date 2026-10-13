@@ -1,0 +1,499 @@
+{
+  "type": "reading-test",
+  "title": "Test 2 - Reading & Writing",
+  "parts": [
+    {
+      "id": "part1",
+      "title": "Part 1",
+      "questions": 10,
+      "instructions": "Look and read. Choose the correct words and write them on the lines. There is one example.",
+      "type": "definition-match",
+      "wordBank": [
+        "a butterfly",
+        "a fork",
+        "a restaurant",
+        "an artist",
+        "an ambulance",
+        "a ring",
+        "a pyramid",
+        "a station",
+        "scissors",
+        "an envelope",
+        "a swing",
+        "a firefighter",
+        "a shelf",
+        "a pizza",
+        "gloves"
+      ],
+      "example": {
+        "definition": "You wear this on your hand. It can be made of silver or gold. Married people wear one sometimes.",
+        "answer": "a ring"
+      },
+      "items": [
+        {
+          "num": 1,
+          "definition": "This person helps if there is a fire and drives a fire engine.",
+          "answer": "a firefighter"
+        },
+        {
+          "num": 2,
+          "definition": "This little insect can fly and sometimes has beautiful colours on its wings.",
+          "answer": "a butterfly"
+        },
+        {
+          "num": 3,
+          "definition": "You wear these on your hands if it is cold.",
+          "answer": "gloves"
+        },
+        {
+          "num": 4,
+          "definition": "You can use these to cut paper or card.",
+          "answer": "scissors"
+        },
+        {
+          "num": 5,
+          "definition": "You go to this place to eat a meal.",
+          "answer": "a restaurant"
+        },
+        {
+          "num": 6,
+          "definition": "You put your letter inside this. Then you put a stamp on the outside. Then you send it.",
+          "answer": "an envelope"
+        },
+        {
+          "num": 7,
+          "definition": "You go in this if you have to get to hospital quickly.",
+          "answer": "an ambulance"
+        },
+        {
+          "num": 8,
+          "definition": "You use this to pick up your food from your plate. It is usually made of metal.",
+          "answer": "a fork"
+        },
+        {
+          "num": 9,
+          "definition": "This person draws and paints pictures.",
+          "answer": "an artist"
+        },
+        {
+          "num": 10,
+          "definition": "You go to this place to take a bus or a train.",
+          "answer": "a station"
+        }
+      ]
+    },
+    {
+      "id": "part2",
+      "title": "Part 2",
+      "questions": 5,
+      "instructions": "Read the conversation and choose the best answer. Write a letter (A–H) for each answer.",
+      "type": "conversation-choice",
+      "image": "",
+      "context": "Harry is talking to his friend, Anna, about a visit to the Old School Museum. What does Harry say?",
+      "example": {
+        "speaker": "Anna",
+        "question": "What did you do last weekend, Harry?",
+        "options": [
+          "We saw an old classroom with old desks and old books.",
+          "Yes, I did. I took lots of great photos.",
+          "Yes, I do. It's excellent!",
+          "We went to the Old School Museum.",
+          "Yes, we ate our sandwiches in the old playground and then played on the old swings.",
+          "No, it was my first time.",
+          "We got to the museum at ten o'clock.",
+          "No, there weren't! There was only my teacher, Mrs Page, and she's not old!"
+        ],
+        "answer": 3
+      },
+      "items": [
+        {
+          "num": 1,
+          "speaker": "Anna",
+          "question": "Have you been there before?",
+          "options": [
+            "We saw an old classroom with old desks and old books.",
+            "Yes, I did. I took lots of great photos.",
+            "Yes, I do. It's excellent!",
+            "We went to the Old School Museum.",
+            "Yes, we ate our sandwiches in the old playground and then played on the old swings.",
+            "No, it was my first time.",
+            "We got to the museum at ten o'clock.",
+            "No, there weren't! There was only my teacher, Mrs Page, and she's not old!"
+          ],
+          "answer": 5
+        },
+        {
+          "num": 2,
+          "speaker": "Anna",
+          "question": "What was the best thing you saw?",
+          "options": [
+            "We saw an old classroom with old desks and old books.",
+            "Yes, I did. I took lots of great photos.",
+            "Yes, I do. It's excellent!",
+            "We went to the Old School Museum.",
+            "Yes, we ate our sandwiches in the old playground and then played on the old swings.",
+            "No, it was my first time.",
+            "We got to the museum at ten o'clock.",
+            "No, there weren't! There was only my teacher, Mrs Page, and she's not old!"
+          ],
+          "answer": 0
+        },
+        {
+          "num": 3,
+          "speaker": "Anna",
+          "question": "Did you have your lunch there?",
+          "options": [
+            "We saw an old classroom with old desks and old books.",
+            "Yes, I did. I took lots of great photos.",
+            "Yes, I do. It's excellent!",
+            "We went to the Old School Museum.",
+            "Yes, we ate our sandwiches in the old playground and then played on the old swings.",
+            "No, it was my first time.",
+            "We got to the museum at ten o'clock.",
+            "No, there weren't! There was only my teacher, Mrs Page, and she's not old!"
+          ],
+          "answer": 4
+        },
+        {
+          "num": 4,
+          "speaker": "Anna",
+          "question": "Were there lots of old people working there?",
+          "options": [
+            "We saw an old classroom with old desks and old books.",
+            "Yes, I did. I took lots of great photos.",
+            "Yes, I do. It's excellent!",
+            "We went to the Old School Museum.",
+            "Yes, we ate our sandwiches in the old playground and then played on the old swings.",
+            "No, it was my first time.",
+            "We got to the museum at ten o'clock.",
+            "No, there weren't! There was only my teacher, Mrs Page, and she's not old!"
+          ],
+          "answer": 7
+        },
+        {
+          "num": 5,
+          "speaker": "Anna",
+          "question": "Did you take your camera?",
+          "options": [
+            "We saw an old classroom with old desks and old books.",
+            "Yes, I did. I took lots of great photos.",
+            "Yes, I do. It's excellent!",
+            "We went to the Old School Museum.",
+            "Yes, we ate our sandwiches in the old playground and then played on the old swings.",
+            "No, it was my first time.",
+            "We got to the museum at ten o'clock.",
+            "No, there weren't! There was only my teacher, Mrs Page, and she's not old!"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "part3",
+      "title": "Part 3",
+      "questions": 6,
+      "instructions": "Read the story. Choose a word from the box. Write the correct word next to numbers 1–5. There is one example.",
+      "type": "story-fill",
+      "image": "",
+      "storyParts": [
+        "Last Saturday, Emma and David visited a farm with their mum. They arrived early in the morning and first they went to see the %%example%% .",
+        "\"Look at the eggs,\" said Emma. \"I can see four.\"",
+        "\"I'm (1) %%blank%% now. I want to eat some eggs,\" said David.",
+        "Then they went to see the cows.",
+        "\"Look at all the (2) %%blank%% that they have made!\" said Emma.",
+        "\"Amazing! I'm thirsty now. I want to drink some milk,\" said David.",
+        "\"You're always hungry and thirsty, David!\" said Mum. \"Let's have our picnic now then.\"",
+        "They (3) %%blank%% egg sandwiches and drank two bottles of milk.",
+        "\"Amazing! I'm happy now!\" said David.",
+        "After lunch, David went for a (4) %%blank%% on an enormous horse and Emma (5) %%blank%% with some black and white puppies. Then the children gave some bread to the ducks in the river.",
+        "\"What an excellent day!\" said the children."
+      ],
+      "wordBank": [
+        "chickens",
+        "ride",
+        "showed",
+        "played",
+        "hungry",
+        "ate",
+        "milk",
+        "difficult",
+        "eggs",
+        "wool"
+      ],
+      "example": {
+        "word": "chickens"
+      },
+      "items": [
+        {
+          "num": 1,
+          "answer": "hungry"
+        },
+        {
+          "num": 2,
+          "answer": "milk"
+        },
+        {
+          "num": 3,
+          "answer": "ate"
+        },
+        {
+          "num": 4,
+          "answer": "ride"
+        },
+        {
+          "num": 5,
+          "answer": "played"
+        }
+      ],
+      "titleQuestion": {
+        "num": 6,
+        "instruction": "Now choose the best name for the story.",
+        "options": [
+          "A great visit to a farm",
+          "David is always hungry",
+          "An excellent ride on a horse"
+        ],
+        "answer": 0
+      }
+    },
+    {
+      "id": "part4",
+      "title": "Part 4",
+      "questions": 10,
+      "instructions": "Read the text. Choose the correct words and write them on the lines.",
+      "type": "grammar-cloze",
+      "title_text": "Winter sports",
+      "image": "",
+      "storyParts": [
+        "Winter sports",
+        "Winter sports are sports that are played %%example%% snow and ice.",
+        "In the past, people (1) %%blank%% on skis to move (2) %%blank%% the snow, but now it is an exciting winter sport, which lots of people do (3) %%blank%% year in the mountains.",
+        "Lots of people also like to skate – some (4) %%blank%% on skates and some race on skates. Children like (5) %%blank%% on ice on lakes in the winter.",
+        "Sledges are also good to use in the snow. You can buy sledges (6) %%blank%% are made of plastic or wood in the shops. Then all you (7) %%blank%% is a hill and some snow!",
+        "All (8) %%blank%% winter sports are not only fun (9) %%blank%% also important. Making snowmen is not a sport (10) %%blank%% , but perhaps one day it will be!"
+      ],
+      "example": {
+        "options": [
+          "under",
+          "on",
+          "behind"
+        ],
+        "answer": 1
+      },
+      "items": [
+        {
+          "num": 1,
+          "options": [
+            "went",
+            "go",
+            "goes"
+          ],
+          "answer": 0
+        },
+        {
+          "num": 2,
+          "options": [
+            "in front of",
+            "into",
+            "through"
+          ],
+          "answer": 2
+        },
+        {
+          "num": 3,
+          "options": [
+            "some",
+            "every",
+            "never"
+          ],
+          "answer": 1
+        },
+        {
+          "num": 4,
+          "options": [
+            "dancing",
+            "danced",
+            "dance"
+          ],
+          "answer": 2
+        },
+        {
+          "num": 5,
+          "options": [
+            "skating",
+            "skated",
+            "skate"
+          ],
+          "answer": 0
+        },
+        {
+          "num": 6,
+          "options": [
+            "which",
+            "where",
+            "who"
+          ],
+          "answer": 0
+        },
+        {
+          "num": 7,
+          "options": [
+            "needs",
+            "need",
+            "needed"
+          ],
+          "answer": 1
+        },
+        {
+          "num": 8,
+          "options": [
+            "these",
+            "their",
+            "this"
+          ],
+          "answer": 0
+        },
+        {
+          "num": 9,
+          "options": [
+            "and",
+            "but",
+            "so"
+          ],
+          "answer": 1
+        },
+        {
+          "num": 10,
+          "options": [
+            "yet",
+            "before",
+            "still"
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "part5",
+      "title": "Part 5",
+      "questions": 7,
+      "instructions": "Look at the picture and read the story. Write some words to complete the sentences about the story. You can use 1, 2, 3 or 4 words.",
+      "type": "story-write",
+      "storySegments": [
+        {
+          "title": "Daisy finds treasure",
+          "image": "",
+          "text": "One day, Daisy was helping her grandmother to tidy the basement of her house.\n\n\"Put all those old boxes in the big bin across the street, please Daisy,\" said Grandma.\n\nDaisy carried six boxes to the bin. It was hard work. The bottom of the last box was broken and when she picked it up, everything inside fell on the floor. Daisy was picking up all the pieces of paper when she found an interesting old green book. She opened it and saw it was a diary, which was more than 50 years old. She went upstairs and showed the diary to her grandmother.",
+          "examples": [
+            {
+              "sentence": "Daisy helped her grandmother to tidy %%answer%% of her house.",
+              "answer": "the basement"
+            },
+            {
+              "sentence": "Daisy took %%answer%% to the bin.",
+              "answer": "six boxes"
+            }
+          ],
+          "questions": [
+            {
+              "num": 1,
+              "sentence": "The %%blank%% the last box was broken so everything fell on the floor.",
+              "answer": "bottom of"
+            },
+            {
+              "num": 2,
+              "sentence": "Daisy found an %%blank%% book.",
+              "answer": "interesting old green"
+            }
+          ]
+        },
+        {
+          "text": "\"I don't believe it!\" said Grandma. \"Where did you find this?\"\n\n\"It was in one of those boxes, Grandma,\" said Daisy.\n\n\"You're very clever – I thought this was lost.\"\n\n\"But what is it, Grandma?\" asked Daisy.\n\n\"This is your grandfather's diary. You know that he was a famous artist, don't you?\"\n\n\"Yes, I do. I've seen his paintings in the museum in town,\" said Daisy.",
+          "questions": [
+            {
+              "num": 3,
+              "sentence": "Daisy's grandmother told her that the book was %%blank%% .",
+              "answer": "her grandfather's diary"
+            },
+            {
+              "num": 4,
+              "sentence": "Daisy's grandfather was %%blank%% .",
+              "answer": "a famous artist"
+            }
+          ]
+        },
+        {
+          "text": "The next day, Daisy and her Grandma took the diary to the museum. When the man who worked at the museum saw the diary, he was very excited.\n\n\"This is a great treasure!\" he said. \"Please could you give it to the museum so that lots of people can see it?\"\n\nGrandma was sad to lose the diary again but happy that it was in the museum where lots of people could read it.",
+          "questions": [
+            {
+              "num": 5,
+              "sentence": "The next day, Daisy and her grandmother took the book to %%blank%% in town.",
+              "answer": "the museum"
+            },
+            {
+              "num": 6,
+              "sentence": "The man at the museum was %%blank%% because he thought that the diary was a great treasure.",
+              "answer": "very excited"
+            },
+            {
+              "num": 7,
+              "sentence": "Daisy's grandmother %%blank%% to the museum so lots of people could read it.",
+              "answer": "gave the diary"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part6",
+      "title": "Part 6",
+      "questions": 5,
+      "instructions": "Read the letter and write the missing words. Write one word on each line.",
+      "type": "fill-blank-reading",
+      "image": "",
+      "storyParts": [
+        "Dear Uncle Sam,",
+        "I am writing to %%example%% thank you for the great present that you sent me for my birthday.",
+        "I (1) %%blank%% wanted a camera for a long time and now I have one! I took it (2) %%blank%% we went to the circus last week and I took some excellent (3) %%blank%% .",
+        "I'm (4) %%blank%% you a photo of a clown with this letter. He was very funny. He (5) %%blank%% wearing a green hat with flowers on it and big spotted red shoes!",
+        "Love,",
+        "Sarah"
+      ],
+      "example": {
+        "answer": "say"
+      },
+      "items": [
+        {
+          "num": 1,
+          "answer": "have"
+        },
+        {
+          "num": 2,
+          "answer": "when"
+        },
+        {
+          "num": 3,
+          "answer": "photos/pictures"
+        },
+        {
+          "num": 4,
+          "answer": "sending"
+        },
+        {
+          "num": 5,
+          "answer": "was"
+        }
+      ]
+    },
+    {
+      "id": "part7",
+      "title": "Part 7",
+      "questions": 1,
+      "instructions": "Look at the three pictures. Write about this story. Write 20 or more words.",
+      "type": "picture-story-write",
+      "images": [],
+      "minWords": 20,
+      "sampleAnswer": "A woman is putting a cake in the oven. Now, she is sleeping in a chair. It looks like the cake is burning. The woman wakes up and takes the cake out of the oven. The cake is black and she is sad."
+    }
+  ]
+}

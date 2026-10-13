@@ -1,0 +1,343 @@
+{
+  "type": "listening-test",
+  "title": "Test 2 - Listening",
+  "parts": [
+    {
+      "id": "part1",
+      "title": "Part 1",
+      "questions": 5,
+      "instructions": "Listen and draw lines. There is one example.",
+      "type": "drag-match",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test2/part1-party.webp",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-flyers/test2/part1.mp3",
+      "names": [
+        "Sally",
+        "David",
+        "Betty",
+        "Emma",
+        "Jim",
+        "Helen",
+        "Paul"
+      ],
+      "actions": [
+        "is the boy wearing red shorts, opening a present",
+        "is the boy throwing grapes at the table",
+        "is the woman with long blonde curly hair, wearing a striped sweater",
+        "is the boy eating chocolate cake, wearing a spotted green and black T-shirt",
+        "is the girl playing the drums",
+        "is the girl with the guitar",
+        "is the boy sitting at the table eating pizza"
+      ],
+      "example": {
+        "name": "Jim",
+        "action": "is the boy wearing red shorts, opening a present"
+      },
+      "answers": [
+        {
+          "name": "David",
+          "action": "is the boy throwing grapes at the table"
+        },
+        {
+          "name": "Sally",
+          "action": "is the woman with long blonde curly hair, wearing a striped sweater"
+        },
+        {
+          "name": "Paul",
+          "action": "is the boy eating chocolate cake, wearing a spotted green and black T-shirt"
+        },
+        {
+          "name": "Emma",
+          "action": "is the girl playing the drums"
+        },
+        {
+          "name": "Betty",
+          "action": "is the girl with the guitar"
+        }
+      ],
+      "audioScript": [
+        "Woman: Did you have a good time at Jim's birthday party?\nBoy: Yes, I did. Look at this picture of the party.\nWoman: Wow, it looks fun! Which one's Jim?\nBoy: He's the boy wearing the red shorts. He's opening a present.\nWoman: Oh yes.",
+        "Woman: And who's that naughty boy who is <u>throwing grapes</u>?\nBoy: Oh, that's <u>David</u>. He's always naughty at school as well.\nWoman: Oh dear.",
+        "Woman: And which one is Jim's mum? Is she the woman with the short brown hair?\nBoy: No, Jim's mum has <u>long blonde curly hair</u>. She's wearing the <u>striped sweater</u>.\nWoman: Oh yes, I see her. She doesn't look very happy.\nBoy: No! She was angry with David!\nWoman: I can't remember her name ...\nBoy: She's called <u>Sally</u>.\nWoman: Oh yes.",
+        "Boy: Can you see <u>Paul</u>?\nWoman: Which one's he?\nBoy: He's the one who's <u>eating the chocolate cake</u>.\nWoman: Is he wearing a <u>spotted green and black T-shirt</u>?\nBoy: Yes, that's him. He's smiling here, but he didn't have a very good afternoon.\nWoman: Oh dear, why's that?\nBoy: Well, he ate too much cake and felt ill.\nWoman: Poor Paul.",
+        "Boy: And there's <u>Emma</u>. She's in my class at school.\nWoman: Is Emma the girl with the guitar?\nBoy: No, she's the girl who's <u>playing the drums</u>.\nWoman: Was it a noisy party?\nBoy: Yes!",
+        "Woman: And who's the girl with the guitar then?\nBoy: That's <u>Betty</u>.\nWoman: Can she play well?\nBoy: Yes, very well. We danced to the music later.\nWoman: That sounds fun!"
+      ]
+    },
+    {
+      "id": "part2",
+      "title": "Part 2",
+      "questions": 5,
+      "instructions": "Listen and write. There is one example.",
+      "type": "fill-blank",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-flyers/test2/part2.mp3",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test2/part2-museum.webp",
+      "formTitle": "Station Museum",
+      "example": {
+        "label": "Name of museum:",
+        "prefix": "",
+        "answer": "Station Museum"
+      },
+      "rows": [
+        {
+          "num": 1,
+          "label": "What's inside:",
+          "prefix": "old",
+          "answer": "trains"
+        },
+        {
+          "num": 2,
+          "label": "Open:",
+          "prefix": "Tuesday to",
+          "answer": "Saturday"
+        },
+        {
+          "num": 3,
+          "label": "Closes at:",
+          "prefix": "",
+          "answer": "5.15"
+        },
+        {
+          "num": 4,
+          "label": "Address:",
+          "prefix": "16",
+          "suffix": "Road",
+          "answer": "Digby"
+        },
+        {
+          "num": 5,
+          "label": "Phone number:",
+          "prefix": "",
+          "answer": "436227"
+        }
+      ],
+      "audioScript": [
+        "Girl: What are we doing in our lesson today, Mr Black?\nMan: Well, Jane, I'm going to tell you about an interesting new museum that has opened in town. Write down what I say, then you can tell your parents about it.\nGirl: OK. What's the name of the museum?\nMan: It's called the Station Museum.",
+        "Girl: What's inside the museum?\nMan: Can you guess?\nGirl: Hmm, Station Museum ... is it a train museum?\nMan: Yes, well done, Jane. It's full of old <u>trains</u>. Some of them are more than 200 years old.\nGirl: Wow! Can we go inside the old trains?\nMan: Yes, you can.",
+        "Girl: When is it open, Mr Black?\nMan: It's open from Tuesday to <u>Saturday</u>.\nGirl: So, is it closed on Sunday and Monday?\nMan: Yes, that's right.",
+        "Girl: And what time does it open?\nMan: It opens at nine thirty and it closes at five thirty. Sorry, I mean <u>five fifteen</u>. Yes, that's right, it closes at five fifteen every day.\nGirl: OK, I've written that down.",
+        "Man: Shall I tell you the address?\nGirl: Yes, OK.\nMan: It's 16 <u>Digby</u> Road. That's D-I-G-B-Y.\nGirl: OK, I've got it.",
+        "Girl: Can you tell me the telephone number too?\nMan: Yes, of course. It's <u>four three six double two seven</u>.\nGirl: Thank you.\nMan: That's OK. Perhaps your parents will take you.\nGirl: I hope so. Or perhaps we could go on a class visit.\nMan: Good idea, Jane."
+      ]
+    },
+    {
+      "id": "part3",
+      "title": "Part 3",
+      "questions": 5,
+      "instructions": "William wants to buy some presents for his family. What is he going to buy each person?\nListen and write a letter in each box. There is one example.",
+      "type": "drag-match-letters",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-flyers/test2/part3.mp3",
+      "peopleImage": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test2/part3-people.png",
+      "activitiesImage": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test2/part3-presents.webp",
+      "people": [
+        "Grandma",
+        "Dad",
+        "Aunt Pat",
+        "Uncle Robert",
+        "Sarah",
+        "Katy"
+      ],
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H"
+      ],
+      "example": {
+        "person": "Grandma",
+        "answer": "B"
+      },
+      "answers": [
+        {
+          "person": "Dad",
+          "answer": "E"
+        },
+        {
+          "person": "Aunt Pat",
+          "answer": "C"
+        },
+        {
+          "person": "Uncle Robert",
+          "answer": "G"
+        },
+        {
+          "person": "Sarah",
+          "answer": "D"
+        },
+        {
+          "person": "Katy",
+          "answer": "F"
+        }
+      ],
+      "audioScript": [
+        "Boy: Mum, I want to buy some presents for the family.\nWoman: That's very kind, William. What are you going to get everyone?\nBoy: Well, Grandma loves chocolate, doesn't she?\nWoman: Yes, she does.\nBoy: So, I think I'll get her a nice big box of <u>chocolates</u>.\nWoman: OK.",
+        "Woman: What about Dad? What are you going to get him?\nBoy: Hmm, Dad loves taking photos with his camera.\nWoman: Yes, you're right.\nBoy: So I'm going to get him a <u>book for photographers</u> to help him take even better photos.\nWoman: That's a great idea. He'll love that!",
+        "Boy: Now, what shall I get for Aunt Pat?\nWoman: How about getting her something to wear?\nBoy: OK, I'll get her something for the winter. She's got a scarf so I'll get her some wool <u>gloves</u> to keep her warm.\nWoman: Excellent.",
+        "Boy: Now, what can I get for Uncle Robert?\nWoman: He likes playing golf.\nBoy: Yes! And he's always losing balls. Shall I get him some <u>golf balls</u>?\nWoman: Yes, I think that's a good idea.",
+        "Woman: And don't forget your cousins! What are you going to get for Sarah?\nBoy: Well, she likes colouring pictures. Shall I get her a box of pencils in lots of different colours? Maybe I could get her a <u>book of pictures to colour</u> too?\nWoman: I think that she'll be very happy with that.\nBoy: Great!",
+        "Boy: Now, what about Katy? That's more difficult. What does she like doing?\nWoman: She likes writing her diary. You could get her a pen?\nBoy: No, I don't want to buy a pen. I want to buy her a <u>diary</u> for next year.\nWoman: Oh yes, that's a very good idea! Now, what are you going to get me?\nBoy: I'm not going to tell you! You'll have to wait and see."
+      ]
+    },
+    {
+      "id": "part4",
+      "title": "Part 4",
+      "questions": 5,
+      "instructions": "Listen and tick (✓) the box. There is one example.",
+      "type": "multiple-choice-abc",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-flyers/test2/part4.mp3",
+      "images": [
+        "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test2/part4-page1.webp",
+        "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test2/part4-page2.webp"
+      ],
+      "example": {
+        "question": "Which holiday did Michael have this year?",
+        "options": [
+          "beach holiday",
+          "skiing in the mountains",
+          "camping in a tent"
+        ],
+        "answer": 2
+      },
+      "items": [
+        {
+          "num": 1,
+          "question": "How did Michael go on holiday?",
+          "options": [
+            "by car",
+            "by train",
+            "by bike"
+          ],
+          "answer": 0
+        },
+        {
+          "num": 2,
+          "question": "Where did Michael stay?",
+          "options": [
+            "on the beach",
+            "under some trees next to a river",
+            "in a nice field"
+          ],
+          "answer": 1
+        },
+        {
+          "num": 3,
+          "question": "What did Michael do on holiday?",
+          "options": [
+            "went swimming",
+            "went fishing",
+            "played football"
+          ],
+          "answer": 2
+        },
+        {
+          "num": 4,
+          "question": "What did Michael eat on holiday?",
+          "options": [
+            "burgers and chips",
+            "sandwiches",
+            "fish"
+          ],
+          "answer": 2
+        },
+        {
+          "num": 5,
+          "question": "What time did Michael go to sleep on holiday?",
+          "options": [
+            "seven thirty",
+            "eight o'clock",
+            "nine thirty"
+          ],
+          "answer": 2
+        }
+      ],
+      "audioScript": [
+        "Woman: Hi, Michael. Did you have a good holiday?\nBoy: Yes, I did.\nWoman: Did you go to the beach?\nBoy: No, I wanted to ski in the mountains, but it was too expensive. So we <u>camped in a tent</u> this year.",
+        "Woman: That sounds like fun.\nBoy: Yes, it was.\nWoman: How did you get there? Did you go by train?\nBoy: No, we wanted to take our bikes with us so we went <u>by car</u>.",
+        "Woman: And where did you camp? Did you put your tent on the beach?\nBoy: No, we found a nice field where we wanted to put our tent. But the farmer said we couldn't camp there. So then we found a better place <u>under some trees and next to a river</u>.\nWoman: That sounds lovely!",
+        "Woman: And what did you do on holiday? Did you go swimming in the river?\nBoy: No, it was too cold. Dad did do some fishing in the river.\nWoman: Did you do some fishing?\nBoy: No, I <u>played football</u> with my brothers every day.",
+        "Woman: And what did you eat? Did you get your favourite burgers and chips?\nBoy: No, no burgers! We ate the <u>fish</u> that Dad got when he fished in the river.\nWoman: Hmm, talking about it is making me hungry!\nBoy: The fish was very good!",
+        "Woman: Did you go to bed very late each night?\nBoy: Yes, I usually go to bed at seven thirty or eight o'clock, but I didn't go to sleep on holiday until it was dark. That was <u>nine thirty</u>!\nWoman: That's very late!\nBoy: Yes, it was fun!"
+      ]
+    },
+    {
+      "id": "part5",
+      "title": "Part 5",
+      "questions": 5,
+      "instructions": "Listen and colour and write. There is one example.",
+      "type": "color-write",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-flyers/test2/part5.mp3",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test2/part5-snow.webp",
+      "colors": [
+        "red",
+        "blue",
+        "purple",
+        "green",
+        "pink",
+        "yellow",
+        "gray",
+        "black",
+        "orange",
+        "brown"
+      ],
+      "example": {
+        "item": "The car next to the house",
+        "type": "color",
+        "answer": "green"
+      },
+      "itemBank": [
+        "The car next to the house",
+        "The man's scarf (the man who is skiing)",
+        "The smaller boy's trousers (in front of the snowman)",
+        "The snowman's head",
+        "The house / café",
+        "The girl's big snowball",
+        "The taller boy's hat (behind the snowman)",
+        "The woman in the house / café",
+        "The bird on the road"
+      ],
+      "items": [
+        {
+          "num": 1,
+          "item": "The man's scarf (the man who is skiing)",
+          "type": "color",
+          "answer": "blue"
+        },
+        {
+          "num": 2,
+          "item": "The smaller boy's trousers (in front of the snowman)",
+          "type": "color",
+          "answer": "purple"
+        },
+        {
+          "num": 3,
+          "item": "The snowman's head",
+          "type": "write",
+          "answer": "hat"
+        },
+        {
+          "num": 4,
+          "item": "The house / café",
+          "type": "write",
+          "answer": "café"
+        },
+        {
+          "num": 5,
+          "item": "The girl's big snowball",
+          "type": "color",
+          "answer": "yellow"
+        }
+      ],
+      "audioScript": [
+        "Girl: This picture looks interesting.\nMan: Would you like to colour it?\nGirl: Yes, please.\nMan: OK. Can you see the car next to the house?\nGirl: Yes, I can.\nMan: Good. Colour it <u>green</u>.\nGirl: OK.",
+        "Girl: What else shall I colour?\nMan: Can you see the man who is skiing?\nGirl: Yes, I can. That looks fun.\nMan: Can you colour his scarf <u>blue</u>?\nGirl: OK.",
+        "Girl: What shall I colour now?\nMan: Let's see. There are two boys who are making a snowman?\nGirl: Yes, I can see them. That's a great snowman!\nMan: Can you see the smaller boy? He's in front of the snowman.\nGirl: Yes, I can.\nMan: Colour his trousers <u>purple</u>.\nGirl: OK.",
+        "Girl: Can I write something in the picture now?\nMan: Yes, good idea.\nGirl: What shall I write?\nMan: Can you write the word \"<u>hat</u>\" on the snowman's head?\nGirl: Yes, of course! He looks like he wants to wear a hat!\nMan: Yes, he does!",
+        "Man: Would you like to write something else now?\nGirl: Yes!\nMan: OK. Can you see the house at the back of the picture?\nGirl: Yes, I can.\nMan: Well, that's not a house. It's a café. Can you write the word \"<u>café</u>\" on it?\nGirl: OK, I'll do that now.",
+        "Man: Now for some more colouring.\nGirl: Oh, good.\nMan: Can you see the girl with a big ball made of snow?\nGirl: Yes, I can.\nMan: Can you colour that ball <u>yellow</u>?\nGirl: OK. The picture looks more interesting now, doesn't it?\nMan: Yes, it does."
+      ]
+    }
+  ]
+}
