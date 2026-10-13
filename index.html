@@ -2280,7 +2280,6 @@
         let currentStudent = null;
         let studentsData = null;
         let listeningStartTime = null;
-        let listeningAudioPlayed = {};
 
         async function loadStudents() {
             if (studentsData) return studentsData;
@@ -2412,7 +2411,6 @@
             listeningSubmitted = false;
             listeningCanReview = false;
             selectedBank = null;
-            listeningAudioPlayed = {};
 
             data.parts.forEach((part, i) => {
                 if (part.type === 'drag-match') {
@@ -2488,9 +2486,7 @@
             else if (part.type === 'multiple-choice-abc') renderMultipleChoiceABC(part);
             else if (part.type === 'color-write') renderColorWrite(part);
 
-            if (!isTeacherMode && !listeningSubmitted && part.audio && !fullTestMode) {
-                setupAudioOneTime(audio, activePart, listeningAudioPlayed);
-            } else if (audio) {
+            if (audio) {
                 audio.style.display = '';
                 audio.setAttribute('controls', '');
                 const wrapper = audio.parentElement;
@@ -5471,6 +5467,31 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             renderFullTestPart();
         }
 
+        function confirmExamPartSwitch(callback) {
+            if (!isExamMode || ftActiveSkill !== 'listening') { callback(); return; }
+            const ftAudioPlayer = document.getElementById('fulltest-audio-player');
+            if (ftAudioPlayer && !ftAudioPlayer.paused && !ftAudioPlayer.ended) {
+                Swal.fire({
+                    title: 'Chuyển sang phần khác?',
+                    html: '<p style="font-size:20px">File nghe đang phát. Nếu chuyển sang phần khác, bạn sẽ <b>không được nghe lại</b> phần này.</p>',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Chuyển phần',
+                    cancelButtonText: 'Ở lại',
+                    confirmButtonColor: '#ef4444',
+                    cancelButtonColor: '#64748b'
+                }).then(result => {
+                    if (result.isConfirmed) {
+                        ftAudioPlayer.pause();
+                        examAudioPlayed[ftActivePartIdx] = true;
+                        callback();
+                    }
+                });
+            } else {
+                callback();
+            }
+        }
+
         function renderFullTestPartTabs() {
             const container = document.getElementById('fulltest-part-tabs');
             container.innerHTML = '';
@@ -5480,7 +5501,12 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 const btn = document.createElement('button');
                 btn.className = `part-tab px-4 py-2 rounded-xl font-bold ${isActive ? 'active shadow-md' : 'bg-white text-slate-600 hover:bg-slate-100'}`;
                 btn.textContent = part.title;
-                btn.onclick = () => { ftActivePartIdx = i; selectedBank = null; syncPartIdx(); renderFullTestPartTabs(); renderFullTestPart(); };
+                btn.onclick = () => {
+                    if (i === ftActivePartIdx) return;
+                    confirmExamPartSwitch(() => {
+                        ftActivePartIdx = i; selectedBank = null; syncPartIdx(); renderFullTestPartTabs(); renderFullTestPart();
+                    });
+                };
                 container.appendChild(btn);
             });
             updateFullTestNav();
@@ -5503,14 +5529,16 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             const parts = ftActiveSkill === 'listening' ? ftListeningData.parts : ftReadingData.parts;
             const newIdx = ftActivePartIdx + dir;
             if (newIdx >= 0 && newIdx < parts.length) {
-                ftActivePartIdx = newIdx;
-                selectedBank = null;
-                syncPartIdx();
-                renderFullTestPartTabs();
-                renderFullTestPart();
+                confirmExamPartSwitch(() => {
+                    ftActivePartIdx = newIdx;
+                    selectedBank = null;
+                    syncPartIdx();
+                    renderFullTestPartTabs();
+                    renderFullTestPart();
+                });
             } else if (dir === 1 && ftActiveSkill === 'listening') {
                 if (isExamMode) {
-                    examTransitionToReading();
+                    confirmExamPartSwitch(() => examTransitionToReading());
                 } else {
                     switchFullTestSkill('reading');
                 }
@@ -5550,7 +5578,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 ftContent.id = 'fulltest-content';
                 origContent.id = 'listening-content';
 
-                if (part.audio && !isTeacherMode) {
+                if (part.audio && !isTeacherMode && isExamMode) {
                     setupAudioOneTime(ftAudioPlayer, ftActivePartIdx, examAudioPlayed);
                 }
             } else {
