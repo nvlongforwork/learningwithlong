@@ -480,7 +480,11 @@
       "questions": 1,
       "instructions": "Look at the three pictures. Write about this story. Write 20 or more words.",
       "type": "picture-story-write",
-      "images": [],
+      "images": [
+        "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test3/part7r-football1.webp",
+        "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test3/part7r-football2.webp",
+        "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test3/part7r-football3.webp"
+      ],
       "minWords": 20,
       "sampleAnswer": "The boys are playing football in a field. A dog is pushing the ball with its nose. It wants to play football! The dog has scored a goal!"
     }
