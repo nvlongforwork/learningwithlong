@@ -88,7 +88,7 @@
       "questions": 5,
       "instructions": "Read the conversation and choose the best answer. Write a letter (A–H) for each answer.",
       "type": "conversation-choice",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test2/part2r-conversation.webp",
       "context": "Harry is talking to his friend, Anna, about a visit to the Old School Museum. What does Harry say?",
       "example": {
         "speaker": "Anna",
@@ -194,7 +194,7 @@
       "questions": 6,
       "instructions": "Read the story. Choose a word from the box. Write the correct word next to numbers 1–5. There is one example.",
       "type": "story-fill",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test2/part3r-farm.webp",
       "storyParts": [
         "Last Saturday, Emma and David visited a farm with their mum. They arrived early in the morning and first they went to see the %%example%% .",
         "\"Look at the eggs,\" said Emma. \"I can see four.\"",
@@ -263,7 +263,7 @@
       "instructions": "Read the text. Choose the correct words and write them on the lines.",
       "type": "grammar-cloze",
       "title_text": "Winter sports",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test2/part4r-winter-sports.webp",
       "storyParts": [
         "Winter sports",
         "Winter sports are sports that are played %%example%% snow and ice.",
@@ -382,7 +382,7 @@
       "storySegments": [
         {
           "title": "Daisy finds treasure",
-          "image": "",
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test2/part5r-treasure.webp",
           "text": "One day, Daisy was helping her grandmother to tidy the basement of her house.\n\n\"Put all those old boxes in the big bin across the street, please Daisy,\" said Grandma.\n\nDaisy carried six boxes to the bin. It was hard work. The bottom of the last box was broken and when she picked it up, everything inside fell on the floor. Daisy was picking up all the pieces of paper when she found an interesting old green book. She opened it and saw it was a diary, which was more than 50 years old. She went upstairs and showed the diary to her grandmother.",
           "examples": [
             {
@@ -450,7 +450,7 @@
       "questions": 5,
       "instructions": "Read the letter and write the missing words. Write one word on each line.",
       "type": "fill-blank-reading",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test2/part6r-letter.webp",
       "storyParts": [
         "Dear Uncle Sam,",
         "I am writing to %%example%% thank you for the great present that you sent me for my birthday.",
