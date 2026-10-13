@@ -1,0 +1,339 @@
+{
+  "type": "listening-test",
+  "title": "Test 3 - Listening",
+  "parts": [
+    {
+      "id": "part1",
+      "title": "Part 1",
+      "questions": 5,
+      "instructions": "Listen and draw lines. There is one example.",
+      "type": "drag-match",
+      "image": "",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-flyers/test3/part1.mp3",
+      "names": [
+        "Daisy",
+        "Sarah",
+        "Harry",
+        "Tom",
+        "Vicky",
+        "Peter",
+        "Lucy"
+      ],
+      "actions": [
+        "is the girl next to the parrots, eating ice cream",
+        "is the girl waving at the camels",
+        "is the boy wearing a T-shirt with a dinosaur on it",
+        "is the blonde boy holding the toy camel",
+        "is the girl standing up, looking at a map of the zoo",
+        "is the man helping Harry with his shoe, wearing a green sweater",
+        "is the girl sitting down near the snakes"
+      ],
+      "example": {
+        "name": "Daisy",
+        "action": "is the girl next to the parrots, eating ice cream"
+      },
+      "answers": [
+        {
+          "name": "Sarah",
+          "action": "is the girl waving at the camels"
+        },
+        {
+          "name": "Harry",
+          "action": "is the boy wearing a T-shirt with a dinosaur on it"
+        },
+        {
+          "name": "Tom",
+          "action": "is the blonde boy holding the toy camel"
+        },
+        {
+          "name": "Vicky",
+          "action": "is the girl standing up, looking at a map of the zoo"
+        },
+        {
+          "name": "Peter",
+          "action": "is the man helping Harry with his shoe, wearing a green sweater"
+        }
+      ],
+      "audioScript": [
+        "Girl: We went on a class visit to the zoo today. Look at the picture I took.\nMan: What a lot of children and animals!\nGirl: Can you see Daisy?\nMan: No, where is she?\nGirl: She's there. She's next to the parrots. She's eating ice cream.\nMan: Oh yes.",
+        "Man: Who's that girl?\nGirl: The girl who's looking at the snakes?\nMan: No, the one who's <u>waving at the camels</u>. Who's she?\nGirl: That's <u>Sarah</u>.",
+        "Man: One person in the photo isn't smiling.\nGirl: Oh, who do you mean?\nMan: That boy there who's <u>wearing a T-shirt with a dinosaur on it</u>. Who's he?\nGirl: That's <u>Harry</u>. He was sad because he lost his camera.\nMan: Oh dear.",
+        "Man: And who's the <u>blonde boy</u> who's <u>holding the toy camel</u>?\nGirl: That's <u>Tom</u>.\nMan: Did he buy that camel at the zoo?\nGirl: Yes, he did.",
+        "Girl: And there's my friend, <u>Vicky</u>.\nMan: Is she the girl who's sitting down near the snakes?\nGirl: No, Vicky's <u>standing up</u>. She's <u>looking at a map of the zoo</u>.\nMan: Oh yes, with the striped shorts.\nGirl: Yes, that's her.",
+        "Man: Whose dad came with you?\nGirl: Vicky's dad came. He's called <u>Peter</u>.\nMan: Is he the one talking on the phone?\nGirl: No, that's our teacher. Peter is <u>helping Harry with his shoe</u>. He's <u>wearing a green sweater</u>."
+      ]
+    },
+    {
+      "id": "part2",
+      "title": "Part 2",
+      "questions": 5,
+      "instructions": "Listen and write. There is one example.",
+      "type": "fill-blank",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-flyers/test3/part2.mp3",
+      "image": "",
+      "formTitle": "New School Club",
+      "example": {
+        "label": "Name of club:",
+        "prefix": "",
+        "answer": "pet club"
+      },
+      "rows": [
+        {
+          "num": 1,
+          "label": "Animals:",
+          "prefix": "mice, rabbits and",
+          "answer": "lizards"
+        },
+        {
+          "num": 2,
+          "label": "Day:",
+          "prefix": "every",
+          "answer": "Thursday"
+        },
+        {
+          "num": 3,
+          "label": "Time:",
+          "prefix": "",
+          "answer": "4.00/4 o'clock"
+        },
+        {
+          "num": 4,
+          "label": "Teacher:",
+          "prefix": "Mr",
+          "answer": "Lewis"
+        },
+        {
+          "num": 5,
+          "label": "Room:",
+          "prefix": "the",
+          "answer": "science"
+        }
+      ],
+      "audioScript": [
+        "Woman: Good morning, everyone. I have some exciting news. We're going to start a new club at school next year. Ask me some questions about it, then write down what I say.\nBoy: What club is it, Mrs Park?\nWoman: It's a pet club.",
+        "Boy: Wow! It sounds amazing!\nWoman: Yes, Robert, I think it will be.\nBoy: What animals will there be?\nWoman: We're going to get some mice, rabbits and <u>lizards</u>.\nBoy: Yes! I love rabbits!",
+        "Boy: What day will the club be?\nWoman: It's going to be every <u>Thursday</u>.\nBoy: Great!",
+        "Woman: Anything else you want to know?\nBoy: Yes, what time will it be?\nWoman: It'll be after school, from <u>4 o'clock</u> to 4.30.\nBoy: OK.",
+        "Woman: Any more questions?\nBoy: Yes, which teacher will do pet club?\nWoman: Mr <u>Lewis</u> will be doing pet club. That's L-E-W-I-S.\nBoy: OK, I've written that.",
+        "Boy: Mrs Park, which classroom will pet club be in?\nWoman: It'll be in the <u>science</u> room because that's where the pets will live.\nBoy: Great. I can't wait!"
+      ]
+    },
+    {
+      "id": "part3",
+      "title": "Part 3",
+      "questions": 5,
+      "instructions": "Helen is helping Dad to get the suitcase ready for their holiday. Where is each thing that she needs to find?\nListen and write a letter in each box. There is one example.",
+      "type": "drag-match-letters",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-flyers/test3/part3.mp3",
+      "peopleImage": "",
+      "activitiesImage": "",
+      "people": [
+        "camera",
+        "towels",
+        "books",
+        "glasses",
+        "sandwiches",
+        "doll"
+      ],
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H"
+      ],
+      "example": {
+        "person": "camera",
+        "answer": "D"
+      },
+      "answers": [
+        {
+          "person": "towels",
+          "answer": "B"
+        },
+        {
+          "person": "books",
+          "answer": "F"
+        },
+        {
+          "person": "glasses",
+          "answer": "G"
+        },
+        {
+          "person": "sandwiches",
+          "answer": "A"
+        },
+        {
+          "person": "doll",
+          "answer": "C"
+        }
+      ],
+      "audioScript": [
+        "Man: Helen, can you help me get ready for our holiday? We must put everything we need into the suitcase.\nGirl: OK, what do you need?\nMan: Go and get the camera first. It's on the shelf in my bedroom, the one near my bed.\nGirl: OK.",
+        "Girl: What else, Dad?\nMan: We need our beach <u>towels</u>.\nGirl: Where are they?\nMan: They're in the <u>cupboard behind the door in the bathroom</u>. Go and get them for me, please.",
+        "Man: We need to take the new <u>books</u> that we bought too.\nGirl: Oh yes!\nMan: They're in the <u>living room, on the little table next to the bookcase</u>. There are three books – can you bring me all of them?\nGirl: OK.",
+        "Man: OK, what else do we need? Oh yes, I've forgotten to put my <u>glasses</u> in. Can you go and get those for me?\nGirl: Where are they, Dad?\nMan: They're on my <u>desk, next to the telephone</u>.\nGirl: OK. I'll get them now.",
+        "Man: Oh, and we don't want to forget the <u>sandwiches</u> that I made for us to eat in the car.\nGirl: Have I got jam sandwiches, Dad?\nMan: Yes, of course! Now, go and get them for me. I've taken them out of the fridge already. They're on the <u>kitchen table</u>.",
+        "Girl: Dad, can I take my favourite <u>doll</u>, Betty?\nMan: OK, if you want.\nGirl: But I don't know where she is.\nMan: She's <u>under the bed in your bedroom</u>. Quickly, go and get her, it's nearly time to go!"
+      ]
+    },
+    {
+      "id": "part4",
+      "title": "Part 4",
+      "questions": 5,
+      "instructions": "Listen and tick (✓) the box. There is one example.",
+      "type": "multiple-choice-abc",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-flyers/test3/part4.mp3",
+      "images": [],
+      "example": {
+        "question": "Where did Jack go yesterday?",
+        "options": [
+          "to the park",
+          "to school",
+          "to Emma's house"
+        ],
+        "answer": 2
+      },
+      "items": [
+        {
+          "num": 1,
+          "question": "Where does Emma live?",
+          "options": [
+            "in the city",
+            "on a farm",
+            "in a little village, next to a wood"
+          ],
+          "answer": 2
+        },
+        {
+          "num": 2,
+          "question": "What pet does Emma have?",
+          "options": [
+            "a dog",
+            "a cat",
+            "a rabbit"
+          ],
+          "answer": 2
+        },
+        {
+          "num": 3,
+          "question": "What did Jack eat for lunch?",
+          "options": [
+            "soup",
+            "a sandwich",
+            "pizza"
+          ],
+          "answer": 1
+        },
+        {
+          "num": 4,
+          "question": "What did the children do in the afternoon?",
+          "options": [
+            "cooked some cakes",
+            "played in the garden",
+            "watched TV"
+          ],
+          "answer": 0
+        },
+        {
+          "num": 5,
+          "question": "What time did Jack get home?",
+          "options": [
+            "8 o'clock",
+            "8.30",
+            "9 o'clock"
+          ],
+          "answer": 2
+        }
+      ],
+      "audioScript": [
+        "Woman: Hi, Jack. You didn't go to school yesterday, did you?\nBoy: No, we're on summer holidays.\nWoman: Already?! So did you go to the park?\nBoy: No, not yesterday. I went to <u>Emma's house</u> to play.",
+        "Woman: Oh, great. Did you have fun?\nBoy: Yes, lots of fun!\nWoman: Where is Emma's house? Does she live in the city?\nBoy: No, she doesn't. She lives in a <u>little village, next to a wood</u>.",
+        "Woman: And what did you do?\nBoy: First, we played with Emma's pet.\nWoman: Oh, is Emma the girl with the cat called George?\nBoy: No, it's my friend Sally who's got a cat.\nWoman: Oh, OK.\nBoy: Emma has a <u>rabbit</u> called Carrots.\nWoman: That's an excellent name for a rabbit.",
+        "Woman: Did Emma's dad make you some lunch?\nBoy: Yes, he did. He made some soup. I tasted it, but I didn't like it because it had onions in it.\nWoman: Oh dear.\nBoy: So, he made me a <u>sandwich</u> and I ate that.\nWoman: That was kind of him.",
+        "Woman: And what did you do in the afternoon? Did you play in the garden?\nBoy: No, it rained, so we stayed inside. We <u>cooked some cakes</u>.\nWoman: Great, did you bring some home for me?\nBoy: No, sorry! We ate them all!",
+        "Woman: Did you get back home very late?\nBoy: Yes, Dad came to get me at 8 o'clock and then he was talking to Emma's dad until 8.30. So we didn't get home until <u>9 o'clock</u>.\nWoman: Are you very tired today?\nBoy: No, not really. I slept until 10 o'clock this morning."
+      ]
+    },
+    {
+      "id": "part5",
+      "title": "Part 5",
+      "questions": 5,
+      "instructions": "Listen and colour and write. There is one example.",
+      "type": "color-write",
+      "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-flyers/test3/part5.mp3",
+      "image": "",
+      "colors": [
+        "red",
+        "blue",
+        "purple",
+        "green",
+        "pink",
+        "yellow",
+        "gray",
+        "black",
+        "orange",
+        "brown"
+      ],
+      "example": {
+        "item": "The girl's dress (the girl on the swing with long hair)",
+        "type": "color",
+        "answer": "purple"
+      },
+      "itemBank": [
+        "The girl's dress (the girl on the swing with long hair)",
+        "The man's hat (the man reading the newspaper at the front)",
+        "The boys playing soccer",
+        "The big duck in the lake",
+        "The girl giving bread to the ducks",
+        "The boy's shorts (the boy climbing the tree)",
+        "The little duck in the lake",
+        "The woman sitting on the bench",
+        "The kite in the sky"
+      ],
+      "items": [
+        {
+          "num": 1,
+          "item": "The man's hat (the man reading the newspaper at the front)",
+          "type": "color",
+          "answer": "green"
+        },
+        {
+          "num": 2,
+          "item": "The boys playing soccer",
+          "type": "write",
+          "answer": "ball"
+        },
+        {
+          "num": 3,
+          "item": "The big duck in the lake",
+          "type": "color",
+          "answer": "orange"
+        },
+        {
+          "num": 4,
+          "item": "The girl giving bread to the ducks",
+          "type": "write",
+          "answer": "duck"
+        },
+        {
+          "num": 5,
+          "item": "The boy's shorts (the boy climbing the tree)",
+          "type": "color",
+          "answer": "pink"
+        }
+      ],
+      "audioScript": [
+        "Woman: Would you like to colour this picture?\nBoy: Yes, please.\nWoman: Good, now, can you see the girl with long hair who is on the swing?\nBoy: Yes, I can.\nWoman: Can you colour her dress <u>purple</u>?\nBoy: OK.",
+        "Boy: What shall I colour now?\nWoman: Can you see the man reading the newspaper at the front of the picture?\nBoy: Yes, I can.\nWoman: Can you colour his hat <u>green</u>?\nBoy: Yes, OK. I'll do that now.",
+        "Woman: Would you like to write something?\nBoy: Yes, please. What shall I write?\nWoman: Now, there's a problem with this picture. Look at the boys playing soccer. Can you see the problem?\nBoy: Oh yes, they haven't got a ball. Have they lost it?\nWoman: Perhaps. But can you write the word \"<u>ball</u>\" for them?\nBoy: Yes, OK. I'll write it here at their feet. The ball might be here!\nWoman: Yes, you're right!",
+        "Woman: Now, can you see the ducks in the lake?\nBoy: Yes, I can.\nWoman: Would you like to colour one of the ducks?\nBoy: Yes, but which one? The big one or the little one?\nWoman: Colour the big one.\nBoy: What colour shall I use?\nWoman: Colour the big duck <u>orange</u>.\nBoy: OK.",
+        "Boy: Can I write something else now?\nWoman: Yes, OK. Can you see the girl who is giving some bread to the ducks?\nBoy: Yes, those ducks are hungry, aren't they?\nWoman: Yes, they are.\nBoy: What shall I write?\nWoman: Can you write the word \"<u>duck</u>\" on the girl's dress?\nBoy: Yes, of course. That's easy.",
+        "Woman: Now for some more colouring.\nBoy: OK. Can I colour something pink?\nWoman: OK, can you see the boy who is climbing the tree?\nBoy: Yes, that looks dangerous, doesn't it?\nWoman: You're right. Can you colour his shorts <u>pink</u>?\nBoy: OK. I'll do that now.\nWoman: Very good. The picture looks excellent now!"
+      ]
+    }
+  ]
+}

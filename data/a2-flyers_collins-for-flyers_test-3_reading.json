@@ -1,0 +1,488 @@
+{
+  "type": "reading-test",
+  "title": "Test 3 - Reading & Writing",
+  "parts": [
+    {
+      "id": "part1",
+      "title": "Part 1",
+      "questions": 10,
+      "instructions": "Look and read. Choose the correct words and write them on the lines. There is one example.",
+      "type": "definition-match",
+      "wordBank": [
+        "a swan",
+        "a spoon",
+        "shorts",
+        "a chemist",
+        "pyjamas",
+        "a camel",
+        "a rucksack",
+        "a journalist",
+        "a bicycle",
+        "a belt",
+        "a museum",
+        "a pilot",
+        "wings",
+        "jam",
+        "a uniform"
+      ],
+      "example": {
+        "definition": "This person writes the news for newspapers or TV.",
+        "answer": "a journalist"
+      },
+      "items": [
+        {
+          "num": 1,
+          "definition": "You go to this place to buy medicine.",
+          "answer": "a chemist"
+        },
+        {
+          "num": 2,
+          "definition": "Birds have these to help them to fly.",
+          "answer": "wings"
+        },
+        {
+          "num": 3,
+          "definition": "You use this to eat soup out of a bowl. It is usually made of metal.",
+          "answer": "a spoon"
+        },
+        {
+          "num": 4,
+          "definition": "This is a bag that you carry on your back.",
+          "answer": "a rucksack"
+        },
+        {
+          "num": 5,
+          "definition": "This big animal usually lives in the desert.",
+          "answer": "a camel"
+        },
+        {
+          "num": 6,
+          "definition": "This person flies a plane.",
+          "answer": "a pilot"
+        },
+        {
+          "num": 7,
+          "definition": "Clothes you must wear for school or work.",
+          "answer": "a uniform"
+        },
+        {
+          "num": 8,
+          "definition": "You wear this at the top of your trousers.",
+          "answer": "a belt"
+        },
+        {
+          "num": 9,
+          "definition": "You go to this place in a town or city to see interesting old things.",
+          "answer": "a museum"
+        },
+        {
+          "num": 10,
+          "definition": "This big bird is usually white or black and it can swim.",
+          "answer": "a swan"
+        }
+      ]
+    },
+    {
+      "id": "part2",
+      "title": "Part 2",
+      "questions": 5,
+      "instructions": "Read the conversation and choose the best answer. Write a letter (A–H) for each answer.",
+      "type": "conversation-choice",
+      "image": "",
+      "context": "Harry is talking to his dad about going to the cinema. What does Harry say?",
+      "example": {
+        "speaker": "Dad",
+        "question": "Would you like to go to the cinema today, Harry?",
+        "options": [
+          "Yes, OK. I'd like to take some sweets.",
+          "I'm going to play football with Paul this morning, so let's go this afternoon.",
+          "Oh yes, good idea. She'd like that.",
+          "No, I'm not thirsty.",
+          "The film started at three o'clock.",
+          "Oh, yes please! I love going to the cinema!",
+          "No, let's go by car. It's a long way from here.",
+          "Yes, I do. It sounds very interesting."
+        ],
+        "answer": 5
+      },
+      "items": [
+        {
+          "num": 1,
+          "speaker": "Dad",
+          "question": "You want to see that new film about dinosaurs, don't you?",
+          "options": [
+            "Yes, OK. I'd like to take some sweets.",
+            "I'm going to play football with Paul this morning, so let's go this afternoon.",
+            "Oh yes, good idea. She'd like that.",
+            "No, I'm not thirsty.",
+            "The film started at three o'clock.",
+            "Oh, yes please! I love going to the cinema!",
+            "No, let's go by car. It's a long way from here.",
+            "Yes, I do. It sounds very interesting."
+          ],
+          "answer": 7
+        },
+        {
+          "num": 2,
+          "speaker": "Dad",
+          "question": "Shall we go this morning or this afternoon?",
+          "options": [
+            "Yes, OK. I'd like to take some sweets.",
+            "I'm going to play football with Paul this morning, so let's go this afternoon.",
+            "Oh yes, good idea. She'd like that.",
+            "No, I'm not thirsty.",
+            "The film started at three o'clock.",
+            "Oh, yes please! I love going to the cinema!",
+            "No, let's go by car. It's a long way from here.",
+            "Yes, I do. It sounds very interesting."
+          ],
+          "answer": 1
+        },
+        {
+          "num": 3,
+          "speaker": "Dad",
+          "question": "OK. Let's take a snack with us.",
+          "options": [
+            "Yes, OK. I'd like to take some sweets.",
+            "I'm going to play football with Paul this morning, so let's go this afternoon.",
+            "Oh yes, good idea. She'd like that.",
+            "No, I'm not thirsty.",
+            "The film started at three o'clock.",
+            "Oh, yes please! I love going to the cinema!",
+            "No, let's go by car. It's a long way from here.",
+            "Yes, I do. It sounds very interesting."
+          ],
+          "answer": 0
+        },
+        {
+          "num": 4,
+          "speaker": "Dad",
+          "question": "OK. We could walk to the cinema.",
+          "options": [
+            "Yes, OK. I'd like to take some sweets.",
+            "I'm going to play football with Paul this morning, so let's go this afternoon.",
+            "Oh yes, good idea. She'd like that.",
+            "No, I'm not thirsty.",
+            "The film started at three o'clock.",
+            "Oh, yes please! I love going to the cinema!",
+            "No, let's go by car. It's a long way from here.",
+            "Yes, I do. It sounds very interesting."
+          ],
+          "answer": 6
+        },
+        {
+          "num": 5,
+          "speaker": "Dad",
+          "question": "Yes, you're right. Would you like to invite Helen to come with us?",
+          "options": [
+            "Yes, OK. I'd like to take some sweets.",
+            "I'm going to play football with Paul this morning, so let's go this afternoon.",
+            "Oh yes, good idea. She'd like that.",
+            "No, I'm not thirsty.",
+            "The film started at three o'clock.",
+            "Oh, yes please! I love going to the cinema!",
+            "No, let's go by car. It's a long way from here.",
+            "Yes, I do. It sounds very interesting."
+          ],
+          "answer": 2
+        }
+      ]
+    },
+    {
+      "id": "part3",
+      "title": "Part 3",
+      "questions": 6,
+      "instructions": "Read the story. Choose a word from the box. Write the correct word next to numbers 1–5. There is one example.",
+      "type": "story-fill",
+      "image": "",
+      "storyParts": [
+        "Last Saturday, Mary %%example%% with her friends. They went to the beach in the afternoon and put their tent on the beach. Then they went for a swim and played games in the sand.",
+        "When it got dark, they (1) %%blank%% a fire and cooked delicious burgers. Then Mary started to play the (2) %%blank%% and they all sang songs.",
+        "\"What an (3) %%blank%% day,\" said Mary when they went to sleep in their tent that night.",
+        "A few hours later, Mary woke up and felt that her feet were (4) %%blank%% . Her feet were in the sea!",
+        "\"Quickly everyone, we (5) %%blank%% to move our tents!\" shouted Mary.",
+        "Everything was wet so they decided to go home.",
+        "\"What a terrible night!\" said Mary."
+      ],
+      "wordBank": [
+        "camped",
+        "excellent",
+        "dry",
+        "need",
+        "guitar",
+        "camera",
+        "cooked",
+        "lit",
+        "excited",
+        "wet"
+      ],
+      "example": {
+        "word": "camped"
+      },
+      "items": [
+        {
+          "num": 1,
+          "answer": "lit"
+        },
+        {
+          "num": 2,
+          "answer": "guitar"
+        },
+        {
+          "num": 3,
+          "answer": "excellent"
+        },
+        {
+          "num": 4,
+          "answer": "wet"
+        },
+        {
+          "num": 5,
+          "answer": "need"
+        }
+      ],
+      "titleQuestion": {
+        "num": 6,
+        "instruction": "Now choose the best name for the story.",
+        "options": [
+          "Cooking burgers over a fire",
+          "Playing the guitar near the sea",
+          "Camping too near the sea"
+        ],
+        "answer": 2
+      }
+    },
+    {
+      "id": "part4",
+      "title": "Part 4",
+      "questions": 10,
+      "instructions": "Read the text. Choose the correct words and write them on the lines.",
+      "type": "grammar-cloze",
+      "title_text": "History of schools",
+      "image": "",
+      "storyParts": [
+        "History of schools",
+        "In the past, schools %%example%% very different to today. Poor children didn't always go (1) %%blank%% school. Often (2) %%blank%% worked in factories because their families needed the money. Girls sometimes (3) %%blank%% go to school or if they did, they went to schools that were only for girls where boys (4) %%blank%% go.",
+        "The classroom in the past looked different too (5) %%blank%% there were no computers. (6) %%blank%% some things were the same – children sat at desks and looked at what the teacher (7) %%blank%% on the board. The subjects were the same too – children (8) %%blank%% maths, English and science.",
+        "Teachers were often (9) %%blank%% unfriendly than they are today. If a child was naughty, the teacher could hit them (10) %%blank%% they wanted to."
+      ],
+      "example": {
+        "options": [
+          "were",
+          "was",
+          "are"
+        ],
+        "answer": 0
+      },
+      "items": [
+        {
+          "num": 1,
+          "options": [
+            "on",
+            "at",
+            "to"
+          ],
+          "answer": 2
+        },
+        {
+          "num": 2,
+          "options": [
+            "they",
+            "there",
+            "their"
+          ],
+          "answer": 0
+        },
+        {
+          "num": 3,
+          "options": [
+            "don't",
+            "weren't",
+            "didn't"
+          ],
+          "answer": 2
+        },
+        {
+          "num": 4,
+          "options": [
+            "couldn't",
+            "can't",
+            "could"
+          ],
+          "answer": 0
+        },
+        {
+          "num": 5,
+          "options": [
+            "or",
+            "because",
+            "so"
+          ],
+          "answer": 1
+        },
+        {
+          "num": 6,
+          "options": [
+            "But",
+            "Because",
+            "So"
+          ],
+          "answer": 0
+        },
+        {
+          "num": 7,
+          "options": [
+            "write",
+            "writing",
+            "wrote"
+          ],
+          "answer": 2
+        },
+        {
+          "num": 8,
+          "options": [
+            "learnt",
+            "learn",
+            "learning"
+          ],
+          "answer": 0
+        },
+        {
+          "num": 9,
+          "options": [
+            "more",
+            "most",
+            "very"
+          ],
+          "answer": 0
+        },
+        {
+          "num": 10,
+          "options": [
+            "so",
+            "if",
+            "after"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "part5",
+      "title": "Part 5",
+      "questions": 7,
+      "instructions": "Look at the picture and read the story. Write some words to complete the sentences about the story. You can use 1, 2, 3 or 4 words.",
+      "type": "story-write",
+      "storySegments": [
+        {
+          "title": "A good name for Katy's kitten",
+          "image": "",
+          "text": "One day last month, Katy wanted to get a new pet so she went to the pet shop in town to buy a kitten. When she looked at all the kittens in the shop, she couldn't decide which one to choose.\n\n\"Which one do you like?\" asked the man who worked in the shop.\n\n\"It's very difficult,\" said Katy. \"They are all lovely.\"\n\nThen she saw a little black and white kitten, which was sitting in a corner of his cage, looking like he was sad.\n\n\"He's beautiful,\" said Katy. \"But why is he so sad?\"\n\n\"He was hiding up in a tree when someone found him,\" said the man. \"We don't know where his mother is so we're trying to find him a new home.\"",
+          "examples": [
+            {
+              "sentence": "Katy went to the %%answer%% in town one day last month.",
+              "answer": "pet shop"
+            },
+            {
+              "sentence": "Katy wanted to buy %%answer%% .",
+              "answer": "a kitten"
+            }
+          ],
+          "questions": [
+            {
+              "num": 1,
+              "sentence": "When Katy was looking at all the kittens in the shop, she couldn't %%blank%% which one to choose.",
+              "answer": "decide"
+            },
+            {
+              "num": 2,
+              "sentence": "Then she saw a little %%blank%% kitten.",
+              "answer": "black and white"
+            },
+            {
+              "num": 3,
+              "sentence": "The kitten was sitting in %%blank%% his cage, looking sad.",
+              "answer": "a corner of"
+            },
+            {
+              "num": 4,
+              "sentence": "Someone found the kitten hiding %%blank%% .",
+              "answer": "up in a tree"
+            }
+          ]
+        },
+        {
+          "text": "Katy opened the cage and picked up the kitten, which had soft fur, big brown eyes and a wet nose. He was very friendly and he looked happy to see Katy.\n\n\"I think he likes you!\" said the man.\n\n\"I love him,\" said Katy. \"I'll take him!\"\n\n\"That's great,\" said the man. \"What will you call him?\"\n\n\"Well, he's black and white and he likes climbing trees. I think I'll call him Panda!\" said Katy.\n\n\"That's an excellent name for him,\" said the man.",
+          "questions": [
+            {
+              "num": 5,
+              "sentence": "When Katy picked him up, the kitten was very %%blank%% .",
+              "answer": "friendly"
+            },
+            {
+              "num": 6,
+              "sentence": "Katy decided to call the kitten %%blank%% .",
+              "answer": "Panda"
+            },
+            {
+              "num": 7,
+              "sentence": "Katy chose this name because the kitten was black and white and liked %%blank%% .",
+              "answer": "climbing trees"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part6",
+      "title": "Part 6",
+      "questions": 5,
+      "instructions": "Read the letter and write the missing words. Write one word on each line.",
+      "type": "fill-blank-reading",
+      "image": "",
+      "storyParts": [
+        "Dear Betty,",
+        "I am writing to %%example%% you to my birthday party!",
+        "The party is going to be next Saturday (1) %%blank%% three o'clock. We're going to the cinema to see a new (2) %%blank%% about whales and sharks. Then we're (3) %%blank%% to eat in a restaurant. I'm going to have (4) %%blank%% favourite dinner, which is pizza and ice cream.",
+        "Please tell me (5) %%blank%% you can come! I hope you can.",
+        "Love,",
+        "Holly"
+      ],
+      "example": {
+        "answer": "invite"
+      },
+      "items": [
+        {
+          "num": 1,
+          "answer": "at"
+        },
+        {
+          "num": 2,
+          "answer": "film"
+        },
+        {
+          "num": 3,
+          "answer": "going"
+        },
+        {
+          "num": 4,
+          "answer": "my"
+        },
+        {
+          "num": 5,
+          "answer": "if/that"
+        }
+      ]
+    },
+    {
+      "id": "part7",
+      "title": "Part 7",
+      "questions": 1,
+      "instructions": "Look at the three pictures. Write about this story. Write 20 or more words.",
+      "type": "picture-story-write",
+      "images": [],
+      "minWords": 20,
+      "sampleAnswer": "The boys are playing football in a field. A dog is pushing the ball with its nose. It wants to play football! The dog has scored a goal!"
+    }
+  ]
+}
