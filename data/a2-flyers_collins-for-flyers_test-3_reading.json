@@ -88,7 +88,7 @@
       "questions": 5,
       "instructions": "Read the conversation and choose the best answer. Write a letter (A–H) for each answer.",
       "type": "conversation-choice",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test3/part2r-cinema.webp",
       "context": "Harry is talking to his dad about going to the cinema. What does Harry say?",
       "example": {
         "speaker": "Dad",
@@ -194,7 +194,7 @@
       "questions": 6,
       "instructions": "Read the story. Choose a word from the box. Write the correct word next to numbers 1–5. There is one example.",
       "type": "story-fill",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test3/part3r-camping.webp",
       "storyParts": [
         "Last Saturday, Mary %%example%% with her friends. They went to the beach in the afternoon and put their tent on the beach. Then they went for a swim and played games in the sand.",
         "When it got dark, they (1) %%blank%% a fire and cooked delicious burgers. Then Mary started to play the (2) %%blank%% and they all sang songs.",
@@ -259,7 +259,7 @@
       "instructions": "Read the text. Choose the correct words and write them on the lines.",
       "type": "grammar-cloze",
       "title_text": "History of schools",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test3/part4r-schools.webp",
       "storyParts": [
         "History of schools",
         "In the past, schools %%example%% very different to today. Poor children didn't always go (1) %%blank%% school. Often (2) %%blank%% worked in factories because their families needed the money. Girls sometimes (3) %%blank%% go to school or if they did, they went to schools that were only for girls where boys (4) %%blank%% go.",
@@ -376,7 +376,7 @@
       "storySegments": [
         {
           "title": "A good name for Katy's kitten",
-          "image": "",
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test3/part5r-kitten.webp",
           "text": "One day last month, Katy wanted to get a new pet so she went to the pet shop in town to buy a kitten. When she looked at all the kittens in the shop, she couldn't decide which one to choose.\n\n\"Which one do you like?\" asked the man who worked in the shop.\n\n\"It's very difficult,\" said Katy. \"They are all lovely.\"\n\nThen she saw a little black and white kitten, which was sitting in a corner of his cage, looking like he was sad.\n\n\"He's beautiful,\" said Katy. \"But why is he so sad?\"\n\n\"He was hiding up in a tree when someone found him,\" said the man. \"We don't know where his mother is so we're trying to find him a new home.\"",
           "examples": [
             {
@@ -439,7 +439,7 @@
       "questions": 5,
       "instructions": "Read the letter and write the missing words. Write one word on each line.",
       "type": "fill-blank-reading",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test3/part6r-letter.webp",
       "storyParts": [
         "Dear Betty,",
         "I am writing to %%example%% you to my birthday party!",
