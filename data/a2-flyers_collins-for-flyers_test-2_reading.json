@@ -491,7 +491,11 @@
       "questions": 1,
       "instructions": "Look at the three pictures. Write about this story. Write 20 or more words.",
       "type": "picture-story-write",
-      "images": [],
+      "images": [
+        "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test2/part7r-cake1.webp",
+        "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test2/part7r-cake2.webp",
+        "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test2/part7r-cake3.webp"
+      ],
       "minWords": 20,
       "sampleAnswer": "A woman is putting a cake in the oven. Now, she is sleeping in a chair. It looks like the cake is burning. The woman wakes up and takes the cake out of the oven. The cake is black and she is sad."
     }
