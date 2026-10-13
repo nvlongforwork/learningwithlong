@@ -8,7 +8,7 @@
       "questions": 5,
       "instructions": "Listen and draw lines. There is one example.",
       "type": "drag-match",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test3/part1-zoo.webp",
       "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-flyers/test3/part1.mp3",
       "names": [
         "Daisy",
@@ -70,7 +70,7 @@
       "instructions": "Listen and write. There is one example.",
       "type": "fill-blank",
       "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-flyers/test3/part2.mp3",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test3/part2-petclub.webp",
       "formTitle": "New School Club",
       "example": {
         "label": "Name of club:",
@@ -125,8 +125,8 @@
       "instructions": "Helen is helping Dad to get the suitcase ready for their holiday. Where is each thing that she needs to find?\nListen and write a letter in each box. There is one example.",
       "type": "drag-match-letters",
       "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-flyers/test3/part3.mp3",
-      "peopleImage": "",
-      "activitiesImage": "",
+      "peopleImage": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test3/part3-items.png",
+      "activitiesImage": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test3/part3-locations.webp",
       "people": [
         "camera",
         "towels",
@@ -265,7 +265,7 @@
       "instructions": "Listen and colour and write. There is one example.",
       "type": "color-write",
       "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/collins-flyers/test3/part5.mp3",
-      "image": "",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/collins-flyers/test3/part5-park.png",
       "colors": [
         "red",
         "blue",
