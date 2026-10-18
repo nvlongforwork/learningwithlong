@@ -2198,23 +2198,27 @@
             tabSwitchCount = 0;
         }
 
-        // --- CHỐNG CHUYỂN TAB ---
+        // --- CHỐNG CHUYỂN TAB & FULLSCREEN ---
         let tabSwitchCount = 0;
         const MAX_TAB_SWITCHES = 3;
         let forceAutoSubmit = false;
-        document.addEventListener('visibilitychange', function() {
-            if (document.hidden) return;
-            const isQuizActive = ['view-quiz', 'view-listening', 'view-reading', 'view-fulltest'].some(id => {
+        let fullscreenActive = false;
+
+        function isTestActive() {
+            return ['view-quiz', 'view-listening', 'view-reading', 'view-fulltest'].some(id => {
                 const el = document.getElementById(id);
                 return el && el.classList.contains('active');
             });
-            if (!isQuizActive) return;
+        }
+
+        function handleViolation() {
+            if (!isTestActive()) return;
             if (isTeacherMode) return;
             tabSwitchCount++;
             if (tabSwitchCount >= MAX_TAB_SWITCHES) {
                 Swal.fire({
-                    title: 'Bạn đã chuyển tab quá nhiều lần!',
-                    html: `<p style="font-size:20px">Bạn đã chuyển tab <b>${tabSwitchCount}/${MAX_TAB_SWITCHES}</b> lần.<br>Bài làm sẽ được tự động nộp.</p>`,
+                    title: 'Vi phạm quá nhiều lần!',
+                    html: `<p style="font-size:20px">Bạn đã vi phạm <b>${tabSwitchCount}/${MAX_TAB_SWITCHES}</b> lần (chuyển tab hoặc thoát toàn màn hình).<br>Bài làm sẽ được tự động nộp.</p>`,
                     icon: 'error',
                     confirmButtonText: 'Đã hiểu',
                     confirmButtonColor: '#ef4444',
@@ -2229,12 +2233,44 @@
             } else {
                 Swal.fire({
                     title: 'Cảnh báo!',
-                    html: `<p style="font-size:20px">Không được chuyển tab trong khi làm bài!<br>Lần chuyển tab: <b>${tabSwitchCount}/${MAX_TAB_SWITCHES}</b></p>`,
+                    html: `<p style="font-size:20px">Không được chuyển tab hoặc thoát toàn màn hình trong khi làm bài!<br>Số lần vi phạm: <b>${tabSwitchCount}/${MAX_TAB_SWITCHES}</b></p>`,
                     icon: 'warning',
                     confirmButtonText: 'Quay lại làm bài',
                     confirmButtonColor: '#f59e0b',
                     allowOutsideClick: false
+                }).then(() => {
+                    enterFullscreen();
                 });
+            }
+        }
+
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) return;
+            handleViolation();
+        });
+
+        function enterFullscreen() {
+            if (isTeacherMode) return;
+            const el = document.documentElement;
+            if (el.requestFullscreen) el.requestFullscreen().catch(() => {});
+            else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+            fullscreenActive = true;
+        }
+
+        function exitFullscreen() {
+            fullscreenActive = false;
+            if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+            else if (document.webkitFullscreenElement && document.webkitExitFullscreen) document.webkitExitFullscreen();
+        }
+
+        document.addEventListener('fullscreenchange', function() {
+            if (!document.fullscreenElement && fullscreenActive) {
+                handleViolation();
+            }
+        });
+        document.addEventListener('webkitfullscreenchange', function() {
+            if (!document.webkitFullscreenElement && fullscreenActive) {
+                handleViolation();
             }
         });
 
@@ -2448,6 +2484,7 @@
 
             renderListeningTabs();
             renderListeningPart();
+            enterFullscreen();
         }
 
         function renderListeningTabs() {
@@ -3299,6 +3336,7 @@
         }
 
         function doCloseListening() {
+            exitFullscreen();
             document.getElementById('view-listening').classList.remove('active');
             document.getElementById('view-detail').classList.add('active');
             if (isLoggedIn) document.getElementById('main-nav').classList.remove('hidden');
@@ -3389,6 +3427,7 @@
 
             renderReadingTabs();
             renderReadingPart();
+            enterFullscreen();
         }
 
         function renderReadingTabs() {
@@ -5073,6 +5112,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
         }
 
         function doCloseReading() {
+            exitFullscreen();
             document.getElementById('view-reading').classList.remove('active');
             document.getElementById('view-detail').classList.add('active');
             if (isLoggedIn) document.getElementById('main-nav').classList.remove('hidden');
@@ -5409,6 +5449,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             renderFullTestSkillTabs();
             renderFullTestPartTabs();
             renderFullTestPart();
+            enterFullscreen();
         }
 
         async function examTransitionToReading() {
@@ -6017,6 +6058,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
         }
 
         function doCloseFullTest() {
+            exitFullscreen();
             document.getElementById('view-fulltest').classList.remove('active');
             document.getElementById('view-detail').classList.add('active');
             if (isLoggedIn) document.getElementById('main-nav').classList.remove('hidden');
