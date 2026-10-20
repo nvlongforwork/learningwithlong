@@ -40,8 +40,8 @@
       "example": { "label": "Mrs Jack went to:", "prefix": "the", "answer": "mountains" },
       "rows": [
         { "num": 1, "label": "She went with:", "prefix": "her", "answer": "brother" },
-        { "num": 2, "label": "Her friend's house is:", "prefix": "next to", "answer": "Calm" },
-        { "num": 3, "label": "She was there for:", "prefix": "", "answer": "two" },
+        { "num": 2, "label": "Her friend's house is next to:", "prefix": "", "answer": "a lake" },
+        { "num": 3, "label": "She was there for:", "prefix": "", "answer": "two nights" },
         { "num": 4, "label": "They went for:", "prefix": "long", "answer": "walks" },
         { "num": 5, "label": "She went by:", "prefix": "", "answer": "train" }
       ],
