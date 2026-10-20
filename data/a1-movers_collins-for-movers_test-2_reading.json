@@ -175,8 +175,8 @@
       "items": [
         { "num": 1, "type": "complete", "sentence": "The woman who has got glasses is wearing a red %%blank%% .", "answer": "dress" },
         { "num": 2, "type": "complete", "sentence": "The biggest bird is eating a %%blank%% .", "answer": "sandwich" },
-        { "num": 3, "type": "answer", "question": "What is the girl in the blue dress doing?", "answer": "She's pointing at the bird.", "points": 2 },
-        { "num": 4, "type": "answer", "question": "What food have they got in their picnic?", "answer": "They've got sandwiches and cake.", "points": 2 },
+        { "num": 3, "type": "answer", "question": "What is the girl in the blue dress doing?", "answer": "She's pointing at the bird.", "altAnswers": ["pointing at the bird", "She is pointing at the bird.", "She's pointing at the bird", "pointing at the bird."], "points": 2 },
+        { "num": 4, "type": "answer", "question": "What food have they got in their picnic?", "answer": "They've got sandwiches and cake.", "altAnswers": ["sandwiches and cake", "They have got sandwiches and cake.", "They've got sandwiches and cake", "sandwiches and cake."], "points": 2 },
         { "num": 5, "type": "free", "instruction": "Now write two sentences about the picture.", "answer": "" },
         { "num": 6, "type": "free", "instruction": "", "answer": "" }
       ]

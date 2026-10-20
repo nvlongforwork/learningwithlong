@@ -4016,7 +4016,8 @@
                 let questionHtml;
                 if (item.type === 'complete') {
                     if (readingCanReview) {
-                        const isCorrect = answers[i].toLowerCase().trim() === item.answer.toLowerCase().trim();
+                        const allAns = [item.answer, ...(item.altAnswers || [])].map(a => a.toLowerCase().trim());
+                        const isCorrect = allAns.includes(answers[i].toLowerCase().trim());
                         const blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${item.answer}</span>` : ''}`;
                         questionHtml = item.sentence.replace('%%blank%%', blankHtml);
                     } else {
@@ -4025,7 +4026,8 @@
                     }
                 } else if (item.type === 'answer') {
                     if (readingCanReview) {
-                        const isCorrect = answers[i].toLowerCase().trim() === item.answer.toLowerCase().trim();
+                        const allAns = [item.answer, ...(item.altAnswers || [])].map(a => a.toLowerCase().trim());
+                        const isCorrect = allAns.includes(answers[i].toLowerCase().trim());
                         questionHtml = `${item.question}<br><span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${item.answer}</span>` : ''}`;
                     } else {
                         questionHtml = `${item.question}<br><input type="text" value="${answers[i]}" ${readingSubmitted ? 'readonly' : ''} placeholder="..." ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}][${i}]=this.value"`} class="mt-2 w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
@@ -4898,7 +4900,8 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                     part.items.forEach((item, j) => {
                         if (item.type === 'free') return;
                         const pts = item.points || 1;
-                        if (ans[j].toLowerCase().trim() === item.answer.toLowerCase().trim()) correct += pts;
+                        const allAns = [item.answer, ...(item.altAnswers || [])].map(a => a.toLowerCase().trim());
+                        if (allAns.includes(ans[j].toLowerCase().trim())) correct += pts;
                     });
                 } else if (part.type === 'sentence-transform' || part.type === 'error-correction') {
                     part.items.forEach((item, j) => {
@@ -5879,7 +5882,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                     let qi = 0;
                     part.storySegments.forEach(seg => { if (seg.questions) seg.questions.forEach(q => { const alts = q.answer.split('/').map(a => a.toLowerCase().trim()); if (alts.includes(ans[qi].toLowerCase().trim())) correct++; qi++; }); });
                 } else if (part.type === 'picture-write') {
-                    part.items.forEach((it, j) => { if (it.type === 'free') return; const pts = it.points || 1; if (ans[j].toLowerCase().trim() === it.answer.toLowerCase().trim()) correct += pts; });
+                    part.items.forEach((it, j) => { if (it.type === 'free') return; const pts = it.points || 1; const allAns = [it.answer, ...(it.altAnswers || [])].map(a => a.toLowerCase().trim()); if (allAns.includes(ans[j].toLowerCase().trim())) correct += pts; });
                 } else if (part.type === 'sentence-transform' || part.type === 'error-correction') {
                     part.items.forEach((it, j) => { const all = [it.answer, ...(it.altAnswers || [])]; if (all.some(a => ans[j].toLowerCase().trim() === a.toLowerCase().trim())) correct++; });
                 } else if (part.type === 'fill-blank-reading') {
