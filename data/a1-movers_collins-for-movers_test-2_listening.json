@@ -133,9 +133,9 @@
       "items": [
         { "num": 1, "item": "Coat of the taller girl (curly hair, standing next to train)", "type": "color", "answer": "green" },
         { "num": 2, "item": "Dog sitting under the chair", "type": "color", "answer": "brown" },
-        { "num": 3, "item": "Man's bag (man with curly hair)", "type": "write", "answer": "bag" },
-        { "num": 4, "item": "Woman's dress (woman listening to music)", "type": "color", "answer": "orange" },
-        { "num": 5, "item": "Flower on the woman's hat", "type": "color", "answer": "yellow" }
+        { "num": 3, "item": "Man's bag (man with curly hair and big bag)", "type": "write", "answer": "bag" },
+        { "num": 4, "item": "Woman's dress (woman listening to music, long straight hair)", "type": "color", "answer": "orange" },
+        { "num": 5, "item": "Flower on the woman's hat (woman sitting on chair, reading a book)", "type": "color", "answer": "yellow" }
       ],
       "audioScript": [
         "Girl: What shall I colour now?\nMan: Could you colour one of the people's coats?\nGirl: OK. Which one?\nMan: Can you see the two girls with curly hair who are standing next to the train?\nGirl: Yes, I can.\nMan: Colour the coat of the taller girl green.\nGirl: OK.",
