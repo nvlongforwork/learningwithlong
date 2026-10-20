@@ -234,8 +234,11 @@
                             <i class="fa-solid fa-lock text-slate-400"></i>
                         </div>
                         <input type="password" id="teacher-code" placeholder="Nhập mã giáo viên"
-                            class="w-full pl-11 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 focus:outline-none focus:ring-2 focus:ring-turtle-400 focus:bg-white transition-all shadow-inner font-medium"
+                            class="w-full pl-11 pr-12 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 focus:outline-none focus:ring-2 focus:ring-turtle-400 focus:bg-white transition-all shadow-inner font-medium"
                             required>
+                        <button type="button" onclick="togglePasswordVisibility('teacher-code', this)" class="absolute inset-y-0 right-0 pr-4 flex items-center" style="background:none;border:none;cursor:pointer">
+                            <i class="fa-solid fa-eye text-slate-400" style="font-size:20px"></i>
+                        </button>
                     </div>
 
                     <button type="submit"
@@ -572,6 +575,18 @@
         const TEACHER_BYPASS_CODE = '968903';
         const TEACHER_BYPASS_CODES = ['968903', '123'];
         function isBypassCode(code) { return TEACHER_BYPASS_CODES.includes(code.trim()); }
+
+        function togglePasswordVisibility(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'fa-solid fa-eye-slash text-slate-400';
+            } else {
+                input.type = 'password';
+                icon.className = 'fa-solid fa-eye text-slate-400';
+            }
+        }
 
         let isLoggedIn = sessionStorage.getItem('elm_teacher_logged_in') === 'true';
         let isTeacherMode = sessionStorage.getItem('elm_teacher_mode') === 'true';
@@ -2354,9 +2369,25 @@
                     <div style="font-size:22px;font-weight:800;color:#1e293b;margin-bottom:4px">Nhập mã học sinh</div>
                     <div style="font-size:20px;color:#94a3b8">Nhập mã để bắt đầu làm bài</div>
                 </div>`,
-                input: 'text',
+                input: 'password',
                 inputPlaceholder: '',
                 inputAttributes: { autocomplete: 'off', style: 'text-align:center;font-size:1.5rem;font-weight:800;letter-spacing:0.15em;padding:14px;border:2px solid #e2e8f0;border-radius:14px' },
+                didOpen: (popup) => {
+                    const inputWrap = popup.querySelector('.swal2-input-container') || popup.querySelector('.swal2-input').parentElement;
+                    inputWrap.style.position = 'relative';
+                    const eyeBtn = document.createElement('button');
+                    eyeBtn.type = 'button';
+                    eyeBtn.innerHTML = '<i class="fa-solid fa-eye" style="font-size:20px;color:#94a3b8"></i>';
+                    eyeBtn.style.cssText = 'position:absolute;right:16px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;padding:4px;z-index:10';
+                    eyeBtn.addEventListener('click', function() {
+                        const inp = popup.querySelector('.swal2-input');
+                        const icon = this.querySelector('i');
+                        if (inp.type === 'password') { inp.type = 'text'; icon.className = 'fa-solid fa-eye-slash'; }
+                        else { inp.type = 'password'; icon.className = 'fa-solid fa-eye'; }
+                        icon.style.fontSize = '20px'; icon.style.color = '#94a3b8';
+                    });
+                    inputWrap.appendChild(eyeBtn);
+                },
                 showCancelButton: true,
                 cancelButtonText: 'Huỷ',
                 confirmButtonText: '<i class="fa-solid fa-arrow-right" style="margin-right:6px"></i> Tiếp tục',
