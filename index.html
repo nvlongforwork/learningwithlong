@@ -2264,6 +2264,21 @@
             handleViolation();
         });
 
+        const numberWords = {zero:0,one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10,eleven:11,twelve:12,thirteen:13,fourteen:14,fifteen:15,sixteen:16,seventeen:17,eighteen:18,nineteen:19,twenty:20,thirty:30,forty:40,fifty:50,sixty:60,seventy:70,eighty:80,ninety:90,hundred:100};
+        const digitWords = Object.fromEntries(Object.entries(numberWords).map(([k,v])=>[String(v),k]));
+        function wordToDigit(s) { return s.replace(/\b(zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred)\b/gi, m => String(numberWords[m.toLowerCase()])); }
+        function digitToWord(s) { return s.replace(/\b(\d+)\b/g, m => digitWords[m] || m); }
+        function matchAnswer(userAns, correctAns) {
+            const u = userAns.toLowerCase().trim(), c = correctAns.toLowerCase().trim();
+            if (u === c) return true;
+            if (wordToDigit(u) === wordToDigit(c)) return true;
+            if (digitToWord(u) === c || wordToDigit(u) === c) return true;
+            return false;
+        }
+        function matchAnswerList(userAns, answerList) {
+            return answerList.some(a => matchAnswer(userAns, a));
+        }
+
         function enterFullscreen() {
             const el = document.documentElement;
             if (el.requestFullscreen) el.requestFullscreen().catch(() => {});
@@ -2737,7 +2752,8 @@
             part.rows.forEach((row, i) => {
                 let inputHtml;
                 if (listeningCanReview) {
-                    const isCorrect = answers[i].toLowerCase().trim() === row.answer.toLowerCase().trim();
+                    const allCorrect = [row.answer, ...(row.altAnswers || [])];
+                    const isCorrect = matchAnswerList(answers[i], allCorrect);
                     inputHtml = `<input type="text" value="${answers[i]}" readonly class="flex-1 px-3 py-2 border-2 rounded-xl font-bold ${isCorrect ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700'}" style="font-size:20px;">`;
                     if (!isCorrect && row.answer) {
                         inputHtml += `<span class="text-green-600 font-bold ml-2 shrink-0" style="font-size:20px;"><i class="fa-solid fa-arrow-right mr-1"></i>${row.answer}</span>`;
@@ -3037,7 +3053,7 @@
                     }
                 } else {
                     if (listeningCanReview) {
-                        const isCorrect = answers[i].answer.toLowerCase().trim() === item.answer.toLowerCase().trim();
+                        const isCorrect = matchAnswer(answers[i].answer, item.answer);
                         answerCell = `<input type="text" value="${answers[i].answer}" readonly class="w-full px-2 py-1 border-2 rounded-lg font-bold text-center ${isCorrect ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700'}" style="font-size:20px;">`;
                         if (!isCorrect && item.answer) answerCell += `<div class="text-green-600 font-bold mt-1" style="font-size:20px;">${item.answer}</div>`;
                     } else {
@@ -3121,7 +3137,8 @@
                         });
                     } else if (part.type === 'fill-blank') {
                         part.rows.forEach((row, j) => {
-                            if (row.answer && ans[j].toLowerCase().trim() === row.answer.toLowerCase().trim()) partScore++;
+                            const rc = [row.answer, ...(row.altAnswers || [])].filter(Boolean);
+                            if (rc.length && matchAnswerList(ans[j], rc)) partScore++;
                         });
                     } else if (part.type === 'drag-match-letters') {
                         part.answers.forEach((correct, j) => {
@@ -3134,7 +3151,7 @@
                     } else if (part.type === 'color-write') {
                         part.items.forEach((item, j) => {
                             const itemCorrect = ans[j].item === item.item;
-                            const ansCorrect = item.answer && ans[j].answer.toLowerCase().trim() === item.answer.toLowerCase().trim();
+                            const ansCorrect = item.answer && matchAnswer(ans[j].answer, item.answer);
                             if (itemCorrect && ansCorrect) partScore++;
                         });
                     }
@@ -3560,7 +3577,7 @@
             part.items.forEach((item, i) => {
                 let answerHtml;
                 if (readingCanReview) {
-                    const isCorrect = answers[i].toLowerCase().trim() === item.answer.toLowerCase().trim();
+                    const isCorrect = matchAnswer(answers[i], item.answer);
                     answerHtml = `<input type="text" value="${answers[i]}" readonly class="w-full px-3 py-2 border-2 rounded-xl font-bold ${isCorrect ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700'}" style="font-size:20px;">`;
                     if (!isCorrect && item.answer) answerHtml += `<span class="text-green-600 font-bold text-sm mt-1 block"><i class="fa-solid fa-arrow-right mr-1"></i>${item.answer}</span>`;
                 } else {
@@ -3771,7 +3788,7 @@
                     const item = part.items[i];
                     if (!item) return '...';
                     if (readingCanReview) {
-                        const isCorrect = answers.blanks[i].toLowerCase().trim() === item.answer.toLowerCase().trim();
+                        const isCorrect = matchAnswer(answers.blanks[i], item.answer);
                         let h = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers.blanks[i] || '—'}</span>`;
                         if (!isCorrect) h += `<span class="text-green-600 font-bold text-sm ml-1">${item.answer}</span>`;
                         return h;
@@ -3962,8 +3979,8 @@
                         let questionHtml;
                         if (readingCanReview) {
                             const userAns = answers[aIdx] || '';
-                            const ansAlts = q.answer.split('/').map(a => a.toLowerCase().trim());
-                            const isCorrect = ansAlts.includes(userAns.toLowerCase().trim());
+                            const ansAlts = q.answer.split('/').map(a => a.trim()).filter(Boolean);
+                            const isCorrect = matchAnswerList(userAns, ansAlts);
                             const blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${userAns || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${q.answer.split('/')[0]}</span>` : ''}`;
                             questionHtml = parts[0] + blankHtml + (parts[1] || '');
                         } else {
@@ -4016,8 +4033,8 @@
                 let questionHtml;
                 if (item.type === 'complete') {
                     if (readingCanReview) {
-                        const allAns = [item.answer, ...(item.altAnswers || [])].map(a => a.toLowerCase().trim());
-                        const isCorrect = allAns.includes(answers[i].toLowerCase().trim());
+                        const allAns = [item.answer, ...(item.altAnswers || [])].filter(Boolean);
+                        const isCorrect = matchAnswerList(answers[i], allAns);
                         const blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${item.answer}</span>` : ''}`;
                         questionHtml = item.sentence.replace('%%blank%%', blankHtml);
                     } else {
@@ -4026,8 +4043,8 @@
                     }
                 } else if (item.type === 'answer') {
                     if (readingCanReview) {
-                        const allAns = [item.answer, ...(item.altAnswers || [])].map(a => a.toLowerCase().trim());
-                        const isCorrect = allAns.includes(answers[i].toLowerCase().trim());
+                        const allAns = [item.answer, ...(item.altAnswers || [])].filter(Boolean);
+                        const isCorrect = matchAnswerList(answers[i], allAns);
                         questionHtml = `${item.question}<br><span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${item.answer}</span>` : ''}`;
                     } else {
                         questionHtml = `${item.question}<br><input type="text" value="${answers[i]}" ${readingSubmitted ? 'readonly' : ''} placeholder="..." ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}][${i}]=this.value"`} class="mt-2 w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
@@ -4074,8 +4091,8 @@
             part.items.forEach((item, i) => {
                 let ansHtml;
                 if (readingCanReview) {
-                    const allAnswers = [item.answer, ...(item.altAnswers || [])];
-                    const isCorrect = allAnswers.some(a => answers[i].toLowerCase().trim() === a.toLowerCase().trim());
+                    const allAnswers = [item.answer, ...(item.altAnswers || [])].filter(Boolean);
+                    const isCorrect = matchAnswerList(answers[i], allAnswers);
                     ansHtml = `<div class="mt-2 px-3 py-2 rounded-lg font-medium ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</div>${!isCorrect ? `<div class="text-green-600 font-bold text-sm mt-1">${item.answer}</div>` : ''}`;
                 } else {
                     ansHtml = `<input type="text" value="${answers[i]}" ${readingSubmitted ? 'readonly' : ''} ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}][${i}]=this.value"`} placeholder="Write the sentence..." class="mt-2 px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;width:100%;max-width:420px;">`;
@@ -4106,8 +4123,8 @@
             part.items.forEach((item, i) => {
                 let ansHtml;
                 if (readingCanReview) {
-                    const allAnswers = [item.answer, ...(item.altAnswers || [])];
-                    const isCorrect = allAnswers.some(a => answers[i].toLowerCase().trim() === a.toLowerCase().trim());
+                    const allAnswers = [item.answer, ...(item.altAnswers || [])].filter(Boolean);
+                    const isCorrect = matchAnswerList(answers[i], allAnswers);
                     ansHtml = `<div class="mt-2 px-3 py-2 rounded-lg font-medium ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</div>${!isCorrect ? `<div class="text-green-600 font-bold text-sm mt-1">${item.answer}</div>` : ''}`;
                 } else {
                     ansHtml = `<input type="text" value="${answers[i]}" ${readingSubmitted ? 'readonly' : ''} ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}][${i}]=this.value"`} placeholder="Correct the sentence..." class="mt-2 px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;width:100%;max-width:420px;">`;
@@ -4143,8 +4160,8 @@
                         blankIdx++;
                         if (readingCanReview) {
                             const userVal = answers[i] || '';
-                            const correctAlts = itemAnswer.split('/').map(a => a.toLowerCase().trim());
-                            const isCorrect = correctAlts.includes(userVal.toLowerCase().trim());
+                            const correctAlts = itemAnswer.split('/').map(a => a.trim()).filter(Boolean);
+                            const isCorrect = matchAnswerList(userVal, correctAlts);
                             return `<span class="font-bold text-slate-500">(${i + 1})</span> <span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${userVal || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${itemAnswer.split('/')[0]}</span>` : ''}`;
                         } else {
                             return `<span class="font-bold text-slate-500">(${i + 1})</span> <input type="text" value="${answers[i] || ''}" oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" placeholder="..." class="inline-block w-32 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium text-center" style="font-size:20px;">`;
@@ -4165,8 +4182,8 @@
                     if (readingCanReview) {
                         const userVal = answers[i] || '';
                         const correctVal = itemAnswers[0] || '';
-                        const correctAlts = correctVal.split('/').map(a => a.toLowerCase().trim());
-                        const isCorrect = correctAlts.includes(userVal.toLowerCase().trim());
+                        const correctAlts = correctVal.split('/').map(a => a.trim()).filter(Boolean);
+                        const isCorrect = matchAnswerList(userVal, correctAlts);
                         return `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${userVal || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${correctVal}</span>` : ''}`;
                     } else {
                         return `<input type="text" value="${answers[i] || ''}" oninput="readingAnswers[${activeReadingPart}][${i}]=this.value" placeholder="..." class="inline-block w-32 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium text-center" style="font-size:20px;">`;
@@ -4214,8 +4231,8 @@
                         if (readingCanReview) {
                             const userVal = isMultiBlank ? (answers[i][bi] || '') : (answers[i] || '');
                             const correctVal = itemAnswers[bi] || '';
-                            const correctAlts = correctVal.split('/').map(a => a.toLowerCase().trim());
-                            const isCorrect = correctAlts.includes(userVal.toLowerCase().trim());
+                            const correctAlts = correctVal.split('/').map(a => a.trim()).filter(Boolean);
+                            const isCorrect = matchAnswerList(userVal, correctAlts);
                             return `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${userVal || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${correctVal}</span>` : ''}`;
                         } else {
                             const val = isMultiBlank ? answers[i][bi] : answers[i];
@@ -4261,7 +4278,7 @@
             part.items.forEach((item, i) => {
                 let sentenceHtml = item.sentence;
                 if (readingCanReview) {
-                    const isCorrect = answers[i].toLowerCase().trim() === item.answer.toLowerCase().trim();
+                    const isCorrect = matchAnswer(answers[i], item.answer);
                     sentenceHtml = sentenceHtml.replace('..........', `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${item.answer}</span>` : ''}`);
                 } else {
                     sentenceHtml = sentenceHtml.replace('..........', `<input type="text" value="${answers[i]}" ${readingSubmitted ? 'readonly' : ''} ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}][${i}]=this.value"`} placeholder="..." class="inline-block w-40 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`);
@@ -4748,9 +4765,9 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             part.rows.forEach((row, i) => {
                 let inputHtml;
                 const altAnswers = row.altAnswers || [];
-                const allCorrect = [row.answer, ...altAnswers].map(a => a.toLowerCase().trim());
+                const allCorrect = [row.answer, ...altAnswers].filter(Boolean);
                 if (readingCanReview) {
-                    const isCorrect = allCorrect.includes((answers[i] || '').toLowerCase().trim());
+                    const isCorrect = matchAnswerList(answers[i] || '', allCorrect);
                     inputHtml = `<input type="text" value="${answers[i] || ''}" readonly class="min-w-0 flex-1 px-3 py-2 border-2 rounded-xl font-bold ${isCorrect ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700'}" style="font-size:20px;">`;
                     if (!isCorrect) {
                         inputHtml += `<span class="text-green-600 font-bold text-sm ml-2 shrink-0"><i class="fa-solid fa-arrow-right mr-1"></i>${row.answer}</span>`;
@@ -4880,11 +4897,11 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 const ans = readingAnswers[i];
                 let correct = 0;
                 if (part.type === 'definition-match') {
-                    part.items.forEach((item, j) => { if (ans[j].toLowerCase().trim() === item.answer.toLowerCase().trim()) correct++; });
+                    part.items.forEach((item, j) => { if (matchAnswer(ans[j], item.answer)) correct++; });
                 } else if (part.type === 'conversation-choice') {
                     part.items.forEach((item, j) => { if (ans[j] === item.answer) correct++; });
                 } else if (part.type === 'story-fill') {
-                    part.items.forEach((item, j) => { if (ans.blanks[j].toLowerCase().trim() === item.answer.toLowerCase().trim()) correct++; });
+                    part.items.forEach((item, j) => { if (matchAnswer(ans.blanks[j], item.answer)) correct++; });
                     if (part.titleQuestion && ans.title === part.titleQuestion.answer) correct++;
                 } else if (part.type === 'grammar-cloze') {
                     part.items.forEach((item, j) => { if (ans[j] === item.answer) correct++; });
@@ -4892,7 +4909,8 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                     let qIdx = 0;
                     part.storySegments.forEach(seg => {
                         if (seg.questions) seg.questions.forEach(q => {
-                            if (ans[qIdx].toLowerCase().trim() === q.answer.toLowerCase().trim()) correct++;
+                            const alts = q.answer.split('/').map(a => a.trim()).filter(Boolean);
+                            if (matchAnswerList(ans[qIdx], alts)) correct++;
                             qIdx++;
                         });
                     });
@@ -4900,13 +4918,13 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                     part.items.forEach((item, j) => {
                         if (item.type === 'free') return;
                         const pts = item.points || 1;
-                        const allAns = [item.answer, ...(item.altAnswers || [])].map(a => a.toLowerCase().trim());
-                        if (allAns.includes(ans[j].toLowerCase().trim())) correct += pts;
+                        const allAns = [item.answer, ...(item.altAnswers || [])].filter(Boolean);
+                        if (matchAnswerList(ans[j], allAns)) correct += pts;
                     });
                 } else if (part.type === 'sentence-transform' || part.type === 'error-correction') {
                     part.items.forEach((item, j) => {
-                        const allAnswers = [item.answer, ...(item.altAnswers || [])];
-                        if (allAnswers.some(a => ans[j].toLowerCase().trim() === a.toLowerCase().trim())) correct++;
+                        const allAnswers = [item.answer, ...(item.altAnswers || [])].filter(Boolean);
+                        if (matchAnswerList(ans[j], allAnswers)) correct++;
                     });
                 } else if (part.type === 'fill-blank-reading') {
                     part.items.forEach((item, j) => {
@@ -4914,15 +4932,16 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                         if (Array.isArray(ans[j])) {
                             ans[j].forEach((val, bi) => {
                                 const cv = (itemAnswers[bi] || '');
-                                const alts = cv.split('/').map(a => a.toLowerCase().trim());
-                                if (alts.includes(val.toLowerCase().trim())) correct++;
+                                const alts = cv.split('/').map(a => a.trim()).filter(Boolean);
+                                if (matchAnswerList(val, alts)) correct++;
                             });
                         } else {
-                            if (itemAnswers.some(a => a.split('/').map(x=>x.toLowerCase().trim()).includes(ans[j].toLowerCase().trim()))) correct++;
+                            const allAlts = itemAnswers.flatMap(a => a.split('/').map(x => x.trim())).filter(Boolean);
+                            if (matchAnswerList(ans[j], allAlts)) correct++;
                         }
                     });
                 } else if (part.type === 'word-box-fill') {
-                    part.items.forEach((item, j) => { if (ans[j].toLowerCase().trim() === item.answer.toLowerCase().trim()) correct++; });
+                    part.items.forEach((item, j) => { if (matchAnswer(ans[j], item.answer)) correct++; });
                 } else if (part.type === 'reading-match-persons') {
                     part.items.forEach((item, j) => { if (ans[j].toUpperCase().trim() === item.answer.toUpperCase().trim()) correct++; });
                 } else if (part.type === 'drag-match-letters') {
@@ -4935,8 +4954,8 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                     part.items.forEach((item, j) => { if (ans[j] === item.answer) correct++; });
                 } else if (part.type === 'fill-blank') {
                     part.rows.forEach((row, j) => {
-                        const allCorrect = [row.answer, ...(row.altAnswers || [])].map(a => a.toLowerCase().trim());
-                        if (allCorrect.includes((ans[j] || '').toLowerCase().trim())) correct++;
+                        const allCorrect = [row.answer, ...(row.altAnswers || [])].filter(Boolean);
+                        if (matchAnswerList(ans[j] || '', allCorrect)) correct++;
                     });
                 }
                 const nonFreeQ = part.type === 'picture-write' ? part.items.filter(it => it.type !== 'free').reduce((s, it) => s + (it.points || 1), 0) : (part.type === 'picture-story-write' || part.type === 'free-writing') ? 0 : part.type === 'fill-blank-reading' ? ((part.passage || part.storyParts) ? part.items.length : part.items.reduce((s, item) => { if (!item.sentence) return s + 1; const bc = (item.sentence.replace(/\.{4,}[A-Za-z]+\.{4,}/g, '').match(/\.{4,}/g) || []).length; return s + (bc > 1 ? bc : 1); }, 0)) : part.questions;
@@ -5859,10 +5878,10 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 const ans = listeningAnswers[i];
                 let ps = 0;
                 if (part.type === 'drag-match') part.answers.forEach((c, j) => { if (ans[j].name === c.name && ans[j].action === c.action) ps++; });
-                else if (part.type === 'fill-blank') part.rows.forEach((r, j) => { if (r.answer && ans[j].toLowerCase().trim() === r.answer.toLowerCase().trim()) ps++; });
+                else if (part.type === 'fill-blank') part.rows.forEach((r, j) => { const rc = [r.answer, ...(r.altAnswers || [])].filter(Boolean); if (rc.length && matchAnswerList(ans[j], rc)) ps++; });
                 else if (part.type === 'drag-match-letters') part.answers.forEach((c, j) => { if (ans[j] === c.answer) ps++; });
                 else if (part.type === 'multiple-choice-abc') part.items.forEach((it, j) => { if (ans[j] === it.answer) ps++; });
-                else if (part.type === 'color-write') part.items.forEach((it, j) => { if (ans[j].item === it.item && it.answer && ans[j].answer.toLowerCase().trim() === it.answer.toLowerCase().trim()) ps++; });
+                else if (part.type === 'color-write') part.items.forEach((it, j) => { if (ans[j].item === it.item && it.answer && matchAnswer(ans[j].answer, it.answer)) ps++; });
                 lisScore += ps;
                 lisPartScores.push({ title: part.title, score: ps, total: part.questions });
             });
@@ -5872,30 +5891,30 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             ftReadingData.parts.forEach((part, i) => {
                 const ans = readingAnswers[i];
                 let correct = 0;
-                if (part.type === 'definition-match') part.items.forEach((it, j) => { if (ans[j].toLowerCase().trim() === it.answer.toLowerCase().trim()) correct++; });
+                if (part.type === 'definition-match') part.items.forEach((it, j) => { if (matchAnswer(ans[j], it.answer)) correct++; });
                 else if (part.type === 'conversation-choice') part.items.forEach((it, j) => { if (ans[j] === it.answer) correct++; });
                 else if (part.type === 'story-fill') {
-                    part.items.forEach((it, j) => { if (ans.blanks[j].toLowerCase().trim() === it.answer.toLowerCase().trim()) correct++; });
+                    part.items.forEach((it, j) => { if (matchAnswer(ans.blanks[j], it.answer)) correct++; });
                     if (part.titleQuestion && ans.title === part.titleQuestion.answer) correct++;
                 } else if (part.type === 'grammar-cloze') part.items.forEach((it, j) => { if (ans[j] === it.answer) correct++; });
                 else if (part.type === 'story-write') {
                     let qi = 0;
-                    part.storySegments.forEach(seg => { if (seg.questions) seg.questions.forEach(q => { const alts = q.answer.split('/').map(a => a.toLowerCase().trim()); if (alts.includes(ans[qi].toLowerCase().trim())) correct++; qi++; }); });
+                    part.storySegments.forEach(seg => { if (seg.questions) seg.questions.forEach(q => { const alts = q.answer.split('/').map(a => a.trim()).filter(Boolean); if (matchAnswerList(ans[qi], alts)) correct++; qi++; }); });
                 } else if (part.type === 'picture-write') {
-                    part.items.forEach((it, j) => { if (it.type === 'free') return; const pts = it.points || 1; const allAns = [it.answer, ...(it.altAnswers || [])].map(a => a.toLowerCase().trim()); if (allAns.includes(ans[j].toLowerCase().trim())) correct += pts; });
+                    part.items.forEach((it, j) => { if (it.type === 'free') return; const pts = it.points || 1; const allAns = [it.answer, ...(it.altAnswers || [])].filter(Boolean); if (matchAnswerList(ans[j], allAns)) correct += pts; });
                 } else if (part.type === 'sentence-transform' || part.type === 'error-correction') {
-                    part.items.forEach((it, j) => { const all = [it.answer, ...(it.altAnswers || [])]; if (all.some(a => ans[j].toLowerCase().trim() === a.toLowerCase().trim())) correct++; });
+                    part.items.forEach((it, j) => { const all = [it.answer, ...(it.altAnswers || [])].filter(Boolean); if (matchAnswerList(ans[j], all)) correct++; });
                 } else if (part.type === 'fill-blank-reading') {
                     part.items.forEach((it, j) => {
                         const ia = it.answers || [it.answer];
-                        if (Array.isArray(ans[j])) ans[j].forEach((v, bi) => { const cv = (ia[bi] || ''); const alts = cv.split('/').map(a => a.toLowerCase().trim()); if (alts.includes(v.toLowerCase().trim())) correct++; });
-                        else if (ia.some(a => a.split('/').map(x=>x.toLowerCase().trim()).includes(ans[j].toLowerCase().trim()))) correct++;
+                        if (Array.isArray(ans[j])) ans[j].forEach((v, bi) => { const cv = (ia[bi] || ''); const alts = cv.split('/').map(a => a.trim()).filter(Boolean); if (matchAnswerList(v, alts)) correct++; });
+                        else { const allAlts = ia.flatMap(a => a.split('/').map(x => x.trim())).filter(Boolean); if (matchAnswerList(ans[j], allAlts)) correct++; }
                     });
-                } else if (part.type === 'word-box-fill') part.items.forEach((it, j) => { if (ans[j].toLowerCase().trim() === it.answer.toLowerCase().trim()) correct++; });
+                } else if (part.type === 'word-box-fill') part.items.forEach((it, j) => { if (matchAnswer(ans[j], it.answer)) correct++; });
                 else if (part.type === 'reading-match-persons') part.items.forEach((it, j) => { if (ans[j].toUpperCase().trim() === it.answer.toUpperCase().trim()) correct++; });
                 else if (part.type === 'drag-match-letters') part.answers.forEach((r, j) => { if (ans[j].toUpperCase().trim() === r.answer.toUpperCase().trim()) correct++; });
                 else if (part.type === 'multiple-choice-abc') part.items.forEach((it, j) => { if (ans[j] === it.answer) correct++; });
-                else if (part.type === 'fill-blank') part.rows.forEach((r, j) => { const ac = [r.answer, ...(r.altAnswers || [])].map(a => a.toLowerCase().trim()); if (ac.includes((ans[j] || '').toLowerCase().trim())) correct++; });
+                else if (part.type === 'fill-blank') part.rows.forEach((r, j) => { const ac = [r.answer, ...(r.altAnswers || [])].filter(Boolean); if (matchAnswerList(ans[j] || '', ac)) correct++; });
                 const nonFreeQ = part.type === 'picture-write' ? part.items.filter(it => it.type !== 'free').reduce((s, it) => s + (it.points || 1), 0) : (part.type === 'picture-story-write' || part.type === 'free-writing') ? 0 : part.type === 'fill-blank-reading' ? ((part.passage || part.storyParts) ? part.items.length : part.items.reduce((s, item) => { if (!item.sentence) return s + 1; const bc = (item.sentence.replace(/\.{4,}[A-Za-z]+\.{4,}/g, '').match(/\.{4,}/g) || []).length; return s + (bc > 1 ? bc : 1); }, 0)) : part.questions;
                 readPartScores.push({ title: part.title, correct, total: nonFreeQ });
             });
