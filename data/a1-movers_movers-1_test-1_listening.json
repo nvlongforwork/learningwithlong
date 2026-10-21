@@ -90,15 +90,15 @@
       "images": ["https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/part4-page1.webp", "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/part4-page2.webp"],
       "example": {
         "question": "Where is Charlie's house?",
-        "options": ["In the city", "In a small village", "Near the sea"],
-        "answer": 1
+        "options": ["In a small village", "In the city", "Near the sea"],
+        "answer": 0
       },
       "items": [
-        { "num": 1, "question": "What did Anna do yesterday?", "options": ["Went to the movies", "Went shopping", "Ate pasta at home"], "answer": 2 },
-        { "num": 2, "question": "What job does Tom's sister have?", "options": ["A nurse", "A doctor", "A driver"], "answer": 2 },
-        { "num": 3, "question": "What did Alex do on holiday?", "options": ["Went fishing", "Had sailing lessons", "Played tennis"], "answer": 1 },
+        { "num": 1, "question": "What did Anna do yesterday?", "options": ["Ate at a café", "Went to the cinema", "Went shopping"], "answer": 2 },
+        { "num": 2, "question": "What job does Tom's sister have?", "options": ["A driver", "A doctor", "A nurse"], "answer": 0 },
+        { "num": 3, "question": "What did Alex do on holiday?", "options": ["Played tennis", "Had sailing lessons", "Went fishing"], "answer": 1 },
         { "num": 4, "question": "How did Jill help her mum and dad?", "options": ["Carried boxes", "Painted the kitchen", "Washed the cupboards"], "answer": 2 },
-        { "num": 5, "question": "Which toy did Jack buy for his sister?", "options": ["A toy panda", "A doll", "A clown"], "answer": 2 }
+        { "num": 5, "question": "Which toy did Jack buy for his sister?", "options": ["A clown", "A doll", "A toy panda"], "answer": 0 }
       ],
       "audioScript": [
         "Man: Did you go to the movies yesterday, Anna?\nGirl: I didn't want to see any of the films. I went shopping with my friends.\nMan: Did you go to a café with them for lunch?\nGirl: No. But we were very hungry when we got home and Mum made us some pasta.",
