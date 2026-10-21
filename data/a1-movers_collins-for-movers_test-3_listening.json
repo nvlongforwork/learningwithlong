@@ -133,7 +133,7 @@
       "items": [
         { "num": 1, "item": "Lamp next to the bookcase", "type": "color", "answer": "yellow" },
         { "num": 2, "item": "Bigger truck", "type": "color", "answer": "blue" },
-        { "num": 3, "item": "Pineapple in the fruit bowl", "type": "color", "answer": "grey" },
+        { "num": 3, "item": "Pineapple in the fruit bowl", "type": "color", "answer": "gray" },
         { "num": 4, "item": "Picture on the wall (sun)", "type": "write", "answer": "sun" },
         { "num": 5, "item": "Dress of the girl with straight long hair", "type": "color", "answer": "purple" }
       ],
