@@ -3319,13 +3319,16 @@
         let currentFontSize = 20;
         function changeFontSize(delta) {
             currentFontSize = Math.max(16, Math.min(36, currentFontSize + delta));
-            const containers = ['listening-content', 'reading-content', 'fulltest-content'];
-            containers.forEach(id => {
+            const sections = ['view-listening', 'view-reading', 'view-fulltest'];
+            sections.forEach(id => {
                 const el = document.getElementById(id);
-                if (el) el.style.fontSize = currentFontSize + 'px';
-            });
-            document.querySelectorAll('#listening-content *, #reading-content *, #fulltest-content *').forEach(el => {
-                if (el.style.fontSize) el.style.fontSize = currentFontSize + 'px';
+                if (el && el.style.display !== 'none') {
+                    el.style.fontSize = currentFontSize + 'px';
+                    el.querySelectorAll('*').forEach(child => {
+                        const cs = window.getComputedStyle(child);
+                        if (child.style.fontSize || cs.fontSize) child.style.fontSize = currentFontSize + 'px';
+                    });
+                }
             });
         }
 
