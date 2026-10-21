@@ -3317,19 +3317,21 @@
         }
 
         let currentFontSize = 20;
+        let fontStyleEl = null;
         function changeFontSize(delta) {
             currentFontSize = Math.max(16, Math.min(36, currentFontSize + delta));
-            const sections = ['view-listening', 'view-reading', 'view-fulltest'];
-            sections.forEach(id => {
-                const el = document.getElementById(id);
-                if (el && el.style.display !== 'none') {
-                    el.style.fontSize = currentFontSize + 'px';
-                    el.querySelectorAll('*').forEach(child => {
-                        const cs = window.getComputedStyle(child);
-                        if (child.style.fontSize || cs.fontSize) child.style.fontSize = currentFontSize + 'px';
-                    });
+            if (!fontStyleEl) {
+                fontStyleEl = document.createElement('style');
+                fontStyleEl.id = 'dynamic-font-size';
+                document.head.appendChild(fontStyleEl);
+            }
+            fontStyleEl.textContent = `
+                #view-listening, #view-listening *,
+                #view-reading, #view-reading *,
+                #view-fulltest, #view-fulltest * {
+                    font-size: ${currentFontSize}px !important;
                 }
-            });
+            `;
         }
 
         let activeHighlightColor = null;
