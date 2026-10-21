@@ -1,0 +1,181 @@
+{
+  "type": "reading-test",
+  "title": "Test 1 - Reading & Writing",
+  "parts": [
+    {
+      "id": "part1",
+      "title": "Part 1",
+      "questions": 5,
+      "instructions": "Look and read. Choose the correct words and write them on the lines. There is one example.",
+      "type": "definition-match",
+      "wordBank": ["a dentist", "a milkshake", "coffee", "a nurse", "a farmer", "a shower", "a lamp", "a salad"],
+      "wordImages": {
+        "a dentist": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/words/p1-dentist.webp",
+        "a milkshake": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/words/p1-milkshake.webp",
+        "coffee": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/words/p1-coffee.webp",
+        "a nurse": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/words/p1-nurse.webp",
+        "a farmer": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/words/p1-farmer.webp",
+        "a shower": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/words/p1-shower.webp",
+        "a lamp": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/words/p1-lamp.webp",
+        "a salad": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/words/p1-salad.webp"
+      },
+      "example": { "definition": "This person helps people who aren't well in hospital.", "answer": "a nurse" },
+      "items": [
+        { "num": 1, "definition": "This has lots of green vegetables in it, but you don't cook it.", "answer": "a salad" },
+        { "num": 2, "definition": "You stand under this when you want to wash.", "answer": "a shower" },
+        { "num": 3, "definition": "This person works outside in the fields.", "answer": "a farmer" },
+        { "num": 4, "definition": "Some people put milk in this brown drink.", "answer": "coffee" },
+        { "num": 5, "definition": "This person helps people when their teeth hurt.", "answer": "a dentist" }
+      ]
+    },
+    {
+      "id": "part2",
+      "title": "Part 2",
+      "questions": 6,
+      "instructions": "Read the text and choose the best answer.",
+      "type": "conversation-choice",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/part2-pets.webp",
+      "context": "Fred and Vicky are talking about their pets.",
+      "example": {
+        "speaker": "Fred",
+        "question": "Our new kitten is so funny!",
+        "options": ["Do they laugh?", "Is it?", "Are those new?"],
+        "answer": 1
+      },
+      "items": [
+        { "num": 1, "speaker": "Vicky", "question": "Why is your kitten funny?", "options": ["You all smiled.", "It loves hiding.", "I can't tell them."], "answer": 1 },
+        { "num": 2, "speaker": "Vicky", "question": "Does your kitten like playing games?", "options": ["Yes, that's right.", "No, I can't today.", "OK, let's do that."], "answer": 0 },
+        { "num": 3, "speaker": "Vicky", "question": "What's your kitten's favourite toy?", "options": ["By that red blanket.", "It's another one.", "A big, round ball."], "answer": 2 },
+        { "num": 4, "speaker": "Fred", "question": "How old is your puppy now, Vicky?", "options": ["It's the biggest one.", "Twelve weeks.", "It's great, thanks."], "answer": 1 },
+        { "num": 5, "speaker": "Fred", "question": "Does your puppy sleep outside?", "options": ["Yes, we can do that.", "Its bed is very small.", "No, it's too young."], "answer": 2 },
+        { "num": 6, "speaker": "Fred", "question": "I'd like to have another pet.", "options": ["Me too!", "How often?", "Well done!"], "answer": 0 }
+      ]
+    },
+    {
+      "id": "part3",
+      "title": "Part 3",
+      "questions": 6,
+      "instructions": "Read the story. Choose a word from the box. Write the correct word next to numbers 1–5. There is one example.",
+      "type": "story-fill",
+      "storyParts": [
+        "Zoe is the youngest of the three %%example%% in her family. Sometimes her two older sisters called her 'baby Zoe'. 'I'm not a baby,' Zoe said. 'I'm ten now!'",
+        "Last Sunday Zoe's family had a great day. They (1) %%blank%% to the forest, went for a very (2) %%blank%% walk and had a picnic. Then Zoe's dad read his book, her mother went to sleep and her sisters sat and talked.",
+        "Zoe climbed to the top of a tall tree. From the top of the tree, Zoe could see lots of big, black (3) %%blank%% above the mountains.",
+        "'Oh no!' she thought. 'Rain!' She climbed down the tree and ran to tell her family. 'Quickly! Come on! Back to the car!'",
+        "When they all jumped up and started to put the (4) %%blank%% and bowls back in the picnic bag, Zoe smiled. 'I'm not a baby. I'm talking like a grown-up and they're all (5) %%blank%% to me!' she thought."
+      ],
+      "wordBank": ["listening", "clouds", "strong", "drove", "glasses", "shouted", "crying", "long"],
+      "wordImages": {
+        "girls": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/words/p3-girls.webp",
+        "listening": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/words/p3-listening.webp",
+        "clouds": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/words/p3-clouds.webp",
+        "strong": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/words/p3-strong.webp",
+        "drove": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/words/p3-drove.webp",
+        "glasses": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/words/p3-glasses.webp",
+        "shouted": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/words/p3-shouted.webp",
+        "crying": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/words/p3-crying.webp",
+        "long": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/words/p3-long.webp"
+      },
+      "example": { "word": "girls" },
+      "items": [
+        { "num": 1, "answer": "drove" },
+        { "num": 2, "answer": "long" },
+        { "num": 3, "answer": "clouds" },
+        { "num": 4, "answer": "glasses" },
+        { "num": 5, "answer": "listening" }
+      ],
+      "titleQuestion": {
+        "num": 6,
+        "instruction": "Now choose the best name for the story.",
+        "options": [
+          "The baby's favourite tree",
+          "What a windy day!",
+          "Zoe helps her family"
+        ],
+        "answer": 2
+      }
+    },
+    {
+      "id": "part4",
+      "title": "Part 4",
+      "questions": 5,
+      "instructions": "Read the text. Choose the right words and write them on the lines.",
+      "type": "grammar-cloze",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/part4-bats.webp",
+      "storyParts": [
+        "Bats",
+        "Bats are small animals that can fly. %%example%% are many different kinds of bat and they live in many parts of the world.",
+        "Some live in jungles, some live in trees (1) %%blank%% inside houses, but you don't often see (2) %%blank%% .",
+        "Most bats sleep in the day and only fly at night. Bats can't see very well with (3) %%blank%% eyes, but they are all very good (4) %%blank%% flying. They can fly very quickly.",
+        "Small bats sometimes eat mice, but bigger bats often eat fruit and drink juice that they (5) %%blank%% in flowers."
+      ],
+      "example": { "options": ["There", "Most", "Here"], "answer": 0 },
+      "items": [
+        { "num": 1, "options": ["because", "or", "when"], "answer": 1 },
+        { "num": 2, "options": ["it", "him", "them"], "answer": 2 },
+        { "num": 3, "options": ["its", "their", "our"], "answer": 1 },
+        { "num": 4, "options": ["to", "at", "in"], "answer": 1 },
+        { "num": 5, "options": ["find", "finds", "finding"], "answer": 0 }
+      ]
+    },
+    {
+      "id": "part5",
+      "title": "Part 5",
+      "questions": 7,
+      "instructions": "Look at the pictures and read the story. Write some words to complete the sentences about the story. You can use 1, 2 or 3 words.",
+      "type": "story-write",
+      "storySegments": [
+        {
+          "title": "Fishing in the lake",
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/part5-story1.webp",
+          "text": "Sally and her brother, Peter, live next to a lake and they love swimming and fishing in it. They often fish from the end of their garden, but last Saturday, they went fishing in another part of the lake. But there were no fish there.\n\n'This is boring,' Sally said. She put her fishing things down and took off her shoes. Then she put her feet in the water because it was a hot and sunny day.",
+          "examples": [
+            { "sentence": "Sally and Peter enjoy %%answer%% in the lake near their house.", "answer": "swimming and fishing" },
+            { "sentence": "The children fished in another part of the lake last %%answer%% .", "answer": "Saturday" }
+          ],
+          "questions": [
+            { "num": 1, "sentence": "Sally stopped fishing because there were %%blank%% in the water that day.", "answer": "no fish", "altAnswers": ["not any fish"] },
+            { "num": 2, "sentence": "Because it was hot and sunny, Sally %%blank%% in the lake.", "answer": "put her feet" }
+          ]
+        },
+        {
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/part5-story2.webp",
+          "text": "'Sally, look!' Peter said. 'I think I can see a lake monster!' Sally jumped up to look, but when she did that, she dropped her shoes in the water!\n\nThen she got angry with Peter because there was no monster. 'Now I haven't got my shoes!' she said. 'It's not funny!'\n\nPeter looked down in the water. He could see Sally's orange shoes at the bottom of the lake.",
+          "questions": [
+            { "num": 3, "sentence": "Peter said he saw a %%blank%% .", "answer": "lake monster", "altAnswers": ["monster"] },
+            { "num": 4, "sentence": "When she jumped up, Sally %%blank%% in the lake.", "answer": "dropped her shoes", "altAnswers": ["dropped her shoes's shoes"] },
+            { "num": 5, "sentence": "Sally was angry because her shoes were at %%blank%% of the lake.", "answer": "the bottom" }
+          ]
+        },
+        {
+          "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/part5-story3.webp",
+          "text": "'Well, let's try to catch your shoes now!' Peter said. He fished them out of the lake.\n\nSally was happy again.\n\nWhen they got home, their mum was in the kitchen.\n\n'Did you catch any fish?' she asked.\n\nShe laughed when Peter said, 'Yes we caught two Orange Shoe Fish!'",
+          "questions": [
+            { "num": 6, "sentence": "Sally %%blank%% when Peter caught her shoes.", "answer": "was happy", "altAnswers": ["was happy again"] },
+            { "num": 7, "sentence": "When the children told her about the two orange shoe fish, their mum %%blank%% .", "answer": "laughed" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part6",
+      "title": "Part 6",
+      "questions": 6,
+      "instructions": "Look and read and write.",
+      "type": "picture-write",
+      "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/part6-pirates.webp",
+      "examples": [
+        { "type": "answer", "question": "Where is the tree with purple leaves?", "answer": "On the island" },
+        { "type": "complete", "sentence": "The %%answer%% is holding some watermelon.", "answer": "monkey" }
+      ],
+      "items": [
+        { "num": 1, "type": "complete", "sentence": "The pink %%blank%% is smaller than the white one.", "answer": "shell" },
+        { "num": 2, "type": "complete", "sentence": "There are two coconuts in %%blank%% .", "answer": "the tree", "altAnswers": ["the picture"] },
+        { "num": 3, "type": "answer", "question": "What is the weather like?", "answer": "sunny", "altAnswers": ["hot", "it is sunny", "it's sunny", "it is hot", "it's hot"] },
+        { "num": 4, "type": "answer", "question": "What is the oldest pirate pointing at?", "answer": "a map", "altAnswers": ["the map"] },
+        { "num": 5, "type": "free", "instruction": "Now write two sentences about the picture.", "answer": "" },
+        { "num": 6, "type": "free", "instruction": "", "answer": "" }
+      ]
+    }
+  ]
+}
