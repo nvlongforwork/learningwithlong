@@ -11,7 +11,7 @@
       "image": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/images/movers-1/test1/part1-party.webp",
       "audio": "https://raw.githubusercontent.com/nvlongforwork/learningwithlong-media/main/audio/movers-1/test1/part1.mp3",
       "names": ["Daisy", "Sally", "David", "Jane", "Jim", "Fred", "Peter"],
-      "actions": ["is at the table, laughing", "has a black moustache, with a plate full of cakes", "is at the oven, making soup", "has grey curly hair, in the white sweater", "is standing, putting bowls on the table", "has a long brown beard, wearing the white shirt", "is standing near the door"],
+      "actions": ["is at the table, laughing", "has a black moustache, with a plate full of cakes", "is at the oven, making soup", "has grey curly hair, in the white sweater", "is standing, putting bowls on the table", "has a long brown beard, wearing the white shirt", "is standing near the door", "is cutting vegetables on the table", "is carrying a plate of sandwiches", "is sitting on a chair, eating"],
       "example": { "name": "David", "action": "has a long brown beard, wearing the white shirt" },
       "answers": [
         { "name": "Peter", "action": "is at the table, laughing" },
@@ -122,9 +122,15 @@
         "Bird on the ground",
         "Cup in the teacher's hand",
         "Longer scarf on the boy sitting down",
+        "Shorter scarf on the boy sitting down",
         "Leaf that the girl is trying to catch",
         "Door of the house",
-        "Ball that the boy is kicking"
+        "Ball that the boy is kicking",
+        "Tree in the playground",
+        "Teacher's jacket",
+        "Window of the house",
+        "Girl's hair ribbon",
+        "Fence around the playground"
       ],
       "items": [
         { "num": 1, "item": "Cup in the teacher's hand", "type": "color", "answer": "orange" },
