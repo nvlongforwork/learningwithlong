@@ -4011,7 +4011,7 @@
                         let questionHtml;
                         if (readingCanReview) {
                             const userAns = answers[aIdx] || '';
-                            const ansAlts = q.answer.split('/').map(a => a.trim()).filter(Boolean);
+                            const ansAlts = [q.answer, ...(q.altAnswers || [])].flatMap(a => a.split('/')).map(a => a.trim()).filter(Boolean);
                             const isCorrect = matchAnswerList(userAns, ansAlts);
                             const blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${userAns || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${q.answer.split('/')[0]}</span>` : ''}`;
                             questionHtml = parts[0] + blankHtml + (parts[1] || '');
@@ -4941,7 +4941,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                     let qIdx = 0;
                     part.storySegments.forEach(seg => {
                         if (seg.questions) seg.questions.forEach(q => {
-                            const alts = q.answer.split('/').map(a => a.trim()).filter(Boolean);
+                            const alts = [q.answer, ...(q.altAnswers || [])].flatMap(a => a.split('/')).map(a => a.trim()).filter(Boolean);
                             if (matchAnswerList(ans[qIdx], alts)) correct++;
                             qIdx++;
                         });
@@ -5931,7 +5931,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 } else if (part.type === 'grammar-cloze') part.items.forEach((it, j) => { if (ans[j] === it.answer) correct++; });
                 else if (part.type === 'story-write') {
                     let qi = 0;
-                    part.storySegments.forEach(seg => { if (seg.questions) seg.questions.forEach(q => { const alts = q.answer.split('/').map(a => a.trim()).filter(Boolean); if (matchAnswerList(ans[qi], alts)) correct++; qi++; }); });
+                    part.storySegments.forEach(seg => { if (seg.questions) seg.questions.forEach(q => { const alts = [q.answer, ...(q.altAnswers || [])].flatMap(a => a.split('/')).map(a => a.trim()).filter(Boolean); if (matchAnswerList(ans[qi], alts)) correct++; qi++; }); });
                 } else if (part.type === 'picture-write') {
                     part.items.forEach((it, j) => { if (it.type === 'free') return; const pts = it.points || 1; const allAns = [it.answer, ...(it.altAnswers || [])].filter(Boolean); if (matchAnswerList(ans[j], allAns)) correct += pts; });
                 } else if (part.type === 'sentence-transform' || part.type === 'error-correction') {
