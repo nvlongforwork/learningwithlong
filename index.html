@@ -2770,7 +2770,8 @@
                     const isCorrect = matchAnswerList(answers[i], allCorrect);
                     inputHtml = `<input type="text" value="${answers[i]}" readonly class="flex-1 px-3 py-2 border-2 rounded-xl font-bold ${isCorrect ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700'}" style="font-size:20px;">`;
                     if (!isCorrect && row.answer) {
-                        inputHtml += `<span class="text-green-600 font-bold ml-2 shrink-0" style="font-size:20px;"><i class="fa-solid fa-arrow-right mr-1"></i>${row.answer}</span>`;
+                        const lfAllAns = allCorrect.flatMap(a => a.split('/')).map(a => a.trim()).filter(Boolean);
+                        inputHtml += `<span class="text-green-600 font-bold ml-2 shrink-0" style="font-size:20px;"><i class="fa-solid fa-arrow-right mr-1"></i>${lfAllAns.join(' / ')}</span>`;
                     }
                 } else {
                     inputHtml = `<input type="text" value="${answers[i]}" ${listeningSubmitted ? 'readonly' : ''} placeholder="..." ${listeningSubmitted ? '' : `oninput="listeningAnswers[${activePart}][${i}]=this.value"`} class="flex-1 px-3 py-2 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
@@ -3611,7 +3612,10 @@
                 if (readingCanReview) {
                     const isCorrect = matchAnswer(answers[i], item.answer);
                     answerHtml = `<input type="text" value="${answers[i]}" readonly class="w-full px-3 py-2 border-2 rounded-xl font-bold ${isCorrect ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700'}" style="font-size:20px;">`;
-                    if (!isCorrect && item.answer) answerHtml += `<span class="text-green-600 font-bold text-sm mt-1 block"><i class="fa-solid fa-arrow-right mr-1"></i>${item.answer}</span>`;
+                    if (!isCorrect && item.answer) {
+                        const defAllAns = [item.answer, ...(item.altAnswers || [])].flatMap(a => a.split('/')).map(a => a.trim()).filter(Boolean);
+                        answerHtml += `<span class="text-green-600 font-bold text-sm mt-1 block"><i class="fa-solid fa-arrow-right mr-1"></i>${defAllAns.join(' / ')}</span>`;
+                    }
                 } else {
                     answerHtml = `<input type="text" value="${answers[i]}" ${readingSubmitted ? 'readonly' : ''} placeholder="Type your answer..." ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}][${i}]=this.value"`} class="w-full px-3 py-2 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
                 }
@@ -3822,7 +3826,10 @@
                     if (readingCanReview) {
                         const isCorrect = matchAnswer(answers.blanks[i], item.answer);
                         let h = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers.blanks[i] || '—'}</span>`;
-                        if (!isCorrect) h += `<span class="text-green-600 font-bold text-sm ml-1">${item.answer}</span>`;
+                        if (!isCorrect) {
+                            const sfAllAns = [item.answer, ...(item.altAnswers || [])].flatMap(a => a.split('/')).map(a => a.trim()).filter(Boolean);
+                            h += `<span class="text-green-600 font-bold text-sm ml-1">${sfAllAns.join(' / ')}</span>`;
+                        }
                         return h;
                     } else {
                         return `<input type="text" value="${answers.blanks[i]}" ${readingSubmitted ? 'readonly' : ''} placeholder="..." ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}].blanks[${i}]=this.value"`} class="inline-block w-32 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium text-center" style="font-size:20px;">`;
@@ -4013,7 +4020,8 @@
                             const userAns = answers[aIdx] || '';
                             const ansAlts = [q.answer, ...(q.altAnswers || [])].flatMap(a => a.split('/')).map(a => a.trim()).filter(Boolean);
                             const isCorrect = matchAnswerList(userAns, ansAlts);
-                            const blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${userAns || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${q.answer.split('/')[0]}</span>` : ''}`;
+                            const allAccepted = [q.answer, ...(q.altAnswers || [])].flatMap(a => a.split('/')).map(a => a.trim()).filter(Boolean);
+                            const blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${userAns || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${allAccepted.join(' / ')}</span>` : ''}`;
                             questionHtml = parts[0] + blankHtml + (parts[1] || '');
                         } else {
                             const blankHtml = `<input type="text" value="${answers[aIdx]}" ${readingSubmitted ? 'readonly' : ''} placeholder="..." ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}][${aIdx}]=this.value"`} class="inline-block w-40 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
@@ -4067,7 +4075,8 @@
                     if (readingCanReview) {
                         const allAns = [item.answer, ...(item.altAnswers || [])].filter(Boolean);
                         const isCorrect = matchAnswerList(answers[i], allAns);
-                        const blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${item.answer}</span>` : ''}`;
+                        const allAccepted = allAns.flatMap(a => a.split('/')).map(a => a.trim()).filter(Boolean);
+                        const blankHtml = `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${allAccepted.join(' / ')}</span>` : ''}`;
                         questionHtml = item.sentence.replace('%%blank%%', blankHtml);
                     } else {
                         const blankHtml = `<input type="text" value="${answers[i]}" ${readingSubmitted ? 'readonly' : ''} placeholder="..." ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}][${i}]=this.value"`} class="inline-block w-40 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
@@ -4077,7 +4086,8 @@
                     if (readingCanReview) {
                         const allAns = [item.answer, ...(item.altAnswers || [])].filter(Boolean);
                         const isCorrect = matchAnswerList(answers[i], allAns);
-                        questionHtml = `${item.question}<br><span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${item.answer}</span>` : ''}`;
+                        const allAccepted2 = allAns.flatMap(a => a.split('/')).map(a => a.trim()).filter(Boolean);
+                        questionHtml = `${item.question}<br><span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${allAccepted2.join(' / ')}</span>` : ''}`;
                     } else {
                         questionHtml = `${item.question}<br><input type="text" value="${answers[i]}" ${readingSubmitted ? 'readonly' : ''} placeholder="..." ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}][${i}]=this.value"`} class="mt-2 w-full px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
                     }
@@ -4125,7 +4135,8 @@
                 if (readingCanReview) {
                     const allAnswers = [item.answer, ...(item.altAnswers || [])].filter(Boolean);
                     const isCorrect = matchAnswerList(answers[i], allAnswers);
-                    ansHtml = `<div class="mt-2 px-3 py-2 rounded-lg font-medium ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</div>${!isCorrect ? `<div class="text-green-600 font-bold text-sm mt-1">${item.answer}</div>` : ''}`;
+                    const stAllAns = allAnswers.flatMap(a => a.split('/')).map(a => a.trim()).filter(Boolean);
+                    ansHtml = `<div class="mt-2 px-3 py-2 rounded-lg font-medium ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</div>${!isCorrect ? `<div class="text-green-600 font-bold text-sm mt-1">${stAllAns.join(' / ')}</div>` : ''}`;
                 } else {
                     ansHtml = `<input type="text" value="${answers[i]}" ${readingSubmitted ? 'readonly' : ''} ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}][${i}]=this.value"`} placeholder="Write the sentence..." class="mt-2 px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;width:100%;max-width:420px;">`;
                 }
@@ -4157,7 +4168,8 @@
                 if (readingCanReview) {
                     const allAnswers = [item.answer, ...(item.altAnswers || [])].filter(Boolean);
                     const isCorrect = matchAnswerList(answers[i], allAnswers);
-                    ansHtml = `<div class="mt-2 px-3 py-2 rounded-lg font-medium ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</div>${!isCorrect ? `<div class="text-green-600 font-bold text-sm mt-1">${item.answer}</div>` : ''}`;
+                    const ecAllAns = allAnswers.flatMap(a => a.split('/')).map(a => a.trim()).filter(Boolean);
+                    ansHtml = `<div class="mt-2 px-3 py-2 rounded-lg font-medium ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</div>${!isCorrect ? `<div class="text-green-600 font-bold text-sm mt-1">${ecAllAns.join(' / ')}</div>` : ''}`;
                 } else {
                     ansHtml = `<input type="text" value="${answers[i]}" ${readingSubmitted ? 'readonly' : ''} ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}][${i}]=this.value"`} placeholder="Correct the sentence..." class="mt-2 px-3 py-2 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;width:100%;max-width:420px;">`;
                 }
@@ -4311,7 +4323,8 @@
                 let sentenceHtml = item.sentence;
                 if (readingCanReview) {
                     const isCorrect = matchAnswer(answers[i], item.answer);
-                    sentenceHtml = sentenceHtml.replace('..........', `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${item.answer}</span>` : ''}`);
+                    const wbAllAns = [item.answer, ...(item.altAnswers || [])].flatMap(a => a.split('/')).map(a => a.trim()).filter(Boolean);
+                    sentenceHtml = sentenceHtml.replace('..........', `<span class="font-bold px-2 py-0.5 rounded ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${answers[i] || '—'}</span>${!isCorrect ? ` <span class="text-green-600 font-bold text-sm">${wbAllAns.join(' / ')}</span>` : ''}`);
                 } else {
                     sentenceHtml = sentenceHtml.replace('..........', `<input type="text" value="${answers[i]}" ${readingSubmitted ? 'readonly' : ''} ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}][${i}]=this.value"`} placeholder="..." class="inline-block w-40 px-2 py-1 border-2 border-slate-200 rounded-lg focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`);
                 }
@@ -4802,7 +4815,8 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                     const isCorrect = matchAnswerList(answers[i] || '', allCorrect);
                     inputHtml = `<input type="text" value="${answers[i] || ''}" readonly class="min-w-0 flex-1 px-3 py-2 border-2 rounded-xl font-bold ${isCorrect ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700'}" style="font-size:20px;">`;
                     if (!isCorrect) {
-                        inputHtml += `<span class="text-green-600 font-bold text-sm ml-2 shrink-0"><i class="fa-solid fa-arrow-right mr-1"></i>${row.answer}</span>`;
+                        const rfAllAns = allCorrect.flatMap(a => a.split('/')).map(a => a.trim()).filter(Boolean);
+                        inputHtml += `<span class="text-green-600 font-bold text-sm ml-2 shrink-0"><i class="fa-solid fa-arrow-right mr-1"></i>${rfAllAns.join(' / ')}</span>`;
                     }
                 } else {
                     inputHtml = `<input type="text" value="${answers[i] || ''}" ${readingSubmitted ? 'readonly' : ''} placeholder="..." ${readingSubmitted ? '' : `oninput="readingAnswers[${activeReadingPart}][${i}]=this.value"`} class="min-w-0 flex-1 px-3 py-2 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-turtle-400 font-medium" style="font-size:20px;">`;
