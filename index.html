@@ -2128,6 +2128,7 @@
         }
 
         function selectAnswer(optIdx) {
+            if (!checkAntiSpam()) return;
             userAnswers[activeQ] = optIdx;
 
             // Tự động chuyển sang câu tiếp theo (có delay nhẹ để xem hiệu ứng click)
@@ -2361,6 +2362,26 @@
         let currentStudent = null;
         let studentsData = null;
         let listeningStartTime = null;
+        let listeningAudioPlayed = {};
+
+        // Anti-spam: prevent rapid random answer clicking
+        let lastAnswerTime = 0;
+        let spamCooldown = 10000; // 10 seconds base cooldown
+        let spamPenalty = 0; // additional penalty seconds accumulated
+        function checkAntiSpam() {
+            if (isTeacherMode) return true;
+            const now = Date.now();
+            const requiredWait = spamCooldown + spamPenalty;
+            if (now - lastAnswerTime < requiredWait) {
+                spamPenalty += 5000;
+                const waitSec = Math.ceil((requiredWait - (now - lastAnswerTime) + 5000) / 1000);
+                Swal.fire({ title: 'Chậm lại!', html: `Bạn cần suy nghĩ kĩ hơn trước khi chọn đáp án.<br><span style="font-size:20px;color:#ef4444;font-weight:700">Vui lòng đợi ${waitSec} giây</span>`, icon: 'warning', confirmButtonText: 'OK', confirmButtonColor: '#f59e0b', timer: 3000, timerProgressBar: true });
+                return false;
+            }
+            lastAnswerTime = now;
+            if (spamPenalty > 0) spamPenalty = Math.max(0, spamPenalty - 5000);
+            return true;
+        }
 
         async function loadStudents() {
             if (studentsData) return studentsData;
@@ -2508,6 +2529,8 @@
             listeningSubmitted = false;
             listeningCanReview = false;
             selectedBank = null;
+            listeningAudioPlayed = {};
+            lastAnswerTime = 0; spamCooldown = 10000; spamPenalty = 0;
 
             data.parts.forEach((part, i) => {
                 if (part.type === 'drag-match') {
@@ -2584,7 +2607,9 @@
             else if (part.type === 'multiple-choice-abc') renderMultipleChoiceABC(part);
             else if (part.type === 'color-write') renderColorWrite(part);
 
-            if (audio) {
+            if (audio && part.audio && !isTeacherMode && !listeningSubmitted && !listeningCanReview) {
+                setupAudioOneTime(audio, activePart, listeningAudioPlayed);
+            } else if (audio) {
                 audio.style.display = '';
                 audio.setAttribute('controls', '');
                 const wrapper = audio.parentElement;
@@ -2618,6 +2643,7 @@
 
         function clickSlot(rowIdx, colType) {
             if (listeningSubmitted) return;
+            if (!checkAntiSpam()) return;
             const answers = listeningAnswers[activePart];
 
             if (answers[rowIdx][colType || 'value']) {
@@ -2636,6 +2662,7 @@
 
         function clickLetterSlot(rowIdx) {
             if (listeningSubmitted) return;
+            if (!checkAntiSpam()) return;
             const answers = listeningAnswers[activePart];
 
             if (answers[rowIdx]) {
@@ -2886,6 +2913,7 @@
 
         function selectABC(questionIdx, optionIdx) {
             if (listeningSubmitted) return;
+            if (!checkAntiSpam()) return;
             listeningAnswers[activePart][questionIdx] = optionIdx;
             if (fullTestMode) renderFullTestPart();
             else renderMultipleChoiceABC(listeningData.parts[activePart]);
@@ -2992,6 +3020,7 @@
 
         function clickP5ColorSlot(idx) {
             if (listeningSubmitted) return;
+            if (!checkAntiSpam()) return;
             const answers = listeningAnswers[activePart];
             const item = listeningData.parts[activePart].items[idx];
             if (item.type !== 'color') return;
@@ -3443,6 +3472,7 @@
             readingStartTime = Date.now();
             readingAnswers = {};
             window._writingScores = null;
+            lastAnswerTime = 0; spamCooldown = 10000; spamPenalty = 0;
 
             data.parts.forEach((part, i) => {
                 if (part.type === 'definition-match') {
@@ -3634,6 +3664,7 @@
 
         function selectConvChoice(qIdx, optIdx) {
             if (readingSubmitted) return;
+            if (!checkAntiSpam()) return;
             if (readingAnswers[activeReadingPart][qIdx] === optIdx) {
                 readingAnswers[activeReadingPart][qIdx] = -1;
                 const part = fullTestMode ? null : readingData.parts[activeReadingPart];
@@ -3962,7 +3993,7 @@
                         <td class="p-3 font-bold text-slate-500">${item.num}</td>`;
                     item.options.forEach((opt, j) => {
                         const isSelected = answers[i] === j;
-                        html += `<td class="p-3 text-center font-medium ${isSelected ? 'bg-turtle-100 text-turtle-700 font-bold' : 'text-slate-600 hover:bg-slate-50'} ${readingSubmitted ? '' : 'cursor-pointer'}" ${readingSubmitted ? '' : `onclick="readingAnswers[${activeReadingPart}][${i}]=${j};reRenderReading()"`}>${opt}</td>`;
+                        html += `<td class="p-3 text-center font-medium ${isSelected ? 'bg-turtle-100 text-turtle-700 font-bold' : 'text-slate-600 hover:bg-slate-50'} ${readingSubmitted ? '' : 'cursor-pointer'}" ${readingSubmitted ? '' : `onclick="if(!checkAntiSpam())return;readingAnswers[${activeReadingPart}][${i}]=${j};reRenderReading()"`}>${opt}</td>`;
                     });
                     html += `</tr>`;
                 }
@@ -4636,7 +4667,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                             if (answers[i] === j) cls += 'bg-turtle-500 text-white shadow-md';
                             else cls += 'bg-slate-50 border border-slate-200 text-slate-600 hover:border-turtle-300 hover:bg-turtle-50';
                         }
-                        optionsHtml += `<div class="${cls}" onclick="if(!readingSubmitted){readingAnswers[${activeReadingPart}][${i}]=${j};reRenderReading()}"><span class="font-bold">${letters[j]}</span>. ${opt}</div>`;
+                        optionsHtml += `<div class="${cls}" onclick="if(!readingSubmitted){if(!checkAntiSpam())return;readingAnswers[${activeReadingPart}][${i}]=${j};reRenderReading()}"><span class="font-bold">${letters[j]}</span>. ${opt}</div>`;
                     });
                     html += `<div class="bg-white rounded-2xl p-4 border shadow-sm mb-3" style="font-size:20px;">
                         <div class="resp-row" style="gap:1rem;align-items:stretch">
@@ -4679,7 +4710,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                             if (answers[i] === j) cls += 'bg-turtle-500 text-white shadow-md';
                             else cls += 'bg-slate-50 border border-slate-200 text-slate-600 hover:border-turtle-300 hover:bg-turtle-50';
                         }
-                        html += `<div class="${cls}" onclick="if(!readingSubmitted){readingAnswers[${activeReadingPart}][${i}]=${j};reRenderReading()}"><span class="font-bold">${letters[j]}</span>. ${opt}</div>`;
+                        html += `<div class="${cls}" onclick="if(!readingSubmitted){if(!checkAntiSpam())return;readingAnswers[${activeReadingPart}][${i}]=${j};reRenderReading()}"><span class="font-bold">${letters[j]}</span>. ${opt}</div>`;
                     });
                     html += `</div></div>`;
                 }
@@ -5464,6 +5495,8 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             ftActivePartIdx = 0;
             ftSubmitted = false;
             ftCanReview = false;
+            listeningAudioPlayed = {};
+            lastAnswerTime = 0; spamCooldown = 10000; spamPenalty = 0;
             ftStartTime = Date.now();
             selectedBank = null;
 
@@ -5719,8 +5752,9 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 ftContent.id = 'fulltest-content';
                 origContent.id = 'listening-content';
 
-                if (part.audio && !isTeacherMode && isExamMode) {
-                    setupAudioOneTime(ftAudioPlayer, ftActivePartIdx, examAudioPlayed);
+                if (part.audio && !isTeacherMode) {
+                    const tracker = isExamMode ? examAudioPlayed : listeningAudioPlayed;
+                    setupAudioOneTime(ftAudioPlayer, ftActivePartIdx, tracker);
                 }
             } else {
                 audioBox.style.display = 'none';
