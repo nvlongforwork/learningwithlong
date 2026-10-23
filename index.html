@@ -468,6 +468,9 @@
             </div>
         </header>
         <div id="reading-tabs" class="bg-white border-b px-4 py-2 flex gap-2 shrink-0"></div>
+        <div id="reading-audio-box" class="px-4 py-2 bg-slate-50 border-b shrink-0" style="display:none">
+            <audio id="reading-audio-player" class="w-full"></audio>
+        </div>
         <div id="reading-content" class="flex-1 overflow-y-auto p-2 sm:p-4 custom-scrollbar"></div>
         <footer class="bg-white border-t p-3 sm:p-5 shrink-0 flex items-center justify-between z-10">
             <button id="btn-back-reading" onclick="navReadingPart(-1)" class="py-2 px-5 bg-slate-200 text-slate-700 font-semibold rounded-xl hover:bg-slate-300 transition-all">
@@ -3514,6 +3517,7 @@
             readingCanReview = false;
             readingStartTime = Date.now();
             readingAnswers = {};
+            readingAudioPlayed = {};
             window._writingScores = null;
             lastAnswerTime = 0; spamWaitUntil = 0; spamPenaltySec = 15;
 
@@ -3612,8 +3616,37 @@
             }
         }
 
+        let readingAudioPlayed = {};
+
         function renderReadingPart() {
             const part = readingData.parts[activeReadingPart];
+            const audioBox = document.getElementById('reading-audio-box');
+            const audioEl = document.getElementById('reading-audio-player');
+            const hasAudio = part.audio && (part.type === 'multiple-choice-abc' || part.type === 'drag-match-letters' || part.type === 'fill-blank');
+
+            if (hasAudio && audioBox && audioEl) {
+                audioBox.style.display = '';
+                const rdAudioIsPlaying = !audioEl.paused && !audioEl.ended;
+                if (!rdAudioIsPlaying) {
+                    if (audioEl.getAttribute('src') !== part.audio) { audioEl.src = part.audio; audioEl.load(); }
+                    if (!isTeacherMode && !readingSubmitted && !readingCanReview) {
+                        setupAudioOneTime(audioEl, activeReadingPart, readingAudioPlayed);
+                    } else {
+                        audioEl.style.display = '';
+                        audioEl.setAttribute('controls', '');
+                        const wrapper = audioEl.parentElement;
+                        if (wrapper) {
+                            const btn = wrapper.querySelector('.exam-play-btn');
+                            if (btn) btn.remove();
+                            const msg = wrapper.querySelector('.audio-played-msg');
+                            if (msg) msg.remove();
+                        }
+                    }
+                }
+            } else if (audioBox) {
+                audioBox.style.display = 'none';
+            }
+
             if (part.type === 'definition-match') renderDefinitionMatch(part);
             else if (part.type === 'conversation-choice') renderConversationChoice(part);
             else if (part.type === 'story-fill') renderStoryFill(part);
@@ -4657,11 +4690,6 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             const isCentered = !hasPassage && !part.images && !isNoticePartOne;
             let html = `<div class="writing-container mx-auto" style="width:75%;max-width:1200px;min-width:320px;">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
-            if (part.audio) {
-                html += `<div class="mb-4 bg-slate-50 rounded-xl p-3 border">
-                    <audio controls class="w-full" src="${part.audio}"></audio>
-                </div>`;
-            }
             if (hasPassage) {
                 const passageHtml = part.passage.replace(/\n\n/g, '</p><p class="mb-3">').replace(/\n/g, '<br>');
                 html += `<div class="resp-row"><div class="resp-col shrink-0" style="width:50%">
@@ -4794,11 +4822,6 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
 
             let html = `<div class="max-w-4xl mx-auto">
                 <p class="text-slate-500 italic mb-4 text-sm whitespace-pre-line"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
-            if (part.audio) {
-                html += `<div class="mb-4 bg-slate-50 rounded-xl p-3 border">
-                    <audio controls class="w-full" src="${part.audio}"></audio>
-                </div>`;
-            }
             html += `<div class="resp-row"><div class="resp-col" style="width:60%">
                     <div class="bg-white rounded-2xl shadow-sm border overflow-hidden">
                         <table class="listening-table w-full">
@@ -4907,11 +4930,6 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             const wrapClass = part.optionsLegend ? 'max-w-4xl mx-auto' : 'max-w-2xl mx-auto';
             let html = `<div class="${wrapClass}">
                 <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>`;
-            if (part.audio) {
-                html += `<div class="mb-4 bg-slate-50 rounded-xl p-3 border">
-                    <audio controls class="w-full" src="${part.audio}"></audio>
-                </div>`;
-            }
             if (part.optionsLegend) {
                 html += `<div class="resp-row" style="gap:1.5rem">
                     <div class="resp-col" style="flex:1;min-width:0">`;
@@ -5285,6 +5303,10 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
 
         function doCloseReading() {
             exitFullscreen();
+            const rdAudio = document.getElementById('reading-audio-player');
+            if (rdAudio) { rdAudio.pause(); rdAudio.removeAttribute('src'); rdAudio.load(); }
+            const rdAudioBox = document.getElementById('reading-audio-box');
+            if (rdAudioBox) rdAudioBox.style.display = 'none';
             document.getElementById('view-reading').classList.remove('active');
             document.getElementById('view-detail').classList.add('active');
             if (isLoggedIn) document.getElementById('main-nav').classList.remove('hidden');
