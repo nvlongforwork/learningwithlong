@@ -2371,8 +2371,10 @@
         let lastAnswerTime = 0;
         let spamWaitUntil = 0; // timestamp when student can next answer
         let spamPenaltySec = 15; // current penalty (starts 15s, max 30s)
+        const ANTI_SPAM_MATERIALS = ['a2-key', 'b1-preliminary', 'b2-first', 'c1-advanced'];
         function checkAntiSpam() {
             if (isTeacherMode) return true;
+            if (!ANTI_SPAM_MATERIALS.includes(currentMaterialId)) return true;
             const now = Date.now();
             // If currently in penalty period
             if (now < spamWaitUntil) {
