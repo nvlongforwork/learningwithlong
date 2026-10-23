@@ -2634,7 +2634,9 @@
         function renderListeningPart() {
             const part = listeningData.parts[activePart];
             const audio = document.getElementById('listening-audio-player');
-            if (part.audio && audio) {
+            const audioIsPlaying = audio && !audio.paused && !audio.ended;
+
+            if (part.audio && audio && !audioIsPlaying) {
                 if (audio.getAttribute('src') !== part.audio) { audio.src = part.audio; audio.load(); }
             }
 
@@ -2645,8 +2647,7 @@
             else if (part.type === 'color-write') renderColorWrite(part);
 
             if (audio) {
-                const isPlaying = !audio.paused && !audio.ended;
-                if (isPlaying) {
+                if (audioIsPlaying) {
                     // Don't touch audio UI while audio is playing
                 } else if (part.audio && !isTeacherMode && !listeningSubmitted && !listeningCanReview) {
                     setupAudioOneTime(audio, activePart, listeningAudioPlayed);
@@ -5776,7 +5777,8 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             if (ftActiveSkill === 'listening') {
                 const part = ftListeningData.parts[ftActivePartIdx];
                 audioBox.style.display = 'flex';
-                if (part.audio && !isExamMode && ftAudioPlayer.getAttribute('src') !== part.audio) { ftAudioPlayer.src = part.audio; ftAudioPlayer.load(); }
+                const ftAudioIsPlaying = ftAudioPlayer && !ftAudioPlayer.paused && !ftAudioPlayer.ended;
+                if (part.audio && !isExamMode && !ftAudioIsPlaying && ftAudioPlayer.getAttribute('src') !== part.audio) { ftAudioPlayer.src = part.audio; ftAudioPlayer.load(); }
 
                 const origContent = document.getElementById('listening-content');
                 const ftContent = document.getElementById('fulltest-content');
