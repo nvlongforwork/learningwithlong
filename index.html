@@ -2366,17 +2366,38 @@
 
         // Anti-spam: prevent rapid random answer clicking
         let lastAnswerTime = 0;
-        let spamCooldown = 10000; // 10 seconds base cooldown
-        let spamPenalty = 0; // additional penalty seconds accumulated
+        let spamWaitUntil = 0; // timestamp when student can next answer
+        let spamPenaltySec = 15; // current penalty (starts 15s, max 30s)
         function checkAntiSpam() {
             if (isTeacherMode) return true;
             const now = Date.now();
-            const requiredWait = spamCooldown + spamPenalty;
-            const elapsed = now - lastAnswerTime;
-            if (elapsed < requiredWait) {
-                spamPenalty += 5000;
-                const remainMs = requiredWait - elapsed + 5000;
-                let remainSec = Math.ceil(remainMs / 1000);
+            // If currently in penalty period
+            if (now < spamWaitUntil) {
+                let remainSec = Math.ceil((spamWaitUntil - now) / 1000);
+                Swal.fire({
+                    title: 'Chậm lại!',
+                    html: `Bạn cần suy nghĩ kĩ hơn trước khi chọn đáp án.<br><span id="spam-countdown" style="font-size:28px;color:#ef4444;font-weight:700">${remainSec}</span> <span style="font-size:20px;color:#ef4444;font-weight:600">giây</span>`,
+                    icon: 'warning',
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    didOpen: () => {
+                        const el = document.getElementById('spam-countdown');
+                        const iv = setInterval(() => {
+                            remainSec--;
+                            if (el) el.textContent = remainSec;
+                            if (remainSec <= 0) { clearInterval(iv); Swal.close(); }
+                        }, 1000);
+                    }
+                });
+                return false;
+            }
+            // Check if too fast (< 10 seconds since last answer)
+            if (lastAnswerTime > 0 && (now - lastAnswerTime) < 10000) {
+                spamWaitUntil = now + spamPenaltySec * 1000;
+                spamPenaltySec = Math.min(30, spamPenaltySec + 5);
+                lastAnswerTime = now;
+                let remainSec = spamPenaltySec - 5;
                 Swal.fire({
                     title: 'Chậm lại!',
                     html: `Bạn cần suy nghĩ kĩ hơn trước khi chọn đáp án.<br><span id="spam-countdown" style="font-size:28px;color:#ef4444;font-weight:700">${remainSec}</span> <span style="font-size:20px;color:#ef4444;font-weight:600">giây</span>`,
@@ -2396,7 +2417,6 @@
                 return false;
             }
             lastAnswerTime = now;
-            if (spamPenalty > 0) spamPenalty = Math.max(0, spamPenalty - 5000);
             return true;
         }
 
@@ -2547,7 +2567,7 @@
             listeningCanReview = false;
             selectedBank = null;
             listeningAudioPlayed = {};
-            lastAnswerTime = 0; spamCooldown = 10000; spamPenalty = 0;
+            lastAnswerTime = 0; spamWaitUntil = 0; spamPenaltySec = 15;
 
             data.parts.forEach((part, i) => {
                 if (part.type === 'drag-match') {
@@ -2624,17 +2644,22 @@
             else if (part.type === 'multiple-choice-abc') renderMultipleChoiceABC(part);
             else if (part.type === 'color-write') renderColorWrite(part);
 
-            if (audio && part.audio && !isTeacherMode && !listeningSubmitted && !listeningCanReview) {
-                setupAudioOneTime(audio, activePart, listeningAudioPlayed);
-            } else if (audio) {
-                audio.style.display = '';
-                audio.setAttribute('controls', '');
-                const wrapper = audio.parentElement;
-                if (wrapper) {
-                    const btn = wrapper.querySelector('.exam-play-btn');
-                    if (btn) btn.remove();
-                    const msg = wrapper.querySelector('.audio-played-msg');
-                    if (msg) msg.remove();
+            if (audio) {
+                const isPlaying = !audio.paused && !audio.ended;
+                if (isPlaying) {
+                    // Don't touch audio UI while audio is playing
+                } else if (part.audio && !isTeacherMode && !listeningSubmitted && !listeningCanReview) {
+                    setupAudioOneTime(audio, activePart, listeningAudioPlayed);
+                } else {
+                    audio.style.display = '';
+                    audio.setAttribute('controls', '');
+                    const wrapper = audio.parentElement;
+                    if (wrapper) {
+                        const btn = wrapper.querySelector('.exam-play-btn');
+                        if (btn) btn.remove();
+                        const msg = wrapper.querySelector('.audio-played-msg');
+                        if (msg) msg.remove();
+                    }
                 }
             }
         }
@@ -3489,7 +3514,7 @@
             readingStartTime = Date.now();
             readingAnswers = {};
             window._writingScores = null;
-            lastAnswerTime = 0; spamCooldown = 10000; spamPenalty = 0;
+            lastAnswerTime = 0; spamWaitUntil = 0; spamPenaltySec = 15;
 
             data.parts.forEach((part, i) => {
                 if (part.type === 'definition-match') {
@@ -5513,7 +5538,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
             ftSubmitted = false;
             ftCanReview = false;
             listeningAudioPlayed = {};
-            lastAnswerTime = 0; spamCooldown = 10000; spamPenalty = 0;
+            lastAnswerTime = 0; spamWaitUntil = 0; spamPenaltySec = 15;
             ftStartTime = Date.now();
             selectedBank = null;
 
@@ -5769,7 +5794,7 @@ h2 { font-size: 14pt; color: #555; margin-top: 20px; }
                 ftContent.id = 'fulltest-content';
                 origContent.id = 'listening-content';
 
-                if (part.audio && !isTeacherMode) {
+                if (part.audio && !isTeacherMode && (ftAudioPlayer.paused || ftAudioPlayer.ended)) {
                     const tracker = isExamMode ? examAudioPlayed : listeningAudioPlayed;
                     setupAudioOneTime(ftAudioPlayer, ftActivePartIdx, tracker);
                 }
