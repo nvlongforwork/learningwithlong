@@ -2372,10 +2372,27 @@
             if (isTeacherMode) return true;
             const now = Date.now();
             const requiredWait = spamCooldown + spamPenalty;
-            if (now - lastAnswerTime < requiredWait) {
+            const elapsed = now - lastAnswerTime;
+            if (elapsed < requiredWait) {
                 spamPenalty += 5000;
-                const waitSec = Math.ceil((requiredWait - (now - lastAnswerTime) + 5000) / 1000);
-                Swal.fire({ title: 'Chậm lại!', html: `Bạn cần suy nghĩ kĩ hơn trước khi chọn đáp án.<br><span style="font-size:20px;color:#ef4444;font-weight:700">Vui lòng đợi ${waitSec} giây</span>`, icon: 'warning', confirmButtonText: 'OK', confirmButtonColor: '#f59e0b', timer: 3000, timerProgressBar: true });
+                const remainMs = requiredWait - elapsed + 5000;
+                let remainSec = Math.ceil(remainMs / 1000);
+                Swal.fire({
+                    title: 'Chậm lại!',
+                    html: `Bạn cần suy nghĩ kĩ hơn trước khi chọn đáp án.<br><span id="spam-countdown" style="font-size:28px;color:#ef4444;font-weight:700">${remainSec}</span> <span style="font-size:20px;color:#ef4444;font-weight:600">giây</span>`,
+                    icon: 'warning',
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    didOpen: () => {
+                        const el = document.getElementById('spam-countdown');
+                        const iv = setInterval(() => {
+                            remainSec--;
+                            if (el) el.textContent = remainSec;
+                            if (remainSec <= 0) { clearInterval(iv); Swal.close(); }
+                        }, 1000);
+                    }
+                });
                 return false;
             }
             lastAnswerTime = now;
