@@ -195,6 +195,14 @@
                 width: 100% !important;
                 min-width: 0 !important;
             }
+            .test-header-tools {
+                display: none !important;
+            }
+            #listening-student-info,
+            #reading-student-info,
+            #fulltest-student-info {
+                display: none !important;
+            }
         }
     </style>
 </head>
@@ -370,7 +378,7 @@
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
                 <h2 id="listening-title" class="text-lg font-bold text-slate-800 hidden sm:block"></h2>
-                <div class="flex items-center gap-1 ml-2">
+                <div class="test-header-tools flex items-center gap-1 ml-2">
                     <button onclick="changeFontSize(-2)" class="w-8 h-8 rounded-full border-2 border-transparent hover:border-slate-400 transition-all flex items-center justify-center bg-slate-100" title="Giảm cỡ chữ"><i class="fa-solid fa-minus" style="font-size:12px;color:#64748b"></i></button>
                     <button onclick="changeFontSize(2)" class="w-8 h-8 rounded-full border-2 border-transparent hover:border-slate-400 transition-all flex items-center justify-center bg-slate-100" title="Tăng cỡ chữ"><i class="fa-solid fa-plus" style="font-size:12px;color:#64748b"></i></button>
                     <div class="w-px h-5 bg-slate-300 mx-1"></div>
@@ -379,7 +387,7 @@
                     <button onclick="removeHighlight()" class="w-8 h-8 rounded-full border-2 border-transparent hover:border-slate-400 transition-all flex items-center justify-center bg-slate-100" title="Xoá highlight"><i class="fa-solid fa-eraser" style="font-size:12px;color:#64748b"></i></button>
                 </div>
             </div>
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 shrink-0">
                 <div id="listening-student-info" class="flex items-center gap-3 text-sm"></div>
                 <button id="btn-submit-listening" onclick="submitListeningTest()" class="py-1.5 px-4 bg-turtle-500 text-white font-semibold rounded-xl hover:bg-turtle-600 transition-all shadow hover-bounce" style="font-size:20px">
                     <i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài
@@ -408,7 +416,7 @@
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
                 <h2 id="fulltest-title" class="text-lg font-bold text-slate-800 hidden sm:block"></h2>
-                <div class="flex items-center gap-1 ml-2">
+                <div class="test-header-tools flex items-center gap-1 ml-2">
                     <button onclick="changeFontSize(-2)" class="w-8 h-8 rounded-full border-2 border-transparent hover:border-slate-400 transition-all flex items-center justify-center bg-slate-100" title="Giảm cỡ chữ"><i class="fa-solid fa-minus" style="font-size:12px;color:#64748b"></i></button>
                     <button onclick="changeFontSize(2)" class="w-8 h-8 rounded-full border-2 border-transparent hover:border-slate-400 transition-all flex items-center justify-center bg-slate-100" title="Tăng cỡ chữ"><i class="fa-solid fa-plus" style="font-size:12px;color:#64748b"></i></button>
                     <div class="w-px h-5 bg-slate-300 mx-1"></div>
@@ -417,7 +425,7 @@
                     <button onclick="removeHighlight()" class="w-8 h-8 rounded-full border-2 border-transparent hover:border-slate-400 transition-all flex items-center justify-center bg-slate-100" title="Xoá highlight"><i class="fa-solid fa-eraser" style="font-size:12px;color:#64748b"></i></button>
                 </div>
             </div>
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 shrink-0">
                 <div id="exam-timer-display" class="items-center gap-2 px-4 py-2 rounded-xl font-bold" style="display:none;background:linear-gradient(135deg,#fee2e2,#fecaca);color:#dc2626;font-size:20px;border:2px solid #fca5a5;">
                     <i class="fa-solid fa-clock"></i>
                     <span id="exam-timer-text">00:00</span>
@@ -451,7 +459,7 @@
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
                 <h2 id="reading-title" class="text-lg font-bold text-slate-800 hidden sm:block"></h2>
-                <div class="flex items-center gap-1 ml-2">
+                <div class="test-header-tools flex items-center gap-1 ml-2">
                     <button onclick="changeFontSize(-2)" class="w-8 h-8 rounded-full border-2 border-transparent hover:border-slate-400 transition-all flex items-center justify-center bg-slate-100" title="Giảm cỡ chữ"><i class="fa-solid fa-minus" style="font-size:12px;color:#64748b"></i></button>
                     <button onclick="changeFontSize(2)" class="w-8 h-8 rounded-full border-2 border-transparent hover:border-slate-400 transition-all flex items-center justify-center bg-slate-100" title="Tăng cỡ chữ"><i class="fa-solid fa-plus" style="font-size:12px;color:#64748b"></i></button>
                     <div class="w-px h-5 bg-slate-300 mx-1"></div>
@@ -460,7 +468,7 @@
                     <button onclick="removeHighlight()" class="w-8 h-8 rounded-full border-2 border-transparent hover:border-slate-400 transition-all flex items-center justify-center bg-slate-100" title="Xoá highlight"><i class="fa-solid fa-eraser" style="font-size:12px;color:#64748b"></i></button>
                 </div>
             </div>
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 shrink-0">
                 <div id="reading-student-info" class="flex items-center gap-3 text-sm"></div>
                 <button id="btn-submit-reading" onclick="submitReadingTest()" class="py-1.5 px-4 bg-turtle-500 text-white font-semibold rounded-xl hover:bg-turtle-600 transition-all shadow hover-bounce" style="font-size:20px">
                     <i class="fa-solid fa-paper-plane mr-2"></i> Nộp bài
