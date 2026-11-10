@@ -1,0 +1,153 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8fafc;
+}
+
+/* Hiệu ứng nảy nhẹ khi hover cho các tương tác */
+.hover-bounce {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.hover-bounce:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 20px 25px -5px rgba(32, 161, 160, 0.2), 0 10px 10px -5px rgba(32, 161, 160, 0.1);
+}
+
+/* Ẩn hiện các view để tạo ứng dụng Single Page (SPA) */
+.view-section {
+    display: none;
+    animation: fadeIn 0.4s ease-out forwards;
+}
+.view-section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.material-card .card-bg-decor { background-color: var(--theme-color); opacity: 0.1; }
+.material-card .card-icon { background-color: var(--theme-bg-color); color: var(--theme-color); }
+.material-card:hover .card-icon { background-color: var(--theme-color) !important; color: white !important; }
+.material-card:hover .card-title { color: var(--theme-color); }
+
+.detail-decor { background-color: var(--theme-color); opacity: 0.15; }
+.detail-icon { background-color: var(--theme-bg-color); color: var(--theme-color); }
+
+/* CSS riêng cho Giao diện Quiz Toàn màn hình */
+#view-quiz.active { display: flex !important; }
+#view-listening.active { display: flex !important; }
+#view-reading.active { display: flex !important; }
+#view-fulltest.active { display: flex !important; }
+.drop-slot { min-height: 2.5rem; border: 2px dashed #cbd5e1; border-radius: 0.75rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.drop-slot:hover { border-color: #20a1a0; background-color: #f0fbfa; }
+.drop-slot.filled { border-style: solid; border-color: #20a1a0; background-color: #ccf2ef; color: #136768; font-weight: 600; }
+.bank-chip { cursor: pointer; transition: all 0.2s; user-select: none; display: inline-block; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+.bank-chip:hover { transform: scale(1.05); }
+.bank-chip.selected { outline: 3px solid #20a1a0; outline-offset: 2px; transform: scale(1.08); box-shadow: 0 4px 12px rgba(32, 161, 160, 0.3); }
+.bank-chip.used { opacity: 0.3; pointer-events: none; }
+.part-tab { transition: all 0.2s; font-size: 20px !important; }
+.part-tab.active { background-color: #20a1a0; color: white; }
+.listening-table th, .listening-table td { border: 1px solid #e2e8f0; }
+.color-chip.selected { outline: 3px solid #1e293b; outline-offset: 2px; transform: scale(1.15); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.hl-btn.hl-active { border-color: #1e293b !important; transform: scale(1.15); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+mark.hl-yellow { background: #fef08a; padding: 0 2px; border-radius: 3px; }
+mark.hl-green { background: #bbf7d0; padding: 0 2px; border-radius: 3px; }
+.custom-scrollbar::-webkit-scrollbar { width: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
+
+.resp-row { display: flex; gap: 1rem; }
+.resp-col { min-width: 0; }
+.swal-result-popup { max-width: 1080px !important; }
+
+/* Minimum font size 20px globally */
+.text-xs, .text-sm, .text-base { font-size: 20px !important; }
+.text-lg { font-size: 20px !important; }
+
+/* Result card responsive */
+@media (max-width: 900px) {
+    #result-card .rc-body {
+        flex-direction: column !important;
+        gap: 16px !important;
+    }
+    #result-card .rc-ring-col {
+        flex: none !important;
+        padding: 0 !important;
+    }
+    #result-card .rc-ring-col svg {
+        width: 140px !important;
+        height: 140px !important;
+    }
+    #result-card .rc-table-col {
+        flex: none !important;
+        width: 100% !important;
+    }
+    #result-card .rc-ft-tables {
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+    #result-card .rc-ft-tables > div {
+        flex: none !important;
+        width: 100% !important;
+    }
+    #result-card .rc-buttons {
+        flex-wrap: wrap !important;
+    }
+    #result-card .rc-buttons button {
+        flex: 1 1 auto !important;
+        min-width: 140px !important;
+        padding: 12px 16px !important;
+    }
+}
+@media (max-width: 500px) {
+    #result-card .rc-ring-col svg {
+        width: 120px !important;
+        height: 120px !important;
+    }
+    #result-card .rc-buttons button {
+        min-width: 100px !important;
+        padding: 10px 12px !important;
+        font-size: 20px !important;
+    }
+    .swal-result-popup { padding: 12px !important; }
+}
+
+@media (max-width: 768px) {
+    .resp-row {
+        flex-direction: column !important;
+    }
+    .resp-col {
+        width: 100% !important;
+    }
+    .part-tab {
+        font-size: 20px !important;
+        padding: 6px 10px;
+    }
+    #listening-tabs, #reading-tabs, #fulltest-skill-tabs, #fulltest-part-tabs {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+    }
+    #listening-content .flex-row {
+        flex-direction: column;
+    }
+    #listening-content .flex-row > .w-1\/2 {
+        width: 100% !important;
+    }
+    .resp-col .sticky {
+        position: relative !important;
+        top: auto !important;
+    }
+    .writing-container {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+    .test-header-tools {
+        display: none !important;
+    }
+    #listening-student-info,
+    #reading-student-info,
+    #fulltest-student-info {
+        display: none !important;
+    }
+}
