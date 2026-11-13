@@ -2304,10 +2304,10 @@ function renderDragMatch(part) {
         const actionClass = answers[i].action ? 'filled' : '';
         let nameExtra = '', actionExtra = '';
         if (listeningCanReview) {
-            const correctName = part.answers[i].name;
-            const correctAction = part.answers[i].action;
-            nameExtra = answers[i].name === correctName ? 'border-green-500 bg-green-50 text-green-700' : (answers[i].name ? 'border-red-400 bg-red-50 text-red-700' : 'border-red-400 bg-red-50');
-            actionExtra = answers[i].action === correctAction ? 'border-green-500 bg-green-50 text-green-700' : (answers[i].action ? 'border-red-400 bg-red-50 text-red-700' : 'border-red-400 bg-red-50');
+            const validName = part.answers.some(correct => correct.name === answers[i].name);
+            const correctPair = part.answers.some(correct => correct.name === answers[i].name && correct.action === answers[i].action);
+            nameExtra = validName ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700';
+            actionExtra = correctPair ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700';
         }
         html += `<tr>
             <td class="p-3 font-bold text-slate-500" style="font-size:20px;">${i + 1}</td>
@@ -2752,8 +2752,8 @@ function submitListeningTest() {
             const ans = listeningAnswers[i];
             let partScore = 0;
             if (part.type === 'drag-match') {
-                part.answers.forEach((correct, j) => {
-                    if (ans[j].name === correct.name && ans[j].action === correct.action) partScore++;
+                ans.forEach(answer => {
+                    if (part.answers.some(correct => answer.name === correct.name && answer.action === correct.action)) partScore++;
                 });
             } else if (part.type === 'fill-blank') {
                 part.rows.forEach((row, j) => {
@@ -5553,7 +5553,7 @@ function doSubmitFullTest() {
     ftListeningData.parts.forEach((part, i) => {
         const ans = listeningAnswers[i];
         let ps = 0;
-        if (part.type === 'drag-match') part.answers.forEach((c, j) => { if (ans[j].name === c.name && ans[j].action === c.action) ps++; });
+        if (part.type === 'drag-match') ans.forEach(answer => { if (part.answers.some(correct => answer.name === correct.name && answer.action === correct.action)) ps++; });
         else if (part.type === 'fill-blank') part.rows.forEach((r, j) => { const rc = [r.answer, ...(r.altAnswers || [])].filter(Boolean); if (rc.length && matchAnswerList(ans[j], rc)) ps++; });
         else if (part.type === 'drag-match-letters') part.answers.forEach((c, j) => { if (ans[j] === c.answer) ps++; });
         else if (part.type === 'multiple-choice-abc') part.items.forEach((it, j) => { if (ans[j] === it.answer) ps++; });

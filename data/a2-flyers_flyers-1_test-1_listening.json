@@ -25,7 +25,10 @@
         "is reading a newspaper at the bus stop",
         "is on the bridge with suitcases",
         "is washing windows in a red sweater",
-        "is washing his car"
+        "is washing his car",
+        "is standing at the corner in a red sweater",
+        "is holding a bicycle beside the flower shop",
+        "is walking with an orange shopping bag"
       ],
       "example": {
         "name": "Vicky",
@@ -52,6 +55,14 @@
           "name": "Clare",
           "action": "is washing windows in a red sweater"
         }
+      ],
+      "audioScript": [
+        "Boy: This is a busy street, isn’t it, Aunt Emma?\nWoman: Yes, this is the village where I live.\nBoy: Can you see the woman who’s wearing that long scarf?\nWoman: The one who’s walking with her dog?\nBoy: Yes. Do you know her?\nWoman: Yes, I do. That’s Vicky.",
+        "Woman: Can you see the woman who’s selling flowers?\nBoy: Oh yes. She’s standing under a big umbrella.\nWoman: She’s my friend.\nBoy: What’s her name?\nWoman: It’s Katy.",
+        "Woman: And across the road I can see her husband.\nBoy: The man with the striped T-shirt?\nWoman: Yes, that’s him. He’s got a big shopping bag.\nBoy: Is he going to the supermarket?\nWoman: I think so. His name’s David. He’s very friendly.",
+        "Boy: Can you see the man who’s reading the newspaper?\nWoman: Oh yes, the one who’s waiting at the bus stop.\nBoy: Is he a businessman?\nWoman: Yes, that’s Richard. He lives near me.",
+        "Boy: And who’s that man?\nWoman: That man who’s washing his car? Sorry I don’t know him.\nBoy: No, the other man. The one with the suitcases.\nWoman: That man on the bridge? That’s Paul.\nBoy: Is he going on holiday?\nWoman: Yes, I think so.",
+        "Woman: And do you see the woman with the red sweater?\nBoy: Yes. She’s standing at the corner of the street.\nWoman: No, not her. The one who’s washing the windows!\nBoy: Oh yes, do you know her too, Aunt Emma?\nWoman: Yes, her name’s Clare. She comes and cleans mine too. She works really hard. She’s amazing."
       ]
     },
     {
@@ -246,10 +257,14 @@
       "itemBank": [
         "The astronaut’s boots",
         "The planet between the two large stars",
+        "The other planet in the sky",
         "The box",
         "The robot’s tablet",
         "The rocket in the sky",
-        "The smaller rock to the right of the astronaut"
+        "The rocket on the ground",
+        "The smaller rock to the right of the astronaut",
+        "The larger rocks to the right of the astronaut",
+        "The flying saucer"
       ],
       "items": [
         {
@@ -282,6 +297,14 @@
           "type": "color",
           "answer": "blue"
         }
+      ],
+      "audioScript": [
+        "Woman: Look at this picture. It’s in space.\nBoy: Oh yes! I can see lots of interesting things!\nWoman: Me too! Would you like to colour the astronaut’s boots?\nBoy: Sure! What colour shall I use?\nWoman: Pink, please.\nBoy: OK!",
+        "Boy: There are two planets in the sky.\nWoman: That’s right. Would you like to colour one of them?\nBoy: Yes, I would. I prefer the one between the two large stars.\nWoman: All right. Can you colour that one orange?\nBoy: Yes. I think that’s a good idea.",
+        "Woman: I’d like you to write something on the picture as well. Can you see the box?\nBoy: Yes. I think there’s something important inside it.\nWoman: That’s right! Please write SILVER on it.\nBoy: Wow! Where did they find that?\nWoman: In a huge cave near there. They want to bring it back to Earth.",
+        "Boy: Can I write something else too?\nWoman: Yes, of course! The robot’s holding a tablet. Write ALIENS on that.\nBoy: Is the robot trying to find out about them?\nWoman: Yes. You can see one of them in the hole! Look!\nBoy: Ha ha!",
+        "Woman: Some more colouring now ...\nBoy: Great! I love the rocket on the ground.\nWoman: So do I, but don’t colour that one. Colour the other one please.\nBoy: All right. I’ve chosen yellow. Is that OK?\nWoman: That’s fine.",
+        "Woman: Now, what about colouring a rock?\nBoy: Which one?\nWoman: The smaller one. It’s on the right of the astronaut.\nBoy: OK. No problem. Can I use red for that?\nWoman: No, blue, please.\nBoy: Right ... There!\nWoman: I think the picture looks fantastic now. Well done."
       ]
     }
   ]
