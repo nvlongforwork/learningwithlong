@@ -1,0 +1,288 @@
+{
+  "type": "listening-test",
+  "title": "Flyers 1 - Test 1 - Listening",
+  "parts": [
+    {
+      "id": "part1",
+      "title": "Part 1",
+      "questions": 5,
+      "instructions": "Listen and draw lines. There is one example.",
+      "type": "drag-match",
+      "image": "./assets/flyers-1/test-1/listening-page-1.webp",
+      "names": [
+        "Vicky",
+        "Tom",
+        "Richard",
+        "Katy",
+        "Clare",
+        "Paul",
+        "David"
+      ],
+      "actions": [
+        "is walking her dog and wearing a long scarf",
+        "is standing under an umbrella, selling flowers",
+        "is carrying a shopping bag and wearing a striped T-shirt",
+        "is reading a newspaper at the bus stop",
+        "is on the bridge with suitcases",
+        "is washing windows in a red sweater",
+        "is washing his car"
+      ],
+      "example": {
+        "name": "Vicky",
+        "action": "is walking her dog and wearing a long scarf"
+      },
+      "answers": [
+        {
+          "name": "Katy",
+          "action": "is standing under an umbrella, selling flowers"
+        },
+        {
+          "name": "David",
+          "action": "is carrying a shopping bag and wearing a striped T-shirt"
+        },
+        {
+          "name": "Richard",
+          "action": "is reading a newspaper at the bus stop"
+        },
+        {
+          "name": "Paul",
+          "action": "is on the bridge with suitcases"
+        },
+        {
+          "name": "Clare",
+          "action": "is washing windows in a red sweater"
+        }
+      ]
+    },
+    {
+      "id": "part2",
+      "title": "Part 2",
+      "questions": 5,
+      "instructions": "Listen and write. There is one example.",
+      "type": "fill-blank",
+      "image": "./assets/flyers-1/test-1/listening-page-2.webp",
+      "formTitle": "The airport",
+      "example": {
+        "label": "Airport is in:",
+        "answer": "the north of the city"
+      },
+      "rows": [
+        {
+          "num": 1,
+          "label": "Name of airport:",
+          "answer": "Cledon"
+        },
+        {
+          "num": 2,
+          "label": "Number of planes which arrive every day:",
+          "answer": "320"
+        },
+        {
+          "num": 3,
+          "label": "Sarah’s grandpa often sees famous:",
+          "answer": "film stars"
+        },
+        {
+          "num": 4,
+          "label": "In the café you can eat excellent:",
+          "answer": "pancakes"
+        },
+        {
+          "num": 5,
+          "label": "Outside the hotel you can see lots of:",
+          "answer": "flags"
+        }
+      ]
+    },
+    {
+      "id": "part3",
+      "title": "Part 3",
+      "questions": 5,
+      "instructions": "Where did Harry’s grandma take pictures of these people? Listen and write a letter in each box.",
+      "type": "drag-match-letters",
+      "peopleImage": "./assets/flyers-1/test-1/listening-page-3.webp",
+      "activitiesImage": "./assets/flyers-1/test-1/listening-page-4.webp",
+      "people": [
+        "Grandpa",
+        "Lucy",
+        "Jane",
+        "William",
+        "Oliver",
+        "Sophia"
+      ],
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H"
+      ],
+      "example": {
+        "person": "Grandpa",
+        "answer": "A"
+      },
+      "answers": [
+        {
+          "person": "Sophia",
+          "answer": "G"
+        },
+        {
+          "person": "William",
+          "answer": "E"
+        },
+        {
+          "person": "Jane",
+          "answer": "C"
+        },
+        {
+          "person": "Oliver",
+          "answer": "F"
+        },
+        {
+          "person": "Lucy",
+          "answer": "H"
+        }
+      ]
+    },
+    {
+      "id": "part4",
+      "title": "Part 4",
+      "questions": 5,
+      "instructions": "Listen and tick the box. There is one example.",
+      "type": "multiple-choice-abc",
+      "images": [
+        "./assets/flyers-1/test-1/listening-page-5.webp",
+        "./assets/flyers-1/test-1/listening-page-6.webp"
+      ],
+      "example": {
+        "question": "Where will Helen’s club meet on Saturday?",
+        "options": [
+          "sports centre",
+          "market",
+          "bookshop"
+        ],
+        "answer": 2
+      },
+      "items": [
+        {
+          "num": 1,
+          "question": "What does Helen play at the club?",
+          "options": [
+            "piano",
+            "guitar",
+            "drums"
+          ],
+          "answer": 2
+        },
+        {
+          "num": 2,
+          "question": "What must Helen take to the club this week?",
+          "options": [
+            "butter",
+            "chocolate",
+            "flour"
+          ],
+          "answer": 1
+        },
+        {
+          "num": 3,
+          "question": "Who’s going to visit the club next month?",
+          "options": [
+            "pilot",
+            "football player",
+            "fire fighter"
+          ],
+          "answer": 2
+        },
+        {
+          "num": 4,
+          "question": "Which film was the most interesting?",
+          "options": [
+            "dolphins",
+            "butterflies",
+            "dinosaurs"
+          ],
+          "answer": 0
+        },
+        {
+          "num": 5,
+          "question": "What’s the club going to do on holiday next year?",
+          "options": [
+            "tennis",
+            "skiing",
+            "sailing"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "part5",
+      "title": "Part 5",
+      "questions": 5,
+      "instructions": "Listen and colour and write. There is one example.",
+      "type": "color-write",
+      "image": "./assets/flyers-1/test-1/listening-page-7.webp",
+      "colors": [
+        "red",
+        "blue",
+        "purple",
+        "green",
+        "pink",
+        "yellow",
+        "gray",
+        "black",
+        "orange",
+        "brown"
+      ],
+      "example": {
+        "item": "The astronaut’s boots",
+        "type": "color",
+        "answer": "pink"
+      },
+      "itemBank": [
+        "The astronaut’s boots",
+        "The planet between the two large stars",
+        "The box",
+        "The robot’s tablet",
+        "The rocket in the sky",
+        "The smaller rock to the right of the astronaut"
+      ],
+      "items": [
+        {
+          "num": 1,
+          "item": "The planet between the two large stars",
+          "type": "color",
+          "answer": "orange"
+        },
+        {
+          "num": 2,
+          "item": "The box",
+          "type": "write",
+          "answer": "SILVER"
+        },
+        {
+          "num": 3,
+          "item": "The robot’s tablet",
+          "type": "write",
+          "answer": "ALIENS"
+        },
+        {
+          "num": 4,
+          "item": "The rocket in the sky",
+          "type": "color",
+          "answer": "yellow"
+        },
+        {
+          "num": 5,
+          "item": "The smaller rock to the right of the astronaut",
+          "type": "color",
+          "answer": "blue"
+        }
+      ]
+    }
+  ]
+}

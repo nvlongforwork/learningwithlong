@@ -27,6 +27,11 @@ const materialsData = [
     ] },
     { id: 'a2-flyers', name: 'A2 Flyers', description: 'Cấp độ cao nhất trong hệ thống YLE cho trẻ.', color: '#9DC37A', folders: [
         { id: 'i-dictionary', name: 'I Dictionary' },
+        { id: 'flyers-1', name: 'Flyers 1', subfolders: [
+            { id: 'test-1', name: 'Test 1', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'},{id:'full-test',name:'Full Test'}] },
+            { id: 'test-2', name: 'Test 2', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'},{id:'full-test',name:'Full Test'}] },
+            { id: 'test-3', name: 'Test 3', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'},{id:'full-test',name:'Full Test'}] }
+        ]},
         { id: 'collins-for-flyers', name: 'Collins for Flyers', subfolders: [
             { id: 'test-1', name: 'Test 1', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'},{id:'full-test',name:'Full Test'}] },
             { id: 'test-2', name: 'Test 2', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'},{id:'full-test',name:'Full Test'}] },
@@ -2165,6 +2170,14 @@ function renderListeningPart() {
     else if (part.type === 'drag-match-letters') renderDragLetters(part);
     else if (part.type === 'multiple-choice-abc') renderMultipleChoiceABC(part);
     else if (part.type === 'color-write') renderColorWrite(part);
+
+    if (!part.audio) {
+        audio.removeAttribute('src');
+        audio.style.display = 'none';
+        const content = document.getElementById('listening-content');
+        content.insertAdjacentHTML('afterbegin', '<p class="mb-4 rounded-xl bg-amber-50 p-3 text-amber-800">Chưa có tệp âm thanh cho bài nghe này.</p>');
+        return;
+    }
 
     if (audio) {
         if (audioIsPlaying) {
@@ -5315,7 +5328,7 @@ function renderFullTestPart() {
     const ftAudioPlayer = document.getElementById('fulltest-audio-player');
     if (ftActiveSkill === 'listening') {
         const part = ftListeningData.parts[ftActivePartIdx];
-        audioBox.style.display = 'flex';
+        audioBox.style.display = part.audio ? 'flex' : 'none';
         const ftAudioIsPlaying = ftAudioPlayer && !ftAudioPlayer.paused && !ftAudioPlayer.ended;
         if (part.audio && !isExamMode && !ftAudioIsPlaying && ftAudioPlayer.getAttribute('src') !== part.audio) { ftAudioPlayer.src = part.audio; ftAudioPlayer.load(); }
 
