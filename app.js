@@ -2280,11 +2280,11 @@ function renderDragMatch(part) {
     let html = `
     <div class="writing-container mx-auto" style="${getListeningWidth()}min-width:320px;">
         <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
-        <div class="flex flex-col lg:flex-row gap-6">
-            <div class="lg:w-5/12 shrink-0">
+        <div class="question-image-layout flex flex-col lg:flex-row gap-6">
+            <div class="question-image-col lg:w-5/12 shrink-0">
                 <img src="${part.image}" alt="Part 1" class="w-full rounded-2xl shadow-md border">
             </div>
-            <div class="lg:w-7/12 flex flex-col gap-4">
+            <div class="question-answer-col lg:w-7/12 flex flex-col gap-4">
                 <div class="bg-white rounded-2xl shadow-sm border overflow-hidden">
                     <table class="listening-table w-full">
                         <thead><tr class="bg-turtle-50">
