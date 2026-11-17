@@ -647,7 +647,7 @@ let fullTestListeningScore = null;
 
 const RESULTS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyB3oBMI6JbdRBC9esv2a2p1kqnXmMnBPrfIVWd0q_mnKzzbDWva5_FMSVme8doMa_G6w/exec';
 
-function sendResultToSlides({ skill, score, total, listeningCorrect = null, listeningTotal = null, readingCorrect = null, readingTotal = null, durationSeconds, testTitle }) {
+function sendResultToSlides({ skill, score = null, total = null, listeningCorrect = null, listeningTotal = null, readingCorrect = null, readingTotal = null, durationSeconds, testTitle, eventType = 'result' }) {
     const examNames = { 'a1-movers': 'MOVERS', 'a2-flyers': 'FLYERS', 'a2-key': 'KET' };
     const examName = examNames[currentMaterialId];
     if (!currentStudent || isTeacherMode || !examName) return;
@@ -670,9 +670,30 @@ function sendResultToSlides({ skill, score, total, listeningCorrect = null, list
             readingCorrect,
             readingTotal,
             durationSeconds,
-            testTitle
+            testTitle,
+            eventType,
+            violationCount: tabSwitchCount,
+            autoSubmitted: eventType === 'result' && forceAutoSubmit
         })
     }).catch(error => console.error('Không gửi được kết quả:', error));
+}
+
+function reportFirstViolation() {
+    const fullTest = document.getElementById('view-fulltest').classList.contains('active');
+    const listening = document.getElementById('view-listening').classList.contains('active');
+    const reading = document.getElementById('view-reading').classList.contains('active');
+    if (!fullTest && !listening && !reading) return;
+
+    const startedAt = fullTest ? ftStartTime : listening ? listeningStartTime : readingStartTime;
+    const data = fullTest ? ftReadingData : listening ? listeningData : readingData;
+    if (!startedAt || !data) return;
+
+    sendResultToSlides({
+        eventType: 'violation',
+        skill: fullTest ? 'Full Test' : listening ? 'Listening' : 'Reading',
+        durationSeconds: Math.floor((Date.now() - startedAt) / 1000),
+        testTitle: data.title
+    });
 }
 
 const shieldThresholds = {
@@ -1786,18 +1807,26 @@ let tabSwitchCount = 0;
 const MAX_TAB_SWITCHES = 3;
 let forceAutoSubmit = false;
 let fullscreenActive = false;
+let violationDialogOpen = false;
 
 function isTestActive() {
-    return ['view-quiz', 'view-listening', 'view-reading', 'view-fulltest'].some(id => {
+    return [
+        ['view-quiz', quizSubmitted],
+        ['view-listening', listeningSubmitted],
+        ['view-reading', readingSubmitted],
+        ['view-fulltest', ftSubmitted]
+    ].some(([id, submitted]) => {
         const el = document.getElementById(id);
-        return el && el.classList.contains('active');
+        return el && el.classList.contains('active') && !submitted;
     });
 }
 
 function handleViolation() {
     if (!isTestActive()) return;
-    if (isTeacherMode) return;
+    if (isTeacherMode || violationDialogOpen) return;
     tabSwitchCount++;
+    violationDialogOpen = true;
+    if (tabSwitchCount === 1) reportFirstViolation();
     if (tabSwitchCount >= MAX_TAB_SWITCHES) {
         Swal.fire({
             title: 'Vi phạm quá nhiều lần!',
@@ -1807,10 +1836,11 @@ function handleViolation() {
             confirmButtonColor: '#ef4444',
             allowOutsideClick: false
         }).then(() => {
+            violationDialogOpen = false;
             forceAutoSubmit = true;
-            if (typeof ftSubmitted !== 'undefined' && ftListeningData && !ftSubmitted) { doSubmitFullTest(); }
-            else if (listeningData && !listeningSubmitted) { submitListeningTest(); }
-            else if (readingData && !readingSubmitted) { doSubmitReading(); }
+            if (document.getElementById('view-fulltest').classList.contains('active') && !ftSubmitted) { doSubmitFullTest(); }
+            else if (document.getElementById('view-listening').classList.contains('active') && !listeningSubmitted) { submitListeningTest(); }
+            else if (document.getElementById('view-reading').classList.contains('active') && !readingSubmitted) { doSubmitReading(); }
             forceAutoSubmit = false;
         });
     } else {
@@ -1822,6 +1852,7 @@ function handleViolation() {
             confirmButtonColor: '#f59e0b',
             allowOutsideClick: false
         }).then(() => {
+            violationDialogOpen = false;
             enterFullscreen();
         });
     }
