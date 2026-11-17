@@ -648,9 +648,9 @@ let fullTestListeningScore = null;
 const RESULTS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyB3oBMI6JbdRBC9esv2a2p1kqnXmMnBPrfIVWd0q_mnKzzbDWva5_FMSVme8doMa_G6w/exec';
 
 function sendResultToSlides({ skill, score, total, listeningCorrect = null, listeningTotal = null, readingCorrect = null, readingTotal = null, durationSeconds, testTitle }) {
-    if (!currentStudent || isTeacherMode) return;
-
     const examNames = { 'a1-movers': 'MOVERS', 'a2-flyers': 'FLYERS', 'a2-key': 'KET' };
+    const examName = examNames[currentMaterialId];
+    if (!currentStudent || isTeacherMode || !examName) return;
 
     // text/plain avoids a CORS preflight; Apps Script receives the JSON in e.postData.contents.
     fetch(RESULTS_WEB_APP_URL, {
@@ -661,7 +661,7 @@ function sendResultToSlides({ skill, score, total, listeningCorrect = null, list
         body: JSON.stringify({
             name: currentStudent.name,
             className: currentStudent.class,
-            examName: examNames[currentMaterialId] || getMaterialDisplayName().toUpperCase(),
+            examName,
             skill,
             score,
             total,
