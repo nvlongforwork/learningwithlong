@@ -645,6 +645,29 @@ let fullTestReadingData = null;
 let fullTestReadingTitle = '';
 let fullTestListeningScore = null;
 
+const RESULTS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyB3oBMI6JbdRBC9esv2a2p1kqnXmMnBPrfIVWd0q_mnKzzbDWva5_FMSVme8doMa_G6w/exec';
+
+function sendResultToSlides({ skill, score, total, durationSeconds, testTitle }) {
+    if (!currentStudent || isTeacherMode) return;
+
+    // text/plain avoids a CORS preflight; Apps Script receives the JSON in e.postData.contents.
+    fetch(RESULTS_WEB_APP_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        keepalive: true,
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+            name: currentStudent.name,
+            className: currentStudent.class,
+            skill,
+            score,
+            total,
+            durationSeconds,
+            testTitle
+        })
+    }).catch(error => console.error('Không gửi được kết quả:', error));
+}
+
 const shieldThresholds = {
     'pre-a1-starters': {
         reading: [{ shields: 5, score: 21 }, { shields: 4, score: 19 }, { shields: 3, score: 16 }, { shields: 2, score: 13 }],
@@ -2831,6 +2854,11 @@ function submitListeningTest() {
             return;
         }
 
+        sendResultToSlides({
+            skill: 'Listening', score, total: totalQuestions,
+            durationSeconds: elapsed, testTitle: listeningData.title
+        });
+
         listeningCanReview = isTeacherMode || pct >= 80;
         let listeningReviewClicked = false;
         Swal.fire({
@@ -4649,6 +4677,12 @@ function doSubmitReading() {
         const grandMax = ls.totalQuestions + totalQuestions;
         const grandPct = Math.round((grandTotal / grandMax) * 100);
 
+        sendResultToSlides({
+            skill: 'Full Test', score: grandTotal, total: grandMax,
+            durationSeconds: Math.floor((Date.now() - listeningStartTime) / 1000),
+            testTitle: readingData.title.replace(/ - .*/, '')
+        });
+
         const allParts = [
             ...ls.partScores.map(p => ({ title: `<i class="fa-solid fa-headphones" style="margin-right:4px;color:#0891b2"></i>${p.title}`, correct: p.score, total: p.total })),
             ...partScores.map(p => ({ title: `<i class="fa-solid fa-book-open" style="margin-right:4px;color:#7c3aed"></i>${p.title}`, correct: p.correct, total: p.total }))
@@ -4738,6 +4772,11 @@ function doSubmitReading() {
         fullTestListeningScore = null;
         fullTestReadingData = null;
     } else {
+        sendResultToSlides({
+            skill: 'Reading', score: totalCorrect, total: totalQuestions,
+            durationSeconds: elapsed, testTitle: readingData.title
+        });
+
         const readingShieldsCount = shieldThresholds[currentMaterialId] ? readingShields : null;
         const hasWritingParts = readingData.parts.some(p => p.type === 'picture-story-write' || p.type === 'free-writing');
         const resultHtml = buildResultCard({
@@ -5601,6 +5640,11 @@ function doSubmitFullTest() {
     const grandTotal = lisScore + readScore;
     const grandMax = lisMax + readMax;
     const grandPct = Math.round((grandTotal / grandMax) * 100);
+
+    sendResultToSlides({
+        skill: 'Full Test', score: grandTotal, total: grandMax,
+        durationSeconds: elapsed, testTitle: ftReadingData.title.replace(/ - .*/, '')
+    });
 
     const listeningShieldsCount = shieldThresholds[currentMaterialId] ? getShields(currentMaterialId, 'listening', lisScore) : null;
     const readingShieldsCount = shieldThresholds[currentMaterialId] ? getShields(currentMaterialId, 'reading', readScore) : null;
