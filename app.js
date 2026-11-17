@@ -647,8 +647,10 @@ let fullTestListeningScore = null;
 
 const RESULTS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyB3oBMI6JbdRBC9esv2a2p1kqnXmMnBPrfIVWd0q_mnKzzbDWva5_FMSVme8doMa_G6w/exec';
 
-function sendResultToSlides({ skill, score, total, durationSeconds, testTitle }) {
+function sendResultToSlides({ skill, score, total, listeningCorrect = null, listeningTotal = null, readingCorrect = null, readingTotal = null, durationSeconds, testTitle }) {
     if (!currentStudent || isTeacherMode) return;
+
+    const examNames = { 'a1-movers': 'MOVERS', 'a2-flyers': 'FLYERS', 'a2-key': 'KET' };
 
     // text/plain avoids a CORS preflight; Apps Script receives the JSON in e.postData.contents.
     fetch(RESULTS_WEB_APP_URL, {
@@ -659,9 +661,14 @@ function sendResultToSlides({ skill, score, total, durationSeconds, testTitle })
         body: JSON.stringify({
             name: currentStudent.name,
             className: currentStudent.class,
+            examName: examNames[currentMaterialId] || getMaterialDisplayName().toUpperCase(),
             skill,
             score,
             total,
+            listeningCorrect,
+            listeningTotal,
+            readingCorrect,
+            readingTotal,
             durationSeconds,
             testTitle
         })
@@ -2856,6 +2863,7 @@ function submitListeningTest() {
 
         sendResultToSlides({
             skill: 'Listening', score, total: totalQuestions,
+            listeningCorrect: score, listeningTotal: totalQuestions,
             durationSeconds: elapsed, testTitle: listeningData.title
         });
 
@@ -4679,6 +4687,8 @@ function doSubmitReading() {
 
         sendResultToSlides({
             skill: 'Full Test', score: grandTotal, total: grandMax,
+            listeningCorrect: ls.score, listeningTotal: ls.totalQuestions,
+            readingCorrect: totalCorrect, readingTotal: totalQuestions,
             durationSeconds: Math.floor((Date.now() - listeningStartTime) / 1000),
             testTitle: readingData.title.replace(/ - .*/, '')
         });
@@ -4774,6 +4784,7 @@ function doSubmitReading() {
     } else {
         sendResultToSlides({
             skill: 'Reading', score: totalCorrect, total: totalQuestions,
+            readingCorrect: totalCorrect, readingTotal: totalQuestions,
             durationSeconds: elapsed, testTitle: readingData.title
         });
 
@@ -5643,6 +5654,8 @@ function doSubmitFullTest() {
 
     sendResultToSlides({
         skill: 'Full Test', score: grandTotal, total: grandMax,
+        listeningCorrect: lisScore, listeningTotal: lisMax,
+        readingCorrect: readScore, readingTotal: readMax,
         durationSeconds: elapsed, testTitle: ftReadingData.title.replace(/ - .*/, '')
     });
 
