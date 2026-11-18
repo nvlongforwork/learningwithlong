@@ -645,7 +645,7 @@ let fullTestReadingData = null;
 let fullTestReadingTitle = '';
 let fullTestListeningScore = null;
 
-const RESULTS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyB3oBMI6JbdRBC9esv2a2p1kqnXmMnBPrfIVWd0q_mnKzzbDWva5_FMSVme8doMa_G6w/exec';
+const RESULTS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbye9ZIMhvURVtKNpRCvHnViw-VkQlAVPfeeaOXYkEV_3v7d47I09nL8XfJEqpfvNw6A3A/exec';
 
 function sendResultToSlides({ skill, score = null, total = null, listeningCorrect = null, listeningTotal = null, readingCorrect = null, readingTotal = null, durationSeconds, testTitle, eventType = 'result' }) {
     const examNames = { 'a1-movers': 'MOVERS', 'a2-flyers': 'FLYERS', 'a2-key': 'KET' };
