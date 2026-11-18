@@ -27,6 +27,11 @@ const materialsData = [
     ] },
     { id: 'a2-flyers', name: 'A2 Flyers', description: 'Cấp độ cao nhất trong hệ thống YLE cho trẻ.', color: '#9DC37A', folders: [
         { id: 'i-dictionary', name: 'I Dictionary' },
+        { id: 'flyers-1', name: 'Flyers 1', subfolders: [
+            { id: 'test-1', name: 'Test 1', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'},{id:'full-test',name:'Full Test'}] },
+            { id: 'test-2', name: 'Test 2', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'},{id:'full-test',name:'Full Test'}] },
+            { id: 'test-3', name: 'Test 3', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'},{id:'full-test',name:'Full Test'}] }
+        ]},
         { id: 'collins-for-flyers', name: 'Collins for Flyers', subfolders: [
             { id: 'test-1', name: 'Test 1', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'},{id:'full-test',name:'Full Test'}] },
             { id: 'test-2', name: 'Test 2', skills: [{id:'listening',name:'Listening'},{id:'reading',name:'Reading'},{id:'full-test',name:'Full Test'}] },
@@ -639,6 +644,57 @@ let fullTestMode = false;
 let fullTestReadingData = null;
 let fullTestReadingTitle = '';
 let fullTestListeningScore = null;
+
+const RESULTS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyB3oBMI6JbdRBC9esv2a2p1kqnXmMnBPrfIVWd0q_mnKzzbDWva5_FMSVme8doMa_G6w/exec';
+
+function sendResultToSlides({ skill, score = null, total = null, listeningCorrect = null, listeningTotal = null, readingCorrect = null, readingTotal = null, durationSeconds, testTitle, eventType = 'result' }) {
+    const examNames = { 'a1-movers': 'MOVERS', 'a2-flyers': 'FLYERS', 'a2-key': 'KET' };
+    const examName = examNames[currentMaterialId];
+    if (!currentStudent || isTeacherMode || !examName) return;
+
+    // text/plain avoids a CORS preflight; Apps Script receives the JSON in e.postData.contents.
+    fetch(RESULTS_WEB_APP_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        keepalive: true,
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+            name: currentStudent.name,
+            className: currentStudent.class,
+            examName,
+            skill,
+            score,
+            total,
+            listeningCorrect,
+            listeningTotal,
+            readingCorrect,
+            readingTotal,
+            durationSeconds,
+            testTitle,
+            eventType,
+            violationCount: tabSwitchCount,
+            autoSubmitted: eventType === 'result' && forceAutoSubmit
+        })
+    }).catch(error => console.error('Không gửi được kết quả:', error));
+}
+
+function reportFirstViolation() {
+    const fullTest = document.getElementById('view-fulltest').classList.contains('active');
+    const listening = document.getElementById('view-listening').classList.contains('active');
+    const reading = document.getElementById('view-reading').classList.contains('active');
+    if (!fullTest && !listening && !reading) return;
+
+    const startedAt = fullTest ? ftStartTime : listening ? listeningStartTime : readingStartTime;
+    const data = fullTest ? ftReadingData : listening ? listeningData : readingData;
+    if (!startedAt || !data) return;
+
+    sendResultToSlides({
+        eventType: 'violation',
+        skill: fullTest ? 'Full Test' : listening ? 'Listening' : 'Reading',
+        durationSeconds: Math.floor((Date.now() - startedAt) / 1000),
+        testTitle: data.title
+    });
+}
 
 const shieldThresholds = {
     'pre-a1-starters': {
@@ -1751,18 +1807,26 @@ let tabSwitchCount = 0;
 const MAX_TAB_SWITCHES = 3;
 let forceAutoSubmit = false;
 let fullscreenActive = false;
+let violationDialogOpen = false;
 
 function isTestActive() {
-    return ['view-quiz', 'view-listening', 'view-reading', 'view-fulltest'].some(id => {
+    return [
+        ['view-quiz', quizSubmitted],
+        ['view-listening', listeningSubmitted],
+        ['view-reading', readingSubmitted],
+        ['view-fulltest', ftSubmitted]
+    ].some(([id, submitted]) => {
         const el = document.getElementById(id);
-        return el && el.classList.contains('active');
+        return el && el.classList.contains('active') && !submitted;
     });
 }
 
 function handleViolation() {
     if (!isTestActive()) return;
-    if (isTeacherMode) return;
+    if (isTeacherMode || violationDialogOpen) return;
     tabSwitchCount++;
+    violationDialogOpen = true;
+    if (tabSwitchCount === 1) reportFirstViolation();
     if (tabSwitchCount >= MAX_TAB_SWITCHES) {
         Swal.fire({
             title: 'Vi phạm quá nhiều lần!',
@@ -1772,10 +1836,11 @@ function handleViolation() {
             confirmButtonColor: '#ef4444',
             allowOutsideClick: false
         }).then(() => {
+            violationDialogOpen = false;
             forceAutoSubmit = true;
-            if (typeof ftSubmitted !== 'undefined' && ftListeningData && !ftSubmitted) { doSubmitFullTest(); }
-            else if (listeningData && !listeningSubmitted) { submitListeningTest(); }
-            else if (readingData && !readingSubmitted) { doSubmitReading(); }
+            if (document.getElementById('view-fulltest').classList.contains('active') && !ftSubmitted) { doSubmitFullTest(); }
+            else if (document.getElementById('view-listening').classList.contains('active') && !listeningSubmitted) { submitListeningTest(); }
+            else if (document.getElementById('view-reading').classList.contains('active') && !readingSubmitted) { doSubmitReading(); }
             forceAutoSubmit = false;
         });
     } else {
@@ -1787,6 +1852,7 @@ function handleViolation() {
             confirmButtonColor: '#f59e0b',
             allowOutsideClick: false
         }).then(() => {
+            violationDialogOpen = false;
             enterFullscreen();
         });
     }
@@ -2166,6 +2232,14 @@ function renderListeningPart() {
     else if (part.type === 'multiple-choice-abc') renderMultipleChoiceABC(part);
     else if (part.type === 'color-write') renderColorWrite(part);
 
+    if (!part.audio) {
+        audio.removeAttribute('src');
+        audio.style.display = 'none';
+        const content = document.getElementById('listening-content');
+        content.insertAdjacentHTML('afterbegin', '<p class="mb-4 rounded-xl bg-amber-50 p-3 text-amber-800">Chưa có tệp âm thanh cho bài nghe này.</p>');
+        return;
+    }
+
     if (audio) {
         if (audioIsPlaying) {
             // Don't touch audio UI while audio is playing
@@ -2267,11 +2341,11 @@ function renderDragMatch(part) {
     let html = `
     <div class="writing-container mx-auto" style="${getListeningWidth()}min-width:320px;">
         <p class="text-slate-500 italic mb-4 text-sm"><i class="fa-solid fa-info-circle mr-1"></i> ${part.instructions}</p>
-        <div class="flex flex-col lg:flex-row gap-6">
-            <div class="lg:w-5/12 shrink-0">
+        <div class="question-image-layout flex flex-col lg:flex-row gap-6">
+            <div class="question-image-col lg:w-5/12 shrink-0">
                 <img src="${part.image}" alt="Part 1" class="w-full rounded-2xl shadow-md border">
             </div>
-            <div class="lg:w-7/12 flex flex-col gap-4">
+            <div class="question-answer-col lg:w-7/12 flex flex-col gap-4">
                 <div class="bg-white rounded-2xl shadow-sm border overflow-hidden">
                     <table class="listening-table w-full">
                         <thead><tr class="bg-turtle-50">
@@ -2291,10 +2365,10 @@ function renderDragMatch(part) {
         const actionClass = answers[i].action ? 'filled' : '';
         let nameExtra = '', actionExtra = '';
         if (listeningCanReview) {
-            const correctName = part.answers[i].name;
-            const correctAction = part.answers[i].action;
-            nameExtra = answers[i].name === correctName ? 'border-green-500 bg-green-50 text-green-700' : (answers[i].name ? 'border-red-400 bg-red-50 text-red-700' : 'border-red-400 bg-red-50');
-            actionExtra = answers[i].action === correctAction ? 'border-green-500 bg-green-50 text-green-700' : (answers[i].action ? 'border-red-400 bg-red-50 text-red-700' : 'border-red-400 bg-red-50');
+            const validName = part.answers.some(correct => correct.name === answers[i].name);
+            const correctPair = part.answers.some(correct => correct.name === answers[i].name && correct.action === answers[i].action);
+            nameExtra = validName ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700';
+            actionExtra = correctPair ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-400 bg-red-50 text-red-700';
         }
         html += `<tr>
             <td class="p-3 font-bold text-slate-500" style="font-size:20px;">${i + 1}</td>
@@ -2739,8 +2813,8 @@ function submitListeningTest() {
             const ans = listeningAnswers[i];
             let partScore = 0;
             if (part.type === 'drag-match') {
-                part.answers.forEach((correct, j) => {
-                    if (ans[j].name === correct.name && ans[j].action === correct.action) partScore++;
+                ans.forEach(answer => {
+                    if (part.answers.some(correct => answer.name === correct.name && answer.action === correct.action)) partScore++;
                 });
             } else if (part.type === 'fill-blank') {
                 part.rows.forEach((row, j) => {
@@ -2817,6 +2891,12 @@ function submitListeningTest() {
             });
             return;
         }
+
+        sendResultToSlides({
+            skill: 'Listening', score, total: totalQuestions,
+            listeningCorrect: score, listeningTotal: totalQuestions,
+            durationSeconds: elapsed, testTitle: listeningData.title
+        });
 
         listeningCanReview = isTeacherMode || pct >= 80;
         let listeningReviewClicked = false;
@@ -4636,6 +4716,14 @@ function doSubmitReading() {
         const grandMax = ls.totalQuestions + totalQuestions;
         const grandPct = Math.round((grandTotal / grandMax) * 100);
 
+        sendResultToSlides({
+            skill: 'Full Test', score: grandTotal, total: grandMax,
+            listeningCorrect: ls.score, listeningTotal: ls.totalQuestions,
+            readingCorrect: totalCorrect, readingTotal: totalQuestions,
+            durationSeconds: Math.floor((Date.now() - listeningStartTime) / 1000),
+            testTitle: readingData.title.replace(/ - .*/, '')
+        });
+
         const allParts = [
             ...ls.partScores.map(p => ({ title: `<i class="fa-solid fa-headphones" style="margin-right:4px;color:#0891b2"></i>${p.title}`, correct: p.score, total: p.total })),
             ...partScores.map(p => ({ title: `<i class="fa-solid fa-book-open" style="margin-right:4px;color:#7c3aed"></i>${p.title}`, correct: p.correct, total: p.total }))
@@ -4725,6 +4813,12 @@ function doSubmitReading() {
         fullTestListeningScore = null;
         fullTestReadingData = null;
     } else {
+        sendResultToSlides({
+            skill: 'Reading', score: totalCorrect, total: totalQuestions,
+            readingCorrect: totalCorrect, readingTotal: totalQuestions,
+            durationSeconds: elapsed, testTitle: readingData.title
+        });
+
         const readingShieldsCount = shieldThresholds[currentMaterialId] ? readingShields : null;
         const hasWritingParts = readingData.parts.some(p => p.type === 'picture-story-write' || p.type === 'free-writing');
         const resultHtml = buildResultCard({
@@ -5315,7 +5409,7 @@ function renderFullTestPart() {
     const ftAudioPlayer = document.getElementById('fulltest-audio-player');
     if (ftActiveSkill === 'listening') {
         const part = ftListeningData.parts[ftActivePartIdx];
-        audioBox.style.display = 'flex';
+        audioBox.style.display = part.audio ? 'flex' : 'none';
         const ftAudioIsPlaying = ftAudioPlayer && !ftAudioPlayer.paused && !ftAudioPlayer.ended;
         if (part.audio && !isExamMode && !ftAudioIsPlaying && ftAudioPlayer.getAttribute('src') !== part.audio) { ftAudioPlayer.src = part.audio; ftAudioPlayer.load(); }
 
@@ -5540,7 +5634,7 @@ function doSubmitFullTest() {
     ftListeningData.parts.forEach((part, i) => {
         const ans = listeningAnswers[i];
         let ps = 0;
-        if (part.type === 'drag-match') part.answers.forEach((c, j) => { if (ans[j].name === c.name && ans[j].action === c.action) ps++; });
+        if (part.type === 'drag-match') ans.forEach(answer => { if (part.answers.some(correct => answer.name === correct.name && answer.action === correct.action)) ps++; });
         else if (part.type === 'fill-blank') part.rows.forEach((r, j) => { const rc = [r.answer, ...(r.altAnswers || [])].filter(Boolean); if (rc.length && matchAnswerList(ans[j], rc)) ps++; });
         else if (part.type === 'drag-match-letters') part.answers.forEach((c, j) => { if (ans[j] === c.answer) ps++; });
         else if (part.type === 'multiple-choice-abc') part.items.forEach((it, j) => { if (ans[j] === it.answer) ps++; });
@@ -5588,6 +5682,13 @@ function doSubmitFullTest() {
     const grandTotal = lisScore + readScore;
     const grandMax = lisMax + readMax;
     const grandPct = Math.round((grandTotal / grandMax) * 100);
+
+    sendResultToSlides({
+        skill: 'Full Test', score: grandTotal, total: grandMax,
+        listeningCorrect: lisScore, listeningTotal: lisMax,
+        readingCorrect: readScore, readingTotal: readMax,
+        durationSeconds: elapsed, testTitle: ftReadingData.title.replace(/ - .*/, '')
+    });
 
     const listeningShieldsCount = shieldThresholds[currentMaterialId] ? getShields(currentMaterialId, 'listening', lisScore) : null;
     const readingShieldsCount = shieldThresholds[currentMaterialId] ? getShields(currentMaterialId, 'reading', readScore) : null;

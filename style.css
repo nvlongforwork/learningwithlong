@@ -61,6 +61,26 @@ mark.hl-green { background: #bbf7d0; padding: 0 2px; border-radius: 3px; }
 .resp-col { min-width: 0; }
 .swal-result-popup { max-width: 1080px !important; }
 
+@media (min-width: 1200px) and (min-aspect-ratio: 21/9) {
+    .writing-container:has(.resp-row > .resp-col:first-child img) {
+        width: 100% !important;
+        max-width: none !important;
+    }
+    .question-image-layout > .question-image-col {
+        width: calc(50% - 0.75rem) !important;
+        flex: 0 0 calc(50% - 0.75rem);
+    }
+    .question-image-layout > .question-answer-col {
+        width: calc(50% - 0.75rem) !important;
+        flex: 1 1 0;
+        min-width: 0;
+    }
+    .resp-row:has(> .resp-col:first-child img) > .resp-col:first-child {
+        width: calc(50% - 0.5rem) !important;
+        flex: 0 0 calc(50% - 0.5rem);
+    }
+}
+
 /* Minimum font size 20px globally */
 .text-xs, .text-sm, .text-base { font-size: 20px !important; }
 .text-lg { font-size: 20px !important; }

@@ -1,0 +1,514 @@
+{
+  "type": "reading-test",
+  "title": "Flyers 1 - Test 1 - Reading & Writing",
+  "parts": [
+    {
+      "id": "part1",
+      "title": "Part 1",
+      "questions": 10,
+      "instructions": "Look and read. Choose the correct words and write them on the lines. There is one example.",
+      "type": "definition-match",
+      "wordBank": [
+        "flour",
+        "cereal",
+        "factories",
+        "a waiter",
+        "a pizza",
+        "honey",
+        "police stations",
+        "singers",
+        "a bank",
+        "artists",
+        "salt",
+        "astronauts",
+        "stadiums",
+        "theatres",
+        "sugar"
+      ],
+      "example": {
+        "definition": "These people wear special clothes and travel in rockets to go into space.",
+        "answer": "astronauts"
+      },
+      "items": [
+        {
+          "num": 1,
+          "definition": "The people who work in these make things like toys or televisions.",
+          "answer": "factories"
+        },
+        {
+          "num": 2,
+          "definition": "The people who work here wear uniforms and sometimes help with traffic problems.",
+          "answer": "police stations"
+        },
+        {
+          "num": 3,
+          "definition": "This is usually made of tomatoes, cheese and other things on top of a kind of bread.",
+          "answer": "a pizza"
+        },
+        {
+          "num": 4,
+          "definition": "If you want to work here you must be very good at counting money.",
+          "answer": "a bank"
+        },
+        {
+          "num": 5,
+          "definition": "A person with this job brings food and drink to your table when you go out for a meal.",
+          "answer": "a waiter"
+        },
+        {
+          "num": 6,
+          "definition": "These places often have thousands of seats. They are usually full when there is an important football match.",
+          "answer": "stadiums"
+        },
+        {
+          "num": 7,
+          "definition": "This is a popular food at breakfast and people usually put milk on it.",
+          "answer": "cereal"
+        },
+        {
+          "num": 8,
+          "definition": "We get this white food from the sea and people put it on their food with pepper.",
+          "answer": "salt"
+        },
+        {
+          "num": 9,
+          "definition": "You can go to see famous paintings by these people in museums.",
+          "answer": "artists"
+        },
+        {
+          "num": 10,
+          "definition": "Some people put this in yoghurt, bees make it and it’s sweet.",
+          "answer": "honey"
+        }
+      ]
+    },
+    {
+      "id": "part2",
+      "title": "Part 2",
+      "questions": 5,
+      "instructions": "Read the conversation and choose the best answer. Write a letter (A–H) for each answer.",
+      "type": "conversation-choice",
+      "image": "./assets/flyers-1/test-1/reading-page-3.webp",
+      "context": "Helen is talking to a man about his castle. What does the man say?",
+      "example": {
+        "speaker": "Helen",
+        "question": "Please can I ask you some questions about your castle? It’s for my homework.",
+        "options": [
+          "My wife and I do that for three hours a day. It’s a big job.",
+          "I came here when I was four or five years old.",
+          "Of course you can. I’m happy to help.",
+          "Only twice, when I heard strange sounds which I don’t like.",
+          "Me too. It’s very quiet here because we live in the countryside.",
+          "Oh yes! A famous queen lived here in the sixteenth century.",
+          "I can’t remember but it’s very old.",
+          "We enjoy having them here and learning about this important place."
+        ],
+        "answer": 2
+      },
+      "items": [
+        {
+          "num": 1,
+          "speaker": "Helen",
+          "question": "Your castle is lovely! Have you lived here for a long time?",
+          "options": [
+            "My wife and I do that for three hours a day. It’s a big job.",
+            "I came here when I was four or five years old.",
+            "Of course you can. I’m happy to help.",
+            "Only twice, when I heard strange sounds which I don’t like.",
+            "Me too. It’s very quiet here because we live in the countryside.",
+            "Oh yes! A famous queen lived here in the sixteenth century.",
+            "I can’t remember but it’s very old.",
+            "We enjoy having them here and learning about this important place."
+          ],
+          "answer": 1
+        },
+        {
+          "num": 2,
+          "speaker": "Helen",
+          "question": "Does the castle have an interesting history?",
+          "options": [
+            "My wife and I do that for three hours a day. It’s a big job.",
+            "I came here when I was four or five years old.",
+            "Of course you can. I’m happy to help.",
+            "Only twice, when I heard strange sounds which I don’t like.",
+            "Me too. It’s very quiet here because we live in the countryside.",
+            "Oh yes! A famous queen lived here in the sixteenth century.",
+            "I can’t remember but it’s very old.",
+            "We enjoy having them here and learning about this important place."
+          ],
+          "answer": 5
+        },
+        {
+          "num": 3,
+          "speaker": "Helen",
+          "question": "Have you ever felt afraid in the castle?",
+          "options": [
+            "My wife and I do that for three hours a day. It’s a big job.",
+            "I came here when I was four or five years old.",
+            "Of course you can. I’m happy to help.",
+            "Only twice, when I heard strange sounds which I don’t like.",
+            "Me too. It’s very quiet here because we live in the countryside.",
+            "Oh yes! A famous queen lived here in the sixteenth century.",
+            "I can’t remember but it’s very old.",
+            "We enjoy having them here and learning about this important place."
+          ],
+          "answer": 3
+        },
+        {
+          "num": 4,
+          "speaker": "Helen",
+          "question": "Lots of people visit your home, don’t they?",
+          "options": [
+            "My wife and I do that for three hours a day. It’s a big job.",
+            "I came here when I was four or five years old.",
+            "Of course you can. I’m happy to help.",
+            "Only twice, when I heard strange sounds which I don’t like.",
+            "Me too. It’s very quiet here because we live in the countryside.",
+            "Oh yes! A famous queen lived here in the sixteenth century.",
+            "I can’t remember but it’s very old.",
+            "We enjoy having them here and learning about this important place."
+          ],
+          "answer": 7
+        },
+        {
+          "num": 5,
+          "speaker": "Helen",
+          "question": "Who cleans the castle?",
+          "options": [
+            "My wife and I do that for three hours a day. It’s a big job.",
+            "I came here when I was four or five years old.",
+            "Of course you can. I’m happy to help.",
+            "Only twice, when I heard strange sounds which I don’t like.",
+            "Me too. It’s very quiet here because we live in the countryside.",
+            "Oh yes! A famous queen lived here in the sixteenth century.",
+            "I can’t remember but it’s very old.",
+            "We enjoy having them here and learning about this important place."
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "part3",
+      "title": "Part 3",
+      "questions": 6,
+      "instructions": "Read the story. Choose a word from the box. Write the correct word next to numbers 1–5. Then choose the best name for the story.",
+      "type": "story-fill",
+      "image": "./assets/flyers-1/test-1/reading-page-4.webp",
+      "wordBank": [
+        "island",
+        "slowly",
+        "foggy",
+        "minutes",
+        "broken",
+        "else",
+        "once",
+        "spring",
+        "tried",
+        "believe"
+      ],
+      "example": {
+        "word": "island"
+      },
+      "storyParts": [
+        "Katy and Fred went to stay with their cousin, David, who lives on an %%example%%. They wanted to see the whales which visited there just (1) %%blank%% a year. On the second day, David’s dad took the children down to the beach to look for whales. The children were very excited. They waited for a long time, but no whales came.",
+        "Then the weather got (2) %%blank%% so they went home. They did this for three days but they didn’t see any whales.",
+        "On the fifth day, they (3) %%blank%% again. They sat on some rocks in the sun. Katy said, ‘It doesn’t matter if we don’t see any whales because I’m so happy!’ Then Katy started singing. After a few (4) %%blank%%, several whales appeared. David’s dad shouted, ‘Look! They heard you sing and they are coming to listen! I don’t (5) %%blank%% it.’ The animals came very near to them. But when Katy stopped singing they swam away again while the children waved goodbye."
+      ],
+      "items": [
+        {
+          "num": 1,
+          "answer": "once"
+        },
+        {
+          "num": 2,
+          "answer": "foggy"
+        },
+        {
+          "num": 3,
+          "answer": "tried"
+        },
+        {
+          "num": 4,
+          "answer": "minutes"
+        },
+        {
+          "num": 5,
+          "answer": "believe"
+        }
+      ],
+      "titleQuestion": {
+        "num": 6,
+        "instruction": "Now choose the best name for the story.",
+        "options": [
+          "The ship and the whales",
+          "The day the whales arrived",
+          "Some whales sing a song"
+        ],
+        "answer": 1
+      }
+    },
+    {
+      "id": "part4",
+      "title": "Part 4",
+      "questions": 10,
+      "instructions": "Read the text. Choose the right words and write them on the lines.",
+      "type": "grammar-cloze",
+      "title_text": "Farms",
+      "image": "./assets/flyers-1/test-1/reading-page-6.webp",
+      "storyParts": [
+        "Farms",
+        "There are farms %%example%% all parts of the world. There are small ones and big ones. Farms are very important (1) %%blank%% we get a lot of our food from them.",
+        "(2) %%blank%% farmers grow fruit and vegetables only. In hot countries, these farmers grow things (3) %%blank%% rice, mangoes and bananas, which need a lot of sun. In colder countries, farmers grow carrots, onions and apples.",
+        "(4) %%blank%% farmers have animals. Farmers keep (5) %%blank%% to sell their meat, wool and milk. Farmers have to work very hard (6) %%blank%% year. They must (7) %%blank%% their animals and water the things they are growing.",
+        "Farmers need to know about the weather every day. If (8) %%blank%% is too much sun, the ground gets very dry and things (9) %%blank%% grow. Too much rain is also bad for the fields.",
+        "(10) %%blank%% farmers don’t only look after animals, but they fix their farm machines and tractor engines as well."
+      ],
+      "example": {
+        "options": [
+          "on",
+          "in",
+          "at"
+        ],
+        "answer": 1
+      },
+      "items": [
+        {
+          "num": 1,
+          "options": [
+            "after",
+            "because",
+            "so"
+          ],
+          "answer": 1
+        },
+        {
+          "num": 2,
+          "options": [
+            "Some",
+            "Any",
+            "Both"
+          ],
+          "answer": 0
+        },
+        {
+          "num": 3,
+          "options": [
+            "through",
+            "like",
+            "than"
+          ],
+          "answer": 1
+        },
+        {
+          "num": 4,
+          "options": [
+            "Other",
+            "Another",
+            "Each"
+          ],
+          "answer": 0
+        },
+        {
+          "num": 5,
+          "options": [
+            "they",
+            "their",
+            "them"
+          ],
+          "answer": 2
+        },
+        {
+          "num": 6,
+          "options": [
+            "every",
+            "all",
+            "many"
+          ],
+          "answer": 0
+        },
+        {
+          "num": 7,
+          "options": [
+            "feed",
+            "fed",
+            "feeding"
+          ],
+          "answer": 0
+        },
+        {
+          "num": 8,
+          "options": [
+            "he",
+            "it",
+            "there"
+          ],
+          "answer": 2
+        },
+        {
+          "num": 9,
+          "options": [
+            "can’t",
+            "shouldn’t",
+            "mustn’t"
+          ],
+          "answer": 0
+        },
+        {
+          "num": 10,
+          "options": [
+            "Most",
+            "Few",
+            "Any"
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "part5",
+      "title": "Part 5",
+      "questions": 7,
+      "instructions": "Look at the picture and read the story. Write 1, 2, 3 or 4 words to complete the sentences.",
+      "type": "story-write",
+      "storySegments": [
+        {
+          "title": "The great day",
+          "image": "./assets/flyers-1/test-1/reading-page-8.webp",
+          "text": "Last Wednesday morning, Daisy got out of bed and looked out of her bedroom window. There was snow everywhere. It looked amazing. Daisy ran quickly to tell her brother, Jim.\n\nDownstairs in the kitchen Mum said, ‘I’ve phoned the school. It’s closed today!’ The children were very happy. They texted their friends and they all agreed to meet at 10 o’clock in the park.\n\nAfter breakfast, Jim and Daisy’s mum gave them some biscuits to take with them. They said goodbye, and then they ran to the park. In the park, they looked for their friends. Something hit Jim on his shoulder. They turned round and saw their five friends with snowballs in their hands. Jim and Daisy picked up some snow, and threw snowballs back. They spent three hours playing like this. Then they stopped and ate Mum’s biscuits.\n\nNext the children got lots of snow and with this they made a big snowman. They put a hat and scarf on it and used small pieces of wood for its face. Then Jim took a photo of his friends next to the snowman.\n\nNext morning when the children looked, there was no snow near their house. There was only a little at the top of the hills just outside their town. So they got ready, cycled to school and chatted about their great day in the snow.",
+          "examples": [
+            {
+              "sentence": "It was %%answer%% when Daisy saw snow out of her window.",
+              "answer": "last Wednesday"
+            },
+            {
+              "sentence": "The snow made everywhere look %%answer%%.",
+              "answer": "amazing"
+            }
+          ],
+          "questions": [
+            {
+              "num": 1,
+              "sentence": "Mum %%blank%% and found out it was closed.",
+              "answer": "phoned the school",
+              "altAnswers": [
+                "had phoned the school",
+                "called the school",
+                "had called the school",
+                "rang the school",
+                "had rung the school",
+                "phoned their school",
+                "phoned Jim and Daisy’s school"
+              ]
+            },
+            {
+              "num": 2,
+              "sentence": "Jim, Daisy and their friends decided to go to the park at %%blank%%.",
+              "answer": "10 o’clock",
+              "altAnswers": [
+                "ten o’clock",
+                "10 o’clock a.m.",
+                "ten o’clock in the morning"
+              ]
+            },
+            {
+              "num": 3,
+              "sentence": "A snowball hit Jim’s %%blank%% when he and Daisy arrived at the park.",
+              "answer": "shoulder",
+              "altAnswers": []
+            },
+            {
+              "num": 4,
+              "sentence": "The children played with snowballs for %%blank%%.",
+              "answer": "three hours",
+              "altAnswers": [
+                "3 hours"
+              ]
+            },
+            {
+              "num": 5,
+              "sentence": "After eating the %%blank%%, the children made a snowman.",
+              "answer": "biscuits",
+              "altAnswers": [
+                "cookies"
+              ]
+            },
+            {
+              "num": 6,
+              "sentence": "They gave the snowman a face which was made of %%blank%%.",
+              "answer": "pieces of wood",
+              "altAnswers": [
+                "small pieces of wood",
+                "some pieces of wood",
+                "wood"
+              ]
+            },
+            {
+              "num": 7,
+              "sentence": "Next morning, the children could only see snow on the %%blank%% near their town.",
+              "answer": "hills",
+              "altAnswers": [
+                "top of the hills",
+                "top of some hills"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part6",
+      "title": "Part 6",
+      "questions": 5,
+      "instructions": "Read the letter and write the missing words. Write one word on each line.",
+      "type": "fill-blank-reading",
+      "storyParts": [
+        "Dear Mr White",
+        "Last Sunday I %%example%% walking in the forest with my dog when she found a box in the ground. It was difficult but I opened the box. I saw a letter inside, so I got the letter out and (1) %%blank%% it carefully.",
+        "When I looked (2) %%blank%% the address and date, I couldn’t believe your home is so far away! And you hid the box in the forest 30 years (3) %%blank%%.",
+        "I am very happy that I have found a new friend (4) %%blank%% lives in another city.",
+        "Please write and (5) %%blank%% me about your family and your country.",
+        "Ben Hill"
+      ],
+      "example": {
+        "word": "was"
+      },
+      "items": [
+        {
+          "num": 1,
+          "answer": "read/opened"
+        },
+        {
+          "num": 2,
+          "answer": "at/for"
+        },
+        {
+          "num": 3,
+          "answer": "ago"
+        },
+        {
+          "num": 4,
+          "answer": "who/that"
+        },
+        {
+          "num": 5,
+          "answer": "tell/teach"
+        }
+      ]
+    },
+    {
+      "id": "part7",
+      "title": "Part 7",
+      "questions": 1,
+      "instructions": "Look at the three pictures. Write about this story. Write 20 or more words.",
+      "type": "picture-story-write",
+      "images": [
+        "./assets/flyers-1/test-1/story-1.webp",
+        "./assets/flyers-1/test-1/story-2.webp",
+        "./assets/flyers-1/test-1/story-3.webp"
+      ],
+      "minWords": 20,
+      "sampleAnswer": "One day, Frank the tortoise decided to go for a walk. There was a tall building with a red door. Frank went inside and got in the lift. He went to the top of the building. Frank was very happy because there was a garden on the roof with lots of nice plants to eat."
+    }
+  ]
+}
