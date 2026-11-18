@@ -4,6 +4,7 @@ const PRESENTATION_ID = 'DAN_ID_GOOGLE_SLIDES_VAO_DAY';
 const TIME_ZONE = 'Asia/Ho_Chi_Minh';
 const ROWS_PER_SLIDE = 3;
 const TABLE_TAG = 'APP_RESULTS_10_COLUMNS_V2';
+const SCRIPT_VERSION = 'results-10-columns-2026-11-18';
 
 const HEADERS = [
   'STT',
@@ -17,6 +18,28 @@ const HEADERS = [
   'THỜI GIAN LÀM BÀI',
   'NGÀY GIỜ LÀM BÀI'
 ];
+
+// Open the /exec URL in a browser to check the deployed version and Slides access.
+// This check does not insert a slide or a student result.
+function doGet() {
+  try {
+    if (PRESENTATION_ID === 'DAN_ID_GOOGLE_SLIDES_VAO_DAY') {
+      throw new Error('Chưa điền PRESENTATION_ID của Google Slides.');
+    }
+    SlidesApp.openById(PRESENTATION_ID);
+    return ContentService.createTextOutput(JSON.stringify({
+      ok: true,
+      version: SCRIPT_VERSION,
+      columns: HEADERS.length
+    })).setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({
+      ok: false,
+      version: SCRIPT_VERSION,
+      error: String(error.message || error)
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
 
 function doPost(e) {
   try {
@@ -50,6 +73,9 @@ function scoreText_(correct, total, required) {
 }
 
 function addResult_(data) {
+  if (PRESENTATION_ID === 'DAN_ID_GOOGLE_SLIDES_VAO_DAY') {
+    throw new Error('Chưa điền PRESENTATION_ID của Google Slides.');
+  }
   const examName = String(data.examName || '').trim().toUpperCase();
   const skill = String(data.skill || '').trim().toUpperCase();
   const studentName = String(data.name || '').trim();
