@@ -678,7 +678,7 @@ function sendResultToSlides({ skill, score = null, total = null, listeningCorrec
     }).catch(error => console.error('Không gửi được kết quả:', error));
 }
 
-function reportFirstViolation() {
+function reportTestViolation() {
     const fullTest = document.getElementById('view-fulltest').classList.contains('active');
     const listening = document.getElementById('view-listening').classList.contains('active');
     const reading = document.getElementById('view-reading').classList.contains('active');
@@ -1826,7 +1826,7 @@ function handleViolation() {
     if (isTeacherMode || violationDialogOpen) return;
     tabSwitchCount++;
     violationDialogOpen = true;
-    if (tabSwitchCount === 1) reportFirstViolation();
+    reportTestViolation();
     if (tabSwitchCount >= MAX_TAB_SWITCHES) {
         Swal.fire({
             title: 'Vi phạm quá nhiều lần!',
