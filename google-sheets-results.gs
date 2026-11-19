@@ -2,7 +2,7 @@
 const SPREADSHEET_ID = '1w4Wn6B9SPEVziTepnkNaXFkc9QQ25rAnmKy2l31k1jc';
 const SHEET_GID = 0;
 const TIME_ZONE = 'Asia/Ho_Chi_Minh';
-const SCRIPT_VERSION = 'results-sheets-10-columns-2026-11-18';
+const SCRIPT_VERSION = 'results-sheets-quiz-third-violation-2026-11-19';
 
 const HEADERS = [
   'STT',
@@ -12,7 +12,7 @@ const HEADERS = [
   'LỚP',
   'SỐ CÂU ĐÚNG LISTENING/ TỔNG SỐ CÂU',
   'SỐ CÂU ĐÚNG READING/ TỔNG SỐ CÂU',
-  'TỔNG ĐIỂM (FULL TEST)',
+  'TỔNG ĐIỂM',
   'THỜI GIAN LÀM BÀI',
   'NGÀY GIỜ LÀM BÀI'
 ];
@@ -43,6 +43,7 @@ function doPost(e) {
   try {
     const data = JSON.parse(e.postData.contents);
     const stt = addResult_(data);
+    if (stt === null) return json_({ ok: true, ignored: true });
     return json_({ ok: true, stt: stt });
   } catch (error) {
     console.error(error);
@@ -94,13 +95,16 @@ function addResult_(data) {
 
   if (!['MOVERS', 'FLYERS', 'KET'].includes(examName) ||
       !studentName || !className ||
-      !['LISTENING', 'READING', 'FULL TEST'].includes(skill) ||
+      !['LISTENING', 'READING', 'FULL TEST', 'QUIZ'].includes(skill) ||
       !['result', 'violation'].includes(eventType) ||
       !Number.isFinite(seconds) || seconds < 0 ||
       !Number.isInteger(violationCount) || violationCount < 0 ||
       (eventType === 'violation' && violationCount === 0)) {
     throw new Error('Thiếu hoặc sai thông tin bài làm.');
   }
+
+  // Ignore early warnings from clients that still send each violation.
+  if (eventType === 'violation' && violationCount < 3) return null;
 
   const isViolation = eventType === 'violation';
   const listening = isViolation ? '' : scoreText_(
@@ -111,12 +115,12 @@ function addResult_(data) {
     data.readingCorrect, data.readingTotal,
     skill === 'READING' || skill === 'FULL TEST'
   );
-  const fullTestTotal = !isViolation && skill === 'FULL TEST'
+  const fullTestTotal = !isViolation && (skill === 'FULL TEST' || skill === 'QUIZ')
     ? scoreText_(data.score, data.total, true)
     : '';
 
-  let skillLabel = skill;
-  if (violationCount > 0) {
+  let skillLabel = skill === 'QUIZ' ? 'TRẮC NGHIỆM' : skill;
+  if (violationCount >= 3) {
     skillLabel += ` - VI PHẠM ${violationCount}/3`;
     if (data.autoSubmitted) skillLabel += ' (TỰ NỘP)';
   }
