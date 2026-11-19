@@ -649,6 +649,12 @@ let fullTestListeningScore = null;
 
 const RESULTS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbye9ZIMhvURVtKNpRCvHnViw-VkQlAVPfeeaOXYkEV_3v7d47I09nL8XfJEqpfvNw6A3A/exec';
 
+function isMultipleChoiceOnlyTest(data) {
+    const choiceTypes = new Set(['multiple-choice-abc', 'conversation-choice', 'grammar-cloze', 'reading-match-persons']);
+    return Array.isArray(data.parts) && data.parts.length > 0 &&
+        data.parts.every(part => choiceTypes.has(part.type));
+}
+
 function sendResultToSlides({ skill, score = null, total = null, listeningCorrect = null, listeningTotal = null, readingCorrect = null, readingTotal = null, durationSeconds, testTitle, eventType = 'result' }) {
     const examNames = { 'a1-movers': 'MOVERS', 'a2-flyers': 'FLYERS', 'a2-key': 'KET' };
     const examName = examNames[currentMaterialId];
@@ -4805,9 +4811,11 @@ function doSubmitReading() {
         fullTestListeningScore = null;
         fullTestReadingData = null;
     } else {
+        const quizOnly = isMultipleChoiceOnlyTest(readingData);
         sendResultToSlides({
-            skill: 'Reading', score: totalCorrect, total: totalQuestions,
-            readingCorrect: totalCorrect, readingTotal: totalQuestions,
+            skill: quizOnly ? 'Quiz' : 'Reading', score: totalCorrect, total: totalQuestions,
+            readingCorrect: quizOnly ? null : totalCorrect,
+            readingTotal: quizOnly ? null : totalQuestions,
             durationSeconds: elapsed, testTitle: readingData.title
         });
 
