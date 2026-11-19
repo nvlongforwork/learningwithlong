@@ -640,6 +640,8 @@ let quizData = [];
 let userAnswers = {};
 let activeQ = 0;
 let quizSubmitted = false;
+let quizStartTime = null;
+let quizTitle = '';
 let fullTestMode = false;
 let fullTestReadingData = null;
 let fullTestReadingTitle = '';
@@ -672,28 +674,10 @@ function sendResultToSlides({ skill, score = null, total = null, listeningCorrec
             durationSeconds,
             testTitle,
             eventType,
-            violationCount: tabSwitchCount,
+            violationCount: tabSwitchCount >= MAX_TAB_SWITCHES ? tabSwitchCount : 0,
             autoSubmitted: eventType === 'result' && forceAutoSubmit
         })
     }).catch(error => console.error('Không gửi được kết quả:', error));
-}
-
-function reportTestViolation() {
-    const fullTest = document.getElementById('view-fulltest').classList.contains('active');
-    const listening = document.getElementById('view-listening').classList.contains('active');
-    const reading = document.getElementById('view-reading').classList.contains('active');
-    if (!fullTest && !listening && !reading) return;
-
-    const startedAt = fullTest ? ftStartTime : listening ? listeningStartTime : readingStartTime;
-    const data = fullTest ? ftReadingData : listening ? listeningData : readingData;
-    if (!startedAt || !data) return;
-
-    sendResultToSlides({
-        eventType: 'violation',
-        skill: fullTest ? 'Full Test' : listening ? 'Listening' : 'Reading',
-        durationSeconds: Math.floor((Date.now() - startedAt) / 1000),
-        testTitle: data.title
-    });
 }
 
 const shieldThresholds = {
@@ -1520,29 +1504,9 @@ async function openFullscreenQuiz(title, materialId, folderId) {
             throw new Error('Dữ liệu rỗng');
         }
 
-        quizData = data;
-
         // Đóng popup tải dữ liệu
         Swal.close();
-
-        // Reset trạng thái làm bài
-        userAnswers = {};
-        activeQ = 0;
-        quizSubmitted = false;
-
-        // Set thông tin giao diện
-        document.getElementById('quiz-title').innerText = title;
-        document.getElementById('quiz-progress').style.backgroundColor = currentQuizTheme;
-        document.getElementById('btn-submit-quiz').style.backgroundColor = currentQuizTheme;
-
-        // Chuyển đổi View: Ẩn tất cả, hiện View Quiz
-        document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-        document.getElementById('view-quiz').classList.add('active');
-
-        // Ẩn thanh Nav bar chính để có trải nghiệm toàn màn hình trọn vẹn
-        document.getElementById('main-nav').classList.add('hidden');
-
-        renderQuizView();
+        askStudentCode(data, title, 'quiz');
 
     } catch (error) {
         console.warn("Chưa có dữ liệu bài tập: ", error.message);
@@ -1555,6 +1519,25 @@ async function openFullscreenQuiz(title, materialId, folderId) {
             confirmButtonColor: currentQuizTheme
         });
     }
+}
+
+function openMultipleChoiceQuiz(data, title) {
+    quizData = data;
+    quizTitle = title;
+    quizStartTime = Date.now();
+    userAnswers = {};
+    activeQ = 0;
+    quizSubmitted = false;
+    tabSwitchCount = 0;
+    forceAutoSubmit = false;
+
+    document.getElementById('quiz-title').innerText = title;
+    document.getElementById('quiz-progress').style.backgroundColor = currentQuizTheme;
+    document.getElementById('btn-submit-quiz').style.backgroundColor = currentQuizTheme;
+    document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+    document.getElementById('view-quiz').classList.add('active');
+    document.getElementById('main-nav').classList.add('hidden');
+    renderQuizView();
 }
 
 function renderQuizView() {
@@ -1757,6 +1740,11 @@ function calculateScore() {
     });
 
     quizSubmitted = true;
+    sendResultToSlides({
+        skill: 'Quiz', score, total: quizData.length,
+        durationSeconds: Math.floor((Date.now() - quizStartTime) / 1000),
+        testTitle: quizTitle
+    });
 
     Swal.fire({
         title: 'Nộp bài thành công!',
@@ -1826,7 +1814,6 @@ function handleViolation() {
     if (isTeacherMode || violationDialogOpen) return;
     tabSwitchCount++;
     violationDialogOpen = true;
-    reportTestViolation();
     if (tabSwitchCount >= MAX_TAB_SWITCHES) {
         Swal.fire({
             title: 'Vi phạm quá nhiều lần!',
@@ -1841,6 +1828,7 @@ function handleViolation() {
             if (document.getElementById('view-fulltest').classList.contains('active') && !ftSubmitted) { doSubmitFullTest(); }
             else if (document.getElementById('view-listening').classList.contains('active') && !listeningSubmitted) { submitListeningTest(); }
             else if (document.getElementById('view-reading').classList.contains('active') && !readingSubmitted) { doSubmitReading(); }
+            else if (document.getElementById('view-quiz').classList.contains('active') && !quizSubmitted) { calculateScore(); }
             forceAutoSubmit = false;
         });
     } else {
@@ -2089,6 +2077,7 @@ async function askStudentCode(data, title, testType) {
             openFullTest(data._ftLis, data._ftRead, title);
         }
         else if (testType === 'reading') { isExamMode = false; openReadingTest(data, title); }
+        else if (testType === 'quiz') { isExamMode = false; openMultipleChoiceQuiz(data, title); }
         else { isExamMode = false; openListeningTest(data, title); }
         return;
     }
@@ -2139,6 +2128,9 @@ async function askStudentCode(data, title, testType) {
     } else if (testType === 'reading') {
         isExamMode = false;
         openReadingTest(data, title);
+    } else if (testType === 'quiz') {
+        isExamMode = false;
+        openMultipleChoiceQuiz(data, title);
     } else {
         isExamMode = false;
         openListeningTest(data, title);
